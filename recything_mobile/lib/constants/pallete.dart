@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class Pallete {
   static const Color main = Color(0XFF35CC33);
@@ -44,4 +45,25 @@ class Pallete {
   // Text color ?
   static const Color textSecondary = Color(0XFF64748B);
   static const Color textMainButton = Color(0XFFFFFFFF);
+}
+
+class Theme {
+  TextStyle display1 = GoogleFonts.inter(
+    fontSize: 48,
+    fontWeight: FontWeight.w200,
+  );
+
+  TextStyle display2 = GoogleFonts.inter(
+    fontSize: 40,
+    fontWeight: FontWeight.w300,
+  );
+  TextStyle interText = GoogleFonts.inter(
+    fontSize: 16,
+    fontWeight: FontWeight.w700,
+  );
+
+  TextStyle mulishText = GoogleFonts.mulish(
+    fontSize: 22,
+    fontWeight: FontWeight.w400,
+  );
 }
