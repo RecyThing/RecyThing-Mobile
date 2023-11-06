@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:recything_mobile/constants/pallete.dart';
 import 'package:recything_mobile/widgets/forms/google_button.dart';
 import 'package:recything_mobile/widgets/forms/main_button.dart';
 import 'package:recything_mobile/widgets/forms/main_textfield.dart';
