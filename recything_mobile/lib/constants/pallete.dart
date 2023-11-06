@@ -47,22 +47,22 @@ class Pallete {
   static const Color textMainButton = Color(0XFFFFFFFF);
 }
 
-class Theme {
-  TextStyle display1 = GoogleFonts.inter(
+class ThemeFont {
+  static TextStyle display1 = GoogleFonts.inter(
     fontSize: 48,
     fontWeight: FontWeight.w200,
   );
 
-  TextStyle display2 = GoogleFonts.inter(
+  static TextStyle display2 = GoogleFonts.inter(
     fontSize: 40,
     fontWeight: FontWeight.w300,
   );
-  TextStyle interText = GoogleFonts.inter(
+  static TextStyle interText = GoogleFonts.inter(
     fontSize: 16,
     fontWeight: FontWeight.w700,
   );
 
-  TextStyle mulishText = GoogleFonts.mulish(
+  static TextStyle mulishText = GoogleFonts.mulish(
     fontSize: 22,
     fontWeight: FontWeight.w400,
   );

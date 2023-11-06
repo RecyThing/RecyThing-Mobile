@@ -4,7 +4,8 @@ import 'package:recything_mobile/widgets/forms/main_button.dart';
 import 'package:recything_mobile/widgets/forms/main_textfield.dart';
 import 'package:recything_mobile/widgets/typography/body_link.dart';
 import 'package:recything_mobile/widgets/typography/body_normal.dart';
-import 'package:recything_mobile/widgets/typography/heading3.dart';
+
+import '../../constants/pallete.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -22,7 +23,11 @@ class LoginScreen extends StatelessWidget {
               const SizedBox(
                 height: 80,
               ),
-              const Heading3("Masuk"),
+              Text(
+                "Masuk",
+                style: ThemeFont.interText
+                    .copyWith(fontSize: 28, fontWeight: FontWeight.w500),
+              ),
               const SizedBox(
                 height: 8,
               ),
