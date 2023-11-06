@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:recything_mobile/constants/pallete.dart';
 import 'package:recything_mobile/screens/login/login_screen.dart';
 
 void main() {
@@ -29,7 +30,7 @@ class MyApp extends StatelessWidget {
         //
         // This works for code too, not just values: Most code changes can be
         // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Pallete.main),
         useMaterial3: true,
       ),
       home: const LoginScreen(),
