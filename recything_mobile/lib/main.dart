@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:recything_mobile/constants/pallete.dart';
+import 'package:recything_mobile/screens/dashboard.dart';
 import 'package:recything_mobile/screens/login/login_screen.dart';
 
 void main() {
@@ -18,7 +19,11 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Pallete.main),
         useMaterial3: true,
       ),
-      home: const LoginScreen(),
+      initialRoute: '/login',
+      routes: {
+        '/login': (context) => const LoginScreen(),
+        '/dashboard': (context) => const Dasboard()
+      },
     );
   }
 }

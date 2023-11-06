@@ -67,7 +67,9 @@ class LoginScreen extends StatelessWidget {
                   Expanded(
                       child: MainButton(
                     text: "Login",
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/dashboard');
+                    },
                   )),
                 ],
               ),
