@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:recything_mobile/constants/pallete.dart';
 import 'package:recything_mobile/screens/home/widgets/home_banner.dart';
 import 'package:recything_mobile/screens/home/widgets/home_header.dart';
 import 'package:recything_mobile/screens/home/widgets/home_poin_card.dart';
@@ -14,8 +15,8 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: SingleChildScrollView(
+    return Scaffold(
+      body: const SingleChildScrollView(
         child: Column(
           children: [
             SizedBox(
@@ -31,6 +32,13 @@ class _HomeScreenState extends State<HomeScreen> {
             HomeRekomendasiArtikel()
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Pallete.main,
+        shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(100))),
+        onPressed: () {},
+        child: Image.asset("assets/icons/chatbot.png"),
       ),
     );
   }
