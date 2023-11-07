@@ -11,8 +11,10 @@ class ChooseReport extends StatefulWidget {
 class _ChooseReportState extends State<ChooseReport> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(backgroundColor: Colors.white,
-      appBar: AppBar(backgroundColor: Colors.white,
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
         title: Text(
           'Pelaporan',
           style: ThemeFont.heading6,
@@ -51,6 +53,44 @@ class _ChooseReportState extends State<ChooseReport> {
               const Color(0XFFFEF7E0),
             ),
           ),
+          const SizedBox(
+            height: 32,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Riwayat Pelaporan',
+                  style: ThemeFont.heading6,
+                ),
+                const SizedBox(height: 24),
+                Center(
+                  child: Column(
+                    children: [
+                      Image.asset(
+                        'assets/images/riwayat.png',
+                        width: 100,
+                        height: 98,
+                      ),
+                      const SizedBox(height: 11),
+                      Text(
+                        'Kamu belum pernah melaporkan',
+                        style: TextStyle(
+                          color: Pallete.dark3,
+                          fontSize: ThemeFont.bodySmall.fontSize,
+                          fontWeight: ThemeFont.bodySmall.fontWeight,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+
         ],
       ),
     );
