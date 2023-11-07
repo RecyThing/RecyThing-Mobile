@@ -6,8 +6,8 @@ import 'package:recything_mobile/widgets/typography/body_link.dart';
 
 import '../../constants/pallete.dart';
 
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+class RegisterScreen extends StatelessWidget {
+  const RegisterScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +27,7 @@ class LoginScreen extends StatelessWidget {
                     height: 80,
                   ),
                   Text(
-                    "Masuk",
+                    "Daftar",
                     style: ThemeFont.heading3,
                   ),
                   const SizedBox(
@@ -36,7 +36,7 @@ class LoginScreen extends StatelessWidget {
                   SizedBox(
                     width: 242,
                     child: Text(
-                      "Masuk akun Anda sekarang dan mulailah menjelajah",
+                      "Buat akun Anda sekarang dan mulailah menjelajah",
                       style: ThemeFont.bodyNormal
                           .copyWith(color: Pallete.textSecondary),
                     ),
@@ -45,57 +45,74 @@ class LoginScreen extends StatelessWidget {
                     height: 24,
                   ),
                   const MainTextField(
-                    label: "Masukan Email / No HP",
+                    label: "Masukan Nama Lengkap",
+                    prefixIcon: Icons.person_outline,
+                  ),
+                  const SizedBox(height: 12),
+                  const MainTextField(
+                    label: "Masukan Email",
                     prefixIcon: Icons.mail_outline_rounded,
                   ),
-                  const SizedBox(
-                    height: 12,
-                  ),
+                  const SizedBox(height: 12),
                   const MainTextField(
                     label: "Masukan Kata Sandi",
                     prefixIcon: Icons.lock_outline_rounded,
-                    obscureText: true,
                   ),
-                  const SizedBox(
-                    height: 12,
+                  const SizedBox(height: 12),
+                  const MainTextField(
+                    label: "Konfirmasi Kata Sandi",
+                    prefixIcon: Icons.lock_outline_rounded,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Text(
-                        "Lupa Password? ",
-                        style: ThemeFont.bodySmall
-                            .copyWith(color: Pallete.textSecondary),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.of(context).pushNamed("/reset_password");
-                        },
-                        child: Text(
-                          "Atur Ulang",
+                  const SizedBox(height: 24),
+                  SizedBox(
+                    width: double.infinity,
+                    child: Wrap(
+                      alignment: WrapAlignment.center,
+                      children: [
+                        Text(
+                          "Dengan mendaftar, Anda menyetujui ",
+                          softWrap: true,
+                          textAlign: TextAlign.center,
+                          style: ThemeFont.bodySmall
+                              .copyWith(color: Pallete.textSecondary),
+                        ),
+                        Text(
+                          "Ketentuan Layanan ",
                           style: ThemeFont.bodySmall.copyWith(
                             color: Pallete.main,
                             fontWeight: FontWeight.w600,
                           ),
                         ),
-                      ),
-                    ],
+                        Text(
+                          "dan ",
+                          softWrap: true,
+                          textAlign: TextAlign.center,
+                          style: ThemeFont.bodySmall
+                              .copyWith(color: Pallete.textSecondary),
+                        ),
+                        Text(
+                          " Kebijakan Privasi",
+                          style: ThemeFont.bodySmall.copyWith(
+                            color: Pallete.main,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                  const SizedBox(
-                    height: 24,
-                  ),
+                  const SizedBox(height: 24),
                   Row(
                     children: [
                       Expanded(
                           child: MainButton(
                         child: Text(
-                          "Login",
+                          "Register",
                           style: ThemeFont.heading6.copyWith(
                             color: Pallete.textMainButton,
                           ),
                         ),
                         onPressed: () {
-                          Navigator.pushNamed(context, '/dashboard');
+                          Navigator.pushNamed(context, '/login');
                         },
                       )),
                     ],
@@ -107,7 +124,7 @@ class LoginScreen extends StatelessWidget {
                     children: [
                       Expanded(
                           child: GoogleButton(
-                        text: "Masuk Dengan Google",
+                        text: "Daftar Dengan Google",
                         onPressed: () {},
                       )),
                     ],
@@ -117,17 +134,17 @@ class LoginScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "Tidak Punya Akun? ",
+                        "Sudah Punya Akun? ",
                         style: ThemeFont.bodyNormal
                             .copyWith(color: Pallete.textSecondary),
                       ),
                       GestureDetector(
                         onTap: () => Navigator.pushNamedAndRemoveUntil(
                           context,
-                          "/register",
+                          "/login",
                           (route) => false,
                         ),
-                        child: const BodyLink("Register"),
+                        child: const BodyLink("Login"),
                       ),
                     ],
                   ),

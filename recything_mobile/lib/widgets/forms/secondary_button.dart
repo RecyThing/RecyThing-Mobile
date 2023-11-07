@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:recything_mobile/constants/pallete.dart';
 
-class GoogleButton extends StatelessWidget {
+class SecondaryButton extends StatelessWidget {
   final void Function()? onPressed;
-  final String text;
-  const GoogleButton({
+  final Widget child;
+  const SecondaryButton({
     super.key,
     required this.onPressed,
-    required this.text,
+    required this.child,
   });
 
   @override
@@ -20,7 +20,7 @@ class GoogleButton extends StatelessWidget {
         padding: MaterialStateProperty.all(const EdgeInsets.all(16)),
         shape: MaterialStateProperty.all(
           RoundedRectangleBorder(
-            borderRadius: BorderRadiusDirectional.circular(8),
+            borderRadius: BorderRadiusDirectional.circular(12),
             side: const BorderSide(
               width: 1,
               color: Pallete.light2,
@@ -28,26 +28,7 @@ class GoogleButton extends StatelessWidget {
           ),
         ),
       ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Image.asset(
-            "assets/images/google.png",
-            width: 24,
-          ),
-          const SizedBox(
-            width: 24,
-          ),
-          Text(
-            text,
-            style: const TextStyle(
-              color: Pallete.dark1,
-              fontSize: 16,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-        ],
-      ),
+      child: child,
     );
   }
 }

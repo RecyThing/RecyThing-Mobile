@@ -52,16 +52,33 @@ class ThemeFont {
     fontSize: 48,
     fontWeight: FontWeight.w200,
   );
-
   static TextStyle display2 = GoogleFonts.inter(
     fontSize: 40,
     fontWeight: FontWeight.w300,
   );
+
+  static TextStyle heading3 = GoogleFonts.inter(
+    fontSize: 28,
+    fontWeight: FontWeight.w500,
+  );
+  static TextStyle heading6 = GoogleFonts.inter(
+    fontSize: 16,
+    fontWeight: FontWeight.bold,
+  );
+
+  static TextStyle bodyNormal = GoogleFonts.inter(
+    fontSize: 16,
+    fontWeight: FontWeight.w400,
+  );
+  static TextStyle bodySmall = GoogleFonts.inter(
+    fontSize: 14,
+    fontWeight: FontWeight.w400,
+  );
+
   static TextStyle interText = GoogleFonts.inter(
     fontSize: 16,
     fontWeight: FontWeight.w700,
   );
-
   static TextStyle mulishText = GoogleFonts.mulish(
     fontSize: 22,
     fontWeight: FontWeight.w400,

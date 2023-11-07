@@ -3,11 +3,11 @@ import 'package:recything_mobile/constants/pallete.dart';
 
 class MainButton extends StatelessWidget {
   final void Function()? onPressed;
-  final String text;
+  final Widget child;
   const MainButton({
     super.key,
     required this.onPressed,
-    required this.text,
+    required this.child,
   });
 
   @override
@@ -22,13 +22,7 @@ class MainButton extends StatelessWidget {
               borderRadius: BorderRadiusDirectional.circular(8)),
         ),
       ),
-      child: Text(
-        text,
-        style: const TextStyle(
-            color: Pallete.textMainButton,
-            fontSize: 16,
-            fontWeight: FontWeight.w700),
-      ),
+      child: child,
     );
   }
 }
