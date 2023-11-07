@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:recything_mobile/constants/pallete.dart';
 import 'package:recything_mobile/screens/dashboard.dart';
 import 'package:recything_mobile/screens/login/login_screen.dart';
+import 'package:recything_mobile/screens/report/choose_report_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -19,10 +20,11 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Pallete.main),
         useMaterial3: true,
       ),
-      initialRoute: '/login',
+      initialRoute: '/reporting',
       routes: {
-        '/login': (context) => const LoginScreen(),
-        '/dashboard': (context) => const Dasboard()
+        // '/login': (context) => const LoginScreen(),
+        // '/dashboard': (context) => const Dasboard()
+        '/reporting': (context) => const ChooseReport()
       },
     );
   }
