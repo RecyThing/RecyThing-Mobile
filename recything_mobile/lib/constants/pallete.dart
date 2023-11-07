@@ -16,6 +16,7 @@ class Pallete {
   static const Color errorDarker = Color(0XFFE53535);
   static const Color errorLigther = Color(0XFFFF5C5C);
   static const Color errorSubtle = Color(0XFFFF8080);
+  static const Color errorBackground = Color(0xffFEF1F1);
 
   static const Color warning = Color(0XFFFFCC00);
   static const Color warningDarker = Color(0XFFE5B800);

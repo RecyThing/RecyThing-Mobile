@@ -37,6 +37,12 @@ class ProfileInformasiAkun extends StatelessWidget {
                 )
               ],
             ),
+            trailing: IconButton(
+                onPressed: () {},
+                icon: const Icon(
+                  Icons.arrow_forward_ios,
+                  size: 16,
+                )),
           ),
           const Divider(),
           ListTile(

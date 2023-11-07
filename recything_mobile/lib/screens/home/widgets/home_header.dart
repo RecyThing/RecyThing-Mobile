@@ -19,29 +19,34 @@ class HomeHeader extends StatelessWidget {
           width: MediaQuery.of(context).size.width * 0.5,
         ),
         const Expanded(child: SizedBox()),
-        Container(
-          padding: const EdgeInsets.all(12),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: Pallete.textMainButton)),
-          child: Stack(
-            children: [
-              Image.asset(
-                "assets/icons/notification.png",
-                width: 18,
-              ),
-              Positioned(
-                right: 0,
-                child: Container(
-                  width: 8,
-                  height: 8,
-                  decoration: BoxDecoration(
-                      border: Border.all(color: Pallete.textMainButton),
-                      borderRadius: BorderRadius.circular(100),
-                      color: Pallete.error),
+        GestureDetector(
+          onTap: () {
+            Navigator.pushNamed(context, '/notif');
+          },
+          child: Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: Pallete.textMainButton)),
+            child: Stack(
+              children: [
+                Image.asset(
+                  "assets/icons/notification.png",
+                  width: 18,
                 ),
-              )
-            ],
+                Positioned(
+                  right: 0,
+                  child: Container(
+                    width: 8,
+                    height: 8,
+                    decoration: BoxDecoration(
+                        border: Border.all(color: Pallete.textMainButton),
+                        borderRadius: BorderRadius.circular(100),
+                        color: Pallete.error),
+                  ),
+                )
+              ],
+            ),
           ),
         ),
         GestureDetector(
