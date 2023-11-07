@@ -45,17 +45,20 @@ class HomeHeader extends StatelessWidget {
             ],
           ),
         ),
-        Container(
-          margin: const EdgeInsets.only(left: 16),
-          padding: const EdgeInsets.all(12),
-          decoration: BoxDecoration(
-              color: const Color.fromARGB(255, 69, 196, 169),
-              borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: Pallete.textMainButton)),
-          child: Text(
-            "W",
-            style: ThemeFont.interText.copyWith(
-                fontWeight: FontWeight.bold, color: Pallete.textMainButton),
+        GestureDetector(
+          onTap: () => Navigator.pushNamed(context, '/profile'),
+          child: Container(
+            margin: const EdgeInsets.only(left: 16),
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+                color: const Color.fromARGB(255, 69, 196, 169),
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: Pallete.textMainButton)),
+            child: Text(
+              "W",
+              style: ThemeFont.interText.copyWith(
+                  fontWeight: FontWeight.bold, color: Pallete.textMainButton),
+            ),
           ),
         )
       ]),

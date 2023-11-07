@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:recything_mobile/constants/pallete.dart';
-import 'package:recything_mobile/screens/home/home_screen.dart';
+import 'package:recything_mobile/screens/home/pages/home_screen.dart';
 
 class Dasboard extends StatefulWidget {
   const Dasboard({super.key});

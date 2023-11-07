@@ -57,10 +57,7 @@ class ThemeFont {
     fontSize: 40,
     fontWeight: FontWeight.w300,
   );
-  static TextStyle interText = GoogleFonts.inter(
-    fontSize: 16,
-    fontWeight: FontWeight.w400,
-  );
+  static TextStyle interText = GoogleFonts.inter();
 
   static TextStyle mulishText = GoogleFonts.mulish(
     fontSize: 22,
