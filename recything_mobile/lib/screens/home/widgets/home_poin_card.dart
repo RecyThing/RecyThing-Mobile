@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:recything_mobile/constants/pallete.dart';
+import 'package:recything_mobile/widgets/forms/custom_teks.dart';
 import 'package:recything_mobile/widgets/forms/main_button.dart';
 
 class HomePoinCard extends StatelessWidget {
@@ -28,21 +29,10 @@ class HomePoinCard extends StatelessWidget {
             children: [
               Text(
                 "Poinku",
-                style: ThemeFont.interText,
+                style:
+                    ThemeFont.interText.copyWith(fontWeight: FontWeight.w400),
               ),
-              Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(50),
-                    color: Pallete.secondaryDarker),
-                child: Text(
-                  "Gold",
-                  style: ThemeFont.interText.copyWith(
-                      fontWeight: FontWeight.w600,
-                      color: Pallete.textMainButton),
-                ),
-              )
+              const CustomTeks(name: "Gold", color: Pallete.secondaryDarker)
             ],
           ),
           const SizedBox(

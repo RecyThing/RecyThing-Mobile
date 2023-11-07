@@ -8,7 +8,6 @@ class HomeHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.fromLTRB(16, 66, 16, 86),
-      margin: const EdgeInsets.only(bottom: 24),
       decoration: const BoxDecoration(
           color: Pallete.main,
           borderRadius: BorderRadius.only(

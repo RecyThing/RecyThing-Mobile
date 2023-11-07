@@ -28,6 +28,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
             ),
+            SizedBox(
+              height: 24,
+            ),
             HomeBanner(),
             HomeRekomendasiArtikel()
           ],
