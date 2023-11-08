@@ -8,68 +8,73 @@ class HomePoinCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 16),
-      padding: const EdgeInsets.all(20),
-      width: MediaQuery.of(context).size.width * 0.92,
-      decoration: BoxDecoration(
-          color: Pallete.textMainButton,
-          borderRadius: BorderRadius.circular(12),
-          boxShadow: [
-            BoxShadow(
-                spreadRadius: 0,
-                blurRadius: 10,
-                color: Pallete.dark1.withOpacity(0.15))
-          ]),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                "Poinku",
-                style:
-                    ThemeFont.interText.copyWith(fontWeight: FontWeight.w400),
-              ),
-              const CustomTeks(name: "Gold", color: Pallete.secondaryDarker)
-            ],
-          ),
-          const SizedBox(
-            height: 8,
-          ),
-          Text(
-            "500.992",
-            style: ThemeFont.interText
-                .copyWith(fontWeight: FontWeight.w700, fontSize: 28),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              SizedBox(
-                width: MediaQuery.of(context).size.width * 0.4,
-                child: OutlinedButton(
-                    style: OutlinedButton.styleFrom(
-                      foregroundColor: Pallete.main,
-                      padding: const EdgeInsets.all(16),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(
-                            8), // Ganti dengan radius yang Anda inginkan
-                      ),
-                      side: const BorderSide(color: Pallete.main),
-                    ),
-                    onPressed: () {},
-                    child: const Text("Riwayat")),
-              ),
-              SizedBox(
+    return GestureDetector(
+      onTap: () {
+        Navigator.pushNamed(context, '/poinku');
+      },
+      child: Container(
+        margin: const EdgeInsets.symmetric(horizontal: 16),
+        padding: const EdgeInsets.all(20),
+        width: MediaQuery.of(context).size.width * 0.92,
+        decoration: BoxDecoration(
+            color: Pallete.textMainButton,
+            borderRadius: BorderRadius.circular(12),
+            boxShadow: [
+              BoxShadow(
+                  spreadRadius: 0,
+                  blurRadius: 10,
+                  color: Pallete.dark1.withOpacity(0.15))
+            ]),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "Poinku",
+                  style:
+                      ThemeFont.interText.copyWith(fontWeight: FontWeight.w400),
+                ),
+                const CustomTeks(name: "Gold", color: Pallete.secondaryDarker)
+              ],
+            ),
+            const SizedBox(
+              height: 8,
+            ),
+            Text(
+              "500.992",
+              style: ThemeFont.interText
+                  .copyWith(fontWeight: FontWeight.w700, fontSize: 28),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                SizedBox(
                   width: MediaQuery.of(context).size.width * 0.4,
-                  child: MainButton(onPressed: () {}, text: "Tukar Poin"))
-            ],
-          )
-        ],
+                  child: OutlinedButton(
+                      style: OutlinedButton.styleFrom(
+                        foregroundColor: Pallete.main,
+                        padding: const EdgeInsets.all(16),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(
+                              8), // Ganti dengan radius yang Anda inginkan
+                        ),
+                        side: const BorderSide(color: Pallete.main),
+                      ),
+                      onPressed: () {},
+                      child: const Text("Riwayat")),
+                ),
+                SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.4,
+                    child: MainButton(onPressed: () {}, text: "Tukar Poin"))
+              ],
+            )
+          ],
+        ),
       ),
     );
   }
