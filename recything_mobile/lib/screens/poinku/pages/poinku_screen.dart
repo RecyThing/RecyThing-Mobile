@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:recything_mobile/screens/poinku/widgets/poinku_card.dart';
 import 'package:recything_mobile/screens/poinku/widgets/poinku_header.dart';
+import 'package:recything_mobile/screens/poinku/widgets/poinku_tabar.dart';
 
 class PoinkuScreen extends StatefulWidget {
   const PoinkuScreen({super.key});
@@ -12,11 +13,11 @@ class PoinkuScreen extends StatefulWidget {
 class _PoinkuScreenState extends State<PoinkuScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(
+            const SizedBox(
               height: 400,
               child: Stack(
                 children: [
@@ -25,6 +26,9 @@ class _PoinkuScreenState extends State<PoinkuScreen> {
                 ],
               ),
             ),
+            SizedBox(
+                height: MediaQuery.of(context).size.height * 0.5,
+                child: const PoinkuTabar())
           ],
         ),
       ),
