@@ -3,6 +3,7 @@ import 'package:recything_mobile/constants/pallete.dart';
 import 'package:recything_mobile/screens/dashboard.dart';
 import 'package:recything_mobile/screens/login/login_screen.dart';
 import 'package:recything_mobile/screens/report/choose_report_screen.dart';
+import 'package:recything_mobile/screens/report/report_rubbish_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -24,7 +25,7 @@ class MyApp extends StatelessWidget {
       routes: {
         // '/login': (context) => const LoginScreen(),
         // '/dashboard': (context) => const Dasboard()
-        '/reporting': (context) => const ChooseReport()
+        '/reporting': (context) => const ReportRubbishScreen()
       },
     );
   }
