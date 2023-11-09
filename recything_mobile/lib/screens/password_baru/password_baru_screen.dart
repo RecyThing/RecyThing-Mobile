@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:iconly/iconly.dart';
+import 'package:recything_mobile/widgets/forms/custom_back_button.dart';
 import 'package:recything_mobile/widgets/forms/main_button.dart';
 import 'package:recything_mobile/widgets/forms/main_textfield.dart';
-import 'package:recything_mobile/widgets/forms/secondary_button.dart';
 
 import '../../constants/pallete.dart';
 
@@ -19,16 +20,7 @@ class PasswordBaruScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 66),
-              SecondaryButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: const Icon(
-                  Icons.arrow_back,
-                  color: Pallete.dark1,
-                  size: 24,
-                ),
-              ),
+              const CustomBackButton(),
               const SizedBox(
                 height: 24,
               ),
@@ -50,30 +42,32 @@ class PasswordBaruScreen extends StatelessWidget {
               const SizedBox(height: 24),
               const MainTextField(
                 label: "Masukan Kata Sandi",
-                prefixIcon: Icons.lock_outline_rounded,
+                prefixIcon: IconlyLight.lock,
                 obscureText: true,
               ),
               const SizedBox(height: 12),
               const MainTextField(
                 label: "Konfirmasi Kata Sandi",
-                prefixIcon: Icons.lock_outline_rounded,
+                prefixIcon: IconlyLight.lock,
                 obscureText: true,
               ),
               const SizedBox(height: 24),
               Row(
                 children: [
                   Expanded(
-                      child: MainButton(
-                    child: Text(
-                      "Simpan Password",
-                      style: ThemeFont.heading6.copyWith(
-                        color: Pallete.textMainButton,
+                    child: MainButton(
+                      child: Text(
+                        "Simpan Password",
+                        style: ThemeFont.heading6.copyWith(
+                          color: Pallete.textMainButton,
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/login');
+                      },
                     ),
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/login');
-                    },
-                  )),
+                  ),
                 ],
               ),
               const SizedBox(

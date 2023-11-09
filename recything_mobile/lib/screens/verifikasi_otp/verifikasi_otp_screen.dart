@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:recything_mobile/widgets/forms/custom_back_button.dart';
 import 'package:recything_mobile/widgets/forms/main_button.dart';
 import 'package:recything_mobile/widgets/forms/otp_textfield.dart';
-import 'package:recything_mobile/widgets/forms/secondary_button.dart';
 
 import '../../constants/pallete.dart';
 
@@ -19,16 +19,7 @@ class VerifikasiOtpScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 66),
-              SecondaryButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: const Icon(
-                  Icons.arrow_back,
-                  color: Pallete.dark1,
-                  size: 24,
-                ),
-              ),
+              const CustomBackButton(),
               const SizedBox(
                 height: 24,
               ),
@@ -47,13 +38,13 @@ class VerifikasiOtpScreen extends StatelessWidget {
                       .copyWith(color: Pallete.textSecondary),
                 ),
               ),
-              const SizedBox(
-                height: 24,
-              ),
-              const SizedBox(
-                child: Row(
+              const SizedBox(height: 24),
+              SizedBox(
+                width: MediaQuery.of(context).size.width,
+                child: const Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
+                    Expanded(child: SizedBox()),
                     SizedBox(
                         height: 70, width: 70, child: OtpTextField(label: "")),
                     SizedBox(width: 16),
@@ -65,12 +56,13 @@ class VerifikasiOtpScreen extends StatelessWidget {
                     SizedBox(width: 16),
                     SizedBox(
                         height: 70, width: 70, child: OtpTextField(label: "")),
+                    Expanded(child: SizedBox()),
                   ],
                 ),
               ),
               const SizedBox(height: 8),
               Row(
-                mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
                     "Tidak menerima kode? ",
@@ -100,6 +92,7 @@ class VerifikasiOtpScreen extends StatelessWidget {
                       "Konfirmasi",
                       style: ThemeFont.heading6.copyWith(
                         color: Pallete.textMainButton,
+                        fontWeight: FontWeight.w700,
                       ),
                     ),
                     onPressed: () {

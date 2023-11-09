@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iconly/iconly.dart';
 import 'package:recything_mobile/widgets/forms/google_button.dart';
 import 'package:recything_mobile/widgets/forms/main_button.dart';
 import 'package:recything_mobile/widgets/forms/main_textfield.dart';
@@ -46,22 +47,22 @@ class RegisterScreen extends StatelessWidget {
                   ),
                   const MainTextField(
                     label: "Masukan Nama Lengkap",
-                    prefixIcon: Icons.person_outline,
+                    prefixIcon: IconlyLight.profile,
                   ),
                   const SizedBox(height: 12),
                   const MainTextField(
                     label: "Masukan Email",
-                    prefixIcon: Icons.mail_outline_rounded,
+                    prefixIcon: IconlyLight.message,
                   ),
                   const SizedBox(height: 12),
                   const MainTextField(
                     label: "Masukan Kata Sandi",
-                    prefixIcon: Icons.lock_outline_rounded,
+                    prefixIcon: IconlyLight.lock,
                   ),
                   const SizedBox(height: 12),
                   const MainTextField(
                     label: "Konfirmasi Kata Sandi",
-                    prefixIcon: Icons.lock_outline_rounded,
+                    prefixIcon: IconlyLight.lock,
                   ),
                   const SizedBox(height: 24),
                   SizedBox(

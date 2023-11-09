@@ -20,10 +20,10 @@ class SecondaryButton extends StatelessWidget {
         padding: MaterialStateProperty.all(const EdgeInsets.all(16)),
         shape: MaterialStateProperty.all(
           RoundedRectangleBorder(
-            borderRadius: BorderRadiusDirectional.circular(12),
+            borderRadius: BorderRadiusDirectional.circular(8),
             side: const BorderSide(
               width: 1,
-              color: Pallete.light2,
+              color: Pallete.main,
             ),
           ),
         ),

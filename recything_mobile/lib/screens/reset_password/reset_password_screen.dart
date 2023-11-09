@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:iconly/iconly.dart';
+import 'package:recything_mobile/widgets/forms/custom_back_button.dart';
 import 'package:recything_mobile/widgets/forms/main_button.dart';
 import 'package:recything_mobile/widgets/forms/main_textfield.dart';
-import 'package:recything_mobile/widgets/forms/secondary_button.dart';
 
 import '../../constants/pallete.dart';
 
@@ -19,16 +20,7 @@ class ResetPasswordScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 66),
-              SecondaryButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: const Icon(
-                  Icons.arrow_back,
-                  color: Pallete.dark1,
-                  size: 24,
-                ),
-              ),
+              const CustomBackButton(),
               const SizedBox(
                 height: 24,
               ),
@@ -51,8 +43,7 @@ class ResetPasswordScreen extends StatelessWidget {
                 height: 24,
               ),
               const MainTextField(
-                  label: "Masukan Email Anda",
-                  prefixIcon: Icons.mail_outline_rounded),
+                  label: "Masukan Email Anda", prefixIcon: IconlyLight.message),
               const SizedBox(
                 height: 24,
               ),
@@ -64,6 +55,7 @@ class ResetPasswordScreen extends StatelessWidget {
                       "Selanjutnya",
                       style: ThemeFont.heading6.copyWith(
                         color: Pallete.textMainButton,
+                        fontWeight: FontWeight.w700,
                       ),
                     ),
                     onPressed: () {

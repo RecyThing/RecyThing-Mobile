@@ -61,9 +61,13 @@ class ThemeFont {
     fontSize: 28,
     fontWeight: FontWeight.w500,
   );
+  static TextStyle heading5 = GoogleFonts.inter(
+    fontSize: 20,
+    fontWeight: FontWeight.w700,
+  );
   static TextStyle heading6 = GoogleFonts.inter(
     fontSize: 16,
-    fontWeight: FontWeight.bold,
+    fontWeight: FontWeight.w400,
   );
 
   static TextStyle bodyNormal = GoogleFonts.inter(
