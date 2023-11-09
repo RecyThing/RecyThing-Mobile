@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:recything_mobile/constants/pallete.dart';
 import 'package:recything_mobile/widgets/forms/main_button.dart';
 import 'package:recything_mobile/widgets/forms/main_textfield.dart';
@@ -14,6 +17,20 @@ class ReportRubbishScreen extends StatefulWidget {
 class _ReportRubbishScreenState extends State<ReportRubbishScreen> {
   bool isCheckedKering = false;
   bool isCheckedBasah = false;
+
+  List<XFile>? selectedImages = []; //menyimpan gambar yang dipilih
+
+  Future<void> pickImage() async {
+    final imagePicker = ImagePicker();
+    final pickedImages =
+        await imagePicker.pickMultiImage(); //mengambil gambar dari galeri
+
+    if (pickedImages != null) {
+      setState(() {
+        selectedImages = pickedImages;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -110,7 +127,79 @@ class _ReportRubbishScreenState extends State<ReportRubbishScreen> {
                   ),
                   Text('Sampah Basah')
                 ],
-              )
+              ),
+              const SizedBox(
+                height: 16,
+              ),
+              Text(
+                'Ceritakan Kondisi Sampah',
+                style: TextStyle(
+                    fontSize: ThemeFont.bodyNormal.fontSize,
+                    fontWeight: FontWeight.w400),
+              ),
+              const SizedBox(
+                height: 4,
+              ),
+              TextField(
+                maxLines: 5,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(12),
+                    ),
+                  ),
+                  hintText:
+                      'Cth: Saya melihat tumpukan sampah yang sangat banyak, sampah sangat bercampur basah dan kering',
+                  focusColor: Pallete.dark1,
+                  labelStyle: TextStyle(color: Pallete.dark2),
+                  contentPadding: EdgeInsets.all(16),
+                ),
+              ),
+              const SizedBox(
+                height: 16,
+              ),
+              Text(
+                'Bukti Foto / Video',
+                style: TextStyle(
+                    fontSize: ThemeFont.bodyNormal.fontSize,
+                    fontWeight: FontWeight.w400),
+              ),
+              if (selectedImages != null && selectedImages!.isNotEmpty)
+                Column(
+                  children: [
+                    for (final image in selectedImages!)
+                      Padding(
+                        padding: EdgeInsets.symmetric(vertical: 8),
+                        child: Image.file(
+                          File(image.path),
+                        ),
+                      )
+                  ],
+                ),
+              ElevatedButton(
+                onPressed: pickImage,
+                style: ElevatedButton.styleFrom(
+                  minimumSize: Size(80, 80),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+                child: Icon(
+                  Icons.add,
+                  color: Colors.grey,
+                ),
+              ),
+              const SizedBox(
+                height: 16,
+              ),
+              Text(
+                'Maksimum file: 20 MB',
+                style: TextStyle(
+                    fontSize: ThemeFont.bodySmall.fontSize,
+                    fontWeight: ThemeFont.bodySmall.fontWeight,
+                    color: Pallete.dark3),
+              ),
+              MainButton(onPressed: () {}, text: 'Kirim')
             ],
           ),
         ));

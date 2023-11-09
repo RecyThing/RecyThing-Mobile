@@ -33,7 +33,7 @@ class _ChooseReportState extends State<ChooseReport> {
           ),
           GestureDetector(
             onTap: () {
-              // Handle card tap action
+              Navigator.pushNamed(context, '/report-rubbish');
             },
             child: buildCard(
               'Tumpukan Sampah',
@@ -90,7 +90,6 @@ class _ChooseReportState extends State<ChooseReport> {
               ],
             ),
           ),
-
         ],
       ),
     );

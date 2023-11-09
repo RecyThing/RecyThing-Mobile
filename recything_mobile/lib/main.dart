@@ -21,11 +21,12 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Pallete.main),
         useMaterial3: true,
       ),
-      initialRoute: '/reporting',
+      initialRoute: '/report-rubbish',
       routes: {
         // '/login': (context) => const LoginScreen(),
         // '/dashboard': (context) => const Dasboard()
-        '/reporting': (context) => const ReportRubbishScreen()
+        // '/reporting': (context) => const ChooseReport(),
+        '/report-rubbish': (context) => ReportRubbishScreen()
       },
     );
   }
