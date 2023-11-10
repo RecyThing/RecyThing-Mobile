@@ -14,6 +14,7 @@ import 'package:recything_mobile/screens/register/register_screen.dart';
 import 'package:recything_mobile/screens/reset_password/reset_password_screen.dart';
 import 'package:recything_mobile/screens/splash/splash_screen.dart';
 import 'package:recything_mobile/screens/verifikasi_otp/verifikasi_otp_screen.dart';
+import 'package:recything_mobile/screens/report/report_rubbish_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -49,6 +50,7 @@ class MyApp extends StatelessWidget {
         '/reset_password': (context) => const ResetPasswordScreen(),
         '/verifikasi_otp': (context) => const VerifikasiOtpScreen(),
         '/password_baru': (context) => const PasswordBaruScreen(),
+        '/report-rubbish': (context) => const ReportRubbishScreen()
       },
     );
   }

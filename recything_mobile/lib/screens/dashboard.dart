@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:recything_mobile/constants/pallete.dart';
 import 'package:recything_mobile/screens/home/pages/home_screen.dart';
+import 'package:recything_mobile/screens/report/choose_report_screen.dart';
 
 class Dasboard extends StatefulWidget {
   const Dasboard({super.key});
@@ -14,7 +15,7 @@ class _DasboardState extends State<Dasboard> {
   List bodyScreen = [
     const HomeScreen(),
     const Center(child: Text("daur ulang")),
-    const Center(child: Text("report")),
+    const ChooseReport(),
     const Center(child: Text("mission")),
     const Center(child: Text("komunitas")),
   ];
