@@ -6,6 +6,7 @@ import 'package:recything_mobile/screens/home/pages/profile_screen.dart';
 import 'package:recything_mobile/screens/login/login_screen.dart';
 import 'package:recything_mobile/screens/poinku/pages/detail_voucher_screen.dart';
 import 'package:recything_mobile/screens/poinku/pages/poinku_screen.dart';
+import 'package:recything_mobile/screens/poinku/pages/tukar_voucher_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -32,7 +33,8 @@ class MyApp extends StatelessWidget {
         '/profile': (context) => const ProfileScreen(),
         '/notif': (context) => const NotifikasiScreen(),
         '/poinku': (context) => const PoinkuScreen(),
-        '/detailVoucher': (context) => const DetailVoucherScreen()
+        '/detailVoucher': (context) => const DetailVoucherScreen(),
+        '/tukarVoucher': (context) => const TukatVoucherScreen()
       },
     );
   }

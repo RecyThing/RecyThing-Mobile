@@ -77,7 +77,11 @@ class DetailVoucherScreen extends StatelessWidget {
             Container(
                 width: MediaQuery.of(context).size.width,
                 padding: const EdgeInsets.all(16),
-                child: MainButton(onPressed: () {}, text: "Tukar"))
+                child: MainButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/tukarVoucher');
+                    },
+                    text: "Tukar"))
           ],
         ),
       ),
