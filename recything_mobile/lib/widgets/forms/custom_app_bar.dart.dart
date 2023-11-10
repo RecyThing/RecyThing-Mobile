@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:recything_mobile/constants/pallete.dart';
 
-class PoinkuHeader extends StatelessWidget {
-  const PoinkuHeader({super.key});
+class CustomAppBar extends StatelessWidget {
+  final String title;
+  final void Function()? onTap;
+  const CustomAppBar({
+    super.key,
+    this.onTap,
+    required this.title,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -15,9 +21,7 @@ class PoinkuHeader extends StatelessWidget {
               bottomRight: Radius.circular(20))),
       child: Row(children: [
         GestureDetector(
-          onTap: () {
-            Navigator.pushNamed(context, '/dashboard');
-          },
+          onTap: onTap,
           child: Container(
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
@@ -29,15 +33,18 @@ class PoinkuHeader extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(
-          width: MediaQuery.of(context).size.width * 0.3,
+        Expanded(
+          child: Text(
+            textAlign: TextAlign.center,
+            title,
+            style: ThemeFont.interText.copyWith(
+                fontWeight: FontWeight.w500,
+                fontSize: 16,
+                color: Pallete.textMainButton),
+          ),
         ),
-        Text(
-          "Poinku",
-          style: ThemeFont.interText.copyWith(
-              fontWeight: FontWeight.w500,
-              fontSize: 16,
-              color: Pallete.textMainButton),
+        const SizedBox(
+          width: 50,
         )
       ]),
     );

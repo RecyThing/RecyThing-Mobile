@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:recything_mobile/screens/poinku/widgets/poinku_card.dart';
-import 'package:recything_mobile/screens/poinku/widgets/poinku_header.dart';
+import 'package:recything_mobile/widgets/forms/custom_app_bar.dart.dart';
 import 'package:recything_mobile/screens/poinku/widgets/poinku_tabar.dart';
 
 class PoinkuScreen extends StatefulWidget {
@@ -17,12 +17,15 @@ class _PoinkuScreenState extends State<PoinkuScreen> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            const SizedBox(
+            SizedBox(
               height: 400,
               child: Stack(
                 children: [
-                  PoinkuHeader(),
-                  Positioned(bottom: 0, child: PoinkuCard())
+                  CustomAppBar(
+                    title: "Poinku",
+                    onTap: () => Navigator.pushNamed(context, '/dashboard'),
+                  ),
+                  const Positioned(bottom: 0, child: PoinkuCard())
                 ],
               ),
             ),
