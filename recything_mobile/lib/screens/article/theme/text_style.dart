@@ -26,4 +26,9 @@ class ThemeText {
     fontWeight: FontWeight.w600,
     color: ThemeColor().blackColor,
   );
+
+  TextStyle bodyNormalMedium = GoogleFonts.inter(
+      fontSize: 16,
+      fontWeight: FontWeight.w500,
+      color: ThemeColor().grayScale900);
 }

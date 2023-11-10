@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:recything_mobile/screens/article/theme/text_style.dart';
 
-import '../theme/color_style.dart';
+import '../../theme/color_style.dart';
 
 class ButtonKategoriDaurUlang extends StatelessWidget {
   final String assetImage;

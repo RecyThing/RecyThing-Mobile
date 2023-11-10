@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:recything_mobile/screens/article/page/kategori_daur_ulang_screen.dart';
 import 'package:recything_mobile/screens/article/theme/text_style.dart';
-import 'package:recything_mobile/screens/article/widget/article_button_kategori_daur_ulang.dart';
+import 'package:recything_mobile/screens/article/widget/dashboard_screen/button_kategori_daur_ulang.dart';
 import 'package:recything_mobile/widgets/typography/body_link.dart';
 
 class MenuKategoriWidget extends StatelessWidget {
@@ -22,7 +23,16 @@ class MenuKategoriWidget extends StatelessWidget {
                   "Kategori Daur Ulang",
                   style: ThemeText().heading6Medium,
                 ),
-                const BodyLink("Lihat semua")
+                GestureDetector(
+                  child: const BodyLink("Lihat semua"),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const KategoriDaurUlangPage()),
+                    );
+                  },
+                )
               ],
             ),
             const SizedBox(height: 16),

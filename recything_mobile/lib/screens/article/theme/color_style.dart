@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 
 class ThemeColor {
   Color whiteColor = const Color(0xFFFFFFFF);
-  // Color blackColor = const Color(0x00000000);
   Color blackColor = const Color(0xFF000000);
   Color dark3Color = const Color(0xFF828282);
-  // Color dark3Color = const Color.fromARGB(1, 130, 130, 130);
   Color grayScale900 = const Color(0xFF171717);
   Color grayScae100 = const Color(0xFFF5F5F5);
 }
