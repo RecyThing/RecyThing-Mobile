@@ -86,7 +86,87 @@ class PoinkuVoucher extends StatelessWidget {
                   ),
                   SizedBox(
                       width: MediaQuery.of(context).size.width * 0.5,
-                      child: MainButton(onPressed: () {}, text: "Tukar"))
+                      child: MainButton(
+                          onPressed: () {
+                            showDialog(
+                                context: context,
+                                builder: ((context) => AlertDialog(
+                                      content: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Image.asset(
+                                            "assets/icons/profile/lencana.png",
+                                            color: Pallete.secondary,
+                                            width: 24,
+                                          ),
+                                          Text(
+                                            "Tukarkan Voucher Ini?",
+                                            style: ThemeFont.interText.copyWith(
+                                                fontSize: 20,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          const SizedBox(
+                                            height: 4,
+                                          ),
+                                          Text(
+                                            "Kamu yakin ingin Menukarkan Voucher dana menggunakan point?",
+                                            style: ThemeFont.interText.copyWith(
+                                                fontSize: 16,
+                                                color: Pallete.textSecondary),
+                                          ),
+                                          const SizedBox(
+                                            height: 16,
+                                          ),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              SizedBox(
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.33,
+                                                child: OutlinedButton(
+                                                    style: OutlinedButton
+                                                        .styleFrom(
+                                                      foregroundColor:
+                                                          Pallete.main,
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              16),
+                                                      shape:
+                                                          RoundedRectangleBorder(
+                                                        borderRadius:
+                                                            BorderRadius.circular(
+                                                                8), // Ganti dengan radius yang Anda inginkan
+                                                      ),
+                                                      side: const BorderSide(
+                                                          color: Pallete.main),
+                                                    ),
+                                                    onPressed: () {
+                                                      Navigator.pop(context);
+                                                    },
+                                                    child: const Text("Batal")),
+                                              ),
+                                              SizedBox(
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width *
+                                                      0.33,
+                                                  child: MainButton(
+                                                      onPressed: () {
+                                                        Navigator.pushNamed(
+                                                            context,
+                                                            '/tukarVoucher');
+                                                      },
+                                                      text: "Tukar"))
+                                            ],
+                                          )
+                                        ],
+                                      ),
+                                    )));
+                          },
+                          text: "Tukar"))
                 ]),
           )
         ],
