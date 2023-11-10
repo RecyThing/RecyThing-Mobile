@@ -121,8 +121,14 @@ class _PoinkuCardState extends State<PoinkuCard> {
           ),
           SizedBox(
               width: MediaQuery.of(context).size.width,
-              child:
-                  MainButton(onPressed: _onTukarPoinClicked, text: "Kumpulkan"))
+              child: MainButton(
+                  onPressed: _onTukarPoinClicked,
+                  child: Text(
+                    "Kumpulkan",
+                    style: ThemeFont.heading6.copyWith(
+                        color: Pallete.textMainButton,
+                        fontWeight: FontWeight.w700),
+                  )))
         ],
       ),
     );

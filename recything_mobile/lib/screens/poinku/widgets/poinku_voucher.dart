@@ -159,14 +159,29 @@ class PoinkuVoucher extends StatelessWidget {
                                                             context,
                                                             '/tukarVoucher');
                                                       },
-                                                      text: "Tukar"))
+                                                      child: Text(
+                                                        "Tukar",
+                                                        style: ThemeFont
+                                                            .heading6
+                                                            .copyWith(
+                                                                color: Pallete
+                                                                    .textMainButton,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w700),
+                                                      )))
                                             ],
                                           )
                                         ],
                                       ),
                                     )));
                           },
-                          text: "Tukar"))
+                          child: Text(
+                            "Tukar",
+                            style: ThemeFont.heading6.copyWith(
+                                color: Pallete.textMainButton,
+                                fontWeight: FontWeight.w700),
+                          )))
                 ]),
           )
         ],

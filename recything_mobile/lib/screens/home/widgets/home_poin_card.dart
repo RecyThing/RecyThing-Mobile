@@ -70,7 +70,14 @@ class HomePoinCard extends StatelessWidget {
                 ),
                 SizedBox(
                     width: MediaQuery.of(context).size.width * 0.4,
-                    child: MainButton(onPressed: () {}, text: "Tukar Poin"))
+                    child: MainButton(
+                        onPressed: () {},
+                        child: Text(
+                          "Tukar Poin",
+                          style: ThemeFont.heading6.copyWith(
+                              color: Pallete.textMainButton,
+                              fontWeight: FontWeight.w700),
+                        )))
               ],
             )
           ],

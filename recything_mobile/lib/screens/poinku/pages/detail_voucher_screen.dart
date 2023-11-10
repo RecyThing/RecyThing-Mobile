@@ -81,7 +81,12 @@ class DetailVoucherScreen extends StatelessWidget {
                     onPressed: () {
                       Navigator.pushNamed(context, '/tukarVoucher');
                     },
-                    text: "Tukar"))
+                    child: Text(
+                      "Tukar",
+                      style: ThemeFont.heading6.copyWith(
+                          color: Pallete.textMainButton,
+                          fontWeight: FontWeight.w700),
+                    )))
           ],
         ),
       ),

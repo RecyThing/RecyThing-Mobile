@@ -8,6 +8,12 @@ import 'package:recything_mobile/screens/poinku/pages/detail_transaksi_screen.da
 import 'package:recything_mobile/screens/poinku/pages/detail_voucher_screen.dart';
 import 'package:recything_mobile/screens/poinku/pages/poinku_screen.dart';
 import 'package:recything_mobile/screens/poinku/pages/tukar_voucher_screen.dart';
+import 'package:recything_mobile/screens/onboarding/onboarding_screen.dart';
+import 'package:recything_mobile/screens/password_baru/password_baru_screen.dart';
+import 'package:recything_mobile/screens/register/register_screen.dart';
+import 'package:recything_mobile/screens/reset_password/reset_password_screen.dart';
+import 'package:recything_mobile/screens/splash/splash_screen.dart';
+import 'package:recything_mobile/screens/verifikasi_otp/verifikasi_otp_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -27,8 +33,10 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Pallete.main),
         useMaterial3: true,
       ),
-      initialRoute: '/login',
+      initialRoute: '/splash',
       routes: {
+        '/splash': (context) => const SplashScreen(),
+        '/onboarding': (context) => const OnboardingScreen(),
         '/login': (context) => const LoginScreen(),
         '/dashboard': (context) => const Dasboard(),
         '/profile': (context) => const ProfileScreen(),
@@ -36,7 +44,11 @@ class MyApp extends StatelessWidget {
         '/poinku': (context) => const PoinkuScreen(),
         '/detailVoucher': (context) => const DetailVoucherScreen(),
         '/tukarVoucher': (context) => const TukatVoucherScreen(),
-        '/detailTransaksi': (context) => const DetailTransaksiScreen()
+        '/detailTransaksi': (context) => const DetailTransaksiScreen(),
+        '/register': (context) => const RegisterScreen(),
+        '/reset_password': (context) => const ResetPasswordScreen(),
+        '/verifikasi_otp': (context) => const VerifikasiOtpScreen(),
+        '/password_baru': (context) => const PasswordBaruScreen(),
       },
     );
   }

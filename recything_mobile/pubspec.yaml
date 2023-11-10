@@ -37,6 +37,10 @@ dependencies:
   google_fonts: ^6.1.0
   carousel_slider: ^4.2.1
   dashed_line: ^0.1.0+3
+  flutter_svg: ^2.0.9
+  dots_indicator: ^3.0.0
+  iconly: ^1.0.1
+
 
 dev_dependencies:
   flutter_test:

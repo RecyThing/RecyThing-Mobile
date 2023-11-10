@@ -52,7 +52,14 @@ class _TukatVoucherScreenState extends State<TukatVoucherScreen> {
             ),
             SizedBox(
                 width: MediaQuery.of(context).size.width,
-                child: MainButton(onPressed: () {}, text: "Konfirmasi"))
+                child: MainButton(
+                    onPressed: () {},
+                    child: Text(
+                      "Konfirmasi",
+                      style: ThemeFont.heading6.copyWith(
+                          color: Pallete.textMainButton,
+                          fontWeight: FontWeight.w700),
+                    )))
           ],
         ),
       ),
