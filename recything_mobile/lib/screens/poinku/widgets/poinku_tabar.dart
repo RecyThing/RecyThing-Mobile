@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:recything_mobile/constants/pallete.dart';
+import 'package:recything_mobile/screens/poinku/widgets/poinku_riwayat.dart';
 import 'package:recything_mobile/screens/poinku/widgets/poinku_voucher.dart';
 
 class PoinkuTabar extends StatefulWidget {
@@ -54,10 +55,9 @@ class _PoinkuTabarState extends State<PoinkuTabar>
               ListView.builder(
                   itemCount: 3,
                   itemBuilder: ((context, index) => const PoinkuVoucher())),
-              const Card(
-                margin: EdgeInsets.all(16.0),
-                child: Center(child: Text(' Specifications tab')),
-              ),
+              ListView.builder(
+                  itemCount: 3,
+                  itemBuilder: ((context, index) => const PoinkuRiwayat())),
             ],
           ))
         ],
