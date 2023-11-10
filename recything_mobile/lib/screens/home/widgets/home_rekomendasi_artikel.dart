@@ -27,19 +27,19 @@ class HomeRekomendasiArtikel extends StatelessWidget {
                   ))
             ],
           ),
-          SizedBox(
-            height: 200,
-            child: ListView.builder(
-              scrollDirection: Axis.vertical,
-              itemCount: 3,
-              itemBuilder: (context, index) => Container(
-                margin: const EdgeInsets.only(top: 16),
-                child: Container(
-                  height: 100,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                      color: Pallete.dark4),
-                ),
+          ListView.builder(
+            padding: const EdgeInsets.all(0),
+            physics: const NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            scrollDirection: Axis.vertical,
+            itemCount: 3,
+            itemBuilder: (context, index) => Container(
+              margin: const EdgeInsets.only(top: 16),
+              child: Container(
+                height: 100,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12),
+                    color: Pallete.dark4),
               ),
             ),
           )
