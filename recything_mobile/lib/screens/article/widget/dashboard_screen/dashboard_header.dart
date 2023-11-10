@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:recything_mobile/constants/pallete.dart';
 import 'package:recything_mobile/screens/article/theme/text_style.dart';
 
 class ArticleDashboardHeader extends StatelessWidget {

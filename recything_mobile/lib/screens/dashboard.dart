@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:recything_mobile/constants/pallete.dart';
 import 'package:recything_mobile/screens/article/page/dashboard_screen.dart';
-import 'package:recything_mobile/screens/article/page/kategori_daur_ulang_screen.dart';
 
 class Dasboard extends StatefulWidget {
   const Dasboard({super.key});
