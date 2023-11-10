@@ -8,82 +8,89 @@ class PoinkuVoucher extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          padding: const EdgeInsets.all(12),
-          decoration: BoxDecoration(
-              color: Pallete.light3, borderRadius: BorderRadius.circular(12)),
-          child: Column(
-            children: [
-              Row(
-                children: [
-                  Image.asset(
-                    "assets/images/voucher.png",
-                    width: MediaQuery.of(context).size.width * 0.3,
-                  ),
-                  const SizedBox(
-                    width: 40,
-                  ),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Voucher 5.000 E-Wallet Dana",
-                          style: ThemeFont.interText.copyWith(fontSize: 16),
-                          overflow: TextOverflow.visible,
-                        ),
-                        Text(
-                          "5.200 Poin",
-                          style: ThemeFont.interText.copyWith(
-                              fontWeight: FontWeight.bold, fontSize: 16),
-                        )
-                      ],
-                    ),
-                  )
-                ],
-              ),
-              const SizedBox(
-                height: 8,
-              ),
-            ],
-          ),
-        ),
-        SizedBox(
-          width: MediaQuery.of(context).size.width * 0.85,
-          child: DashedLine(
-            path: Path()
-              ..cubicTo(0, 0, 0, 1, MediaQuery.of(context).size.width * 0.8, 0),
-            color: Pallete.dark3,
-          ),
-        ),
-        Container(
-          margin: const EdgeInsets.only(bottom: 16),
-          padding: const EdgeInsets.all(12),
-          decoration: BoxDecoration(
-              color: Pallete.light3, borderRadius: BorderRadius.circular(12)),
-          child:
-              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+    return GestureDetector(
+      onTap: () {
+        Navigator.pushNamed(context, '/detailVoucher');
+      },
+      child: Column(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+                color: Pallete.light3, borderRadius: BorderRadius.circular(12)),
+            child: Column(
               children: [
-                Text("Berlaku sampai :",
-                    style: ThemeFont.interText
-                        .copyWith(fontWeight: FontWeight.bold)),
-                Text(
-                  "20 Oktober 2023",
-                  style: ThemeFont.interText
-                      .copyWith(color: Pallete.textSecondary),
-                )
+                Row(
+                  children: [
+                    Image.asset(
+                      "assets/images/voucher.png",
+                      width: MediaQuery.of(context).size.width * 0.3,
+                    ),
+                    const SizedBox(
+                      width: 40,
+                    ),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Voucher 5.000 E-Wallet Dana",
+                            style: ThemeFont.interText.copyWith(fontSize: 16),
+                            overflow: TextOverflow.visible,
+                          ),
+                          Text(
+                            "5.200 Poin",
+                            style: ThemeFont.interText.copyWith(
+                                fontWeight: FontWeight.bold, fontSize: 16),
+                          )
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+                const SizedBox(
+                  height: 8,
+                ),
               ],
             ),
-            SizedBox(
-                width: MediaQuery.of(context).size.width * 0.5,
-                child: MainButton(onPressed: () {}, text: "Tukar"))
-          ]),
-        )
-      ],
+          ),
+          SizedBox(
+            width: MediaQuery.of(context).size.width * 0.85,
+            child: DashedLine(
+              path: Path()
+                ..cubicTo(
+                    0, 0, 0, 1, MediaQuery.of(context).size.width * 0.8, 0),
+              color: Pallete.dark3,
+            ),
+          ),
+          Container(
+            margin: const EdgeInsets.only(bottom: 16),
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+                color: Pallete.light3, borderRadius: BorderRadius.circular(12)),
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("Berlaku sampai :",
+                          style: ThemeFont.interText
+                              .copyWith(fontWeight: FontWeight.bold)),
+                      Text(
+                        "20 Oktober 2023",
+                        style: ThemeFont.interText
+                            .copyWith(color: Pallete.textSecondary),
+                      )
+                    ],
+                  ),
+                  SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.5,
+                      child: MainButton(onPressed: () {}, text: "Tukar"))
+                ]),
+          )
+        ],
+      ),
     );
   }
 }
