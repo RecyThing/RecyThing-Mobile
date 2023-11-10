@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:recything_mobile/constants/pallete.dart';
+import 'package:recything_mobile/screens/article/page/kategori_daur_ulang_screen.dart';
 import 'package:recything_mobile/screens/dashboard.dart';
 import 'package:recything_mobile/screens/home/pages/notifikasi_screen.dart';
 import 'package:recything_mobile/screens/home/pages/profile_screen.dart';
@@ -15,7 +16,6 @@ import 'package:recything_mobile/screens/reset_password/reset_password_screen.da
 import 'package:recything_mobile/screens/splash/splash_screen.dart';
 import 'package:recything_mobile/screens/verifikasi_otp/verifikasi_otp_screen.dart';
 import 'package:recything_mobile/screens/report/report_rubbish_screen.dart';
-
 import 'package:recything_mobile/screens/missions/detail_mission_screen.dart';
 import 'package:recything_mobile/screens/missions/missions_screen.dart';
 
@@ -30,6 +30,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
         scaffoldBackgroundColor: Pallete.textMainButton,
@@ -55,7 +56,8 @@ class MyApp extends StatelessWidget {
         '/reset_password': (context) => const ResetPasswordScreen(),
         '/verifikasi_otp': (context) => const VerifikasiOtpScreen(),
         '/password_baru': (context) => const PasswordBaruScreen(),
-        '/report-rubbish': (context) => const ReportRubbishScreen()
+        '/report-rubbish': (context) => const ReportRubbishScreen(),
+        '/kategoriDaurUlang': (context) => const KategoriDaurUlangPage()
       },
     );
   }
