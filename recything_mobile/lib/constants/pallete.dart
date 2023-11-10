@@ -57,6 +57,7 @@ class ThemeFont {
     fontSize: 40,
     fontWeight: FontWeight.w300,
   );
+
   static TextStyle interText = GoogleFonts.inter(
     fontSize: 16,
     fontWeight: FontWeight.w700,
@@ -64,6 +65,26 @@ class ThemeFont {
 
   static TextStyle mulishText = GoogleFonts.mulish(
     fontSize: 22,
+    fontWeight: FontWeight.w400,
+  );
+
+  static TextStyle heading6Medium = GoogleFonts.inter(
+    fontSize: 16,
+    fontWeight: FontWeight.w500,
+  );
+
+  static TextStyle bodySmallMedium = GoogleFonts.inter(
+    fontSize: 14,
+    fontWeight: FontWeight.w500,
+  );
+
+  static TextStyle bodyNormalSemiBold = GoogleFonts.inter(
+    fontSize: 16,
+    fontWeight: FontWeight.w600,
+  );
+
+  static TextStyle bodySmallRegular = GoogleFonts.inter(
+    fontSize: 14,
     fontWeight: FontWeight.w400,
   );
 }

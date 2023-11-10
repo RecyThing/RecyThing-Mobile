@@ -36,6 +36,7 @@ class _MissionsScreenState extends State<MissionsScreen>
           child: TabBar(
               controller: _tabController,
               labelColor: Pallete.main,
+              labelStyle: ThemeFont.bodySmallMedium,
               unselectedLabelColor: Pallete.dark3,
               indicatorSize: TabBarIndicatorSize.tab,
               indicatorPadding: const EdgeInsets.symmetric(horizontal: 20),

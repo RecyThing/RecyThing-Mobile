@@ -74,10 +74,7 @@ class TabBerjalan extends StatelessWidget {
                               ),
                               Text(
                                 ('${data['progress'].toString()}%'),
-                                style: GoogleFonts.inter(
-                                    textStyle: const TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w400)),
+                                style: ThemeFont.bodySmallRegular,
                               )
                             ],
                           ),
@@ -86,11 +83,8 @@ class TabBerjalan extends StatelessWidget {
                           ),
                           Text(
                             data['status'],
-                            style: GoogleFonts.inter(
-                                textStyle: TextStyle(
-                                    color: data['tempColor'],
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w400)),
+                            style: ThemeFont.bodySmallRegular
+                                .copyWith(color: data['tempColor']),
                           )
                         ],
                       ),

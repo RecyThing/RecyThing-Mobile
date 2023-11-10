@@ -34,11 +34,7 @@ class TabTersedia extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Text(
             "Pilihan Misi yang Tersedia",
-            style: GoogleFonts.inter(
-                textStyle: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                    color: Pallete.dark3)),
+            style: ThemeFont.heading6Medium.copyWith(color: Pallete.dark3),
           ),
         ),
         Expanded(
@@ -54,8 +50,7 @@ class TabTersedia extends StatelessWidget {
                       title: data['title'] ?? '-',
                       subTitle: Text(
                         data['subTitle'] ?? '-',
-                        style: GoogleFonts.inter(
-                            fontSize: 14, fontWeight: FontWeight.w400),
+                        style: ThemeFont.bodySmallRegular,
                       ),
                     ),
                     const SizedBox(

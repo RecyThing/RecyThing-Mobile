@@ -49,10 +49,7 @@ class MissionCard extends StatelessWidget {
               children: [
                 Text(
                   title,
-                  style: GoogleFonts.inter(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                  ),
+                  style: ThemeFont.bodyNormalSemiBold,
                 ),
                 const SizedBox(
                   height: 6,
@@ -67,7 +64,7 @@ class MissionCard extends StatelessWidget {
           CircleAvatar(
             backgroundColor: Pallete.mainDarker,
             child: IconButton(
-                onPressed: () {},
+                onPressed: () => Navigator.pushNamed(context, '/detail-mission'),
                 icon: const Icon(
                   Icons.arrow_forward_ios,
                   color: Colors.white,

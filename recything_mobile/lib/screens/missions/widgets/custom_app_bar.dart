@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:recything_mobile/constants/pallete.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
@@ -10,7 +10,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration:  BoxDecoration(
+      decoration: BoxDecoration(
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.04),
@@ -23,9 +23,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       child: AppBar(
         title: Text(
           'Missions',
-          style: GoogleFonts.inter(
-              textStyle:
-                  const TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
+          style: ThemeFont.heading6Medium,
         ),
         centerTitle: true,
         backgroundColor: Colors.white,
