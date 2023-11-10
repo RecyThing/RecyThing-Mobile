@@ -26,7 +26,7 @@ class ResetPasswordScreen extends StatelessWidget {
               ),
               Text(
                 "Atur Ulang Kata Sandi",
-                style: ThemeFont.heading3,
+                style: ThemeFont.heading3Reguler,
               ),
               const SizedBox(
                 height: 8,
@@ -53,7 +53,7 @@ class ResetPasswordScreen extends StatelessWidget {
                       child: MainButton(
                     child: Text(
                       "Selanjutnya",
-                      style: ThemeFont.heading6.copyWith(
+                      style: ThemeFont.heading6Reguler.copyWith(
                         color: Pallete.textMainButton,
                         fontWeight: FontWeight.w700,
                       ),

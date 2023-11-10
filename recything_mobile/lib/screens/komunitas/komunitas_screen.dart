@@ -30,7 +30,7 @@ class KomunitasScreen extends StatelessWidget {
                 children: [
                   Text(
                     "Komunitas Saya",
-                    style: ThemeFont.heading6
+                    style: ThemeFont.heading6Reguler
                         .copyWith(fontWeight: FontWeight.w500),
                   )
                 ],
@@ -43,7 +43,7 @@ class KomunitasScreen extends StatelessWidget {
                 children: [
                   Text(
                     "Rekomendasi Komunitas",
-                    style: ThemeFont.heading6
+                    style: ThemeFont.heading6Reguler
                         .copyWith(fontWeight: FontWeight.w500),
                   ),
                   const BodyLink("Lihat Semua"),

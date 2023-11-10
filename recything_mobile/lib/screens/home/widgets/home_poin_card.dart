@@ -74,7 +74,7 @@ class HomePoinCard extends StatelessWidget {
                         onPressed: () {},
                         child: Text(
                           "Tukar Poin",
-                          style: ThemeFont.heading6.copyWith(
+                          style: ThemeFont.heading6Reguler.copyWith(
                               color: Pallete.textMainButton,
                               fontWeight: FontWeight.w700),
                         )))

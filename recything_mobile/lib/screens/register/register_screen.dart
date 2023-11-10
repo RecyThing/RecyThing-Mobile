@@ -29,7 +29,7 @@ class RegisterScreen extends StatelessWidget {
                   ),
                   Text(
                     "Daftar",
-                    style: ThemeFont.heading3,
+                    style: ThemeFont.heading3Reguler,
                   ),
                   const SizedBox(
                     height: 8,
@@ -108,7 +108,7 @@ class RegisterScreen extends StatelessWidget {
                           child: MainButton(
                         child: Text(
                           "Register",
-                          style: ThemeFont.heading6.copyWith(
+                          style: ThemeFont.heading6Reguler.copyWith(
                             color: Pallete.textMainButton,
                           ),
                         ),

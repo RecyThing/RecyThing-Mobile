@@ -59,15 +59,40 @@ class ThemeFont {
   );
   static TextStyle interText = GoogleFonts.inter();
 
-  static TextStyle heading3 = GoogleFonts.inter(
+  static TextStyle heading3Reguler = GoogleFonts.inter(
     fontSize: 28,
     fontWeight: FontWeight.w500,
   );
-  static TextStyle heading5 = GoogleFonts.inter(
+  static TextStyle heading3Bold = GoogleFonts.inter(
+    fontSize: 28,
+    fontWeight: FontWeight.w700,
+  );
+  static TextStyle heading4Reguler = GoogleFonts.inter(
+    fontSize: 24,
+    fontWeight: FontWeight.w500,
+  );
+  static TextStyle heading4Bold = GoogleFonts.inter(
+    fontSize: 24,
+    fontWeight: FontWeight.w700,
+  );
+
+  static TextStyle heading5Reguler = GoogleFonts.inter(
     fontSize: 20,
     fontWeight: FontWeight.w500,
   );
-  static TextStyle heading6 = GoogleFonts.inter(
+  static TextStyle heading5Bold = GoogleFonts.inter(
+    fontSize: 20,
+    fontWeight: FontWeight.w700,
+  );
+  static TextStyle heading6Reguler = GoogleFonts.inter(
+    fontSize: 16,
+    fontWeight: FontWeight.w500,
+  );
+  static TextStyle heading6Bold = GoogleFonts.inter(
+    fontSize: 16,
+    fontWeight: FontWeight.w700,
+  );
+  static TextStyle heading6Medium = GoogleFonts.inter(
     fontSize: 16,
     fontWeight: FontWeight.w500,
   );
@@ -80,44 +105,44 @@ class ThemeFont {
     fontSize: 14,
     fontWeight: FontWeight.w400,
   );
-  static TextStyle mulishText = GoogleFonts.mulish(
-    fontSize: 22,
+
+  static TextStyle bodyLargeReguler = GoogleFonts.inter(
+    fontSize: 20,
     fontWeight: FontWeight.w400,
   );
-
-//herliana
-  // static TextStyle heading6 = GoogleFonts.inter(
-  //   fontSize: 16,
-  //   fontWeight: FontWeight.w500,
-  // );
-
-  // static TextStyle bodyNormal = GoogleFonts.inter(
-  //   fontSize: 16,
-  //   fontWeight: FontWeight.w600,
-  // );
-
-  // static TextStyle bodySmall = GoogleFonts.inter(
-  //   fontSize: 14,
-  //   fontWeight: FontWeight.w400,
-  // );
-
-  static TextStyle heading6Medium = GoogleFonts.inter(
-    fontSize: 16,
-    fontWeight: FontWeight.w500,
+  static TextStyle bodyLargeBold = GoogleFonts.inter(
+    fontSize: 20,
+    fontWeight: FontWeight.w600,
   );
 
-  static TextStyle bodySmallMedium = GoogleFonts.inter(
-    fontSize: 14,
-    fontWeight: FontWeight.w500,
+  static TextStyle bodyMediumReguler = GoogleFonts.inter(
+    fontSize: 18,
+    fontWeight: FontWeight.w400,
+  );
+  static TextStyle bodyMediumBold = GoogleFonts.inter(
+    fontSize: 18,
+    fontWeight: FontWeight.w600,
   );
 
   static TextStyle bodyNormalSemiBold = GoogleFonts.inter(
     fontSize: 16,
     fontWeight: FontWeight.w600,
   );
+  static TextStyle bodyNormalReguler = GoogleFonts.inter(
+    fontSize: 16,
+    fontWeight: FontWeight.w400,
+  );
 
   static TextStyle bodySmallRegular = GoogleFonts.inter(
     fontSize: 14,
     fontWeight: FontWeight.w400,
+  );
+  static TextStyle bodySmallMedium = GoogleFonts.inter(
+    fontSize: 14,
+    fontWeight: FontWeight.w500,
+  );
+  static TextStyle bodySmallSemiBold = GoogleFonts.inter(
+    fontSize: 14,
+    fontWeight: FontWeight.w600,
   );
 }

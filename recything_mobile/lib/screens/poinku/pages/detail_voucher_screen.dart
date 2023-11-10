@@ -83,7 +83,7 @@ class DetailVoucherScreen extends StatelessWidget {
                     },
                     child: Text(
                       "Tukar",
-                      style: ThemeFont.heading6.copyWith(
+                      style: ThemeFont.heading6Reguler.copyWith(
                           color: Pallete.textMainButton,
                           fontWeight: FontWeight.w700),
                     )))

@@ -203,7 +203,7 @@ class _ReportRubbishScreenState extends State<ReportRubbishScreen> {
                 onPressed: () {},
                 child: Text(
                   "Kirim",
-                  style: ThemeFont.heading6.copyWith(
+                  style: ThemeFont.heading6Reguler.copyWith(
                       color: Pallete.textMainButton,
                       fontWeight: FontWeight.w700),
                 ),

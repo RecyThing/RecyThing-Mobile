@@ -29,7 +29,7 @@ class BerhasilBergabungScreen extends StatelessWidget {
               Image.asset("assets/images/success.png"),
               Text(
                 "Berhasil Bergabung",
-                style: ThemeFont.heading3,
+                style: ThemeFont.heading3Reguler,
               ),
               const SizedBox(
                 height: 8,

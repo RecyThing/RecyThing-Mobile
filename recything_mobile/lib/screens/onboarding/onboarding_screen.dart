@@ -23,7 +23,7 @@ class OnboardingScreen extends StatelessWidget {
                       .pushNamedAndRemoveUntil("/login", (route) => false),
                   child: Text(
                     "Lewati",
-                    style: ThemeFont.heading6
+                    style: ThemeFont.heading6Reguler
                         .copyWith(fontWeight: FontWeight.w400),
                     textAlign: TextAlign.right,
                   ),
@@ -34,7 +34,7 @@ class OnboardingScreen extends StatelessWidget {
             const SizedBox(height: 32),
             Text(
               "Jelajahi Informasi dan Daur Ulang Sampahmu",
-              style: ThemeFont.heading5,
+              style: ThemeFont.heading5Reguler,
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 16),

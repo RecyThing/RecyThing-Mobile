@@ -67,8 +67,8 @@ class KomunitasCard extends StatelessWidget {
                   width: 240,
                   child: StrokeText(
                     text: title,
-                    textStyle:
-                        ThemeFont.heading6.copyWith(color: Pallete.light4),
+                    textStyle: ThemeFont.heading6Reguler
+                        .copyWith(color: Pallete.light4),
                   ),
                   // child: Text(
                   //   title,
@@ -102,7 +102,7 @@ class KomunitasCard extends StatelessWidget {
                         const SizedBox(width: 4),
                         Text(
                           "$anggota K",
-                          style: ThemeFont.heading6.copyWith(
+                          style: ThemeFont.heading6Reguler.copyWith(
                               color: Pallete.light4,
                               fontWeight: FontWeight.w500),
                         ),

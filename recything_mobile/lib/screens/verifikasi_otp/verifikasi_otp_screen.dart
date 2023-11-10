@@ -25,7 +25,7 @@ class VerifikasiOtpScreen extends StatelessWidget {
               ),
               Text(
                 "Verifikasi OTP",
-                style: ThemeFont.heading3,
+                style: ThemeFont.heading3Reguler,
               ),
               const SizedBox(
                 height: 8,
@@ -88,7 +88,7 @@ class VerifikasiOtpScreen extends StatelessWidget {
                       child: MainButton(
                     child: Text(
                       "Konfirmasi",
-                      style: ThemeFont.heading6.copyWith(
+                      style: ThemeFont.heading6Reguler.copyWith(
                         color: Pallete.textMainButton,
                         fontWeight: FontWeight.w700,
                       ),

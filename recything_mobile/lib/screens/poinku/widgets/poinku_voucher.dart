@@ -162,7 +162,7 @@ class PoinkuVoucher extends StatelessWidget {
                                                       child: Text(
                                                         "Tukar",
                                                         style: ThemeFont
-                                                            .heading6
+                                                            .heading6Reguler
                                                             .copyWith(
                                                                 color: Pallete
                                                                     .textMainButton,
@@ -178,7 +178,7 @@ class PoinkuVoucher extends StatelessWidget {
                           },
                           child: Text(
                             "Tukar",
-                            style: ThemeFont.heading6.copyWith(
+                            style: ThemeFont.heading6Reguler.copyWith(
                                 color: Pallete.textMainButton,
                                 fontWeight: FontWeight.w700),
                           )))

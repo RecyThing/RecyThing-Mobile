@@ -24,7 +24,7 @@ class DetailKomunitasScreen extends StatelessWidget {
             },
             child: Text(
               "Ikuti Komunitas",
-              style: ThemeFont.heading6.copyWith(color: Colors.white),
+              style: ThemeFont.heading6Reguler.copyWith(color: Colors.white),
             ),
           ),
         ),
@@ -43,7 +43,7 @@ class DetailKomunitasScreen extends StatelessWidget {
                   const CustomBackButton(),
                   Text(
                     "Detail Komunitas",
-                    style: ThemeFont.heading6,
+                    style: ThemeFont.heading6Reguler,
                   ),
                   const SizedBox(width: 40)
                 ],
@@ -73,7 +73,7 @@ class DetailKomunitasScreen extends StatelessWidget {
                 children: [
                   Text(
                     "Zero Waste Indonesia Community",
-                    style: ThemeFont.heading5,
+                    style: ThemeFont.heading5Reguler,
                     textAlign: TextAlign.left,
                   ),
                   const SizedBox(height: 8),
