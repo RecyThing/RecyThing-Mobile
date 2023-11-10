@@ -15,11 +15,17 @@ class GoogleButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: onPressed,
       style: ButtonStyle(
+        elevation: MaterialStateProperty.all(0),
         backgroundColor: MaterialStateProperty.all(Colors.white),
         padding: MaterialStateProperty.all(const EdgeInsets.all(16)),
         shape: MaterialStateProperty.all(
           RoundedRectangleBorder(
-              borderRadius: BorderRadiusDirectional.circular(8)),
+            borderRadius: BorderRadiusDirectional.circular(8),
+            side: const BorderSide(
+              width: 1,
+              color: Pallete.light2,
+            ),
+          ),
         ),
       ),
       child: Row(

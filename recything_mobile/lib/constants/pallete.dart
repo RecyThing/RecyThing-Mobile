@@ -16,6 +16,7 @@ class Pallete {
   static const Color errorDarker = Color(0XFFE53535);
   static const Color errorLigther = Color(0XFFFF5C5C);
   static const Color errorSubtle = Color(0XFFFF8080);
+  static const Color errorBackground = Color(0xffFEF1F1);
 
   static const Color warning = Color(0XFFFFCC00);
   static const Color warningDarker = Color(0XFFE5B800);
@@ -52,18 +53,96 @@ class ThemeFont {
     fontSize: 48,
     fontWeight: FontWeight.w200,
   );
-
   static TextStyle display2 = GoogleFonts.inter(
     fontSize: 40,
     fontWeight: FontWeight.w300,
   );
-  static TextStyle interText = GoogleFonts.inter(
-    fontSize: 16,
+  static TextStyle interText = GoogleFonts.inter();
+
+  static TextStyle heading3Reguler = GoogleFonts.inter(
+    fontSize: 28,
+    fontWeight: FontWeight.w500,
+  );
+  static TextStyle heading3Bold = GoogleFonts.inter(
+    fontSize: 28,
+    fontWeight: FontWeight.w700,
+  );
+  static TextStyle heading4Reguler = GoogleFonts.inter(
+    fontSize: 24,
+    fontWeight: FontWeight.w500,
+  );
+  static TextStyle heading4Bold = GoogleFonts.inter(
+    fontSize: 24,
     fontWeight: FontWeight.w700,
   );
 
-  static TextStyle mulishText = GoogleFonts.mulish(
-    fontSize: 22,
+  static TextStyle heading5Reguler = GoogleFonts.inter(
+    fontSize: 20,
+    fontWeight: FontWeight.w500,
+  );
+  static TextStyle heading5Bold = GoogleFonts.inter(
+    fontSize: 20,
+    fontWeight: FontWeight.w700,
+  );
+  static TextStyle heading6Reguler = GoogleFonts.inter(
+    fontSize: 16,
+    fontWeight: FontWeight.w500,
+  );
+  static TextStyle heading6Bold = GoogleFonts.inter(
+    fontSize: 16,
+    fontWeight: FontWeight.w700,
+  );
+  static TextStyle heading6Medium = GoogleFonts.inter(
+    fontSize: 16,
+    fontWeight: FontWeight.w500,
+  );
+
+  static TextStyle bodyNormal = GoogleFonts.inter(
+    fontSize: 16,
     fontWeight: FontWeight.w400,
+  );
+  static TextStyle bodySmall = GoogleFonts.inter(
+    fontSize: 14,
+    fontWeight: FontWeight.w400,
+  );
+
+  static TextStyle bodyLargeReguler = GoogleFonts.inter(
+    fontSize: 20,
+    fontWeight: FontWeight.w400,
+  );
+  static TextStyle bodyLargeBold = GoogleFonts.inter(
+    fontSize: 20,
+    fontWeight: FontWeight.w600,
+  );
+
+  static TextStyle bodyMediumReguler = GoogleFonts.inter(
+    fontSize: 18,
+    fontWeight: FontWeight.w400,
+  );
+  static TextStyle bodyMediumBold = GoogleFonts.inter(
+    fontSize: 18,
+    fontWeight: FontWeight.w600,
+  );
+
+  static TextStyle bodyNormalSemiBold = GoogleFonts.inter(
+    fontSize: 16,
+    fontWeight: FontWeight.w600,
+  );
+  static TextStyle bodyNormalReguler = GoogleFonts.inter(
+    fontSize: 16,
+    fontWeight: FontWeight.w400,
+  );
+
+  static TextStyle bodySmallRegular = GoogleFonts.inter(
+    fontSize: 14,
+    fontWeight: FontWeight.w400,
+  );
+  static TextStyle bodySmallMedium = GoogleFonts.inter(
+    fontSize: 14,
+    fontWeight: FontWeight.w500,
+  );
+  static TextStyle bodySmallSemiBold = GoogleFonts.inter(
+    fontSize: 14,
+    fontWeight: FontWeight.w600,
   );
 }
