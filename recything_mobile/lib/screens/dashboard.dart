@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:recything_mobile/constants/pallete.dart';
+import 'package:recything_mobile/screens/komunitas/komunitas_screen.dart';
 
 class Dasboard extends StatefulWidget {
   const Dasboard({super.key});
@@ -15,7 +16,7 @@ class _DasboardState extends State<Dasboard> {
     const Center(child: Text("daur ulang")),
     const Center(child: Text("report")),
     const Center(child: Text("mission")),
-    const Center(child: Text("komunitas")),
+    const Center(child: KomunitasScreen()),
   ];
   @override
   Widget build(BuildContext context) {

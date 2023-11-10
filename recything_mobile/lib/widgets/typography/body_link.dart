@@ -12,7 +12,7 @@ class BodyLink extends StatelessWidget {
       style: const TextStyle(
         fontSize: 16,
         color: Pallete.main,
-        fontWeight: FontWeight.bold,
+        fontWeight: FontWeight.w400,
       ),
     );
   }

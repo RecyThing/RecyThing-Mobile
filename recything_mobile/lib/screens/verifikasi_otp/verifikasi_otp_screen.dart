@@ -44,19 +44,17 @@ class VerifikasiOtpScreen extends StatelessWidget {
                 child: const Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Expanded(child: SizedBox()),
-                    SizedBox(
-                        height: 70, width: 70, child: OtpTextField(label: "")),
-                    SizedBox(width: 16),
-                    SizedBox(
-                        height: 70, width: 70, child: OtpTextField(label: "")),
-                    SizedBox(width: 16),
-                    SizedBox(
-                        height: 70, width: 70, child: OtpTextField(label: "")),
-                    SizedBox(width: 16),
                     SizedBox(
                         height: 70, width: 70, child: OtpTextField(label: "")),
                     Expanded(child: SizedBox()),
+                    SizedBox(
+                        height: 70, width: 70, child: OtpTextField(label: "")),
+                    Expanded(child: SizedBox()),
+                    SizedBox(
+                        height: 70, width: 70, child: OtpTextField(label: "")),
+                    Expanded(child: SizedBox()),
+                    SizedBox(
+                        height: 70, width: 70, child: OtpTextField(label: "")),
                   ],
                 ),
               ),

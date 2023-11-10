@@ -38,6 +38,8 @@ dependencies:
   flutter_svg: ^2.0.9
   dots_indicator: ^3.0.0
   iconly: ^1.0.1
+  stroke_text: ^0.0.2
+  avatar_stack: ^1.2.0
 
 dev_dependencies:
   flutter_test:
