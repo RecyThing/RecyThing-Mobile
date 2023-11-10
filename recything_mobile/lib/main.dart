@@ -16,6 +16,9 @@ import 'package:recything_mobile/screens/splash/splash_screen.dart';
 import 'package:recything_mobile/screens/verifikasi_otp/verifikasi_otp_screen.dart';
 import 'package:recything_mobile/screens/report/report_rubbish_screen.dart';
 
+import 'package:recything_mobile/screens/missions/detail_mission_screen.dart';
+import 'package:recything_mobile/screens/missions/missions_screen.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -38,6 +41,8 @@ class MyApp extends StatelessWidget {
       routes: {
         '/splash': (context) => const SplashScreen(),
         '/onboarding': (context) => const OnboardingScreen(),
+        '/missions': (context) => const MissionsScreen(),
+        '/detail-mission': (context) => const DetailMission(),
         '/login': (context) => const LoginScreen(),
         '/dashboard': (context) => const Dasboard(),
         '/profile': (context) => const ProfileScreen(),

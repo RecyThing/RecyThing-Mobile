@@ -100,4 +100,24 @@ class ThemeFont {
   //   fontSize: 14,
   //   fontWeight: FontWeight.w400,
   // );
+
+  static TextStyle heading6Medium = GoogleFonts.inter(
+    fontSize: 16,
+    fontWeight: FontWeight.w500,
+  );
+
+  static TextStyle bodySmallMedium = GoogleFonts.inter(
+    fontSize: 14,
+    fontWeight: FontWeight.w500,
+  );
+
+  static TextStyle bodyNormalSemiBold = GoogleFonts.inter(
+    fontSize: 16,
+    fontWeight: FontWeight.w600,
+  );
+
+  static TextStyle bodySmallRegular = GoogleFonts.inter(
+    fontSize: 14,
+    fontWeight: FontWeight.w400,
+  );
 }

@@ -41,7 +41,8 @@ dependencies:
   dots_indicator: ^3.0.0
   iconly: ^1.0.1
   image_picker: ^1.0.4
-
+  step_progress_indicator: ^1.0.2
+  easy_stepper: ^0.8.1
 
 dev_dependencies:
   flutter_test:
