@@ -43,6 +43,9 @@ dependencies:
   image_picker: ^1.0.4
   step_progress_indicator: ^1.0.2
   easy_stepper: ^0.8.1
+  stroke_text: ^0.0.2
+  avatar_stack: ^1.2.0
+
 
 dev_dependencies:
   flutter_test:
