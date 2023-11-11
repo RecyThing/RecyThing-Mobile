@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:recything_mobile/constants/pallete.dart';
 import 'package:recything_mobile/screens/article/page/kategori_daur_ulang_screen.dart';
 import 'package:recything_mobile/screens/dashboard.dart';
+import 'package:recything_mobile/screens/home/pages/detail_permasalahan_screen.dart';
 import 'package:recything_mobile/screens/home/pages/edit_profile_screen.dart';
 import 'package:recything_mobile/screens/home/pages/notifikasi_screen.dart';
 import 'package:recything_mobile/screens/home/pages/pertanyaan_umum_screen.dart';
@@ -61,7 +62,8 @@ class MyApp extends StatelessWidget {
         '/report-rubbish': (context) => const ReportRubbishScreen(),
         '/kategoriDaurUlang': (context) => const KategoriDaurUlangPage(),
         '/editProfile': (context) => const EditProfileScreen(),
-        '/pertanyaanUmum': (context) => const PertanyaanUmumScren()
+        '/pertanyaanUmum': (context) => const PertanyaanUmumScren(),
+        '/detailPermasalahan': (context) => const DetailPermasalahanScreen()
       },
     );
   }

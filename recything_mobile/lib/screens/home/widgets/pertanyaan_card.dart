@@ -31,7 +31,9 @@ class _PertanyaanCardState extends State<PertanyaanCard> {
               ),
             ),
             TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, '/detailPermasalahan');
+                },
                 child: Text(
                   "Selengkapnya",
                   style:
