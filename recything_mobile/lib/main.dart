@@ -4,6 +4,7 @@ import 'package:recything_mobile/screens/article/page/kategori_daur_ulang_screen
 import 'package:recything_mobile/screens/dashboard.dart';
 import 'package:recything_mobile/screens/home/pages/edit_profile_screen.dart';
 import 'package:recything_mobile/screens/home/pages/notifikasi_screen.dart';
+import 'package:recything_mobile/screens/home/pages/pertanyaan_umum_screen.dart';
 import 'package:recything_mobile/screens/home/pages/profile_screen.dart';
 import 'package:recything_mobile/screens/login/login_screen.dart';
 import 'package:recything_mobile/screens/poinku/pages/detail_transaksi_screen.dart';
@@ -59,7 +60,8 @@ class MyApp extends StatelessWidget {
         '/password_baru': (context) => const PasswordBaruScreen(),
         '/report-rubbish': (context) => const ReportRubbishScreen(),
         '/kategoriDaurUlang': (context) => const KategoriDaurUlangPage(),
-        '/editProfile': (context) => const EditProfileScreen()
+        '/editProfile': (context) => const EditProfileScreen(),
+        '/pertanyaanUmum': (context) => const PertanyaanUmumScren()
       },
     );
   }
