@@ -21,6 +21,81 @@ class _PoinkuCardState extends State<PoinkuCard> {
         dividerWidth += 0.15;
       }
       clickCount++;
+
+      showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+                content: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      "Selamat",
+                      style: ThemeFont.heading3Bold
+                          .copyWith(color: Pallete.secondary),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 4),
+                      child: RichText(
+                          text: TextSpan(
+                              text: "Kamu dapat ",
+                              style: ThemeFont.bodyMediumBold
+                                  .copyWith(color: Pallete.dark1),
+                              children: [
+                            TextSpan(
+                                text: "150 ",
+                                style: ThemeFont.bodyMediumBold
+                                    .copyWith(color: Pallete.secondary)),
+                            TextSpan(
+                                text: "Koin! ",
+                                style: ThemeFont.bodyMediumBold
+                                    .copyWith(color: Pallete.dark1)),
+                          ])),
+                    ),
+                    RichText(
+                        text: TextSpan(
+                            text: "Kumpulkan ",
+                            style: ThemeFont.bodySmallRegular
+                                .copyWith(color: Pallete.dark1),
+                            children: [
+                          TextSpan(
+                              text: "5 ",
+                              style: ThemeFont.bodySmallRegular
+                                  .copyWith(color: Pallete.secondary)),
+                          TextSpan(
+                              text: "Hari lagi dapatkan ",
+                              style: ThemeFont.bodySmallRegular
+                                  .copyWith(color: Pallete.dark1)),
+                          TextSpan(
+                              text: "1750 ",
+                              style: ThemeFont.bodySmallRegular
+                                  .copyWith(color: Pallete.secondary)),
+                          TextSpan(
+                              text: "Koin ",
+                              style: ThemeFont.bodySmallRegular
+                                  .copyWith(color: Pallete.dark1)),
+                        ])),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 20),
+                      child: Image.asset(
+                        "assets/images/koin.png",
+                        width: 100,
+                      ),
+                    ),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      child: MainButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: Text(
+                            "Oke",
+                            style: ThemeFont.bodySmallSemiBold
+                                .copyWith(color: Pallete.textMainButton),
+                          )),
+                    )
+                  ],
+                ),
+              ));
     });
   }
 
