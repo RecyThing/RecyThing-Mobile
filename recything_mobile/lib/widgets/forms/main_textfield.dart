@@ -8,14 +8,16 @@ class MainTextField extends StatefulWidget {
   final TextEditingController? controller;
   final bool? enable;
   final int? maxLine;
-  const MainTextField(
-      {super.key,
-      required this.label,
-      this.prefixIcon,
-      this.obscureText = false,
-      this.controller,
-      this.enable = true,
-      this.maxLine = 1});
+
+  const MainTextField({
+    super.key,
+    required this.label,
+    this.prefixIcon,
+    this.obscureText = false,
+    this.controller,
+    this.enable = true,
+    this.maxLine = 1,
+  });
 
   @override
   State<MainTextField> createState() => _MainTextFieldState();

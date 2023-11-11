@@ -13,8 +13,24 @@ class EditProfileScreen extends StatefulWidget {
 }
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
+  String _dateController = "Masukan tanggal lahir";
+
   @override
   Widget build(BuildContext context) {
+    Future<void> selectDate() async {
+      DateTime currentDate = DateTime.now();
+      DateTime? selectedDate = await showDatePicker(
+        context: context,
+        initialDate: currentDate,
+        firstDate: DateTime(1900),
+        lastDate: DateTime(2101),
+      );
+
+      setState(() {
+        _dateController = selectedDate.toString();
+      });
+    }
+
     return Scaffold(
       appBar: AppBar(
         leading: const Padding(
@@ -94,11 +110,18 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 prefixIcon: IconlyLight.location,
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.only(bottom: 16),
-              child: MainTextField(
-                label: "Masukkan Tanggal Lahir",
-                prefixIcon: IconlyLight.calendar,
+            GestureDetector(
+              onTap: selectDate,
+              child: Container(
+                margin: const EdgeInsets.only(bottom: 16),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(color: Pallete.dark3)),
+                child: MainTextField(
+                  enable: false,
+                  label: _dateController,
+                  prefixIcon: IconlyLight.calendar,
+                ),
               ),
             ),
             DropdownMenu(
