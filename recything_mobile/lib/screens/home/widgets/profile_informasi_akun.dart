@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iconly/iconly.dart';
 import 'package:recything_mobile/constants/pallete.dart';
 import 'package:recything_mobile/widgets/forms/custom_teks.dart';
 
@@ -12,20 +13,19 @@ class ProfileInformasiAkun extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("Informasi Akun",
-              style: ThemeFont.interText
-                  .copyWith(fontSize: 16, fontWeight: FontWeight.w600)),
+          Text("Informasi Akun", style: ThemeFont.bodyNormalSemiBold),
           ListTile(
             contentPadding: const EdgeInsets.symmetric(horizontal: 0.0),
-            leading: Image.asset(
-              "assets/icons/profile/profile.png",
-              width: 24,
+            leading: const Icon(
+              IconlyLight.profile,
+              size: 24,
+              color: Pallete.dark3,
             ),
             title: Row(
               children: [
                 Text(
                   "Profile Saya",
-                  style: ThemeFont.interText.copyWith(fontSize: 16),
+                  style: ThemeFont.bodyNormalReguler,
                 ),
                 const SizedBox(
                   width: 8,
@@ -47,13 +47,32 @@ class ProfileInformasiAkun extends StatelessWidget {
           const Divider(),
           ListTile(
             contentPadding: const EdgeInsets.symmetric(horizontal: 0.0),
+            leading: const Icon(
+              IconlyLight.lock,
+              size: 24,
+              color: Pallete.dark3,
+            ),
+            title: Text(
+              "Ubah Password",
+              style: ThemeFont.bodyNormalReguler,
+            ),
+            trailing: IconButton(
+                onPressed: () {},
+                icon: const Icon(
+                  Icons.arrow_forward_ios,
+                  size: 16,
+                )),
+          ),
+          const Divider(),
+          ListTile(
+            contentPadding: const EdgeInsets.symmetric(horizontal: 0.0),
             leading: Image.asset(
               "assets/icons/profile/poinku.png",
               width: 24,
             ),
             title: Text(
               "Poinku",
-              style: ThemeFont.interText.copyWith(fontSize: 16),
+              style: ThemeFont.bodyNormalReguler,
             ),
             trailing: const CustomTeks(
               name: "500.992",
@@ -69,7 +88,7 @@ class ProfileInformasiAkun extends StatelessWidget {
             ),
             title: Text(
               "Lencana",
-              style: ThemeFont.interText.copyWith(fontSize: 16),
+              style: ThemeFont.bodyNormalReguler,
             ),
             trailing: const CustomTeks(
               name: "Gold",
