@@ -5,12 +5,17 @@ class MainTextField extends StatefulWidget {
   final String label;
   final IconData? prefixIcon;
   final bool obscureText;
-  const MainTextField({
-    super.key,
-    required this.label,
-    this.prefixIcon,
-    this.obscureText = false,
-  });
+  final TextEditingController? controller;
+  final bool? enable;
+  final int? maxLine;
+  const MainTextField(
+      {super.key,
+      required this.label,
+      this.prefixIcon,
+      this.obscureText = false,
+      this.controller,
+      this.enable = true,
+      this.maxLine = 1});
 
   @override
   State<MainTextField> createState() => _MainTextFieldState();
@@ -41,8 +46,11 @@ class _MainTextFieldState extends State<MainTextField> {
   @override
   Widget build(BuildContext context) {
     return TextField(
+      controller: widget.controller,
+      enabled: widget.enable,
       focusNode: _focusNode,
       obscureText: widget.obscureText,
+      maxLines: widget.maxLine,
       decoration: InputDecoration(
         border: const OutlineInputBorder(
           borderRadius: BorderRadius.all(

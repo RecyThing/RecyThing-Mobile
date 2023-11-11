@@ -38,7 +38,9 @@ class ProfileInformasiAkun extends StatelessWidget {
               ],
             ),
             trailing: IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, '/editProfile');
+                },
                 icon: const Icon(
                   Icons.arrow_forward_ios,
                   size: 16,
