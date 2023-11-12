@@ -59,7 +59,9 @@ class ProfileInformasiAkun extends StatelessWidget {
               style: ThemeFont.bodyNormalReguler,
             ),
             trailing: IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, '/ubahPassword');
+                },
                 icon: const Icon(
                   Icons.arrow_forward_ios,
                   size: 16,

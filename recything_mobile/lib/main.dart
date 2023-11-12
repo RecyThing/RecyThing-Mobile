@@ -8,6 +8,7 @@ import 'package:recything_mobile/screens/home/pages/lencana_screen.dart';
 import 'package:recything_mobile/screens/home/pages/notifikasi_screen.dart';
 import 'package:recything_mobile/screens/home/pages/pertanyaan_umum_screen.dart';
 import 'package:recything_mobile/screens/home/pages/profile_screen.dart';
+import 'package:recything_mobile/screens/home/pages/ubah_password_screen.dart';
 import 'package:recything_mobile/screens/login/login_screen.dart';
 import 'package:recything_mobile/screens/poinku/pages/detail_transaksi_screen.dart';
 import 'package:recything_mobile/screens/poinku/pages/detail_voucher_screen.dart';
@@ -65,7 +66,8 @@ class MyApp extends StatelessWidget {
         '/editProfile': (context) => const EditProfileScreen(),
         '/pertanyaanUmum': (context) => const PertanyaanUmumScren(),
         '/detailPermasalahan': (context) => const DetailPermasalahanScreen(),
-        '/lencana': (context) => const LencanaScreen()
+        '/lencana': (context) => const LencanaScreen(),
+        '/ubahPassword': (context) => const UbahPasswordScreen()
       },
     );
   }
