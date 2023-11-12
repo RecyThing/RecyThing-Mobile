@@ -82,19 +82,24 @@ class ProfileInformasiAkun extends StatelessWidget {
             ),
           ),
           const Divider(),
-          ListTile(
-            contentPadding: const EdgeInsets.symmetric(horizontal: 0.0),
-            leading: Image.asset(
-              "assets/icons/profile/lencana.png",
-              width: 24,
-            ),
-            title: Text(
-              "Lencana",
-              style: ThemeFont.bodyNormalReguler,
-            ),
-            trailing: const CustomTeks(
-              name: "Gold",
-              color: Pallete.secondaryDarker,
+          GestureDetector(
+            onTap: () {
+              Navigator.pushNamed(context, '/lencana');
+            },
+            child: ListTile(
+              contentPadding: const EdgeInsets.symmetric(horizontal: 0.0),
+              leading: Image.asset(
+                "assets/icons/profile/lencana.png",
+                width: 24,
+              ),
+              title: Text(
+                "Lencana",
+                style: ThemeFont.bodyNormalReguler,
+              ),
+              trailing: const CustomTeks(
+                name: "Gold",
+                color: Pallete.secondaryDarker,
+              ),
             ),
           ),
           const Divider()

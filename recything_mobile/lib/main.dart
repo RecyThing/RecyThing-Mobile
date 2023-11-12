@@ -4,6 +4,7 @@ import 'package:recything_mobile/screens/article/page/kategori_daur_ulang_screen
 import 'package:recything_mobile/screens/dashboard.dart';
 import 'package:recything_mobile/screens/home/pages/detail_permasalahan_screen.dart';
 import 'package:recything_mobile/screens/home/pages/edit_profile_screen.dart';
+import 'package:recything_mobile/screens/home/pages/lencana_screen.dart';
 import 'package:recything_mobile/screens/home/pages/notifikasi_screen.dart';
 import 'package:recything_mobile/screens/home/pages/pertanyaan_umum_screen.dart';
 import 'package:recything_mobile/screens/home/pages/profile_screen.dart';
@@ -63,7 +64,8 @@ class MyApp extends StatelessWidget {
         '/kategoriDaurUlang': (context) => const KategoriDaurUlangPage(),
         '/editProfile': (context) => const EditProfileScreen(),
         '/pertanyaanUmum': (context) => const PertanyaanUmumScren(),
-        '/detailPermasalahan': (context) => const DetailPermasalahanScreen()
+        '/detailPermasalahan': (context) => const DetailPermasalahanScreen(),
+        '/lencana': (context) => const LencanaScreen()
       },
     );
   }
