@@ -105,12 +105,12 @@ class _ReportRubbishScreenState extends State<ReportRubbishScreen> {
                       });
                     },
                     activeColor: Pallete.main,
-                    side: BorderSide(
+                    side: const BorderSide(
                       color: Colors.grey,
                       width: 1,
                     ),
                   ),
-                  Text('Sampah Kering')
+                  const Text('Sampah Kering')
                 ],
               ),
               Row(
@@ -123,9 +123,9 @@ class _ReportRubbishScreenState extends State<ReportRubbishScreen> {
                       });
                     },
                     activeColor: Pallete.main,
-                    side: BorderSide(color: Colors.grey, width: 1),
+                    side: const BorderSide(color: Colors.grey, width: 1),
                   ),
-                  Text('Sampah Basah')
+                  const Text('Sampah Basah')
                 ],
               ),
               const SizedBox(
@@ -140,7 +140,7 @@ class _ReportRubbishScreenState extends State<ReportRubbishScreen> {
               const SizedBox(
                 height: 4,
               ),
-              TextField(
+              const TextField(
                 maxLines: 5,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
@@ -169,7 +169,7 @@ class _ReportRubbishScreenState extends State<ReportRubbishScreen> {
                   children: [
                     for (final image in selectedImages!)
                       Padding(
-                        padding: EdgeInsets.symmetric(vertical: 8),
+                        padding: const EdgeInsets.symmetric(vertical: 8),
                         child: Image.file(
                           File(image.path),
                         ),
@@ -179,12 +179,12 @@ class _ReportRubbishScreenState extends State<ReportRubbishScreen> {
               ElevatedButton(
                 onPressed: pickImage,
                 style: ElevatedButton.styleFrom(
-                  minimumSize: Size(80, 80),
+                  minimumSize: const Size(80, 80),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
                 ),
-                child: Icon(
+                child: const Icon(
                   Icons.add,
                   color: Colors.grey,
                 ),
@@ -199,7 +199,15 @@ class _ReportRubbishScreenState extends State<ReportRubbishScreen> {
                     fontWeight: ThemeFont.bodySmall.fontWeight,
                     color: Pallete.dark3),
               ),
-              MainButton(onPressed: () {}, text: 'Kirim')
+              MainButton(
+                onPressed: () {},
+                child: Text(
+                  "Kirim",
+                  style: ThemeFont.heading6Reguler.copyWith(
+                      color: Pallete.textMainButton,
+                      fontWeight: FontWeight.w700),
+                ),
+              )
             ],
           ),
         ));

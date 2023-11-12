@@ -42,16 +42,4 @@ class ThemeTextStyle {
     fontSize: 20,
     fontWeight: FontWeight.w400,
   );
-  TextStyle bodyMedium = GoogleFonts.inter(
-    fontSize: 18,
-    fontWeight: FontWeight.w400,
-  );
-  TextStyle bodyNormal = GoogleFonts.inter(
-    fontSize: 16,
-    fontWeight: FontWeight.w400,
-  );
-  TextStyle bodySmall = GoogleFonts.inter(
-    fontSize: 14,
-    fontWeight: FontWeight.w400,
-  );
 }

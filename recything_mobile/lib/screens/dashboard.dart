@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:recything_mobile/constants/pallete.dart';
+import 'package:recything_mobile/screens/home/pages/home_screen.dart';
+import 'package:recything_mobile/screens/missions/missions_screen.dart';
+import 'package:recything_mobile/screens/report/choose_report_screen.dart';
+import 'package:recything_mobile/screens/article/page/dashboard_screen.dart';
+import 'package:recything_mobile/screens/komunitas/komunitas_screen.dart';
 
 class Dasboard extends StatefulWidget {
   const Dasboard({super.key});
@@ -11,11 +16,11 @@ class Dasboard extends StatefulWidget {
 class _DasboardState extends State<Dasboard> {
   int currenIndex = 0;
   List bodyScreen = [
-    const Center(child: Text("home")),
-    const Center(child: Text("daur ulang")),
-    const Center(child: Text("report")),
-    const Center(child: Text("mission")),
-    const Center(child: Text("komunitas")),
+    const HomeScreen(),
+    const ArticleDashboardPage(),
+    const ChooseReport(),
+    const MissionsScreen(),
+    const KomunitasScreen(),
   ];
   @override
   Widget build(BuildContext context) {

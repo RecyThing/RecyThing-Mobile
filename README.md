@@ -1,2 +1,2 @@
 # RecyThing-Mobile
-Build application with flutter framework
+ini branch nya sinta

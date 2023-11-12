@@ -17,7 +17,7 @@ class _ChooseReportState extends State<ChooseReport> {
         backgroundColor: Colors.white,
         title: Text(
           'Pelaporan',
-          style: ThemeFont.heading6,
+          style: ThemeFont.heading6Reguler,
         ),
         centerTitle: true,
       ),
@@ -28,7 +28,7 @@ class _ChooseReportState extends State<ChooseReport> {
             padding: const EdgeInsets.only(top: 24, left: 16),
             child: Text(
               'Pilih Jenis Pelaporan',
-              style: ThemeFont.heading6,
+              style: ThemeFont.heading6Reguler,
             ),
           ),
           GestureDetector(
@@ -63,7 +63,7 @@ class _ChooseReportState extends State<ChooseReport> {
               children: [
                 Text(
                   'Riwayat Pelaporan',
-                  style: ThemeFont.heading6,
+                  style: ThemeFont.heading6Reguler,
                 ),
                 const SizedBox(height: 24),
                 Center(
