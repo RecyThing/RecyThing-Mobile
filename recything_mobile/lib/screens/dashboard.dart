@@ -18,7 +18,7 @@ class _DasboardState extends State<Dasboard> {
   List bodyScreen = [
     const HomeScreen(),
     const ArticleDashboardPage(),
-    const ChooseReport(),
+    const ChooseReportScreen(),
     const MissionsScreen(),
     const KomunitasScreen(),
   ];

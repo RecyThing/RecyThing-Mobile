@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:recything_mobile/constants/pallete.dart';
 
-class ChooseReport extends StatefulWidget {
-  const ChooseReport({Key? key}) : super(key: key);
+class ChooseReportScreen extends StatefulWidget {
+  const ChooseReportScreen({Key? key}) : super(key: key);
 
   @override
-  _ChooseReportState createState() => _ChooseReportState();
+  _ChooseReportScreenState createState() => _ChooseReportScreenState();
 }
 
-class _ChooseReportState extends State<ChooseReport> {
+class _ChooseReportScreenState extends State<ChooseReportScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
