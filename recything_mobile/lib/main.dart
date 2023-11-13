@@ -67,7 +67,7 @@ class MyApp extends StatelessWidget {
         '/pertanyaanUmum': (context) => const PertanyaanUmumScren(),
         '/detailPermasalahan': (context) => const DetailPermasalahanScreen(),
         '/lencana': (context) => const LencanaScreen(),
-        '/ubahPassword': (context) => const UbahPasswordScreen()
+        '/ubahPassword': (context) => const UbahPasswordScreen(),
       },
     );
   }

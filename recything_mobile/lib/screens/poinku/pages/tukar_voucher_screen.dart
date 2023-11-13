@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:recything_mobile/constants/pallete.dart';
 import 'package:recything_mobile/widgets/forms/main_button.dart';
 import 'package:recything_mobile/widgets/forms/main_textfield.dart';
+import 'package:recything_mobile/widgets/forms/success_screen.dart';
 
 class TukatVoucherScreen extends StatefulWidget {
   const TukatVoucherScreen({super.key});
@@ -53,7 +54,15 @@ class _TukatVoucherScreenState extends State<TukatVoucherScreen> {
             SizedBox(
                 width: MediaQuery.of(context).size.width,
                 child: MainButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const SuccessScreen(
+                                  title: "Selamat",
+                                  subtitle:
+                                      "Selamat kamu berhasil menukarkan poin dengan voucher e-wallet dana, mohon ditunggu voucher kamu segera kami proses.")));
+                    },
                     child: Text(
                       "Konfirmasi",
                       style: ThemeFont.heading6Reguler.copyWith(
