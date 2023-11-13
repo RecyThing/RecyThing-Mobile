@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:iconly/iconly.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:recything_mobile/constants/pallete.dart';
 import 'package:recything_mobile/widgets/forms/main_button.dart';
@@ -55,7 +56,7 @@ class _ReportRubbishScreenState extends State<ReportRubbishScreen> {
                     const Expanded(
                       child: MainTextField(
                         label: 'Lokasi Sampah',
-                        prefixIcon: Icons.location_on_outlined,
+                        prefixIcon: IconlyLight.location,
                       ),
                     ),
                     const SizedBox(
@@ -71,6 +72,7 @@ class _ReportRubbishScreenState extends State<ReportRubbishScreen> {
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12),
                             )),
+                        // child: Icon(IconlyBold.location),
                         child: Image.asset(
                           'assets/images/location_map.png',
                           width: 24,
@@ -206,7 +208,7 @@ class _ReportRubbishScreenState extends State<ReportRubbishScreen> {
                       fontWeight: ThemeFont.bodySmall.fontWeight,
                       color: Pallete.dark3),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 16,
                 ),
                 Align(
