@@ -39,9 +39,7 @@ class _ReportRubbishScreenState extends State<ReportRubbishScreen> {
         appBar: AppBar(
           title: Text(
             'Tumpukan Sampah',
-            style: TextStyle(
-                fontSize: ThemeFont.heading6Medium.fontSize,
-                fontWeight: FontWeight.w500),
+            style: ThemeFont.heading6Medium.copyWith(color: Colors.black),
           ),
           centerTitle: true,
         ),
@@ -99,7 +97,7 @@ class _ReportRubbishScreenState extends State<ReportRubbishScreen> {
                 Text(
                   'Jenis Sampah',
                   style: TextStyle(
-                      fontSize: ThemeFont.bodyNormal.fontSize,
+                      fontSize: ThemeFont.bodyNormalReguler.fontSize,
                       fontWeight: FontWeight.w400),
                 ),
                 Row(
@@ -203,10 +201,8 @@ class _ReportRubbishScreenState extends State<ReportRubbishScreen> {
                 ),
                 Text(
                   'Maksimum file: 20 MB',
-                  style: TextStyle(
-                      fontSize: ThemeFont.bodySmall.fontSize,
-                      fontWeight: ThemeFont.bodySmall.fontWeight,
-                      color: Pallete.dark3),
+                  style: ThemeFont.bodySmallRegular.copyWith(
+                      color: Pallete.dark3, fontWeight: FontWeight.w400),
                 ),
                 const SizedBox(
                   height: 16,
