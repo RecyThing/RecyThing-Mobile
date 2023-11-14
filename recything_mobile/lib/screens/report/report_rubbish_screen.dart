@@ -5,9 +5,9 @@ import 'package:iconly/iconly.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:recything_mobile/constants/pallete.dart';
 import 'package:recything_mobile/screens/report/report_rubbish_maps_screen.dart';
+import 'package:recything_mobile/screens/report/widget/text_field_report.dart';
 import 'package:recything_mobile/widgets/forms/main_button.dart';
 import 'package:recything_mobile/widgets/forms/main_textfield.dart';
-import 'package:recything_mobile/widgets/forms/text_field_without_icon.dart';
 
 class ReportRubbishScreen extends StatefulWidget {
   const ReportRubbishScreen({super.key});
@@ -27,6 +27,7 @@ class _ReportRubbishScreenState extends State<ReportRubbishScreen> {
     final pickedImages =
         await imagePicker.pickMultiImage(); //mengambil gambar dari galeri
 
+    // menampilkan gambarnya
     if (pickedImages != null) {
       setState(() {
         selectedImages = pickedImages;
@@ -69,7 +70,8 @@ class _ReportRubbishScreenState extends State<ReportRubbishScreen> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => ReportRubbishMapsScreen(),
+                              builder: (context) =>
+                                  const ReportRubbishMapsScreen(),
                             ),
                           );
                         },
@@ -78,7 +80,6 @@ class _ReportRubbishScreenState extends State<ReportRubbishScreen> {
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12),
                             )),
-                        // child: Icon(IconlyBold.location),
                         child: Image.asset(
                           'assets/images/location_map.png',
                           width: 24,
@@ -98,7 +99,7 @@ class _ReportRubbishScreenState extends State<ReportRubbishScreen> {
                       fontSize: ThemeFont.bodySmall.fontSize,
                       fontWeight: FontWeight.w500),
                 ),
-                const TextFieldWithoutIcon(label: 'Cth: Sebelah Masjid Nawawi'),
+                const TextFieldReport(hinttext: 'Cth: Sebelah Masjid Nawawi'),
                 const SizedBox(
                   height: 16,
                 ),
@@ -153,21 +154,10 @@ class _ReportRubbishScreenState extends State<ReportRubbishScreen> {
                 const SizedBox(
                   height: 4,
                 ),
-                const TextField(
-                  maxLines: 5,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(12),
-                      ),
-                    ),
-                    hintText:
-                        'Cth: Saya melihat tumpukan sampah yang sangat banyak, sampah sangat bercampur basah dan kering',
-                    focusColor: Pallete.dark1,
-                    labelStyle: TextStyle(color: Pallete.dark2),
-                    contentPadding: EdgeInsets.all(16),
-                  ),
-                ),
+                const TextFieldReport(
+                    maxLines: 5,
+                    hinttext:
+                        'Cth: Saya melihat tumpukan sampah yang sangat banyak, sampah sangat bercampur basah dan kering'),
                 const SizedBox(
                   height: 16,
                 ),
