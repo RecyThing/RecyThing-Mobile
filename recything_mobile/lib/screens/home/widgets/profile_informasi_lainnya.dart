@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 import 'package:recything_mobile/constants/pallete.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ProfileInformasiLainnya extends StatelessWidget {
   const ProfileInformasiLainnya({super.key});
@@ -21,7 +22,10 @@ class ProfileInformasiLainnya extends StatelessWidget {
               style: ThemeFont.bodyNormalReguler,
             ),
             trailing: IconButton(
-                onPressed: () {},
+                onPressed: () async {
+                  var waUrl = Uri.parse("https://wa.me/6289522933558");
+                  launchUrl(waUrl);
+                },
                 icon: const Icon(
                   Icons.arrow_forward_ios,
                   size: 16,
