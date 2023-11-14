@@ -20,11 +20,11 @@ class _DetailRiwayatPelaporanScreenState
         centerTitle: true,
       ),
       body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        CustomCard(
-            title: title,
-            description: description,
-            assetImage: assetImage,
-            cardColor: cardColor)
+        // CustomCard(
+        //     title: title,
+        //     description: description,
+        //     assetImage: assetImage,
+        //     cardColor: cardColor)
       ]),
     );
   }
