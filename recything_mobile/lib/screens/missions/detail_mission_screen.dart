@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:iconly/iconly.dart';
 import 'package:recything_mobile/constants/pallete.dart';
 import 'package:recything_mobile/screens/missions/widgets/progress_step.dart';
+import 'package:recything_mobile/widgets/forms/main_button.dart';
 
 class DetailMission extends StatelessWidget {
+  final String progressState = 'Unggah Bukti';
+
   const DetailMission({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        scrolledUnderElevation: 0,
         automaticallyImplyLeading: false,
         backgroundColor: Colors.white,
         title: Row(
@@ -24,7 +28,7 @@ class DetailMission extends StatelessWidget {
                   border: Border.all(color: Pallete.light3)),
               child: IconButton(
                 icon: const Icon(
-                  Icons.arrow_back_rounded,
+                  IconlyLight.arrow_left,
                   size: 24,
                 ),
                 onPressed: () => Navigator.pop(context),
@@ -32,9 +36,7 @@ class DetailMission extends StatelessWidget {
             ),
             Text(
               'Detail Misi',
-              style: GoogleFonts.inter(
-                  textStyle: const TextStyle(
-                      fontSize: 16, fontWeight: FontWeight.w500)),
+              style: ThemeFont.heading6Medium,
             ),
             const SizedBox(
               width: 24,
@@ -62,8 +64,7 @@ class DetailMission extends StatelessWidget {
               children: [
                 Text(
                   'Buang Sampah',
-                  style: GoogleFonts.inter(
-                      fontSize: 20, fontWeight: FontWeight.w500),
+                  style: ThemeFont.bodyLargeMedium,
                 ),
                 const SizedBox(
                   height: 16,
@@ -76,44 +77,29 @@ class DetailMission extends StatelessWidget {
                       children: [
                         Text(
                           'Berlaku Sampai',
-                          style: GoogleFonts.inter(
-                              textStyle: const TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w400)),
+                          style: ThemeFont.bodySmallRegular,
                         ),
                         const SizedBox(
                           height: 4,
                         ),
                         Text(
                           '02 Desember 2023',
-                          style: GoogleFonts.inter(
-                              textStyle: const TextStyle(
-                                  color: Pallete.dark3,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600)),
+                          style: ThemeFont.bodySmallSemiBold
+                              .copyWith(color: Pallete.infoLigther),
                         )
                       ],
                     ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Hadiah',
-                            style: GoogleFonts.inter(
-                                textStyle: const TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w400))),
+                        Text('Hadiah', style: ThemeFont.bodySmallRegular),
                         const SizedBox(
                           height: 4,
                         ),
                         Text(
                           '100 poin',
-                          style: GoogleFonts.inter(
-                              textStyle: const TextStyle(
-                                  color: Pallete.secondary,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600)),
+                          style: ThemeFont.bodySmallSemiBold
+                              .copyWith(color: Pallete.secondary),
                         )
                       ],
                     )
@@ -124,23 +110,37 @@ class DetailMission extends StatelessWidget {
                 ),
                 Text(
                   'Deskripsi',
-                  style: GoogleFonts.inter(
-                      textStyle: const TextStyle(
-                          fontSize: 14, fontWeight: FontWeight.w600)),
+                  style: ThemeFont.bodySmallSemiBold,
                 ),
                 const SizedBox(
                   height: 8,
                 ),
                 Text(
                   'Buanglah sampah yang berserakan pada\ntempatnya',
-                  style: GoogleFonts.inter(
-                      textStyle: const TextStyle(
-                          fontSize: 14, fontWeight: FontWeight.w400)),
+                  style: ThemeFont.bodySmallRegular,
                 ),
                 const SizedBox(
                   height: 24,
                 ),
-                const ProgressStep()
+                ProgressStep(
+                  progressState: progressState,
+                ),
+                const SizedBox(
+                  height: 24,
+                ),
+                SizedBox(
+                  width: double.infinity,
+                  child: MainButton(
+                      onPressed: () {},
+                      child: Text(
+                        progressState,
+                        style: ThemeFont.heading6Bold
+                            .copyWith(color: Colors.white),
+                      )),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
               ],
             ),
           )

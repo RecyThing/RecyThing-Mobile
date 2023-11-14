@@ -45,6 +45,7 @@ dependencies:
   easy_stepper: ^0.8.1
   stroke_text: ^0.0.2
   avatar_stack: ^1.2.0
+  dotted_line: ^3.2.2
 
 
 dev_dependencies:
