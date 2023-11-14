@@ -34,7 +34,7 @@ class OnboardingScreen2 extends StatelessWidget {
             const SizedBox(height: 32),
             Text(
               "Laporkan Tumpukan dan Pelanggaran Sampah ",
-              style: ThemeFont.heading5Reguler,
+              style: ThemeFont.heading5Bold,
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 16),

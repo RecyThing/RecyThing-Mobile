@@ -32,6 +32,7 @@ class _DasboardState extends State<Dasboard> {
             color: Pallete.textMainButton, shape: BoxShape.circle),
         padding: const EdgeInsets.all(6),
         child: FloatingActionButton(
+          heroTag: "reportFab",
           backgroundColor: Pallete.main,
           shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(100))),

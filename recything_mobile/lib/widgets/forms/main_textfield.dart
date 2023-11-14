@@ -5,11 +5,17 @@ class MainTextField extends StatefulWidget {
   final String label;
   final IconData? prefixIcon;
   final bool obscureText;
+  final void Function()? onTap;
+  final bool? enabled;
+  final Widget? suffixIcon;
   const MainTextField({
     super.key,
     required this.label,
     this.prefixIcon,
     this.obscureText = false,
+    this.onTap,
+    this.enabled = true,
+    this.suffixIcon,
   });
 
   @override
@@ -41,6 +47,8 @@ class _MainTextFieldState extends State<MainTextField> {
   @override
   Widget build(BuildContext context) {
     return TextField(
+      onTap: widget.onTap,
+      enabled: widget.enabled,
       focusNode: _focusNode,
       obscureText: widget.obscureText,
       decoration: InputDecoration(
@@ -58,7 +66,7 @@ class _MainTextFieldState extends State<MainTextField> {
         focusColor: Pallete.info,
         labelStyle: TextStyle(color: _isFocused ? Pallete.info : Pallete.dark3),
         label: Text(widget.label),
-        // hintText: "Masukan Email / No HP",
+        suffixIcon: widget.suffixIcon,
         prefixIcon: Icon(
           widget.prefixIcon,
           color: Pallete.dark3,

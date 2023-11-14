@@ -4,12 +4,18 @@ import 'package:recything_mobile/constants/pallete.dart';
 class UnderLinedButton extends StatelessWidget {
   final String title;
   final bool active;
-  const UnderLinedButton({super.key, required this.title, this.active = false});
+  final void Function()? onTap;
+  const UnderLinedButton({
+    super.key,
+    required this.title,
+    this.active = false,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: onTap,
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 8),
         decoration: BoxDecoration(

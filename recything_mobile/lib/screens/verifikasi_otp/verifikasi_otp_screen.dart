@@ -60,7 +60,7 @@ class VerifikasiOtpScreen extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Text(
                     "Tidak menerima kode? ",

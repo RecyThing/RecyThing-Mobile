@@ -6,8 +6,16 @@ import 'package:recything_mobile/widgets/forms/main_textfield.dart';
 
 import '../../constants/pallete.dart';
 
-class PasswordBaruScreen extends StatelessWidget {
+class PasswordBaruScreen extends StatefulWidget {
   const PasswordBaruScreen({super.key});
+
+  @override
+  State<PasswordBaruScreen> createState() => _PasswordBaruScreenState();
+}
+
+class _PasswordBaruScreenState extends State<PasswordBaruScreen> {
+  bool showPwd = false;
+  bool showPwd2 = false;
 
   @override
   Widget build(BuildContext context) {
@@ -40,16 +48,38 @@ class PasswordBaruScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 24),
-              const MainTextField(
+              MainTextField(
                 label: "Masukan Kata Sandi",
                 prefixIcon: IconlyLight.lock,
-                obscureText: true,
+                obscureText: !showPwd,
+                suffixIcon: GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      showPwd = !showPwd;
+                    });
+                  },
+                  child: Icon(
+                    !showPwd ? IconlyLight.show : IconlyLight.hide,
+                    color: Pallete.dark3,
+                  ),
+                ),
               ),
               const SizedBox(height: 12),
-              const MainTextField(
+              MainTextField(
                 label: "Konfirmasi Kata Sandi",
                 prefixIcon: IconlyLight.lock,
-                obscureText: true,
+                obscureText: !showPwd2,
+                suffixIcon: GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      showPwd2 = !showPwd2;
+                    });
+                  },
+                  child: Icon(
+                    !showPwd2 ? IconlyLight.show : IconlyLight.hide,
+                    color: Pallete.dark3,
+                  ),
+                ),
               ),
               const SizedBox(height: 24),
               Row(

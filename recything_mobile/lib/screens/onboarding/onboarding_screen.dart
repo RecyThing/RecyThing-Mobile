@@ -34,13 +34,13 @@ class OnboardingScreen extends StatelessWidget {
             const SizedBox(height: 32),
             Text(
               "Jelajahi Informasi dan Daur Ulang Sampahmu",
-              style: ThemeFont.heading5Reguler,
+              style: ThemeFont.heading5Bold,
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 16),
             Text(
               "Akses informasi yang dapat membantu Anda berperan dalam perubahan positif melalui daur ulang",
-              style: ThemeFont.bodyNormal
+              style: ThemeFont.bodyNormalReguler
                   .copyWith(height: 1.64, color: Pallete.textSecondary),
               textAlign: TextAlign.center,
             ),
