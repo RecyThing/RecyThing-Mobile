@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:recything_mobile/constants/pallete.dart';
+import 'package:recything_mobile/screens/report/report_rubbish_maps_screen.dart';
 import 'package:recything_mobile/widgets/forms/main_button.dart';
 import 'package:recything_mobile/widgets/forms/main_textfield.dart';
 import 'package:recything_mobile/widgets/forms/text_field_without_icon.dart';
@@ -64,7 +65,14 @@ class _ReportRubbishScreenState extends State<ReportRubbishScreen> {
                       width: 56,
                       height: 56,
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ReportRubbishMapsScreen(),
+                            ),
+                          );
+                        },
                         style: ElevatedButton.styleFrom(
                             backgroundColor: Pallete.main,
                             shape: RoundedRectangleBorder(
