@@ -1,0 +1,142 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:iconly/iconly.dart';
+import 'package:recything_mobile/bloc/get_ai/get_ai_cubit.dart';
+import 'package:recything_mobile/constants/pallete.dart';
+import 'package:recything_mobile/screens/recy/widget/recy_chat.dart';
+import 'package:recything_mobile/screens/recy/widget/user_chat.dart';
+import 'package:recything_mobile/widgets/forms/custom_back_button.dart';
+
+class RecyAiScreen extends StatefulWidget {
+  const RecyAiScreen({super.key});
+
+  @override
+  State<RecyAiScreen> createState() => _RecyAiScreenState();
+}
+
+class _RecyAiScreenState extends State<RecyAiScreen> {
+  @override
+  Widget build(BuildContext context) {
+    TextEditingController aiEcd = TextEditingController();
+    String? myMessage;
+
+    void reset() {
+      aiEcd.clear();
+    }
+
+    return Scaffold(
+      appBar: AppBar(
+          centerTitle: true,
+          backgroundColor: Pallete.textMainButton,
+          leading: const Padding(
+            padding: EdgeInsets.only(left: 16),
+            child: CustomBackButton(),
+          ),
+          title: ListTile(
+            leading: CircleAvatar(
+              backgroundColor: Pallete.main,
+              child: Image.asset(
+                "assets/icons/profile/mbarecy.png",
+                width: 24,
+                color: Pallete.textMainButton,
+              ),
+            ),
+            title: Text(
+              "Recy",
+              style: ThemeFont.heading6Medium,
+            ),
+            subtitle: Row(
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(5),
+                  decoration: const BoxDecoration(
+                      shape: BoxShape.circle, color: Pallete.main),
+                ),
+                Text(
+                  " Online",
+                  style:
+                      ThemeFont.bodySmallRegular.copyWith(color: Pallete.main),
+                )
+              ],
+            ),
+          )),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            RecyChat(
+              text: "Halo! Saya Recy. Bagaimana Saya bisa membantu Anda?",
+              time:
+                  "${DateTime.now().hour.toString()}:${DateTime.now().minute.toString()}",
+            ),
+            BlocBuilder<GetAiCubit, GetAiState>(builder: (context, state) {
+              if (state is GetAiLoading) {
+                return const SizedBox(
+                  child: CircularProgressIndicator(),
+                );
+              } else if (state is GetAiFailure) {
+                return Text(state.msg);
+              } else if (state is GetAiSuccess) {
+                return Column(
+                  children: [
+                    UserChat(
+                        text: myMessage ?? "",
+                        time:
+                            "${DateTime.now().hour.toString()}:${DateTime.now().minute.toString()}"),
+                    RecyChat(
+                      text: state.data,
+                      time:
+                          "${DateTime.now().hour.toString()}:${DateTime.now().minute.toString()}",
+                    ),
+                  ],
+                );
+              }
+              return const SizedBox();
+            })
+          ],
+        ),
+      ),
+      floatingActionButton: Container(
+        margin: const EdgeInsets.only(left: 30),
+        child: Row(
+          children: [
+            Expanded(
+              child: TextFormField(
+                controller: aiEcd,
+                decoration: InputDecoration(
+                  hintText: 'Tuliskan disini',
+                  hintStyle:
+                      ThemeFont.bodySmallMedium.copyWith(color: Pallete.dark3),
+                  filled: true,
+                  fillColor: Pallete.light2,
+                  contentPadding: const EdgeInsets.all(10),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide.none,
+                  ),
+                ),
+              ),
+            ),
+            Container(
+              margin: const EdgeInsets.only(left: 12),
+              decoration: BoxDecoration(
+                  border: Border.all(
+                    color: Pallete.main,
+                  ),
+                  borderRadius: BorderRadius.circular(12)),
+              child: IconButton(
+                  onPressed: () {
+                    myMessage = aiEcd.text;
+                    context.read<GetAiCubit>().fetchAi(aiEcd.text);
+                    reset();
+                  },
+                  icon: const Icon(
+                    IconlyLight.send,
+                    color: Pallete.main,
+                  )),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
