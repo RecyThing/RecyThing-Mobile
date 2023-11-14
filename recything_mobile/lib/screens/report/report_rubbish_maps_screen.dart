@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -12,6 +13,7 @@ class ReportRubbishMapsScreen extends StatefulWidget {
 
 class _ReportRubbishMapsScreenState extends State<ReportRubbishMapsScreen> {
   Position? _currentPosition;
+  String? _currentAddress;
 
   Future<void> _getCurrentPosition() async {
     PermissionStatus status = await _handleLocationPermission(context);
@@ -23,6 +25,7 @@ class _ReportRubbishMapsScreenState extends State<ReportRubbishMapsScreen> {
         );
         setState(() {
           _currentPosition = position;
+          _getAddress(position);
         });
       } catch (e) {
         print('Error getting location: $e');
@@ -57,6 +60,17 @@ class _ReportRubbishMapsScreenState extends State<ReportRubbishMapsScreen> {
     }
 
     return status;
+  }
+
+  Future<void> _getAddress(Position position) async {
+    await placemarkFromCoordinates(position.latitude, position.longitude)
+        .then((List<Placemark> listPlacemark) {
+      setState(() {
+        Placemark placemark = listPlacemark.first;
+        _currentAddress =
+            '${placemark.thoroughfare}, ${placemark.subThoroughfare}, ${placemark.subLocality}, ${placemark.locality}, ${placemark.subAdministrativeArea}, ${placemark.administrativeArea}';
+      });
+    });
   }
 
   // Future<void> _getCurrentPosition() async {
@@ -139,7 +153,7 @@ class _ReportRubbishMapsScreenState extends State<ReportRubbishMapsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Location'),
+        title: const Text('Location'),
       ),
       body: Center(
         child: Column(
@@ -147,6 +161,7 @@ class _ReportRubbishMapsScreenState extends State<ReportRubbishMapsScreen> {
           children: [
             Text('Latitude: ${_currentPosition?.latitude ?? "-"}'),
             Text('Longitude: ${_currentPosition?.longitude ?? "-"}'),
+            Text('Address: ${_currentAddress ?? "-"}'),
             ElevatedButton(
               onPressed: () async {
                 await _getCurrentPosition();
