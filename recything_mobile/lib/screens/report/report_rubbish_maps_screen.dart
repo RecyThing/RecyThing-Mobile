@@ -165,6 +165,8 @@ class _ReportRubbishMapsScreenState extends State<ReportRubbishMapsScreen> {
             ElevatedButton(
               onPressed: () async {
                 await _getCurrentPosition();
+                // back ke halaman report rubbish
+                Navigator.pop(context, _currentAddress);
               },
               child: Text('Get Location'),
             ),
