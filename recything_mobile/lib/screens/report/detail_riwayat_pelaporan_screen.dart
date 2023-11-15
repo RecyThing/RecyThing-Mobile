@@ -4,7 +4,14 @@ import 'package:recything_mobile/screens/report/widget/custom_card.dart';
 import 'package:recything_mobile/screens/report/widget/detail_report_card.dart';
 
 class DetailRiwayatPelaporanScreen extends StatefulWidget {
-  const DetailRiwayatPelaporanScreen({super.key});
+  final String? lokasiPatokanText;
+  final String? kondisiSampahText;
+
+  const DetailRiwayatPelaporanScreen({
+    super.key,
+    this.lokasiPatokanText,
+    this.kondisiSampahText,
+  });
 
   @override
   State<DetailRiwayatPelaporanScreen> createState() =>
@@ -119,9 +126,9 @@ class _DetailRiwayatPelaporanScreenState
                   const SizedBox(
                     height: 16,
                   ),
-                  const DetailReportCard(
+                  DetailReportCard(
                     title: 'Lokasi Patokan',
-                    subTitle: 'Sebelah Utara Pertigaan Jln DI Pandjaitan',
+                    subTitle: widget.lokasiPatokanText,
                   ),
                   const SizedBox(
                     height: 16,
@@ -133,9 +140,9 @@ class _DetailRiwayatPelaporanScreenState
                   const SizedBox(
                     height: 16,
                   ),
-                  const DetailReportCard(
+                  DetailReportCard(
                     title: 'Detail Kondisi Sampah',
-                    subTitle: 'ada sampah disana tadi bang',
+                    subTitle: widget.kondisiSampahText,
                   ),
                   const SizedBox(
                     height: 16,

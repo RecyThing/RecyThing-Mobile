@@ -24,6 +24,9 @@ class _ReportRubbishScreenState extends State<ReportRubbishScreen> {
   List<XFile>? selectedImages = []; //menyimpan gambar yang dipilih
   String? _locationAddress; //menyimpan alamat dari maps
 
+  String? lokasiPatokanText;
+  String? kondisiSampahText;
+
   Future<void> pickImage() async {
     final imagePicker = ImagePicker();
     final pickedImages =
@@ -112,6 +115,11 @@ class _ReportRubbishScreenState extends State<ReportRubbishScreen> {
                   ),
                   TextFieldReport(
                     hinttext: 'Cth: Sebelah Masjid Nawawi',
+                    onChanged: (value) {
+                      setState(() {
+                        lokasiPatokanText = value;
+                      });
+                    },
                   ),
                   const SizedBox(
                     height: 16,
@@ -167,10 +175,16 @@ class _ReportRubbishScreenState extends State<ReportRubbishScreen> {
                   const SizedBox(
                     height: 4,
                   ),
-                  const TextFieldReport(
-                      maxLines: 5,
-                      hinttext:
-                          'Cth: Saya melihat tumpukan sampah yang sangat banyak, sampah sangat bercampur basah dan kering'),
+                  TextFieldReport(
+                    maxLines: 5,
+                    hinttext:
+                        'Cth: Saya melihat tumpukan sampah yang sangat banyak, sampah sangat bercampur basah dan kering',
+                    onChanged: (value) {
+                      setState(() {
+                        kondisiSampahText = value;
+                      });
+                    },
+                  ),
                   const SizedBox(
                     height: 16,
                   ),
@@ -228,7 +242,9 @@ class _ReportRubbishScreenState extends State<ReportRubbishScreen> {
                             context,
                             MaterialPageRoute(
                               builder: (context) =>
-                                  DetailRiwayatPelaporanScreen(),
+                                  DetailRiwayatPelaporanScreen(
+                                      lokasiPatokanText: lokasiPatokanText,
+                                      kondisiSampahText: kondisiSampahText),
                             ),
                           );
                         },
