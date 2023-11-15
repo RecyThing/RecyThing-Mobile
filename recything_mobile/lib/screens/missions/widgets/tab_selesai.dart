@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:recything_mobile/constants/pallete.dart';
 import 'package:recything_mobile/screens/missions/widgets/mission_card.dart';
-import 'package:step_progress_indicator/step_progress_indicator.dart';
+import 'package:recything_mobile/screens/missions/widgets/sf_track_shape_widget.dart';
+import 'package:syncfusion_flutter_core/theme.dart';
+import 'package:syncfusion_flutter_sliders/sliders.dart';
 
 class TabSelesai extends StatelessWidget {
   final List<Map<String, dynamic>> cardDataSelesai = [
@@ -45,16 +47,29 @@ class TabSelesai extends StatelessWidget {
                         children: [
                           Row(
                             children: [
-                              StepProgressIndicator(
-                                totalSteps: 100,
-                                currentStep: data['progress'],
-                                size: 8,
-                                padding: 0,
-                                selectedColor: data['progress'] < 50
-                                    ? Pallete.secondaryLigther
-                                    : Pallete.mainLigther,
-                                unselectedColor: const Color(0xFFC7C9D9),
-                                roundedEdges: const Radius.circular(10),
+                              SizedBox(
+                                width: 100,
+                                child: SfSliderTheme(
+                                  data: SfSliderThemeData(
+                                      overlayRadius: 0,
+                                      thumbRadius: 4,
+                                      thumbStrokeWidth: 0.5,
+                                      thumbStrokeColor: Colors.white,
+                                      disabledThumbColor: Pallete.mainDarker,
+                                      activeTrackHeight: 8,
+                                      disabledActiveTrackColor:
+                                          Pallete.mainLigther,
+                                      inactiveTrackHeight: 8,
+                                      disabledInactiveTrackColor:
+                                          Pallete.dark4),
+                                  child: SfSlider(
+                                    trackShape: SfTrackShapeWidget(),
+                                    min: 0.0,
+                                    max: 100.0,
+                                    value: data['progress'],
+                                    onChanged: null,
+                                  ),
+                                ),
                               ),
                               const SizedBox(
                                 width: 6,
