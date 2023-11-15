@@ -57,52 +57,34 @@ class _ReportRubbishScreenState extends State<ReportRubbishScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    children: [
-                      const Expanded(
-                        child: MainTextField(
-                          // controller: TextEditingController(
-                          //     text: _locationAddress ?? '-'),
-                          label: 'Lokasi Tumpukan',
-                          prefixIcon: IconlyLight.location,
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 12,
-                      ),
-                      SizedBox(
-                        width: 56,
-                        height: 56,
-                        child: ElevatedButton(
-                          onPressed: () async {
-                            final result = await Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    const ReportRubbishMapsScreen(),
-                              ),
-                            );
-
-                            //callback maps
-                            setState(() {
-                              //set nilai ke controller
-                              _locationAddress = result as String?;
-                            });
-                          },
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: Pallete.main,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12),
-                              )),
-                          child: Image.asset(
-                            'assets/images/location_map.png',
-                            width: 24,
-                            height: 24,
-                            color: Colors.white,
+                  Container(
+                    child: Row(
+                      children: [
+                        Container(
+                          width: MediaQuery.of(context).size.width * .76,
+                          child: const MainTextField(
+                            label: 'Lokasi Tumpukan',
+                            prefixIcon: IconlyLight.location,
                           ),
                         ),
-                      ),
-                    ],
+                        const SizedBox(width: 8),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.pushNamed(
+                                context, "/report-rubbish-maps");
+                          },
+                          child: Container(
+                            width: 56,
+                            height: 56,
+                            child:
+                                Image.asset("assets/images/location_map.png"),
+                            decoration: BoxDecoration(
+                                color: Pallete.main,
+                                borderRadius: BorderRadius.circular(12)),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                   const SizedBox(
                     height: 24,
@@ -145,7 +127,12 @@ class _ReportRubbishScreenState extends State<ReportRubbishScreen> {
                           width: 1,
                         ),
                       ),
-                      const Text('Sampah Kering')
+                      Text(
+                        'Sampah Kering',
+                        style: TextStyle(
+                            color:
+                                isCheckedKering ? Pallete.main : Pallete.dark3),
+                      )
                     ],
                   ),
                   Row(
@@ -194,32 +181,32 @@ class _ReportRubbishScreenState extends State<ReportRubbishScreen> {
                         fontSize: ThemeFont.bodyNormal.fontSize,
                         fontWeight: FontWeight.w400),
                   ),
-                  if (selectedImages != null && selectedImages!.isNotEmpty)
-                    Column(
-                      children: [
+                  Row(
+                    children: [
+                      if (selectedImages != null && selectedImages!.isNotEmpty)
                         for (final image in selectedImages!)
                           Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 8),
+                            padding: const EdgeInsets.symmetric(horizontal: 8),
                             child: Image.file(
                               File(image.path),
                               width: 80,
                               height: 80,
                             ),
-                          )
-                      ],
-                    ),
-                  ElevatedButton(
-                    onPressed: pickImage,
-                    style: ElevatedButton.styleFrom(
-                      minimumSize: const Size(80, 80),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
+                          ),
+                      ElevatedButton(
+                        onPressed: pickImage,
+                        style: ElevatedButton.styleFrom(
+                          minimumSize: const Size(80, 80),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                        ),
+                        child: const Icon(
+                          Icons.add,
+                          color: Colors.grey,
+                        ),
                       ),
-                    ),
-                    child: const Icon(
-                      Icons.add,
-                      color: Colors.grey,
-                    ),
+                    ],
                   ),
                   const SizedBox(
                     height: 16,
@@ -234,25 +221,19 @@ class _ReportRubbishScreenState extends State<ReportRubbishScreen> {
                   ),
                   Align(
                     alignment: Alignment.center,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: MainButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  DetailRiwayatPelaporanScreen(
-                                      lokasiPatokanText: lokasiPatokanText,
-                                      kondisiSampahText: kondisiSampahText),
-                            ),
-                          );
-                        },
-                        child: Text(
-                          "Kirim",
-                          style: ThemeFont.heading6Reguler.copyWith(
-                              color: Pallete.textMainButton,
-                              fontWeight: FontWeight.w700),
+                    child: Container(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: () {},
+                        child: const Text(
+                          'Kirim',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Pallete.main,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12)),
+                          padding: const EdgeInsets.symmetric(vertical: 16),
                         ),
                       ),
                     ),

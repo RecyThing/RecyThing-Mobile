@@ -166,7 +166,7 @@ class _ReportRubbishMapsScreenState extends State<ReportRubbishMapsScreen> {
               onPressed: () async {
                 await _getCurrentPosition();
                 // back ke halaman report rubbish
-                Navigator.pop(context, _currentAddress);
+                // Navigator.pop(context, _currentAddress);
               },
               child: Text('Get Location'),
             ),
