@@ -64,11 +64,17 @@ class MenuTukarSampahWidget extends StatelessWidget {
                           width: 24,
                           height: 24,
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(50),
-                          ),
-                          child: Image.asset(
-                            'assets/icons/icon_arrow_right.png',
-                            fit: BoxFit.cover,
+                              borderRadius: BorderRadius.circular(50),
+                              color: ThemeColor().mainColor),
+                          child: Container(
+                            padding: const EdgeInsets.only(
+                                top: 3, bottom: 3, left: 2),
+                            width: 15.5,
+                            height: 8.5,
+                            child: Image.asset(
+                              'assets/icons/icon_arrow_right.png',
+                              fit: BoxFit.contain,
+                            ),
                           ),
                         )
                       ],

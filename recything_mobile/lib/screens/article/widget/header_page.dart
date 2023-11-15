@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
-import '../../theme/text_style.dart';
 
-class HeaderKategoriWidget extends StatelessWidget {
-  const HeaderKategoriWidget({super.key});
+import '../theme/text_style.dart';
+
+class HeaderPageWidget extends StatelessWidget {
+  final String title;
+
+  const HeaderPageWidget({super.key, required this.title});
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+     return Column(
       children: [
         SizedBox(
           height: 40,
@@ -28,7 +31,7 @@ class HeaderKategoriWidget extends StatelessWidget {
                 height: 21,
                 width: 160,
                 child: Text(
-                  'Kategori Daur Ulang',
+                  title,
                   style: ThemeText().heading6Medium,
                   textAlign: TextAlign.center,
                 ),

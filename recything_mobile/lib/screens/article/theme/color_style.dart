@@ -6,4 +6,5 @@ class ThemeColor {
   Color dark3Color = const Color(0xFF828282);
   Color grayScale900 = const Color(0xFF171717);
   Color grayScae100 = const Color(0xFFF5F5F5);
+  Color mainColor = const Color(0xFF35CC33);
 }

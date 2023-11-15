@@ -26,11 +26,7 @@ class MenuKategoriWidget extends StatelessWidget {
                 GestureDetector(
                   child: const BodyLink("Lihat semua"),
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const KategoriDaurUlangPage()),
-                    );
+                    Navigator.pushNamed(context, '/kategoriDaurUlang');
                   },
                 )
               ],

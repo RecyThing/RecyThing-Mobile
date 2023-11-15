@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../theme/color_style.dart';
 
 class AllMenuKategoriWidget extends StatelessWidget {
   AllMenuKategoriWidget({super.key});
@@ -6,47 +7,47 @@ class AllMenuKategoriWidget extends StatelessWidget {
   // Data list map
   final List<Map<String, String>> macamKategori = [
     {
-      'imageAsset': 'assets/icons/icon_plastik_withText.png',
+      'imageAsset': 'assets/icons/icon_plastik.png',
       'title': 'Plastik',
     },
     {
-      'imageAsset': 'assets/icons/icon_kaca_withText.png',
+      'imageAsset': 'assets/icons/icon_kaca.png',
       'title': 'Kaca',
     },
     {
-      'imageAsset': 'assets/icons/icon_logam_withText.png',
+      'imageAsset': 'assets/icons/icon_logam.png',
       'title': 'Logam',
     },
     {
-      'imageAsset': 'assets/icons/icon_organik_withText.png',
+      'imageAsset': 'assets/icons/icon_organik.png',
       'title': 'Organik',
     },
     {
-      'imageAsset': 'assets/icons/icon_kertas_withText.png',
+      'imageAsset': 'assets/icons/icon_kertas.png',
       'title': 'Kertas',
     },
     {
-      'imageAsset': 'assets/icons/icon_kaleng_withText.png',
+      'imageAsset': 'assets/icons/icon_kaleng.png',
       'title': 'Kaleng',
     },
     {
-      'imageAsset': 'assets/icons/icon_minyak_withText.png',
+      'imageAsset': 'assets/icons/icon_minyak.png',
       'title': 'Minyak',
     },
     {
-      'imageAsset': 'assets/icons/icon_elektronik_withText.png',
+      'imageAsset': 'assets/icons/icon_elektronik.png',
       'title': 'Elektronik',
     },
     {
-      'imageAsset': 'assets/icons/icon_tekstil_withText.png',
+      'imageAsset': 'assets/icons/icon_tekstil.png',
       'title': 'Tekstil',
     },
     {
-      'imageAsset': 'assets/icons/icon_pakaian_withText.png',
+      'imageAsset': 'assets/icons/icon_pakaian.png',
       'title': 'Pakaian',
     },
     {
-      'imageAsset': 'assets/icons/icon_baterai_withText.png',
+      'imageAsset': 'assets/icons/icon_baterai.png',
       'title': 'Baterai',
     },
   ];
@@ -54,7 +55,7 @@ class AllMenuKategoriWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 64, left: 16, right: 16),
+      padding: const EdgeInsets.only(top: 64),
       child: SizedBox(
         height: 494.33,
         width: 328,
@@ -63,8 +64,7 @@ class AllMenuKategoriWidget extends StatelessWidget {
           itemCount: macamKategori.length,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 3,
-            // mainAxisSpacing: 10,
-            // crossAxisSpacing: 10,
+            mainAxisSpacing: 32,
           ),
           itemBuilder: (context, index) {
             return Padding(
@@ -72,23 +72,24 @@ class AllMenuKategoriWidget extends StatelessWidget {
               child: SizedBox(
                 width: 98.31,
                 height: 99.58,
-                child: Column(
-                  children: [
-                    Image.asset(
-                      macamKategori[index]['imageAsset']!,
-                      fit: BoxFit.cover,
-                    ),
-                    // const SizedBox(height: 9.66),
-                    // SizedBox(
-                    //   height: 19.66,
-                    //   width: 98.31,
-                    //   child: Text(
-                    //     macamKategori[index]['title']!,
-                    //     textAlign: TextAlign.center,
-                    //     style: ThemeText().bodyNormalMedium,
-                    //   ),
-                    // )
-                  ],
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, '/artikelByKategori');
+                  },
+                  child: Column(
+                    children: [
+                      Container(
+                        width: 69.77,
+                        height: 69.77,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(32),
+                            color: ThemeColor().grayScae100),
+                        child: Image.asset(macamKategori[index]['imageAsset']!),
+                      ),
+                      const SizedBox(height: 8),
+                      Text(macamKategori[index]['title']!)
+                    ],
+                  ),
                 ),
               ),
             );

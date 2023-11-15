@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:recything_mobile/screens/article/theme/text_style.dart';
+import 'package:recything_mobile/screens/article/widget/list_artikel.dart';
 import 'package:recything_mobile/widgets/typography/body_link.dart';
 
 class MenuArticlePopular extends StatelessWidget {
@@ -9,8 +10,6 @@ class MenuArticlePopular extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //example
-
     return Padding(
       padding: const EdgeInsets.only(top: 24, left: 16, right: 16),
       child: SizedBox(
@@ -28,10 +27,17 @@ class MenuArticlePopular extends StatelessWidget {
                     'Artikel Populer',
                     style: ThemeText().heading6Medium,
                   ),
-                  const BodyLink('Lihat Semua'),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, '/cariArtikel');
+                    },
+                    child: const BodyLink('Lihat Semua'),
+                  ),
                 ],
               ),
             ),
+            const SizedBox(height: 8),
+            const ListArtikelWidget()
           ],
         ),
       ),
