@@ -8,6 +8,7 @@ class TextFieldReport extends StatelessWidget {
   final TextStyle? labelStyle;
   final EdgeInsetsGeometry? contentPadding;
   final TextEditingController? controller;
+  final ValueChanged<String>? onChanged;
 
   const TextFieldReport({
     Key? key,
@@ -17,12 +18,14 @@ class TextFieldReport extends StatelessWidget {
     this.labelStyle,
     this.contentPadding,
     this.controller,
+    this.onChanged,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextField(
       controller: controller,
+      onChanged: onChanged,
       decoration: InputDecoration(
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
