@@ -21,6 +21,7 @@ class _ReportRubbishScreenState extends State<ReportRubbishScreen> {
   bool isCheckedBasah = false;
 
   List<XFile>? selectedImages = []; //menyimpan gambar yang dipilih
+  String? _locationAddress; //menyimpan alamat dari maps
 
   Future<void> pickImage() async {
     final imagePicker = ImagePicker();
@@ -55,6 +56,8 @@ class _ReportRubbishScreenState extends State<ReportRubbishScreen> {
                   children: [
                     const Expanded(
                       child: MainTextField(
+                        // controller: TextEditingController(
+                        //     text: _locationAddress ?? '-'),
                         label: 'Lokasi Sampah',
                         prefixIcon: IconlyLight.location,
                       ),
@@ -66,14 +69,20 @@ class _ReportRubbishScreenState extends State<ReportRubbishScreen> {
                       width: 56,
                       height: 56,
                       child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
+                        onPressed: () async {
+                          final result = await Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (context) =>
                                   const ReportRubbishMapsScreen(),
                             ),
                           );
+
+                          //callback maps
+                          setState(() {
+                            //set nilai ke controller
+                            _locationAddress = result as String?;
+                          });
                         },
                         style: ElevatedButton.styleFrom(
                             backgroundColor: Pallete.main,
@@ -99,7 +108,9 @@ class _ReportRubbishScreenState extends State<ReportRubbishScreen> {
                       fontSize: ThemeFont.bodySmall.fontSize,
                       fontWeight: FontWeight.w500),
                 ),
-                const TextFieldReport(hinttext: 'Cth: Sebelah Masjid Nawawi'),
+                TextFieldReport(
+                  hinttext: 'Cth: Sebelah Masjid Nawawi',
+                ),
                 const SizedBox(
                   height: 16,
                 ),
