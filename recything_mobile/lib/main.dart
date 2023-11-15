@@ -14,6 +14,7 @@ import 'package:recything_mobile/screens/password_baru/password_baru_screen.dart
 import 'package:recything_mobile/screens/register/register_screen.dart';
 import 'package:recything_mobile/screens/report/choose_report_screen.dart';
 import 'package:recything_mobile/screens/report/detail_riwayat_pelaporan_screen.dart';
+import 'package:recything_mobile/screens/report/maps_report_screen.dart';
 import 'package:recything_mobile/screens/report/report_rubbish_maps_screen.dart';
 import 'package:recything_mobile/screens/reset_password/reset_password_screen.dart';
 import 'package:recything_mobile/screens/splash/splash_screen.dart';
@@ -41,7 +42,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Pallete.main),
         useMaterial3: true,
       ),
-      initialRoute: '/choose-report',
+      initialRoute: '/maps',
       routes: {
         // '/splash': (context) => const SplashScreen(),
         // '/onboarding': (context) => const OnboardingScreen(),
@@ -63,6 +64,8 @@ class MyApp extends StatelessWidget {
         '/report-rubbish': (context) => const ReportRubbishScreen(),
         '/report-rubbish-maps': (context) => const ReportRubbishMapsScreen(),
         '/detail-report': (context) => const DetailRiwayatPelaporanScreen(),
+        '/maps': (context) => const MapsReportScreen(),
+        
         // '/kategoriDaurUlang': (context) => const KategoriDaurUlangPage()
       },
     );
