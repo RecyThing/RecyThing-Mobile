@@ -30,6 +30,13 @@ class OnboardingScreen extends StatelessWidget {
                 ),
               ],
             ),
+            // SizedBox(
+            //   width: 700,
+            //   child: Expanded(
+            //     child:
+            //         Lottie.asset("assets/images/onboarding1.json", width: 700),
+            //   ),
+            // ),
             Image.asset("assets/images/onboarding1.png"),
             const SizedBox(height: 32),
             Text(

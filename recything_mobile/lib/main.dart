@@ -12,6 +12,7 @@ import 'package:recything_mobile/screens/poinku/pages/tukar_voucher_screen.dart'
 import 'package:recything_mobile/screens/onboarding/onboarding_screen.dart';
 import 'package:recything_mobile/screens/password_baru/password_baru_screen.dart';
 import 'package:recything_mobile/screens/register/register_screen.dart';
+import 'package:recything_mobile/screens/report/report_littering/report_littering_screen.dart';
 import 'package:recything_mobile/screens/reset_password/reset_password_screen.dart';
 import 'package:recything_mobile/screens/splash/splash_screen.dart';
 import 'package:recything_mobile/screens/verifikasi_otp/verifikasi_otp_screen.dart';
@@ -57,6 +58,7 @@ class MyApp extends StatelessWidget {
         '/verifikasi_otp': (context) => const VerifikasiOtpScreen(),
         '/password_baru': (context) => const PasswordBaruScreen(),
         '/report-rubbish': (context) => const ReportRubbishScreen(),
+        '/report-littering': (context) => const ReportLitteringScreen(),
         '/kategoriDaurUlang': (context) => const KategoriDaurUlangPage()
       },
     );

@@ -2,20 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:recything_mobile/constants/pallete.dart';
 
 class MainTextField extends StatefulWidget {
-  final String label;
+  final TextEditingController? controller;
+  final String? label;
+  final String? hintText;
   final IconData? prefixIcon;
   final bool obscureText;
   final void Function()? onTap;
   final bool? enabled;
   final Widget? suffixIcon;
+  final int maxLines;
   const MainTextField({
     super.key,
-    required this.label,
+    this.controller,
+    this.label,
+    this.hintText,
     this.prefixIcon,
     this.obscureText = false,
     this.onTap,
     this.enabled = true,
     this.suffixIcon,
+    this.maxLines = 1,
   });
 
   @override
@@ -51,6 +57,8 @@ class _MainTextFieldState extends State<MainTextField> {
       enabled: widget.enabled,
       focusNode: _focusNode,
       obscureText: widget.obscureText,
+      controller: widget.controller,
+      maxLines: widget.obscureText == false ? widget.maxLines : 1,
       decoration: InputDecoration(
         border: const OutlineInputBorder(
           borderRadius: BorderRadius.all(
@@ -64,13 +72,16 @@ class _MainTextFieldState extends State<MainTextField> {
           ),
         ),
         focusColor: Pallete.info,
+        hintText: widget.hintText,
         labelStyle: TextStyle(color: _isFocused ? Pallete.info : Pallete.dark3),
-        label: Text(widget.label),
+        label: widget.label != null ? Text(widget.label ?? "") : null,
         suffixIcon: widget.suffixIcon,
-        prefixIcon: Icon(
-          widget.prefixIcon,
-          color: Pallete.dark3,
-        ),
+        prefixIcon: widget.prefixIcon != null
+            ? Icon(
+                widget.prefixIcon!,
+                color: Pallete.dark3,
+              )
+            : null,
         contentPadding: const EdgeInsets.all(18),
       ),
       style: ThemeFont.bodySmall,

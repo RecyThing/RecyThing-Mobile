@@ -44,7 +44,7 @@ class _ChooseReportState extends State<ChooseReport> {
           ),
           GestureDetector(
             onTap: () {
-              // Handle card tap action
+              Navigator.pushNamed(context, '/report-littering');
             },
             child: buildCard(
               'Pelanggaran Sampah',
