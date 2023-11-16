@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:recything_mobile/constants/pallete.dart';
-import 'package:recything_mobile/widgets/forms/custom_back_button.dart';
 import 'package:recything_mobile/widgets/forms/main_button.dart';
 
 class SuccessScreen extends StatelessWidget {
@@ -12,18 +11,13 @@ class SuccessScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          backgroundColor: Pallete.textMainButton,
-          leading: const Padding(
-            padding: EdgeInsets.only(left: 16),
-            child: CustomBackButton(),
-          ),
-        ),
         body: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Column(
             children: [
+              const SizedBox(
+                height: 100,
+              ),
               Lottie.asset('assets/animation/success.json', width: 312),
               Text(
                 title,
