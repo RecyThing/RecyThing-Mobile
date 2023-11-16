@@ -70,8 +70,7 @@ class _ReportRubbishScreenState extends State<ReportRubbishScreen> {
                         const SizedBox(width: 8),
                         GestureDetector(
                           onTap: () {
-                            Navigator.pushNamed(
-                                context, "/report-rubbish-maps");
+                            Navigator.pushNamed(context, "/maps-report");
                           },
                           child: Container(
                             width: 56,
@@ -147,7 +146,12 @@ class _ReportRubbishScreenState extends State<ReportRubbishScreen> {
                         activeColor: Pallete.main,
                         side: const BorderSide(color: Colors.grey, width: 1),
                       ),
-                      const Text('Sampah Basah')
+                      Text(
+                        'Sampah Basah',
+                        style: TextStyle(
+                            color:
+                                isCheckedBasah ? Pallete.main : Pallete.dark3),
+                      )
                     ],
                   ),
                   const SizedBox(
@@ -224,7 +228,17 @@ class _ReportRubbishScreenState extends State<ReportRubbishScreen> {
                     child: Container(
                       width: double.infinity,
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    DetailRiwayatPelaporanScreen(
+                                  lokasiPatokanText: lokasiPatokanText,
+                                  kondisiSampahText: kondisiSampahText,
+                                ),
+                              ));
+                        },
                         child: const Text(
                           'Kirim',
                           style: TextStyle(color: Colors.white),
