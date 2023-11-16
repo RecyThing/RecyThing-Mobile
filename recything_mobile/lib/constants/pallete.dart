@@ -46,6 +46,12 @@ class Pallete {
   // Text color ?
   static const Color textSecondary = Color(0XFF64748B);
   static const Color textMainButton = Color(0XFFFFFFFF);
+
+  //lencana
+  static const Color bronze = Color(0xffC57314);
+  static const Color silver = Color(0xff828282);
+  static const Color gold = Color(0xffD4AF35);
+  static const Color platinum = Color(0xff139BB9);
 }
 
 class ThemeFont {

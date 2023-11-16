@@ -10,10 +10,11 @@ class RecyChat extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Container(
           width: MediaQuery.of(context).size.width * 0.6,
-          margin: const EdgeInsets.fromLTRB(16, 24, 24, 0),
+          margin: const EdgeInsets.fromLTRB(16, 16, 24, 0),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
