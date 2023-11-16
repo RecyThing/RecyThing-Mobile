@@ -7,7 +7,6 @@ import 'package:recything_mobile/screens/report/widget/add_media_button.dart';
 import 'package:recything_mobile/screens/report/widget/checkbox_report.dart';
 import 'package:recything_mobile/screens/report/widget/text_field_report.dart';
 
-
 class ReportRubbishScreen extends StatefulWidget {
   final String? locationAddress;
   const ReportRubbishScreen({
@@ -99,6 +98,9 @@ class _ReportRubbishScreenState extends State<ReportRubbishScreen> {
                     'Tambah Lokasi Patokan',
                     style: ThemeFont.bodySmallMedium,
                   ),
+                  const SizedBox(
+                    height: 4,
+                  ),
                   TextFieldReport(
                     hinttext: 'Cth: Sebelah Masjid Nawawi',
                     hintStyle: ThemeFont.bodySmallMedium.copyWith(
@@ -178,7 +180,12 @@ class _ReportRubbishScreenState extends State<ReportRubbishScreen> {
                     ],
                   ),
                   const SizedBox(
-                    height: 16,
+                    height: 8,
+                  ),
+                  Text(
+                    'Format file: JPG, PNG, MP4',
+                    style: ThemeFont.bodySmallRegular.copyWith(
+                        color: Pallete.dark3, fontWeight: FontWeight.w400),
                   ),
                   Text(
                     'Maksimum file: 20 MB',
@@ -186,7 +193,7 @@ class _ReportRubbishScreenState extends State<ReportRubbishScreen> {
                         color: Pallete.dark3, fontWeight: FontWeight.w400),
                   ),
                   const SizedBox(
-                    height: 16,
+                    height: 47,
                   ),
                   Align(
                     alignment: Alignment.center,
