@@ -42,7 +42,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Pallete.main),
         useMaterial3: true,
       ),
-      initialRoute: '/maps',
+      initialRoute: '/choose-report',
       routes: {
         // '/splash': (context) => const SplashScreen(),
         // '/onboarding': (context) => const OnboardingScreen(),
@@ -62,9 +62,9 @@ class MyApp extends StatelessWidget {
         // '/password_baru': (context) => const PasswordBaruScreen(),
         '/choose-report': (context) => const ChooseReportScreen(),
         '/report-rubbish': (context) => const ReportRubbishScreen(),
-        '/report-rubbish-maps': (context) => const ReportRubbishMapsScreen(),
+        '/report-rubbish--report': (context) => const ReportRubbishMapsScreen(),
         '/detail-report': (context) => const DetailRiwayatPelaporanScreen(),
-        '/maps': (context) => const MapsReportScreen(),
+        '/maps-report': (context) => const MapsReportScreen(),
         
         // '/kategoriDaurUlang': (context) => const KategoriDaurUlangPage()
       },
