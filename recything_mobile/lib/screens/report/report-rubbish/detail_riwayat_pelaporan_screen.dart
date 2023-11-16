@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:recything_mobile/constants/pallete.dart';
-import 'package:recything_mobile/screens/report/widget/custom_card.dart';
+// import 'package:recything_mobile/screens/report/widget/custom_card.dart';
 import 'package:recything_mobile/screens/report/widget/detail_report_card.dart';
 
 class DetailRiwayatPelaporanScreen extends StatefulWidget {
   final String? lokasiPatokanText;
   final String? kondisiSampahText;
+  final String? lokasiTumpukanText;
 
   const DetailRiwayatPelaporanScreen({
     super.key,
     this.lokasiPatokanText,
     this.kondisiSampahText,
+    this.lokasiTumpukanText,
   });
 
   @override
@@ -118,11 +120,9 @@ class _DetailRiwayatPelaporanScreenState
                   SizedBox(
                     height: 16,
                   ),
-                  const DetailReportCard(
-                    title: 'Lokasi Sampah',
-                    subTitle:
-                        'Jln DI Pandjaitan No 22 Jakarta. Sebelah Utara Pertigaan Jln DI Pandjaitan',
-                  ),
+                  DetailReportCard(
+                      title: 'Lokasi Sampah',
+                      subTitle: widget.lokasiTumpukanText),
                   const SizedBox(
                     height: 16,
                   ),

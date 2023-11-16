@@ -4,14 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:recything_mobile/constants/pallete.dart';
-import 'package:recything_mobile/screens/report/detail_riwayat_pelaporan_screen.dart';
+import 'package:recything_mobile/screens/report/report-rubbish/detail_riwayat_pelaporan_screen.dart';
 // import 'package:recything_mobile/screens/report/report_rubbish_maps_screen.dart';
 import 'package:recything_mobile/screens/report/widget/text_field_report.dart';
+import 'package:recything_mobile/widgets/forms/custom_back_button.dart';
 // import 'package:recything_mobile/widgets/forms/main_button.dart';
 import 'package:recything_mobile/widgets/forms/main_textfield.dart';
 
 class ReportRubbishScreen extends StatefulWidget {
-  const ReportRubbishScreen({super.key});
+  final String? locationAddress;
+  const ReportRubbishScreen({super.key, this.locationAddress});
 
   @override
   State<ReportRubbishScreen> createState() => _ReportRubbishScreenState();
@@ -22,10 +24,11 @@ class _ReportRubbishScreenState extends State<ReportRubbishScreen> {
   bool isCheckedBasah = false;
 
   List<XFile>? selectedImages = []; //menyimpan gambar yang dipilih
-  String? _locationAddress; //menyimpan alamat dari maps
+  // String? _locationAddress; //menyimpan alamat dari maps
 
   String? lokasiPatokanText;
   String? kondisiSampahText;
+  String? lokasiTumpukanText;
 
   Future<void> pickImage() async {
     final imagePicker = ImagePicker();
@@ -44,6 +47,7 @@ class _ReportRubbishScreenState extends State<ReportRubbishScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          // leading: CustomBackButton(),
           title: Text(
             'Tumpukan Sampah',
             style: ThemeFont.heading6Medium.copyWith(color: Colors.black),
@@ -61,9 +65,18 @@ class _ReportRubbishScreenState extends State<ReportRubbishScreen> {
                     children: [
                       SizedBox(
                         width: MediaQuery.of(context).size.width * .76,
-                        child: const MainTextField(
+                        child: TextFieldReport(
                           label: 'Lokasi Tumpukan',
+                          hinttext: 'Lokasi Tumpukan',
+                          onChanged: (value) {
+                            setState(() {
+                              lokasiTumpukanText = value;
+                            });
+                          },
                           prefixIcon: IconlyLight.location,
+                          maxLines: 1,
+                          controller: TextEditingController(
+                              text: widget.locationAddress ?? ""),
                         ),
                       ),
                       const SizedBox(width: 8),
@@ -77,8 +90,7 @@ class _ReportRubbishScreenState extends State<ReportRubbishScreen> {
                           decoration: BoxDecoration(
                               color: Pallete.main,
                               borderRadius: BorderRadius.circular(12)),
-                          child:
-                              Image.asset("assets/images/location_map.png"),
+                          child: Image.asset("assets/images/location_map.png"),
                         ),
                       ),
                     ],
@@ -234,6 +246,7 @@ class _ReportRubbishScreenState extends State<ReportRubbishScreen> {
                                     DetailRiwayatPelaporanScreen(
                                   lokasiPatokanText: lokasiPatokanText,
                                   kondisiSampahText: kondisiSampahText,
+                                  lokasiTumpukanText: lokasiTumpukanText,
                                 ),
                               ));
                         },

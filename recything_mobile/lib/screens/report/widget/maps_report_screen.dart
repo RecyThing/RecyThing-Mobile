@@ -4,6 +4,7 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:recything_mobile/constants/pallete.dart';
+import 'package:recything_mobile/screens/report/report-rubbish/report_rubbish_screen.dart';
 
 class MapsReportScreen extends StatefulWidget {
   const MapsReportScreen({Key? key}) : super(key: key);
@@ -15,6 +16,7 @@ class MapsReportScreen extends StatefulWidget {
 class _MapsReportScreenState extends State<MapsReportScreen> {
   Position? _currentPosition;
   String? _currentAddress;
+  MarkerId? _selectedMarkerId;
 
   Future<void> _getCurrentPosition() async {
     PermissionStatus status = await _handleLocationPermission(context);
@@ -75,15 +77,39 @@ class _MapsReportScreenState extends State<MapsReportScreen> {
     });
   }
 
+  Future<void> _updateAddress() async {
+    if (_currentPosition != null) {
+      await _getAddress(_currentPosition!);
+
+      Navigator.of(context).pop();
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (context) => ReportRubbishScreen(
+            locationAddress: _currentAddress,
+          ),
+        ),
+      );
+    }
+  }
+
   void _updateMarker(Position position) {
     setState(() {
       _markers.clear();
       final marker = Marker(
         markerId: const MarkerId('CurrentLocation'),
         position: LatLng(position.latitude, position.longitude),
+        onTap: () {
+          _selectMarker('CurrentLocation');
+        },
         // infoWindow: const InfoWindow(title: 'Current Location'),
       );
       _markers['CurrentLocation'] = marker;
+    });
+  }
+
+  void _selectMarker(String markerId) {
+    setState(() {
+      _selectedMarkerId = MarkerId(markerId);
     });
   }
 
@@ -113,10 +139,13 @@ class _MapsReportScreenState extends State<MapsReportScreen> {
                     : LatLng(0.0, 0.0),
               ),
               markers: _markers.values.toSet(),
+              onTap: (LatLng position) {
+                _selectMarker('');
+              },
               onMapCreated: (GoogleMapController controller) async {
-                if (_currentPosition != null) {
-                  _updateMarker(_currentPosition!);
-                }
+                // if (_currentPosition != null) {
+                //   _updateMarker(_currentPosition!);
+                // }
               },
             ),
             Positioned(
@@ -132,7 +161,9 @@ class _MapsReportScreenState extends State<MapsReportScreen> {
                     ),
                   ),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  _updateAddress();
+                },
                 child: Padding(
                   padding: const EdgeInsets.all(16),
                   child: Text(
