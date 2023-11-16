@@ -3,9 +3,10 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:recything_mobile/constants/pallete.dart';
 
 class MapsReportScreen extends StatefulWidget {
-  const MapsReportScreen({super.key});
+  const MapsReportScreen({Key? key}) : super(key: key);
 
   @override
   State<MapsReportScreen> createState() => _MapsReportScreenState();
@@ -69,7 +70,20 @@ class _MapsReportScreenState extends State<MapsReportScreen> {
         Placemark placemark = listPlacemark.first;
         _currentAddress =
             '${placemark.thoroughfare}, ${placemark.subThoroughfare}, ${placemark.subLocality}, ${placemark.locality}, ${placemark.subAdministrativeArea}, ${placemark.administrativeArea}';
+        _updateMarker(position);
       });
+    });
+  }
+
+  void _updateMarker(Position position) {
+    setState(() {
+      _markers.clear();
+      final marker = Marker(
+        markerId: const MarkerId('CurrentLocation'),
+        position: LatLng(position.latitude, position.longitude),
+        // infoWindow: const InfoWindow(title: 'Current Location'),
+      );
+      _markers['CurrentLocation'] = marker;
     });
   }
 
@@ -84,43 +98,54 @@ class _MapsReportScreenState extends State<MapsReportScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Location'),
-      ),
-      // floatingActionButton: CircleAvatar(
-      //   child: IconButton(
-      //     onPressed: () {
-      //       _getCurrentPosition();
-      //     },
-      //     icon: Icon(
-      //       Icons.location_searching,
-      //     ),
-      //   ),
-      // ),
-      body: GoogleMap(
-        myLocationEnabled: true,
-        // myLocationButtonEnabled: true,
-        zoomGesturesEnabled: true,
-        zoomControlsEnabled: false,
-        initialCameraPosition: const CameraPosition(
-          zoom: 18,
-          target: LatLng(0.0, 0.0),
+      body: SafeArea(
+        child: Stack(
+          children: [
+            GoogleMap(
+              myLocationEnabled: true,
+              zoomGesturesEnabled: true,
+              zoomControlsEnabled: false,
+              initialCameraPosition: CameraPosition(
+                zoom: 18,
+                target: _currentPosition != null
+                    ? LatLng(
+                        _currentPosition!.latitude, _currentPosition!.longitude)
+                    : LatLng(0.0, 0.0),
+              ),
+              markers: _markers.values.toSet(),
+              onMapCreated: (GoogleMapController controller) async {
+                if (_currentPosition != null) {
+                  _updateMarker(_currentPosition!);
+                }
+              },
+            ),
+            Positioned(
+              bottom: 24,
+              left: 16,
+              right: 16,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Pallete.main,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(
+                      12,
+                    ),
+                  ),
+                ),
+                onPressed: () {},
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Text(
+                    'Selanjutnya',
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
-        markers: _markers.values.toSet(),
-        onMapCreated: (GoogleMapController controller) async {
-          setState(() {
-            final marker = Marker(
-              markerId: const MarkerId(
-                'Rumah',
-              ),
-              position: const LatLng(
-                -1.1484853875387757,
-                116.86297099576815,
-              ),
-            );
-            _markers['Rumah'] = marker;
-          });
-        },
       ),
     );
   }
