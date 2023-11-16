@@ -6,6 +6,8 @@ class TextFieldReport extends StatelessWidget {
   final int? maxLines;
   final Color? focusColor;
   final TextStyle? labelStyle;
+  final String? label;
+  final IconData? prefixIcon;
   final EdgeInsetsGeometry? contentPadding;
   final TextEditingController? controller;
   final ValueChanged<String>? onChanged;
@@ -19,6 +21,8 @@ class TextFieldReport extends StatelessWidget {
     this.contentPadding,
     this.controller,
     this.onChanged,
+    this.label,
+    this.prefixIcon,
   }) : super(key: key);
 
   @override
@@ -34,6 +38,8 @@ class TextFieldReport extends StatelessWidget {
           borderRadius: BorderRadius.circular(12),
           borderSide: BorderSide(color: focusColor ?? Pallete.main),
         ),
+        labelText: label,
+        prefixIcon: prefixIcon != null ? Icon(prefixIcon, color: Pallete.dark3) : null,
         hintText: hinttext,
         hintStyle: labelStyle ?? const TextStyle(color: Pallete.dark3),
         contentPadding: contentPadding ?? const EdgeInsets.all(16),
