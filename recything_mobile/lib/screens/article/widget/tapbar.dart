@@ -14,6 +14,7 @@ class TapBarWidget extends StatelessWidget {
         child: Column(
           children: [
             TabBar(
+              indicatorSize: TabBarIndicatorSize.tab,
               tabs: [
                 Tab(text: 'Populer'),
                 Tab(text: 'Terbaru'),
