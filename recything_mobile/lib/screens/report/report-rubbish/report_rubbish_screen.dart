@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 import 'package:image_picker/image_picker.dart';
@@ -8,7 +7,6 @@ import 'package:recything_mobile/screens/report/widget/add_media_button.dart';
 import 'package:recything_mobile/screens/report/widget/checkbox_report.dart';
 import 'package:recything_mobile/screens/report/widget/text_field_report.dart';
 
-// Import statements for necessary packages and files
 
 class ReportRubbishScreen extends StatefulWidget {
   final String? locationAddress;
