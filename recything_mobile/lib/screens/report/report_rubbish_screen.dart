@@ -5,9 +5,9 @@ import 'package:iconly/iconly.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:recything_mobile/constants/pallete.dart';
 import 'package:recything_mobile/screens/report/detail_riwayat_pelaporan_screen.dart';
-import 'package:recything_mobile/screens/report/report_rubbish_maps_screen.dart';
+// import 'package:recything_mobile/screens/report/report_rubbish_maps_screen.dart';
 import 'package:recything_mobile/screens/report/widget/text_field_report.dart';
-import 'package:recything_mobile/widgets/forms/main_button.dart';
+// import 'package:recything_mobile/widgets/forms/main_button.dart';
 import 'package:recything_mobile/widgets/forms/main_textfield.dart';
 
 class ReportRubbishScreen extends StatefulWidget {
@@ -57,33 +57,31 @@ class _ReportRubbishScreenState extends State<ReportRubbishScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
-                    child: Row(
-                      children: [
-                        Container(
-                          width: MediaQuery.of(context).size.width * .76,
-                          child: const MainTextField(
-                            label: 'Lokasi Tumpukan',
-                            prefixIcon: IconlyLight.location,
-                          ),
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * .76,
+                        child: const MainTextField(
+                          label: 'Lokasi Tumpukan',
+                          prefixIcon: IconlyLight.location,
                         ),
-                        const SizedBox(width: 8),
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.pushNamed(context, "/maps-report");
-                          },
-                          child: Container(
-                            width: 56,
-                            height: 56,
-                            child:
-                                Image.asset("assets/images/location_map.png"),
-                            decoration: BoxDecoration(
-                                color: Pallete.main,
-                                borderRadius: BorderRadius.circular(12)),
-                          ),
+                      ),
+                      const SizedBox(width: 8),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pushNamed(context, "/maps-report");
+                        },
+                        child: Container(
+                          width: 56,
+                          height: 56,
+                          decoration: BoxDecoration(
+                              color: Pallete.main,
+                              borderRadius: BorderRadius.circular(12)),
+                          child:
+                              Image.asset("assets/images/location_map.png"),
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                   const SizedBox(
                     height: 24,
@@ -225,7 +223,7 @@ class _ReportRubbishScreenState extends State<ReportRubbishScreen> {
                   ),
                   Align(
                     alignment: Alignment.center,
-                    child: Container(
+                    child: SizedBox(
                       width: double.infinity,
                       child: ElevatedButton(
                         onPressed: () {
@@ -239,15 +237,15 @@ class _ReportRubbishScreenState extends State<ReportRubbishScreen> {
                                 ),
                               ));
                         },
-                        child: const Text(
-                          'Kirim',
-                          style: TextStyle(color: Colors.white),
-                        ),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Pallete.main,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12)),
                           padding: const EdgeInsets.symmetric(vertical: 16),
+                        ),
+                        child: const Text(
+                          'Kirim',
+                          style: TextStyle(color: Colors.white),
                         ),
                       ),
                     ),
