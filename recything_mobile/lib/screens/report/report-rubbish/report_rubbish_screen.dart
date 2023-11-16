@@ -1,19 +1,21 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:recything_mobile/constants/pallete.dart';
 import 'package:recything_mobile/screens/report/report-rubbish/detail_riwayat_pelaporan_screen.dart';
-// import 'package:recything_mobile/screens/report/report_rubbish_maps_screen.dart';
+import 'package:recything_mobile/screens/report/widget/add_media_button.dart';
+import 'package:recything_mobile/screens/report/widget/checkbox_report.dart';
 import 'package:recything_mobile/screens/report/widget/text_field_report.dart';
-import 'package:recything_mobile/widgets/forms/custom_back_button.dart';
-// import 'package:recything_mobile/widgets/forms/main_button.dart';
-import 'package:recything_mobile/widgets/forms/main_textfield.dart';
+
+// Import statements for necessary packages and files
 
 class ReportRubbishScreen extends StatefulWidget {
   final String? locationAddress;
-  const ReportRubbishScreen({super.key, this.locationAddress});
+  const ReportRubbishScreen({
+    Key? key,
+    this.locationAddress,
+  }) : super(key: key);
 
   @override
   State<ReportRubbishScreen> createState() => _ReportRubbishScreenState();
@@ -23,38 +25,27 @@ class _ReportRubbishScreenState extends State<ReportRubbishScreen> {
   bool isCheckedKering = false;
   bool isCheckedBasah = false;
 
-  List<XFile>? selectedImages = []; //menyimpan gambar yang dipilih
-  // String? _locationAddress; //menyimpan alamat dari maps
-
   String? lokasiPatokanText;
   String? kondisiSampahText;
   String? lokasiTumpukanText;
 
-  Future<void> pickImage() async {
-    final imagePicker = ImagePicker();
-    final pickedImages =
-        await imagePicker.pickMultiImage(); //mengambil gambar dari galeri
-
-    // menampilkan gambarnya
-    if (pickedImages != null) {
-      setState(() {
-        selectedImages = pickedImages;
-      });
-    }
-  }
+  ImagePickerButton imagePickerButton = ImagePickerButton(
+    onImagesSelected: (List<XFile>? selectedImages) {},
+  );
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          // leading: CustomBackButton(),
-          title: Text(
-            'Tumpukan Sampah',
-            style: ThemeFont.heading6Medium.copyWith(color: Colors.black),
-          ),
-          centerTitle: true,
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        title: Text(
+          'Tumpukan Sampah',
+          style: ThemeFont.heading6Medium,
         ),
-        body: Builder(builder: (context) {
+        centerTitle: true,
+      ),
+      body: Builder(
+        builder: (context) {
           return SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.all(16),
@@ -67,7 +58,13 @@ class _ReportRubbishScreenState extends State<ReportRubbishScreen> {
                         width: MediaQuery.of(context).size.width * .76,
                         child: TextFieldReport(
                           label: 'Lokasi Tumpukan',
+                          labelStyle: ThemeFont.bodySmallMedium.copyWith(
+                            color: Pallete.dark3,
+                          ),
                           hinttext: 'Lokasi Tumpukan',
+                          hintStyle: ThemeFont.bodySmallMedium.copyWith(
+                            color: Pallete.dark3,
+                          ),
                           onChanged: (value) {
                             setState(() {
                               lokasiTumpukanText = value;
@@ -79,7 +76,9 @@ class _ReportRubbishScreenState extends State<ReportRubbishScreen> {
                               text: widget.locationAddress ?? ""),
                         ),
                       ),
-                      const SizedBox(width: 8),
+                      const SizedBox(
+                        width: 8,
+                      ),
                       GestureDetector(
                         onTap: () {
                           Navigator.pushNamed(context, "/maps-report");
@@ -100,12 +99,13 @@ class _ReportRubbishScreenState extends State<ReportRubbishScreen> {
                   ),
                   Text(
                     'Tambah Lokasi Patokan',
-                    style: TextStyle(
-                        fontSize: ThemeFont.bodySmall.fontSize,
-                        fontWeight: FontWeight.w500),
+                    style: ThemeFont.bodySmallMedium,
                   ),
                   TextFieldReport(
                     hinttext: 'Cth: Sebelah Masjid Nawawi',
+                    hintStyle: ThemeFont.bodySmallMedium.copyWith(
+                      color: Pallete.dark3,
+                    ),
                     onChanged: (value) {
                       setState(() {
                         lokasiPatokanText = value;
@@ -117,62 +117,41 @@ class _ReportRubbishScreenState extends State<ReportRubbishScreen> {
                   ),
                   Text(
                     'Jenis Sampah',
-                    style: TextStyle(
-                        fontSize: ThemeFont.bodyNormalReguler.fontSize,
-                        fontWeight: FontWeight.w400),
+                    style: ThemeFont.bodyNormalReguler,
                   ),
-                  Row(
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  Column(
                     children: [
-                      Checkbox(
-                        value: isCheckedKering,
+                      CheckboxReport(
+                        label: 'Sampah Kering',
                         onChanged: (bool? value) {
-                          setState(() {
-                            isCheckedKering = value!;
-                          });
+                          setState(
+                            () {
+                              isCheckedKering = value!;
+                            },
+                          );
                         },
-                        activeColor: Pallete.main,
-                        side: const BorderSide(
-                          color: Colors.grey,
-                          width: 1,
-                        ),
                       ),
-                      Text(
-                        'Sampah Kering',
-                        style: TextStyle(
-                            color:
-                                isCheckedKering ? Pallete.main : Pallete.dark3),
-                      )
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Checkbox(
-                        value: isCheckedBasah,
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      CheckboxReport(
+                        label: 'Sampah Basah',
                         onChanged: (bool? value) {
                           setState(() {
                             isCheckedBasah = value!;
                           });
                         },
-                        activeColor: Pallete.main,
-                        side: const BorderSide(color: Colors.grey, width: 1),
-                      ),
-                      Text(
-                        'Sampah Basah',
-                        style: TextStyle(
-                            color:
-                                isCheckedBasah ? Pallete.main : Pallete.dark3),
                       )
                     ],
                   ),
                   const SizedBox(
                     height: 16,
                   ),
-                  Text(
-                    'Ceritakan Kondisi Sampah',
-                    style: TextStyle(
-                        fontSize: ThemeFont.bodyNormal.fontSize,
-                        fontWeight: FontWeight.w400),
-                  ),
+                  Text('Ceritakan Kondisi Sampah',
+                      style: ThemeFont.bodySmallMedium),
                   const SizedBox(
                     height: 4,
                   ),
@@ -180,6 +159,7 @@ class _ReportRubbishScreenState extends State<ReportRubbishScreen> {
                     maxLines: 5,
                     hinttext:
                         'Cth: Saya melihat tumpukan sampah yang sangat banyak, sampah sangat bercampur basah dan kering',
+                    hintStyle: ThemeFont.bodySmallMedium,
                     onChanged: (value) {
                       setState(() {
                         kondisiSampahText = value;
@@ -189,37 +169,14 @@ class _ReportRubbishScreenState extends State<ReportRubbishScreen> {
                   const SizedBox(
                     height: 16,
                   ),
-                  Text(
-                    'Bukti Foto / Video',
-                    style: TextStyle(
-                        fontSize: ThemeFont.bodyNormal.fontSize,
-                        fontWeight: FontWeight.w400),
+                  Text('Bukti Foto / Video',
+                      style: ThemeFont.bodyNormalReguler),
+                  const SizedBox(
+                    height: 8,
                   ),
                   Row(
                     children: [
-                      if (selectedImages != null && selectedImages!.isNotEmpty)
-                        for (final image in selectedImages!)
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 8),
-                            child: Image.file(
-                              File(image.path),
-                              width: 80,
-                              height: 80,
-                            ),
-                          ),
-                      ElevatedButton(
-                        onPressed: pickImage,
-                        style: ElevatedButton.styleFrom(
-                          minimumSize: const Size(80, 80),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                        ),
-                        child: const Icon(
-                          Icons.add,
-                          color: Colors.grey,
-                        ),
-                      ),
+                      imagePickerButton,
                     ],
                   ),
                   const SizedBox(
@@ -267,6 +224,8 @@ class _ReportRubbishScreenState extends State<ReportRubbishScreen> {
               ),
             ),
           );
-        }));
+        },
+      ),
+    );
   }
 }
