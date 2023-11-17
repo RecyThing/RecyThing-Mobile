@@ -58,13 +58,13 @@ class AllMenuKategoriWidget extends StatelessWidget {
       padding: const EdgeInsets.only(top: 64),
       child: SizedBox(
         height: 494.33,
-        width: 328,
+        // width: 328,
         child: GridView.builder(
           scrollDirection: Axis.vertical,
           itemCount: macamKategori.length,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 3,
-            mainAxisSpacing: 16,
+            mainAxisSpacing: 8,
           ),
           itemBuilder: (context, index) {
             return Padding(

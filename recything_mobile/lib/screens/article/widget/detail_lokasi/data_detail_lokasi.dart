@@ -10,13 +10,26 @@ class DataDetailLokasiWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        Text(
-          '420 M',
-          style: ThemeFont.interText.copyWith(
-              fontSize: 12, fontWeight: FontWeight.w500, color: Pallete.main),
-          textAlign: TextAlign.left,
+        Container(
+          decoration: const BoxDecoration(
+            color: Colors.white,
+            boxShadow: [
+              BoxShadow(
+                color: Color(0x26000000),
+                spreadRadius: 0,
+                blurRadius: 3,
+                offset: Offset(0, -2),
+              ),
+            ],
+          ),
+          child: Text(
+            '420 M',
+            style: ThemeFont.interText.copyWith(
+                fontSize: 12, fontWeight: FontWeight.w500, color: Pallete.main),
+            textAlign: TextAlign.left,
+          ),
         ),
-        const SizedBox(height: 4),
+        const SizedBox(height: 12),
         Text(
           'Ruko Gajah Mada Padang',
           style: ThemeFont.bodyNormalSemiBold,
@@ -26,9 +39,9 @@ class DataDetailLokasiWidget extends StatelessWidget {
           'Jl. Gajah Mada, Kp. Olo, Kec. Naggalo, Kota Padang, Sumatera Barat',
           style: ThemeFont.bodySmallRegular,
         ),
-        const SizedBox(height: 4),
+        const SizedBox(height: 12),
         const Divider(),
-        const SizedBox(height: 4),
+        const SizedBox(height: 12),
         Text(
           'Jam Operasional',
           style: ThemeFont.bodySmallSemiBold,

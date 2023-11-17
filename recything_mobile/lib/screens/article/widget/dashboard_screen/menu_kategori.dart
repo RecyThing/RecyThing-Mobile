@@ -32,22 +32,23 @@ class MenuKategoriWidget extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             const Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 ButtonKategoriDaurUlang(
                   assetImage: 'assets/icons/icon_plastik.png',
                   title: 'Plastik',
                 ),
-                SizedBox(width: 27),
+                // SizedBox(width: 27),
                 ButtonKategoriDaurUlang(
                   assetImage: 'assets/icons/icon_kaca.png',
                   title: 'Kaca',
                 ),
-                SizedBox(width: 27),
+                // SizedBox(width: 27),
                 ButtonKategoriDaurUlang(
                   assetImage: 'assets/icons/icon_logam.png',
                   title: 'Logam',
                 ),
-                SizedBox(width: 27),
+                // SizedBox(width: 27),
                 ButtonKategoriDaurUlang(
                   assetImage: 'assets/icons/icon_organik.png',
                   title: 'Organik',

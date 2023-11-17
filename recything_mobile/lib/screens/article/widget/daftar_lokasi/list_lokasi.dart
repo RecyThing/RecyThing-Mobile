@@ -17,9 +17,18 @@ class ListLokasiWidget extends StatelessWidget {
           child: Container(
             height: 132,
             decoration: BoxDecoration(
-                color: ThemeColor().whiteColor,
-                border: Border.all(color: Colors.black),
-                borderRadius: BorderRadius.circular(12)),
+              color: ThemeColor().whiteColor,
+              // border: Border.all(color: Colors.black),
+              borderRadius: BorderRadius.circular(12),
+              boxShadow: const [
+                BoxShadow(
+                  color: Color(0x33000000),
+                  spreadRadius: 0,
+                  blurRadius: 7,
+                  offset: Offset(0, 0),
+                ),
+              ],
+            ),
             padding: const EdgeInsets.all(15),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -29,8 +38,18 @@ class ListLokasiWidget extends StatelessWidget {
                   // width: 50,
                   padding: const EdgeInsets.symmetric(horizontal: 2),
                   decoration: BoxDecoration(
-                      border: Border.all(color: Colors.transparent),
-                      borderRadius: BorderRadius.circular(2)),
+                    color: ThemeColor().whiteColor,
+                    // border: Border.all(color: Colors.transparent),
+                    borderRadius: BorderRadius.circular(2),
+                    boxShadow: const [
+                      BoxShadow(
+                        color: Color(0x26000000),
+                        spreadRadius: 0,
+                        blurRadius: 3,
+                        offset: Offset(0, -2),
+                      ),
+                    ],
+                  ),
                   child: Text(
                     '420 M',
                     style: ThemeFont.interText.copyWith(

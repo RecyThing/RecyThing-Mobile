@@ -25,55 +25,55 @@ class BottomDetailLokasiWidget extends StatelessWidget {
                   backgroundColor: Colors.white,
                   context: context,
                   builder: (BuildContext context) {
-                    return Padding(
-                      padding: const EdgeInsets.only(
-                          top: 48, left: 16, right: 16, bottom: 24),
-                      child: SizedBox(
-                        height: 472,
-                        width: double.infinity,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Apa itu Biaya Penukaran Sampah?',
-                              style: ThemeFont.bodySmallSemiBold,
-                            ),
-                            const SizedBox(height: 24),
-                            RichText(
-                              text: TextSpan(
-                                text:
-                                    'Kami memberlakukan biaya administrasi sebesar ',
+                    return Wrap(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              top: 48, left: 16, right: 16, bottom: 20),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Apa itu Biaya Penukaran Sampah?',
+                                style: ThemeFont.bodySmallSemiBold,
+                              ),
+                              const SizedBox(height: 24),
+                              RichText(
+                                text: TextSpan(
+                                  text:
+                                      'Kami memberlakukan biaya administrasi sebesar ',
+                                  style: ThemeFont.bodySmallRegular
+                                      .copyWith(color: Colors.black),
+                                  children: [
+                                    TextSpan(
+                                        text:
+                                            '10% dari total poin yang Anda peroleh melalui proses penukaran sampah di drop point ',
+                                        style: ThemeFont.bodySmallSemiBold
+                                            .copyWith(color: Colors.black)),
+                                    TextSpan(
+                                      text: 'kami.',
+                                      style: ThemeFont.bodySmallRegular
+                                          .copyWith(color: Colors.black),
+                                    )
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(height: 24),
+                              Text(
+                                'Contoh: Jika Anda menukarkan 1kg sampah plastik yang memiliki nilai 2500 poin/kg. Dengan biaya admin sebesar 10%, maka akan ada pengurangan sebesar 250 poin dari total poin yang Anda peroleh. Total poin akhir yang Anda peroleh dari penukaran ini adalah 2250 poin.',
                                 style: ThemeFont.bodySmallRegular
                                     .copyWith(color: Colors.black),
-                                children: [
-                                  TextSpan(
-                                      text:
-                                          '10% dari total poin yang Anda peroleh melalui proses penukaran sampah di drop point ',
-                                      style: ThemeFont.bodySmallSemiBold
-                                          .copyWith(color: Colors.black)),
-                                  TextSpan(
-                                    text: 'kami.',
-                                    style: ThemeFont.bodySmallRegular
-                                        .copyWith(color: Colors.black),
-                                  )
-                                ],
                               ),
-                            ),
-                            const SizedBox(height: 24),
-                            Text(
-                              'Contoh: Jika Anda menukarkan 1kg sampah plastik yang memiliki nilai 2500 poin/kg. Dengan biaya admin sebesar 10%, maka akan ada pengurangan sebesar 250 poin dari total poin yang Anda peroleh. Total poin akhir yang Anda peroleh dari penukaran ini adalah 2250 poin.',
-                              style: ThemeFont.bodySmallRegular
-                                  .copyWith(color: Colors.black),
-                            ),
-                            const SizedBox(height: 24),
-                            Text(
-                              'Biaya ini digunakan untuk mendukung operasional dan pengembangan Aplikasi Recything agar tetap menjadi platform yang efisien dan berkelanjutan.',
-                              style: ThemeFont.bodySmallRegular
-                                  .copyWith(color: Colors.black),
-                            )
-                          ],
+                              const SizedBox(height: 24),
+                              Text(
+                                'Biaya ini digunakan untuk mendukung operasional dan pengembangan Aplikasi Recything agar tetap menjadi platform yang efisien dan berkelanjutan.',
+                                style: ThemeFont.bodySmallRegular
+                                    .copyWith(color: Colors.black),
+                              )
+                            ],
+                          ),
                         ),
-                      ),
+                      ],
                     );
                   });
             },
