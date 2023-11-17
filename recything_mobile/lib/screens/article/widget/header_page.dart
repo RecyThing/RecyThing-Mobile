@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import '../../theme/text_style.dart';
+import 'package:recything_mobile/constants/pallete.dart';
 
-class HeaderKategoriWidget extends StatelessWidget {
-  const HeaderKategoriWidget({super.key});
+class HeaderPageWidget extends StatelessWidget {
+  final String title;
+
+  const HeaderPageWidget({super.key, required this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -10,7 +12,7 @@ class HeaderKategoriWidget extends StatelessWidget {
       children: [
         SizedBox(
           height: 40,
-          width: 328,
+          // width: 328,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -26,10 +28,10 @@ class HeaderKategoriWidget extends StatelessWidget {
               ),
               SizedBox(
                 height: 21,
-                width: 160,
+                // width: 160,
                 child: Text(
-                  'Kategori Daur Ulang',
-                  style: ThemeText().heading6Medium,
+                  title,
+                  style: ThemeFont.heading6Medium.copyWith(color: Colors.black),
                   textAlign: TextAlign.center,
                 ),
               ),

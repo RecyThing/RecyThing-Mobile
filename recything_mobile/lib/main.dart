@@ -2,6 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recything_mobile/bloc/get_ai/get_ai_cubit.dart';
 import 'package:recything_mobile/constants/pallete.dart';
+import 'package:recything_mobile/screens/article/page/artikel_by_kategori.dart';
+import 'package:recything_mobile/screens/article/page/cari_artikel.dart';
+import 'package:recything_mobile/screens/article/page/daftar_lokasi.dart';
+import 'package:recything_mobile/screens/article/page/detail_artikel.dart';
+import 'package:recything_mobile/screens/article/page/detail_lokasi.dart';
 import 'package:recything_mobile/screens/article/page/kategori_daur_ulang_screen.dart';
 import 'package:recything_mobile/screens/dashboard.dart';
 import 'package:recything_mobile/screens/home/pages/detail_permasalahan_screen.dart';
@@ -70,7 +75,6 @@ class MyApp extends StatelessWidget {
           '/reset_password': (context) => const ResetPasswordScreen(),
           '/verifikasi_otp': (context) => const VerifikasiOtpScreen(),
           '/password_baru': (context) => const PasswordBaruScreen(),
-          '/kategoriDaurUlang': (context) => const KategoriDaurUlangPage(),
           '/editProfile': (context) => const EditProfileScreen(),
           '/pertanyaanUmum': (context) => const PertanyaanUmumScren(),
           '/detailPermasalahan': (context) => const DetailPermasalahanScreen(),
@@ -83,6 +87,12 @@ class MyApp extends StatelessWidget {
               const ReportRubbishMapsScreen(),
           '/detail-report': (context) => const DetailRiwayatPelaporanScreen(),
           '/maps-report': (context) => const MapsReportScreen(),
+          '/artikelByKategori': (context) => const ArtikelByKategoriScreen(),
+          '/kategoriDaurUlang': (context) => const KategoriDaurUlangScreen(),
+          '/cariArtikel': (context) => const CariArtikelScreen(),
+          '/daftarLokasi': (context) => const DaftarLokasiScreen(),
+          '/detailLokasi': (context) => const DetailLokasiScreen(),
+          '/detailArtikel': (context) => const DetailArtikelScreen()
         },
       ),
     );
