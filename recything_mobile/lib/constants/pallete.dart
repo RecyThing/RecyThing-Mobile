@@ -116,6 +116,10 @@ class ThemeFont {
     fontSize: 20,
     fontWeight: FontWeight.w400,
   );
+  static TextStyle bodyLargeMedium = GoogleFonts.inter(
+    fontSize: 20,
+    fontWeight: FontWeight.w500,
+  );
   static TextStyle bodyLargeBold = GoogleFonts.inter(
     fontSize: 20,
     fontWeight: FontWeight.w600,
