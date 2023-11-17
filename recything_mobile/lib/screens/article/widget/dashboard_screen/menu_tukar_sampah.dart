@@ -11,7 +11,7 @@ class MenuTukarSampahWidget extends StatelessWidget {
       padding: const EdgeInsets.only(top: 24, left: 16, right: 16),
       child: SizedBox(
         height: 152,
-        width: 328,
+        // width: 328,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -25,7 +25,7 @@ class MenuTukarSampahWidget extends StatelessWidget {
             const SizedBox(height: 16),
             Container(
               height: 115,
-              width: 328,
+              // width: 328,
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
                   color: ThemeColor().whiteColor,
@@ -41,7 +41,8 @@ class MenuTukarSampahWidget extends StatelessWidget {
                   ),
                   SizedBox(
                     height: 83,
-                    width: 196,
+                    // width: 196,
+                    width: 172,
                     child: Row(
                       children: [
                         Expanded(
@@ -60,26 +61,31 @@ class MenuTukarSampahWidget extends StatelessWidget {
                             ],
                           ),
                         ),
-                        Container(
-                          width: 24,
-                          height: 24,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(50),
-                              color: ThemeColor().mainColor),
-                          child: Container(
-                            padding: const EdgeInsets.only(
-                                top: 3, bottom: 3, left: 2),
-                            width: 15.5,
-                            height: 8.5,
-                            child: Image.asset(
-                              'assets/icons/icon_arrow_right.png',
-                              fit: BoxFit.contain,
-                            ),
-                          ),
-                        )
                       ],
                     ),
                   ),
+                  GestureDetector(
+                    child: Container(
+                      width: 24,
+                      height: 24,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(50),
+                          color: ThemeColor().mainColor),
+                      child: Container(
+                        padding:
+                            const EdgeInsets.only(top: 3, bottom: 3, left: 2),
+                        width: 15.5,
+                        height: 8.5,
+                        child: Image.asset(
+                          'assets/icons/icon_arrow_right.png',
+                          fit: BoxFit.contain,
+                        ),
+                      ),
+                    ),
+                    onTap: (){
+                      Navigator.pushNamed(context, '/daftarLokasi');
+                    },
+                  )
                 ],
               ),
             )

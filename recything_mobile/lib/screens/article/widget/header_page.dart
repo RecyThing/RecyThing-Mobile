@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../theme/text_style.dart';
+import 'package:recything_mobile/constants/pallete.dart';
 
 class HeaderPageWidget extends StatelessWidget {
   final String title;
@@ -9,11 +8,11 @@ class HeaderPageWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-     return Column(
+    return Column(
       children: [
         SizedBox(
           height: 40,
-          width: 328,
+          // width: 328,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -29,10 +28,10 @@ class HeaderPageWidget extends StatelessWidget {
               ),
               SizedBox(
                 height: 21,
-                width: 160,
+                // width: 160,
                 child: Text(
                   title,
-                  style: ThemeText().heading6Medium,
+                  style: ThemeFont.heading6Medium.copyWith(color: Colors.black),
                   textAlign: TextAlign.center,
                 ),
               ),

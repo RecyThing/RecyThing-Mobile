@@ -15,7 +15,7 @@ class _CariArtikelScreenState extends State<CariArtikelScreen> {
   Widget build(BuildContext context) {
     return const Scaffold(
       body: Padding(
-        padding: EdgeInsets.only(top: 42, left: 16, right: 16),
+        padding: EdgeInsets.only(top: 66, left: 16, right: 16),
         child: Column(
           children: [
             HeaderPageWidget(title: 'Cari Artikel'),

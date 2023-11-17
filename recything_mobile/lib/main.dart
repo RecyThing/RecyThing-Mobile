@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:recything_mobile/constants/pallete.dart';
 import 'package:recything_mobile/screens/article/page/artikel_by_kategori.dart';
 import 'package:recything_mobile/screens/article/page/cari_artikel.dart';
+import 'package:recything_mobile/screens/article/page/daftar_lokasi.dart';
+import 'package:recything_mobile/screens/article/page/detail_artikel.dart';
+import 'package:recything_mobile/screens/article/page/detail_lokasi.dart';
 import 'package:recything_mobile/screens/article/page/kategori_daur_ulang_screen.dart';
 import 'package:recything_mobile/screens/dashboard.dart';
 import 'package:recything_mobile/screens/home/pages/notifikasi_screen.dart';
@@ -61,7 +64,10 @@ class MyApp extends StatelessWidget {
         '/report-rubbish': (context) => const ReportRubbishScreen(),
         '/kategoriDaurUlang': (context) => const KategoriDaurUlangScreen(),
         '/artikelByKategori':(context) => const ArtikelByKategoriScreen(),
-        '/cariArtikel':(context) => const CariArtikelScreen()
+        '/cariArtikel':(context) => const CariArtikelScreen(),
+        '/daftarLokasi':(context) => const DaftarLokasiScreen(),
+        '/detailLokasi':(context) => const DetailLokasiScreen(),
+        '/detailArtikel':(context) => const DetailArtikelScreen()
       },
     );
   }

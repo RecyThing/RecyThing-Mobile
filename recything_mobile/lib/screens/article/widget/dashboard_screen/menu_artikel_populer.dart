@@ -14,12 +14,12 @@ class MenuArticlePopular extends StatelessWidget {
       padding: const EdgeInsets.only(top: 24, left: 16, right: 16),
       child: SizedBox(
         height: 408,
-        width: 328,
+        // width: 328,
         child: Column(
           children: [
             SizedBox(
               height: 24,
-              width: 328,
+              // width: 328,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -37,7 +37,7 @@ class MenuArticlePopular extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 8),
-            const ListArtikelWidget()
+            const Expanded(child: ListArtikelWidget())
           ],
         ),
       ),

@@ -64,7 +64,7 @@ class AllMenuKategoriWidget extends StatelessWidget {
           itemCount: macamKategori.length,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 3,
-            mainAxisSpacing: 32,
+            mainAxisSpacing: 16,
           ),
           itemBuilder: (context, index) {
             return Padding(

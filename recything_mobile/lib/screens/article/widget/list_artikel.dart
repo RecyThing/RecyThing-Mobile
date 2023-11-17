@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../theme/text_style.dart';
 
 class ListArtikelWidget extends StatelessWidget {
@@ -7,12 +6,12 @@ class ListArtikelWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: ListView.builder(
-          shrinkWrap: true,
-          itemCount: 3,
-          itemBuilder: (context, index) {
-            return Column(
+    return ListView.builder(
+        shrinkWrap: true,
+        itemCount: 3,
+        itemBuilder: (context, index) {
+          return GestureDetector(
+            child: Column(
               children: [
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8),
@@ -30,51 +29,53 @@ class ListArtikelWidget extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(width: 8),
-                      SizedBox(
-                        height: 96,
-                        width: 226,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(
-                              height: 24,
-                              width: double.infinity,
-                              child: Text(
-                                'Minyak',
-                                style: ThemeText().bodySmallRegular2,
-                              ),
-                            ),
-                            SizedBox(
-                              height: 48,
-                              child: SizedBox(
+                      Expanded(
+                        child: SizedBox(
+                          height: 96,
+                          // width: 226,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
                                 height: 24,
+                                width: double.infinity,
                                 child: Text(
-                                  'Pakai sisa minyak gorengmu untuk ini!',
-                                  style: ThemeText().bodyNormalMedium,
+                                  'Minyak',
+                                  style: ThemeText().bodySmallRegular2,
                                 ),
                               ),
-                            ),
-                            SizedBox(
-                              height: 24,
-                              child: Row(
-                                children: [
-                                  Text('22 Okt 2023',
-                                      style: ThemeText().bodySmallRegular3),
-                                  const SizedBox(width: 7),
-                                  Image.asset(
-                                      'assets/icons/icon_vertical_divider.png'),
-                                  const SizedBox(width: 7),
-                                  Image.asset('assets/icons/icon_like.png'),
-                                  const SizedBox(width: 4),
-                                  const Text('182'),
-                                  const SizedBox(width: 4),
-                                  Image.asset('assets/icons/icon_share.png'),
-                                  const SizedBox(width: 8),
-                                  const Text('182'),
-                                ],
+                              SizedBox(
+                                height: 48,
+                                child: SizedBox(
+                                  height: 24,
+                                  child: Text(
+                                    'Pakai sisa minyak gorengmu untuk ini!',
+                                    style: ThemeText().bodyNormalMedium,
+                                  ),
+                                ),
                               ),
-                            )
-                          ],
+                              SizedBox(
+                                height: 24,
+                                child: Row(
+                                  children: [
+                                    Text('22 Okt 2023',
+                                        style: ThemeText().bodySmallRegular3),
+                                    const SizedBox(width: 7),
+                                    Image.asset(
+                                        'assets/icons/icon_vertical_divider.png'),
+                                    const SizedBox(width: 7),
+                                    Image.asset('assets/icons/icon_like.png'),
+                                    const SizedBox(width: 4),
+                                    const Text('182'),
+                                    const SizedBox(width: 4),
+                                    Image.asset('assets/icons/icon_share.png'),
+                                    const SizedBox(width: 8),
+                                    const Text('182'),
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
                         ),
                       )
                     ],
@@ -82,8 +83,11 @@ class ListArtikelWidget extends StatelessWidget {
                 ),
                 const Divider()
               ],
-            );
-          }),
-    );
+            ),
+            onTap: () {
+              Navigator.pushNamed(context, '/detailArtikel');
+            },
+          );
+        });
   }
 }

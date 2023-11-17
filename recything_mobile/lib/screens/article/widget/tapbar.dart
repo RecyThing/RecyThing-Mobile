@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:recything_mobile/screens/article/widget/cari_artikel/artikel_tidak_ditemukan.dart';
 import 'package:recything_mobile/screens/article/widget/list_artikel.dart';
 
 class TapBarWidget extends StatelessWidget {
@@ -9,7 +10,7 @@ class TapBarWidget extends StatelessWidget {
     return const DefaultTabController(
       length: 2,
       child: SizedBox(
-        width: 328,
+        // width: 328,
         height: 500,
         child: Column(
           children: [
@@ -20,12 +21,12 @@ class TapBarWidget extends StatelessWidget {
                 Tab(text: 'Terbaru'),
               ],
             ),
-            SizedBox(height: 8),
+            // SizedBox(height: 8),
             Expanded(
               child: TabBarView(
                 children: [
                   ListArtikelWidget(),
-                  ListArtikelWidget(),
+                  ArtikelTidakDitemukanWidget(),
                 ],
               ),
             ),
