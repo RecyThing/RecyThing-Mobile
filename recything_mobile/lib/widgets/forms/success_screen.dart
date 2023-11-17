@@ -38,7 +38,9 @@ class SuccessScreen extends StatelessWidget {
         floatingActionButton: SizedBox(
           width: MediaQuery.of(context).size.width * 0.93,
           child: MainButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, '/dashboard');
+              },
               child: Text(
                 "Kembali ke Beranda",
                 style: ThemeFont.heading6Reguler.copyWith(
