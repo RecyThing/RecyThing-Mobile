@@ -7,8 +7,16 @@ import 'package:recything_mobile/widgets/typography/body_link.dart';
 
 import '../../constants/pallete.dart';
 
-class RegisterScreen extends StatelessWidget {
+class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
+
+  @override
+  State<RegisterScreen> createState() => _RegisterScreenState();
+}
+
+class _RegisterScreenState extends State<RegisterScreen> {
+  bool showPwd = false;
+  bool showPwd2 = false;
 
   @override
   Widget build(BuildContext context) {
@@ -55,14 +63,38 @@ class RegisterScreen extends StatelessWidget {
                     prefixIcon: IconlyLight.message,
                   ),
                   const SizedBox(height: 12),
-                  const MainTextField(
+                  MainTextField(
                     label: "Masukan Kata Sandi",
                     prefixIcon: IconlyLight.lock,
+                    obscureText: !showPwd,
+                    suffixIcon: GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          showPwd = !showPwd;
+                        });
+                      },
+                      child: Icon(
+                        !showPwd ? IconlyLight.show : IconlyLight.hide,
+                        color: Pallete.dark3,
+                      ),
+                    ),
                   ),
                   const SizedBox(height: 12),
-                  const MainTextField(
+                  MainTextField(
                     label: "Konfirmasi Kata Sandi",
                     prefixIcon: IconlyLight.lock,
+                    obscureText: !showPwd2,
+                    suffixIcon: GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          showPwd2 = !showPwd2;
+                        });
+                      },
+                      child: Icon(
+                        !showPwd2 ? IconlyLight.show : IconlyLight.hide,
+                        color: Pallete.dark3,
+                      ),
+                    ),
                   ),
                   const SizedBox(height: 24),
                   SizedBox(

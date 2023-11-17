@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 import 'package:recything_mobile/constants/pallete.dart';
-import 'package:recything_mobile/screens/komunitas/widgets/detail_komunitas_screen.dart';
+import 'package:recything_mobile/screens/komunitas/detail_komunitas_screen.dart';
 import 'package:stroke_text/stroke_text.dart';
 
 class KomunitasCard extends StatelessWidget {
@@ -27,21 +27,18 @@ class KomunitasCard extends StatelessWidget {
       },
       child: Stack(
         children: [
-          Hero(
-            tag: image,
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12),
-                image: DecorationImage(
-                  image: NetworkImage(
-                    image,
-                  ),
-                  fit: BoxFit.cover,
+          Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12),
+              image: DecorationImage(
+                image: NetworkImage(
+                  image,
                 ),
+                fit: BoxFit.cover,
               ),
-              height: 160,
-              width: double.infinity,
             ),
+            height: 160,
+            width: double.infinity,
           ),
           Container(
             decoration: BoxDecoration(

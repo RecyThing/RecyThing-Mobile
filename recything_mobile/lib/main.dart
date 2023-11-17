@@ -31,6 +31,7 @@ import 'package:recything_mobile/screens/report/report-rubbish/detail_riwayat_pe
 import 'package:recything_mobile/screens/report/report-rubbish/report_rubbish_screen.dart';
 import 'package:recything_mobile/screens/report/widget/maps_report_screen.dart';
 import 'package:recything_mobile/screens/report/report_rubbish_maps_screen.dart';
+import 'package:recything_mobile/screens/report/report_littering/report_littering_screen.dart';
 import 'package:recything_mobile/screens/reset_password/reset_password_screen.dart';
 import 'package:recything_mobile/screens/splash/splash_screen.dart';
 import 'package:recything_mobile/screens/verifikasi_otp/verifikasi_otp_screen.dart';
@@ -87,6 +88,7 @@ class MyApp extends StatelessWidget {
           '/report-rubbish': (context) => const ReportRubbishScreen(),
           '/report-rubbish--report': (context) =>
               const ReportRubbishMapsScreen(),
+          '/report-littering': (context) => const ReportLitteringScreen(),
           '/detail-report': (context) => const DetailRiwayatPelaporanScreen(),
           '/maps-report': (context) => const MapsReportScreen(),
           '/artikelByKategori': (context) => const ArtikelByKategoriScreen(),

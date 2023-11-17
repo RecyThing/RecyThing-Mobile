@@ -105,7 +105,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             const Padding(
               padding: EdgeInsets.only(bottom: 16),
               child: MainTextField(
-                maxLine: 4,
+                maxLines: 4,
                 label: "Masukkan Alamat",
                 prefixIcon: IconlyLight.location,
               ),

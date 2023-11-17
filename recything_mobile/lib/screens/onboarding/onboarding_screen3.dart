@@ -34,7 +34,7 @@ class OnboardingScreen3 extends StatelessWidget {
             const SizedBox(height: 32),
             Text(
               "Kumpulkan Poin dan Tukarkan Dengan Voucher",
-              style: ThemeFont.heading5Reguler,
+              style: ThemeFont.heading5Bold,
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 16),

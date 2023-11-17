@@ -30,17 +30,24 @@ class OnboardingScreen extends StatelessWidget {
                 ),
               ],
             ),
+            // SizedBox(
+            //   width: 700,
+            //   child: Expanded(
+            //     child:
+            //         Lottie.asset("assets/images/onboarding1.json", width: 700),
+            //   ),
+            // ),
             Image.asset("assets/images/onboarding1.png"),
             const SizedBox(height: 32),
             Text(
               "Jelajahi Informasi dan Daur Ulang Sampahmu",
-              style: ThemeFont.heading5Reguler,
+              style: ThemeFont.heading5Bold,
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 16),
             Text(
               "Akses informasi yang dapat membantu Anda berperan dalam perubahan positif melalui daur ulang",
-              style: ThemeFont.bodyNormal
+              style: ThemeFont.bodyNormalReguler
                   .copyWith(height: 1.64, color: Pallete.textSecondary),
               textAlign: TextAlign.center,
             ),

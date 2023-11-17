@@ -7,8 +7,15 @@ import 'package:recything_mobile/widgets/typography/body_link.dart';
 
 import '../../constants/pallete.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  bool showPwd = false;
 
   @override
   Widget build(BuildContext context) {
@@ -52,16 +59,27 @@ class LoginScreen extends StatelessWidget {
                   const SizedBox(
                     height: 12,
                   ),
-                  const MainTextField(
+                  MainTextField(
                     label: "Masukan Kata Sandi",
                     prefixIcon: IconlyLight.lock,
-                    obscureText: true,
+                    obscureText: !showPwd,
+                    suffixIcon: GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          showPwd = !showPwd;
+                        });
+                      },
+                      child: Icon(
+                        !showPwd ? IconlyLight.show : IconlyLight.hide,
+                        color: Pallete.dark3,
+                      ),
+                    ),
                   ),
                   const SizedBox(
                     height: 12,
                   ),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       Text(
                         "Lupa Password? ",

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 import 'package:recything_mobile/constants/pallete.dart';
+import 'package:recything_mobile/screens/komunitas/komunitas_search_screen.dart';
 import 'package:recything_mobile/screens/komunitas/widgets/komunitas_card.dart';
 import 'package:recything_mobile/screens/komunitas/widgets/lokasi_dropdown.dart';
 import 'package:recything_mobile/widgets/forms/main_textfield.dart';
@@ -21,9 +22,17 @@ class KomunitasScreen extends StatelessWidget {
               const SizedBox(height: 24),
               const LokasiDropdown(),
               const SizedBox(height: 24),
-              const MainTextField(
-                label: "Cari Komunitas disini...",
-                prefixIcon: IconlyLight.search,
+              GestureDetector(
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const KomunitasSearchScreen(),
+                  ));
+                },
+                child: const MainTextField(
+                  enabled: false,
+                  label: "Cari Komunitas disini...",
+                  prefixIcon: IconlyLight.search,
+                ),
               ),
               const SizedBox(height: 24),
               Row(
@@ -51,6 +60,13 @@ class KomunitasScreen extends StatelessWidget {
               ),
               const SizedBox(height: 24),
               const KomunitasCard(
+                title: "Electronic Waste RJ Indonesian Community",
+                lokasi: "Jakarta",
+                anggota: "25,6",
+                image:
+                    "https://www.seiu1000.org/sites/main/files/main-images/camera_lense_0.jpeg",
+              ),
+              const KomunitasCard(
                 title: "Zero Waste Indonesia Community",
                 lokasi: "Bogor",
                 anggota: "5,6",
@@ -63,13 +79,6 @@ class KomunitasScreen extends StatelessWidget {
                 anggota: "11,6",
                 image:
                     "https://helpx.adobe.com/content/dam/help/en/photoshop/using/convert-color-image-black-white/jcr_content/main-pars/before_and_after/image-before/Landscape-Color.jpg",
-              ),
-              const KomunitasCard(
-                title: "Electronic Waste RJ Indonesian Community",
-                lokasi: "Jakarta",
-                anggota: "25,6",
-                image:
-                    "https://www.seiu1000.org/sites/main/files/main-images/camera_lense_0.jpeg",
               ),
               const SizedBox(height: 24)
             ],
