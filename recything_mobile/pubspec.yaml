@@ -50,6 +50,9 @@ dependencies:
   permission_handler: ^11.0.1
   google_maps_flutter: ^2.5.0
   google_maps_flutter_android: ^2.5.3
+  file_picker: ^6.1.1
+  chewie: ^1.7.1
+  video_player_android: ^2.4.10
 
 
 dev_dependencies:
