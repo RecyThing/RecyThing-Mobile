@@ -36,19 +36,25 @@ class _DetailKomunitasScreenState extends State<DetailKomunitasScreen>
     return Scaffold(
       floatingActionButton: Container(
         padding: const EdgeInsets.only(left: 32, bottom: 8),
-        width: double.infinity,
-        child: Expanded(
-          child: MainButton(
-            onPressed: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => const BerhasilBergabungScreen(),
-              ));
-            },
-            child: Text(
-              "Ikuti Komunitas",
-              style: ThemeFont.heading6Reguler.copyWith(color: Colors.white),
+        width: MediaQuery.of(context).size.width,
+        height: 64,
+        child: Row(
+          children: [
+            Expanded(
+              child: MainButton(
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const BerhasilBergabungScreen(),
+                  ));
+                },
+                child: Text(
+                  "Ikuti Komunitas",
+                  style:
+                      ThemeFont.heading6Reguler.copyWith(color: Colors.white),
+                ),
+              ),
             ),
-          ),
+          ],
         ),
       ),
       body: SingleChildScrollView(
