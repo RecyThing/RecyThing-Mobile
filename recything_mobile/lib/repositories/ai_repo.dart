@@ -1,10 +1,11 @@
 import 'package:dio/dio.dart';
-import 'package:recything_mobile/constants/constans.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 Dio dio = Dio();
+String api = DotEnv().get('apiKey');
 Future<String> getAi(String text) async {
   final res = await dio.post(
-    "https://generativelanguage.googleapis.com/v1beta3/models/text-bison-001:generateText?key=$apiKey",
+    "",
     data: {
       "prompt": {"text": text},
       "temperature": 1.0,

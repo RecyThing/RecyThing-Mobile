@@ -60,6 +60,7 @@ dependencies:
   syncfusion_flutter_sliders: ^23.1.44
   syncfusion_flutter_core: ^23.1.44
   equatable: ^2.0.5
+  flutter_dotenv: ^5.1.0
 
 
 dev_dependencies:
