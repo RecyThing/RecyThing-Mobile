@@ -1,49 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:iconly/iconly.dart';
 import 'package:recything_mobile/constants/pallete.dart';
+import 'package:recything_mobile/screens/missions/widgets/custom_leading_app_bar.dart';
+import 'package:recything_mobile/widgets/forms/progress_state_box.dart';
 import 'package:recything_mobile/screens/missions/widgets/progress_step.dart';
 import 'package:recything_mobile/widgets/forms/main_button.dart';
 
-class DetailMission extends StatelessWidget {
-  final String progressState = 'Unggah Bukti';
+class DetailMissionScreen extends StatefulWidget {
+  const DetailMissionScreen({super.key});
 
-  const DetailMission({super.key});
+  @override
+  State<DetailMissionScreen> createState() => _DetailMissionScreenState();
+}
+
+class _DetailMissionScreenState extends State<DetailMissionScreen> {
+  String progressState = 'Unggah Bukti';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        scrolledUnderElevation: 0,
-        automaticallyImplyLeading: false,
-        backgroundColor: Colors.white,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Container(
-              width: 40,
-              height: 40,
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: Pallete.light3)),
-              child: IconButton(
-                icon: const Icon(
-                  IconlyLight.arrow_left,
-                  size: 24,
-                ),
-                onPressed: () => Navigator.pop(context),
-              ),
-            ),
-            Text(
-              'Detail Misi',
-              style: ThemeFont.heading6Medium,
-            ),
-            const SizedBox(
-              width: 24,
-            )
-          ],
-        ),
-      ),
+      appBar: const CustomLeadingAppBar(title: 'Detail Misi'),
       body: ListView(
         shrinkWrap: true,
         children: [
@@ -62,9 +37,22 @@ class DetailMission extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  'Buang Sampah',
-                  style: ThemeFont.bodyLargeMedium,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Buang Sampah',
+                      style: ThemeFont.bodyLargeMedium,
+                    ),
+                    progressState == 'verified'
+                        ? ProgressStateBox(
+                            child: Text(
+                            'Terverifikasi',
+                            style: ThemeFont.bodySmallRegular
+                                .copyWith(color: Colors.white),
+                          ))
+                        : const SizedBox()
+                  ],
                 ),
                 const SizedBox(
                   height: 16,
@@ -85,7 +73,7 @@ class DetailMission extends StatelessWidget {
                         Text(
                           '02 Desember 2023',
                           style: ThemeFont.bodySmallSemiBold
-                              .copyWith(color: Pallete.infoLigther),
+                              .copyWith(color: Pallete.main),
                         )
                       ],
                     ),
@@ -97,7 +85,9 @@ class DetailMission extends StatelessWidget {
                           height: 4,
                         ),
                         Text(
-                          '100 poin',
+                          progressState == 'verified'
+                              ? '5.000 Poin'
+                              : '100 Poin',
                           style: ThemeFont.bodySmallSemiBold
                               .copyWith(color: Pallete.secondary),
                         )
@@ -122,22 +112,30 @@ class DetailMission extends StatelessWidget {
                 const SizedBox(
                   height: 24,
                 ),
-                ProgressStep(
-                  progressState: progressState,
-                ),
+                ProgressStep(progressState: progressState),
                 const SizedBox(
                   height: 24,
                 ),
-                SizedBox(
-                  width: double.infinity,
-                  child: MainButton(
-                      onPressed: () {},
-                      child: Text(
-                        progressState,
-                        style: ThemeFont.heading6Bold
-                            .copyWith(color: Colors.white),
-                      )),
-                ),
+                progressState == 'verified'
+                    ? const SizedBox()
+                    : SizedBox(
+                        width: double.infinity,
+                        child: MainButton(
+                            onPressed: progressState == 'Unggah Bukti'
+                                ? () => Navigator.pushNamed(
+                                            context, '/unggah-bukti')
+                                        .then((value) {
+                                      setState(() {
+                                        progressState = value.toString();
+                                      });
+                                    })
+                                : () {},
+                            child: Text(
+                              progressState,
+                              style: ThemeFont.heading6Bold
+                                  .copyWith(color: Colors.white),
+                            )),
+                      ),
                 const SizedBox(
                   height: 20,
                 ),

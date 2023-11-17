@@ -10,13 +10,13 @@ class TabSelesai extends StatelessWidget {
     {
       'title': 'Ikuti Event Komunitas',
       'progress': 100,
-      'status': 'Silahkan klaim hadiahmu!',
-      'tempColor': Pallete.secondaryDarker
+      'status': 'Hadiah diklaim otomatis!',
+      'tempColor': Pallete.dark3
     },
     {
       'title': 'Tukarkan 1 kg sampah',
       'progress': 100,
-      'status': 'Hadiah sudah diklaim!',
+      'status': 'Hadiah diklaim otomatis!',
       'tempColor': Pallete.dark3
     },
   ];

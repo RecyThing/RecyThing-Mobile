@@ -28,9 +28,13 @@ class ProgressStep extends StatelessWidget {
               height: 24,
             ),
             ProgressCard(
-              title: 'Unggah bukti',
-              subTitle: 'Unggah foto bukti\npengerjaan tantangan',
-              backgroundColor: progressState == 'Ambil Hadiah'
+              title: progressState == 'verified'
+                  ? 'Bukti terverifikasi'
+                  : 'Unggah bukti',
+              subTitle: progressState == 'verified'
+                  ? 'Bukti kamu sudah cukup\nkuat.'
+                  : 'Unggah foto bukti\npengerjaan tantangan',
+              backgroundColor: progressState == 'verified'
                   ? Pallete.mainSubtle
                   : Colors.white,
             ),
@@ -38,9 +42,10 @@ class ProgressStep extends StatelessWidget {
               height: 24,
             ),
             ProgressCard(
-              title: 'Ambil hadiah',
-              subTitle: 'Selamat! kamu sudah bisa ambil\nhadiahmu',
-              backgroundColor: progressState == 'Ambil Hadiah'
+              title: 'Yay! Tantangan selesai.',
+              subTitle:
+                  'Hadiah kamu sudah dikirim nih,\nCek notifikasi kamu sekarang!',
+              backgroundColor: progressState == 'verified'
                   ? Pallete.mainSubtle
                   : Colors.white,
             ),
@@ -82,7 +87,7 @@ class ProgressStep extends StatelessWidget {
               ),
               DottedLine(
                 dashColor: progressState == 'Unggah Bukti' ||
-                        progressState == 'Ambil Hadiah'
+                        progressState == 'verified'
                     ? Pallete.main
                     : Pallete.dark4,
                 lineThickness: 3,
@@ -96,7 +101,7 @@ class ProgressStep extends StatelessWidget {
                 height: 32,
                 decoration: BoxDecoration(
                   color: progressState == 'Unggah Bukti' ||
-                          progressState == 'Ambil Hadiah'
+                          progressState == 'verified'
                       ? Pallete.main
                       : Pallete.dark4,
                   borderRadius: BorderRadius.circular(100),
@@ -116,7 +121,7 @@ class ProgressStep extends StatelessWidget {
                 ),
               ),
               DottedLine(
-                dashColor: progressState == 'Ambil Hadiah'
+                dashColor: progressState == 'verified'
                     ? Pallete.main
                     : Pallete.dark4,
                 lineThickness: 3,
@@ -132,7 +137,7 @@ class ProgressStep extends StatelessWidget {
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(100),
                   border: Border.all(
-                      color: progressState == 'Ambil Hadiah'
+                      color: progressState == 'verified'
                           ? Pallete.main
                           : Pallete.dark4,
                       width: 3),
@@ -148,7 +153,7 @@ class ProgressStep extends StatelessWidget {
                 child: Icon(
                   IconlyBold.ticket_star,
                   size: 20,
-                  color: progressState == 'Ambil Hadiah'
+                  color: progressState == 'verified'
                       ? Pallete.errorSubtle
                       : Pallete.dark4,
                 ),

@@ -5,6 +5,7 @@ import 'package:recything_mobile/screens/dashboard.dart';
 import 'package:recything_mobile/screens/home/pages/notifikasi_screen.dart';
 import 'package:recything_mobile/screens/home/pages/profile_screen.dart';
 import 'package:recything_mobile/screens/login/login_screen.dart';
+import 'package:recything_mobile/screens/missions/unggah_bukti_screen.dart';
 import 'package:recything_mobile/screens/poinku/pages/detail_transaksi_screen.dart';
 import 'package:recything_mobile/screens/poinku/pages/detail_voucher_screen.dart';
 import 'package:recything_mobile/screens/poinku/pages/poinku_screen.dart';
@@ -43,7 +44,8 @@ class MyApp extends StatelessWidget {
         '/splash': (context) => const SplashScreen(),
         '/onboarding': (context) => const OnboardingScreen(),
         '/missions': (context) => const MissionsScreen(),
-        '/detail-mission': (context) => const DetailMission(),
+        '/detail-mission': (context) => const DetailMissionScreen(),
+        '/unggah-bukti': (context) => const UnggahBuktiScreen(),
         '/login': (context) => const LoginScreen(),
         '/dashboard': (context) => const Dasboard(),
         '/profile': (context) => const ProfileScreen(),
