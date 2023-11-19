@@ -26,7 +26,7 @@ class HeaderKategoriWidget extends StatelessWidget {
               ),
               SizedBox(
                 height: 21,
-                width: 154,
+                width: 160,
                 child: Text(
                   'Kategori Daur Ulang',
                   style: ThemeText().heading6Medium,

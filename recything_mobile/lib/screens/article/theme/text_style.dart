@@ -21,6 +21,18 @@ class ThemeText {
     color: ThemeColor().grayScale900,
   );
 
+  TextStyle bodySmallRegular2 = GoogleFonts.inter(
+    fontSize: 14,
+    fontWeight: FontWeight.w400,
+    color: ThemeColor().mainColor,
+  );
+
+  TextStyle bodySmallRegular3 = GoogleFonts.inter(
+    fontSize: 14,
+    fontWeight: FontWeight.w400,
+    color: ThemeColor().dark3Color,
+  );
+
   TextStyle bodyNormalSemiBold = GoogleFonts.inter(
     fontSize: 16,
     fontWeight: FontWeight.w600,

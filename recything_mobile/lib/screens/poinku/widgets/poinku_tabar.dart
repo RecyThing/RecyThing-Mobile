@@ -53,9 +53,11 @@ class _PoinkuTabarState extends State<PoinkuTabar>
             controller: _tabController,
             children: <Widget>[
               ListView.builder(
+                  padding: const EdgeInsets.all(0),
                   itemCount: 3,
                   itemBuilder: ((context, index) => const PoinkuVoucher())),
               ListView.builder(
+                  padding: const EdgeInsets.all(0),
                   itemCount: 3,
                   itemBuilder: ((context, index) => const PoinkuRiwayat())),
             ],

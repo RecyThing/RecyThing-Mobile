@@ -95,9 +95,11 @@ class PoinkuVoucher extends StatelessWidget {
                                         mainAxisSize: MainAxisSize.min,
                                         children: [
                                           Image.asset(
-                                            "assets/icons/profile/lencana.png",
-                                            color: Pallete.secondary,
+                                            "assets/icons/tiket.png",
                                             width: 24,
+                                          ),
+                                          const SizedBox(
+                                            height: 8,
                                           ),
                                           Text(
                                             "Tukarkan Voucher Ini?",

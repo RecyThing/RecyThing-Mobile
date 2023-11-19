@@ -7,10 +7,14 @@ class MainTextField extends StatefulWidget {
   final String? hintText;
   final IconData? prefixIcon;
   final bool obscureText;
+
+  final bool? enable;
+
   final void Function()? onTap;
   final bool? enabled;
   final Widget? suffixIcon;
   final int maxLines;
+
   const MainTextField({
     super.key,
     this.controller,
@@ -18,6 +22,7 @@ class MainTextField extends StatefulWidget {
     this.hintText,
     this.prefixIcon,
     this.obscureText = false,
+    this.enable = true,
     this.onTap,
     this.enabled = true,
     this.suffixIcon,
@@ -53,11 +58,11 @@ class _MainTextFieldState extends State<MainTextField> {
   @override
   Widget build(BuildContext context) {
     return TextField(
-      onTap: widget.onTap,
-      enabled: widget.enabled,
+      controller: widget.controller,
+      enabled: widget.enable,
       focusNode: _focusNode,
       obscureText: widget.obscureText,
-      controller: widget.controller,
+      onTap: widget.onTap,
       maxLines: widget.obscureText == false ? widget.maxLines : 1,
       decoration: InputDecoration(
         border: const OutlineInputBorder(

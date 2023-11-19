@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:recything_mobile/screens/article/page/kategori_daur_ulang_screen.dart';
 import 'package:recything_mobile/screens/article/theme/text_style.dart';
 import 'package:recything_mobile/screens/article/widget/dashboard_screen/button_kategori_daur_ulang.dart';
 import 'package:recything_mobile/widgets/typography/body_link.dart';
@@ -26,33 +25,30 @@ class MenuKategoriWidget extends StatelessWidget {
                 GestureDetector(
                   child: const BodyLink("Lihat semua"),
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const KategoriDaurUlangPage()),
-                    );
+                    Navigator.pushNamed(context, '/kategoriDaurUlang');
                   },
                 )
               ],
             ),
             const SizedBox(height: 16),
             const Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 ButtonKategoriDaurUlang(
                   assetImage: 'assets/icons/icon_plastik.png',
                   title: 'Plastik',
                 ),
-                SizedBox(width: 27),
+                // SizedBox(width: 27),
                 ButtonKategoriDaurUlang(
                   assetImage: 'assets/icons/icon_kaca.png',
                   title: 'Kaca',
                 ),
-                SizedBox(width: 27),
+                // SizedBox(width: 27),
                 ButtonKategoriDaurUlang(
                   assetImage: 'assets/icons/icon_logam.png',
                   title: 'Logam',
                 ),
-                SizedBox(width: 27),
+                // SizedBox(width: 27),
                 ButtonKategoriDaurUlang(
                   assetImage: 'assets/icons/icon_organik.png',
                   title: 'Organik',

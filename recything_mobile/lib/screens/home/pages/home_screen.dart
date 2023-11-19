@@ -40,7 +40,9 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: Pallete.main,
         shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(100))),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pushNamed(context, '/recy');
+        },
         child: Image.asset("assets/icons/chatbot.png"),
       ),
     );

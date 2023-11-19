@@ -1,10 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:recything_mobile/bloc/get_ai/get_ai_cubit.dart';
 import 'package:recything_mobile/constants/pallete.dart';
+import 'package:recything_mobile/screens/article/page/artikel_by_kategori.dart';
+import 'package:recything_mobile/screens/article/page/cari_artikel.dart';
+import 'package:recything_mobile/screens/article/page/daftar_lokasi.dart';
+import 'package:recything_mobile/screens/article/page/detail_artikel.dart';
+import 'package:recything_mobile/screens/article/page/detail_lokasi.dart';
 import 'package:recything_mobile/screens/article/page/kategori_daur_ulang_screen.dart';
 import 'package:recything_mobile/screens/dashboard.dart';
+import 'package:recything_mobile/screens/home/pages/detail_permasalahan_screen.dart';
+import 'package:recything_mobile/screens/home/pages/edit_profile_screen.dart';
+import 'package:recything_mobile/screens/home/lencana/pages/lencana_screen.dart';
 import 'package:recything_mobile/screens/home/pages/notifikasi_screen.dart';
+import 'package:recything_mobile/screens/home/pages/pertanyaan_umum_screen.dart';
 import 'package:recything_mobile/screens/home/pages/profile_screen.dart';
+import 'package:recything_mobile/screens/recy/pages/recy_ai_screen.dart';
+import 'package:recything_mobile/screens/home/pages/ubah_password_screen.dart';
 import 'package:recything_mobile/screens/login/login_screen.dart';
+import 'package:recything_mobile/screens/missions/unggah_bukti_screen.dart';
 import 'package:recything_mobile/screens/poinku/pages/detail_transaksi_screen.dart';
 import 'package:recything_mobile/screens/poinku/pages/detail_voucher_screen.dart';
 import 'package:recything_mobile/screens/poinku/pages/poinku_screen.dart';
@@ -12,11 +26,15 @@ import 'package:recything_mobile/screens/poinku/pages/tukar_voucher_screen.dart'
 import 'package:recything_mobile/screens/onboarding/onboarding_screen.dart';
 import 'package:recything_mobile/screens/password_baru/password_baru_screen.dart';
 import 'package:recything_mobile/screens/register/register_screen.dart';
+import 'package:recything_mobile/screens/report/report-rubbish/choose_report_screen.dart';
+import 'package:recything_mobile/screens/report/report-rubbish/detail_riwayat_pelaporan_screen.dart';
+import 'package:recything_mobile/screens/report/report-rubbish/report_rubbish_screen.dart';
+import 'package:recything_mobile/screens/report/widget/maps_report_screen.dart';
+import 'package:recything_mobile/screens/report/report_rubbish_maps_screen.dart';
 import 'package:recything_mobile/screens/report/report_littering/report_littering_screen.dart';
 import 'package:recything_mobile/screens/reset_password/reset_password_screen.dart';
 import 'package:recything_mobile/screens/splash/splash_screen.dart';
 import 'package:recything_mobile/screens/verifikasi_otp/verifikasi_otp_screen.dart';
-import 'package:recything_mobile/screens/report/report_rubbish_screen.dart';
 import 'package:recything_mobile/screens/missions/detail_mission_screen.dart';
 import 'package:recything_mobile/screens/missions/missions_screen.dart';
 
@@ -30,37 +48,57 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        scaffoldBackgroundColor: Pallete.textMainButton,
-        fontFamily: "Inter",
-        colorScheme: ColorScheme.fromSeed(seedColor: Pallete.main),
-        useMaterial3: true,
+    return MultiBlocProvider(
+      providers: [BlocProvider(create: (_) => GetAiCubit())],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          scaffoldBackgroundColor: Pallete.textMainButton,
+          fontFamily: "Inter",
+          colorScheme: ColorScheme.fromSeed(seedColor: Pallete.main),
+          useMaterial3: true,
+        ),
+        initialRoute: '/splash',
+        routes: {
+          '/splash': (context) => const SplashScreen(),
+          '/onboarding': (context) => const OnboardingScreen(),
+          '/missions': (context) => const MissionsScreen(),
+          '/detail-mission': (context) => const DetailMissionScreen(),
+          '/unggah-bukti': (context) => const UnggahBuktiScreen(),
+          '/login': (context) => const LoginScreen(),
+          '/dashboard': (context) => const Dasboard(),
+          '/profile': (context) => const ProfileScreen(),
+          '/notif': (context) => const NotifikasiScreen(),
+          '/poinku': (context) => const PoinkuScreen(),
+          '/detailVoucher': (context) => const DetailVoucherScreen(),
+          '/tukarVoucher': (context) => const TukatVoucherScreen(),
+          '/detailTransaksi': (context) => const DetailTransaksiScreen(),
+          '/register': (context) => const RegisterScreen(),
+          '/reset_password': (context) => const ResetPasswordScreen(),
+          '/verifikasi_otp': (context) => const VerifikasiOtpScreen(),
+          '/password_baru': (context) => const PasswordBaruScreen(),
+          '/editProfile': (context) => const EditProfileScreen(),
+          '/pertanyaanUmum': (context) => const PertanyaanUmumScren(),
+          '/detailPermasalahan': (context) => const DetailPermasalahanScreen(),
+          '/lencana': (context) => const LencanaScreen(),
+          '/ubahPassword': (context) => const UbahPasswordScreen(),
+          '/recy': (context) => const RecyAiScreen(),
+          '/choose-report': (context) => const ChooseReportScreen(),
+          '/report-rubbish': (context) => const ReportRubbishScreen(),
+          '/report-rubbish--report': (context) =>
+              const ReportRubbishMapsScreen(),
+          '/report-littering': (context) => const ReportLitteringScreen(),
+          '/detail-report': (context) => const DetailRiwayatPelaporanScreen(),
+          '/maps-report': (context) => const MapsReportScreen(),
+          '/artikelByKategori': (context) => const ArtikelByKategoriScreen(),
+          '/kategoriDaurUlang': (context) => const KategoriDaurUlangScreen(),
+          '/cariArtikel': (context) => const CariArtikelScreen(),
+          '/daftarLokasi': (context) => const DaftarLokasiScreen(),
+          '/detailLokasi': (context) => const DetailLokasiScreen(),
+          '/detailArtikel': (context) => const DetailArtikelScreen()
+        },
       ),
-      initialRoute: '/splash',
-      routes: {
-        '/splash': (context) => const SplashScreen(),
-        '/onboarding': (context) => const OnboardingScreen(),
-        '/missions': (context) => const MissionsScreen(),
-        '/detail-mission': (context) => const DetailMission(),
-        '/login': (context) => const LoginScreen(),
-        '/dashboard': (context) => const Dasboard(),
-        '/profile': (context) => const ProfileScreen(),
-        '/notif': (context) => const NotifikasiScreen(),
-        '/poinku': (context) => const PoinkuScreen(),
-        '/detailVoucher': (context) => const DetailVoucherScreen(),
-        '/tukarVoucher': (context) => const TukatVoucherScreen(),
-        '/detailTransaksi': (context) => const DetailTransaksiScreen(),
-        '/register': (context) => const RegisterScreen(),
-        '/reset_password': (context) => const ResetPasswordScreen(),
-        '/verifikasi_otp': (context) => const VerifikasiOtpScreen(),
-        '/password_baru': (context) => const PasswordBaruScreen(),
-        '/report-rubbish': (context) => const ReportRubbishScreen(),
-        '/report-littering': (context) => const ReportLitteringScreen(),
-        '/kategoriDaurUlang': (context) => const KategoriDaurUlangPage()
-      },
     );
   }
 }

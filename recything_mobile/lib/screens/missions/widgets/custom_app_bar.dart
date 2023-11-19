@@ -21,6 +21,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         ],
       ),
       child: AppBar(
+        automaticallyImplyLeading: false,
         title: Text(
           'Missions',
           style: ThemeFont.heading6Medium,

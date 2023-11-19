@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:iconly/iconly.dart';
 import 'package:recything_mobile/constants/pallete.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ProfileInformasiLainnya extends StatelessWidget {
   const ProfileInformasiLainnya({super.key});
@@ -11,21 +13,19 @@ class ProfileInformasiLainnya extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("Informasi Lainnya",
-              style: ThemeFont.interText
-                  .copyWith(fontSize: 16, fontWeight: FontWeight.w600)),
+          Text("Informasi Lainnya", style: ThemeFont.bodyNormalSemiBold),
           ListTile(
             contentPadding: const EdgeInsets.symmetric(horizontal: 0.0),
-            leading: Image.asset(
-              "assets/icons/profile/hubungi.png",
-              width: 24,
-            ),
+            leading: const Icon(IconlyLight.calling),
             title: Text(
               "Hubungi Kami",
-              style: ThemeFont.interText.copyWith(fontSize: 16),
+              style: ThemeFont.bodyNormalReguler,
             ),
             trailing: IconButton(
-                onPressed: () {},
+                onPressed: () async {
+                  var waUrl = Uri.parse("https://wa.me/6289522933558");
+                  launchUrl(waUrl);
+                },
                 icon: const Icon(
                   Icons.arrow_forward_ios,
                   size: 16,
@@ -35,13 +35,10 @@ class ProfileInformasiLainnya extends StatelessWidget {
           ListTile(
             contentPadding: const EdgeInsets.symmetric(horizontal: 0.0),
             leading: Image.asset(
-              "assets/icons/profile/recybot.png",
+              "assets/icons/profile/mbarecy.png",
               width: 24,
             ),
-            title: Text(
-              "Chat dengan Recybot",
-              style: ThemeFont.interText.copyWith(fontSize: 16),
-            ),
+            title: Text("Tanya Recy", style: ThemeFont.bodyNormalReguler),
             trailing: IconButton(
                 onPressed: () {},
                 icon: const Icon(
@@ -58,10 +55,12 @@ class ProfileInformasiLainnya extends StatelessWidget {
             ),
             title: Text(
               "Pertanyaan Umum",
-              style: ThemeFont.interText.copyWith(fontSize: 16),
+              style: ThemeFont.bodyNormalReguler,
             ),
             trailing: IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, '/pertanyaanUmum');
+                },
                 icon: const Icon(
                   Icons.arrow_forward_ios,
                   size: 16,
@@ -70,14 +69,13 @@ class ProfileInformasiLainnya extends StatelessWidget {
           const Divider(),
           ListTile(
             contentPadding: const EdgeInsets.symmetric(horizontal: 0.0),
-            leading: Image.asset(
-              "assets/icons/profile/logout.png",
-              width: 24,
+            leading: const Icon(
+              IconlyLight.logout,
+              color: Pallete.error,
             ),
             title: Text(
               "Keluar",
-              style: ThemeFont.interText
-                  .copyWith(fontSize: 16, color: Pallete.error),
+              style: ThemeFont.bodyNormalReguler.copyWith(color: Pallete.error),
             ),
             trailing: IconButton(
                 onPressed: () {},
