@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:recything_mobile/constants/pallete.dart';
+import 'package:recything_mobile/models/faq_model.dart';
 import 'package:recything_mobile/widgets/forms/custom_back_button.dart';
 import 'package:recything_mobile/widgets/forms/main_button.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class DetailPermasalahanScreen extends StatelessWidget {
-  const DetailPermasalahanScreen({super.key});
+  final FaqModel item;
+  const DetailPermasalahanScreen({super.key, required this.item});
 
   @override
   Widget build(BuildContext context) {
@@ -27,14 +30,15 @@ class DetailPermasalahanScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "Cara mengelola sampah",
+              item.title,
               style: ThemeFont.bodyNormalSemiBold,
             ),
             const SizedBox(
               height: 4,
             ),
             Text(
-              "Cara mengelola sampah dapat melibatkan beberapa langkah, termasuk:\n1.Pemilahan Sampah: Pisahkan sampah menjadi kategori berbeda, seperti organik, kertas, plastik, logam, dan sebagainya.\n2.Daur Ulang: Maksimalkan daur ulang dengan mengumpulkan, mendaur ulang, dan menggunakan kembali bahan-bahan yang bisa didaur ulang.\n3.Pengomposan: Buat kompos dari sisa makanan dan limbah organik untuk menghasilkan pupuk alami.\n4.Pengurangan Sampah: Kurangi penggunaan kantong plastik sekali pakai dan barang-barang sekali pakai.",
+              item.desc,
+              textAlign: TextAlign.justify,
               style: ThemeFont.bodySmallRegular,
             ),
             const Expanded(child: SizedBox()),
@@ -48,7 +52,10 @@ class DetailPermasalahanScreen extends StatelessWidget {
             SizedBox(
               width: MediaQuery.of(context).size.width,
               child: MainButton(
-                  onPressed: () {},
+                  onPressed: () async {
+                    var waUrl = Uri.parse("https://wa.me/6289522933558");
+                    launchUrl(waUrl);
+                  },
                   child: Text(
                     "Hubungi Kami",
                     style: ThemeFont.heading6Reguler.copyWith(

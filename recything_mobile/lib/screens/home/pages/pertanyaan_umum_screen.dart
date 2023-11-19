@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconly/iconly.dart';
+import 'package:recything_mobile/bloc/get_all_faq/get_all_faq_cubit.dart';
 import 'package:recything_mobile/constants/pallete.dart';
 import 'package:recything_mobile/screens/home/widgets/pertanyaan_card.dart';
 import 'package:recything_mobile/widgets/forms/custom_back_button.dart';
@@ -13,6 +15,12 @@ class PertanyaanUmumScren extends StatefulWidget {
 }
 
 class _PertanyaanUmumScrenState extends State<PertanyaanUmumScren> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<GetAllFaqCubit>().fetchFaq();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,12 +42,27 @@ class _PertanyaanUmumScrenState extends State<PertanyaanUmumScren> {
           children: [
             const MainTextField(
                 prefixIcon: IconlyLight.search, label: "Cari Pertanyaan..."),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.8,
-              child: ListView.builder(
-                  itemCount: 5,
-                  itemBuilder: ((context, index) => const PertanyaanCard())),
-            )
+            BlocBuilder<GetAllFaqCubit, GetAllFaqState>(
+                builder: (context, state) {
+              if (state is GetAllFaqLoading) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else if (state is GetAllFaqFailure) {
+                return Center(
+                  child: Text(state.message),
+                );
+              } else if (state is GetAllFaqSuccess) {
+                return ListView.builder(
+                    physics: const AlwaysScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: state.data.length,
+                    itemBuilder: ((context, index) => PertanyaanCard(
+                          item: state.data[index],
+                        )));
+              }
+              return const SizedBox();
+            }),
           ],
         ),
       ),

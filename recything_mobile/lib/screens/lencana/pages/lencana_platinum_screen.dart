@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:recything_mobile/constants/pallete.dart';
-import 'package:recything_mobile/screens/home/lencana/widgets/lencana_card.dart';
-import 'package:recything_mobile/screens/home/lencana/widgets/lencana_keuntungan.dart';
-import 'package:recything_mobile/screens/home/lencana/widgets/lencana_poin.dart';
+import 'package:recything_mobile/screens/lencana/widgets/lencana_card.dart';
+import 'package:recything_mobile/screens/lencana/widgets/lencana_keuntungan.dart';
+import 'package:recything_mobile/screens/lencana/widgets/lencana_poin.dart';
 
 class LencanaPlatinumScreen extends StatelessWidget {
   const LencanaPlatinumScreen({super.key});

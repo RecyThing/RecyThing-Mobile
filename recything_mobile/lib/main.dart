@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recything_mobile/bloc/get_ai/get_ai_cubit.dart';
+import 'package:recything_mobile/bloc/get_all_faq/get_all_faq_cubit.dart';
 import 'package:recything_mobile/constants/pallete.dart';
 import 'package:recything_mobile/screens/article/page/artikel_by_kategori.dart';
 import 'package:recything_mobile/screens/article/page/cari_artikel.dart';
@@ -9,9 +10,8 @@ import 'package:recything_mobile/screens/article/page/detail_artikel.dart';
 import 'package:recything_mobile/screens/article/page/detail_lokasi.dart';
 import 'package:recything_mobile/screens/article/page/kategori_daur_ulang_screen.dart';
 import 'package:recything_mobile/screens/dashboard.dart';
-import 'package:recything_mobile/screens/home/pages/detail_permasalahan_screen.dart';
 import 'package:recything_mobile/screens/home/pages/edit_profile_screen.dart';
-import 'package:recything_mobile/screens/home/lencana/pages/lencana_screen.dart';
+import 'package:recything_mobile/screens/lencana/pages/lencana_screen.dart';
 import 'package:recything_mobile/screens/home/pages/notifikasi_screen.dart';
 import 'package:recything_mobile/screens/home/pages/pertanyaan_umum_screen.dart';
 import 'package:recything_mobile/screens/home/pages/profile_screen.dart';
@@ -49,7 +49,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: [BlocProvider(create: (_) => GetAiCubit())],
+      providers: [
+        BlocProvider(create: (_) => GetAiCubit()),
+        BlocProvider(create: (_) => GetAllFaqCubit())
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
@@ -80,7 +83,6 @@ class MyApp extends StatelessWidget {
           '/password_baru': (context) => const PasswordBaruScreen(),
           '/editProfile': (context) => const EditProfileScreen(),
           '/pertanyaanUmum': (context) => const PertanyaanUmumScren(),
-          '/detailPermasalahan': (context) => const DetailPermasalahanScreen(),
           '/lencana': (context) => const LencanaScreen(),
           '/ubahPassword': (context) => const UbahPasswordScreen(),
           '/recy': (context) => const RecyAiScreen(),
