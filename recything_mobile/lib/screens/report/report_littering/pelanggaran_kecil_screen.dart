@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:recything_mobile/constants/pallete.dart';
 import 'package:recything_mobile/screens/komunitas/berhasil_bergabung_screen.dart';
+import 'package:recything_mobile/screens/report/widget/image_picker_button.dart';
 import 'package:recything_mobile/screens/report/widget/maps_report_screen.dart';
 import 'package:recything_mobile/widgets/forms/custom_back_button.dart';
 import 'package:recything_mobile/widgets/forms/main_button.dart';
@@ -20,6 +22,9 @@ class _PelanggaranKecilScreenState extends State<PelanggaranKecilScreen> {
   TextEditingController dateController = TextEditingController();
   TextEditingController timeController = TextEditingController();
 
+  ImagePickerButton imagePickerButton = ImagePickerButton(
+    onImagesSelected: (List<XFile>? selectedImages) {},
+  );
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
@@ -96,7 +101,7 @@ class _PelanggaranKecilScreenState extends State<PelanggaranKecilScreen> {
                             onPressed: () {
                               Navigator.of(context).push(
                                 MaterialPageRoute(
-                                  builder: (context) => MapsReportScreen(
+                                  builder: (context) => const MapsReportScreen(
                                       reportType: 'pelanggaran-kecil'),
                                 ),
                               );
@@ -206,36 +211,28 @@ class _PelanggaranKecilScreenState extends State<PelanggaranKecilScreen> {
                     maxLines: 5,
                   ),
                   const SizedBox(height: 16),
-                  Text(
-                    "Bukti Foto / Video",
-                    style: ThemeFont.bodySmallMedium,
+                  Text('Bukti Foto / Video',
+                      style: ThemeFont.bodyNormalReguler),
+                  const SizedBox(
+                    height: 8,
                   ),
-                  const SizedBox(height: 8),
-                  Container(
-                    width: 80,
-                    height: 80,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                      border: Border.all(color: Pallete.dark4),
-                    ),
-                    child: const Center(
-                      child: Icon(
-                        Icons.add,
-                        color: Pallete.dark4,
-                      ),
-                    ),
+                  Row(
+                    children: [
+                      imagePickerButton,
+                    ],
                   ),
-                  const SizedBox(height: 8),
-                  Text(
-                    "Format file: JPG , PNG, MP4",
-                    style: ThemeFont.bodySmallRegular
-                        .copyWith(color: Pallete.dark3),
+                  const SizedBox(
+                    height: 8,
                   ),
-                  const SizedBox(height: 8),
                   Text(
-                    "Maksimum file: 20 Mb",
-                    style: ThemeFont.bodySmallRegular
-                        .copyWith(color: Pallete.dark3),
+                    'Format file: JPG, PNG, MP4',
+                    style: ThemeFont.bodySmallRegular.copyWith(
+                        color: Pallete.dark3, fontWeight: FontWeight.w400),
+                  ),
+                  Text(
+                    'Maksimum file: 20 MB',
+                    style: ThemeFont.bodySmallRegular.copyWith(
+                        color: Pallete.dark3, fontWeight: FontWeight.w400),
                   ),
                   const SizedBox(height: 36),
                   Row(
