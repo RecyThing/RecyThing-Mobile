@@ -5,6 +5,7 @@ import 'package:recything_mobile/constants/pallete.dart';
 import 'package:recything_mobile/screens/report/report-rubbish/detail_riwayat_pelaporan_screen.dart';
 import 'package:recything_mobile/screens/report/widget/add_media_button.dart';
 import 'package:recything_mobile/screens/report/widget/checkbox_report.dart';
+import 'package:recything_mobile/screens/report/widget/maps_report_screen.dart';
 import 'package:recything_mobile/screens/report/widget/text_field_report.dart';
 
 class ReportRubbishScreen extends StatefulWidget {
@@ -78,7 +79,13 @@ class _ReportRubbishScreenState extends State<ReportRubbishScreen> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          Navigator.pushNamed(context, "/maps-report");
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  MapsReportScreen(reportType: 'rubbish'),
+                            ),
+                          );
+                          // Navigator.pushNamed(context, "/maps-report");
                         },
                         child: Container(
                           width: 56,
