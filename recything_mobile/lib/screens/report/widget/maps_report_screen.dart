@@ -5,9 +5,12 @@ import 'package:geolocator/geolocator.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:recything_mobile/constants/pallete.dart';
 import 'package:recything_mobile/screens/report/report-rubbish/report_rubbish_screen.dart';
+import 'package:recything_mobile/screens/report/report_littering/pelanggaran_kecil_screen.dart';
 
 class MapsReportScreen extends StatefulWidget {
-  const MapsReportScreen({Key? key}) : super(key: key);
+  final String reportType;
+  const MapsReportScreen({Key? key, required this.reportType})
+      : super(key: key);
 
   @override
   State<MapsReportScreen> createState() => _MapsReportScreenState();
@@ -42,21 +45,21 @@ class _MapsReportScreenState extends State<MapsReportScreen> {
 
     if (status == PermissionStatus.denied) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text(
               'Izin lokasi ditolak. Aktifkan izin di pengaturan aplikasi.'),
         ),
       );
     } else if (status == PermissionStatus.permanentlyDenied) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text(
               'Izin lokasi ditolak secara permanen. Buka pengaturan aplikasi untuk mengaktifkan izin.'),
         ),
       );
     } else if (status == PermissionStatus.granted) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text('Izin lokasi diberikan.'),
         ),
       );
@@ -82,13 +85,29 @@ class _MapsReportScreenState extends State<MapsReportScreen> {
       await _getAddress(_currentPosition!);
 
       Navigator.of(context).pop();
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(
-          builder: (context) => ReportRubbishScreen(
-            locationAddress: _currentAddress,
+      if (widget.reportType == 'rubbish') {
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(
+            builder: (context) => ReportRubbishScreen(
+              locationAddress: _currentAddress,
+            ),
           ),
-        ),
-      );
+        );
+      } else if (widget.reportType == 'pelanggaran-kecil') {
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(
+            builder: (context) => PelanggaranKecilScreen(),
+          ),
+        );
+      }
+
+      // Navigator.of(context).pushReplacement(
+      //   MaterialPageRoute(
+      //     builder: (context) => ReportRubbishScreen(
+      //       locationAddress: _currentAddress,
+      //     ),
+      //   ),
+      // );
     }
   }
 
@@ -136,7 +155,7 @@ class _MapsReportScreenState extends State<MapsReportScreen> {
                 target: _currentPosition != null
                     ? LatLng(
                         _currentPosition!.latitude, _currentPosition!.longitude)
-                    : LatLng(0.0, 0.0),
+                    : const LatLng(0.0, 0.0),
               ),
               markers: _markers.values.toSet(),
               onTap: (LatLng position) {
@@ -164,8 +183,8 @@ class _MapsReportScreenState extends State<MapsReportScreen> {
                 onPressed: () {
                   _updateAddress();
                 },
-                child: Padding(
-                  padding: const EdgeInsets.all(16),
+                child: const Padding(
+                  padding: EdgeInsets.all(16),
                   child: Text(
                     'Selanjutnya',
                     style: TextStyle(
