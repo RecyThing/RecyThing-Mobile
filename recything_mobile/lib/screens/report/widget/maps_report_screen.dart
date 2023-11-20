@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geocoding/geocoding.dart';
@@ -5,6 +7,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:recything_mobile/constants/pallete.dart';
 import 'package:recything_mobile/screens/report/report-rubbish/report_rubbish_screen.dart';
+import 'package:recything_mobile/screens/report/report_littering/pelanggaran_besar_screen.dart';
 import 'package:recything_mobile/screens/report/report_littering/pelanggaran_kecil_screen.dart';
 
 class MapsReportScreen extends StatefulWidget {
@@ -34,7 +37,7 @@ class _MapsReportScreenState extends State<MapsReportScreen> {
           _getAddress(position);
         });
       } catch (e) {
-        print('Error getting location: $e');
+        // print('Error getting location: $e');
       }
     }
   }
@@ -96,7 +99,13 @@ class _MapsReportScreenState extends State<MapsReportScreen> {
       } else if (widget.reportType == 'pelanggaran-kecil') {
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(
-            builder: (context) => PelanggaranKecilScreen(),
+            builder: (context) => const PelanggaranKecilScreen(),
+          ),
+        );
+      }else if (widget.reportType == 'pelanggaran-besar') {
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(
+            builder: (context) => const PelanggaranBesarScreen(),
           ),
         );
       }
