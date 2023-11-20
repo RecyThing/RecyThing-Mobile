@@ -5,6 +5,7 @@ import 'package:recything_mobile/constants/pallete.dart';
 import 'package:recything_mobile/screens/komunitas/berhasil_bergabung_screen.dart';
 import 'package:recything_mobile/screens/report/widget/image_picker_button.dart';
 import 'package:recything_mobile/screens/report/widget/maps_report_screen.dart';
+import 'package:recything_mobile/screens/report/widget/text_field_report.dart';
 import 'package:recything_mobile/widgets/forms/custom_back_button.dart';
 import 'package:recything_mobile/widgets/forms/main_button.dart';
 import 'package:recything_mobile/widgets/forms/main_textfield.dart';
@@ -119,9 +120,11 @@ class _PelanggaranBesarScreenState extends State<PelanggaranBesarScreen> {
                     style: ThemeFont.bodySmallMedium,
                   ),
                   const SizedBox(height: 8),
-                  const MainTextField(
-                    label: "Cth: Sebelah Masjid Nawawi",
-                    prefixIcon: IconlyLight.location,
+                  TextFieldReport(
+                    hinttext: 'Cth: Sebelah Masjid Nawawi',
+                    hintStyle: ThemeFont.bodySmallMedium.copyWith(
+                      color: Pallete.dark3,
+                    ),
                   ),
                   const SizedBox(height: 24),
                   Text(
