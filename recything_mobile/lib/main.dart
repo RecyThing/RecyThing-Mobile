@@ -88,9 +88,9 @@ class MyApp extends StatelessWidget {
           '/report-rubbish': (context) => const ReportRubbishScreen(),
           // '/report-rubbish--report': (context) =>
           //     const ReportRubbishMapsScreen(),
-          '/report-littering': (context) => const ReportLitteringScreen(),
+          '/report-littering': (context) => ReportLitteringScreen(),
           '/detail-report': (context) => const DetailRiwayatPelaporanScreen(),
-          '/maps-report': (context) => const MapsReportScreen(),
+          '/maps-report': (context) => const MapsReportScreen(reportType: '',),
           // '/artikelByKategori': (context) => const ArtikelByKategoriScreen(),
           // '/kategoriDaurUlang': (context) => const KategoriDaurUlangScreen(),
           // '/cariArtikel': (context) => const CariArtikelScreen(),
