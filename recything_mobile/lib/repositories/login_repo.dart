@@ -1,0 +1,33 @@
+import 'dart:convert';
+import 'package:dio/dio.dart';
+import 'package:recything_mobile/model/login_model.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+class LoginRepo {
+  Dio dio = Dio(BaseOptions(baseUrl: "https://api.recything.my.id/"));
+
+  Future<void> login({required String email, required String password}) async {
+    try {
+      final data = {
+        "email": email,
+        "password": password,
+      };
+
+      final response = await dio.post(
+        "login",
+        data: data,
+      );
+
+      Map<String, dynamic> responseData = json.decode(response.toString());
+      final loginModel = LoginModel.fromJson(responseData);
+
+      final pref = await SharedPreferences.getInstance();
+      pref.setString('token', loginModel.data.token);
+    } on DioException catch (e) {
+      if (e.response != null) {
+        final response = jsonDecode(e.response.toString());
+        throw response["message"];
+      }
+    }
+  }
+}
