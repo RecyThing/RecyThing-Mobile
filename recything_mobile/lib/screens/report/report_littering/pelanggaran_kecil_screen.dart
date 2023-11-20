@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 import 'package:recything_mobile/constants/pallete.dart';
 import 'package:recything_mobile/screens/komunitas/berhasil_bergabung_screen.dart';
+import 'package:recything_mobile/screens/report/widget/maps_report_screen.dart';
 import 'package:recything_mobile/widgets/forms/custom_back_button.dart';
 import 'package:recything_mobile/widgets/forms/main_button.dart';
 import 'package:recything_mobile/widgets/forms/main_textfield.dart';
@@ -92,7 +93,15 @@ class _PelanggaranKecilScreenState extends State<PelanggaranKecilScreen> {
                           width: 55,
                           height: 55,
                           child: MainButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => MapsReportScreen(
+                                      reportType: 'pelanggaran-kecil'),
+                                ),
+                              );
+                              // Navigator.pushNamed(context, "/maps-report");
+                            },
                             child: Image.asset("assets/images/map_icon.png"),
                           ),
                         )
