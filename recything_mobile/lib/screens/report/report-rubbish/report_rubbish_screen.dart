@@ -3,7 +3,7 @@ import 'package:iconly/iconly.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:recything_mobile/constants/pallete.dart';
 import 'package:recything_mobile/screens/report/report-rubbish/detail_riwayat_pelaporan_screen.dart';
-import 'package:recything_mobile/screens/report/widget/add_media_button.dart';
+import 'package:recything_mobile/screens/report/widget/image_picker_button.dart';
 import 'package:recything_mobile/screens/report/widget/checkbox_report.dart';
 import 'package:recything_mobile/screens/report/widget/maps_report_screen.dart';
 import 'package:recything_mobile/screens/report/widget/text_field_report.dart';
@@ -82,7 +82,7 @@ class _ReportRubbishScreenState extends State<ReportRubbishScreen> {
                           Navigator.of(context).push(
                             MaterialPageRoute(
                               builder: (context) =>
-                                  MapsReportScreen(reportType: 'rubbish'),
+                                  const MapsReportScreen(reportType: 'rubbish'),
                             ),
                           );
                           // Navigator.pushNamed(context, "/maps-report");
