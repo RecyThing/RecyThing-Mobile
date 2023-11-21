@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recything_mobile/bloc/get_ai/get_ai_cubit.dart';
+import 'package:recything_mobile/bloc/login/login_cubit.dart';
 import 'package:recything_mobile/bloc/get_all_faq/get_all_faq_cubit.dart';
 import 'package:recything_mobile/constants/pallete.dart';
 import 'package:recything_mobile/screens/article/page/artikel_by_kategori.dart';
@@ -51,7 +52,8 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) => GetAiCubit()),
-        BlocProvider(create: (_) => GetAllFaqCubit())
+        BlocProvider(create: (_) => GetAllFaqCubit()),
+        BlocProvider(create: (context) => LoginCubit()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -62,7 +64,7 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Pallete.main),
           useMaterial3: true,
         ),
-        initialRoute: '/splash',
+        initialRoute: '/login',
         routes: {
           '/splash': (context) => const SplashScreen(),
           '/onboarding': (context) => const OnboardingScreen(),
