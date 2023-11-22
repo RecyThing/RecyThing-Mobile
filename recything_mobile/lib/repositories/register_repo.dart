@@ -2,32 +2,38 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:logger/logger.dart';
 import 'package:recything_mobile/constants/api.dart';
-import 'package:recything_mobile/model/login_model.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-class LoginRepo {
+class RegisterRepo {
   Dio dio = Dio(BaseOptions(baseUrl: Api.baseUrl));
 
-  Future<void> login({required String email, required String password}) async {
+  Future<void> register({
+    required String fullname,
+    required String email,
+    required String password,
+    required String confirmPassword,
+  }) async {
     try {
       final data = {
+        "fullname": fullname,
         "email": email,
         "password": password,
+        "confirm_password": confirmPassword,
       };
       Logger().i(data);
 
       final response = await dio.post(
-        "login",
+        "register",
         data: data,
       );
 
       Map<String, dynamic> responseData = json.decode(response.toString());
-      final loginModel = LoginModel.fromJson(responseData);
+      Logger().i(responseData);
+      // final loginModel = LoginModel.fromJson(responseData);
 
-      final pref = await SharedPreferences.getInstance();
-      pref.setString('token', loginModel.data.token);
+      // final pref = await SharedPreferences.getInstance();
+      // pref.setString('token', loginModel.data.token);
     } on DioException catch (e) {
-      // Logger().e(e.response);
+      Logger().e(e.response);
       if (e.response != null) {
         final response = jsonDecode(e.response.toString());
         throw response["message"];

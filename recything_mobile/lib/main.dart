@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recything_mobile/bloc/get_ai/get_ai_cubit.dart';
 import 'package:recything_mobile/bloc/login/login_cubit.dart';
+import 'package:recything_mobile/bloc/register/register_cubit.dart';
 import 'package:recything_mobile/constants/pallete.dart';
 import 'package:recything_mobile/screens/article/page/artikel_by_kategori.dart';
 import 'package:recything_mobile/screens/article/page/cari_artikel.dart';
@@ -52,7 +53,8 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) => GetAiCubit()),
-        BlocProvider(create: (context) => LoginCubit())
+        BlocProvider(create: (context) => LoginCubit()),
+        BlocProvider(create: (context) => RegisterCubit()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
