@@ -1,5 +1,6 @@
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:recything_mobile/constants/pallete.dart';
 import 'package:recything_mobile/screens/onboarding/onboarding_screen3.dart';
 import 'package:recything_mobile/widgets/forms/main_button.dart';
@@ -30,7 +31,16 @@ class OnboardingScreen2 extends StatelessWidget {
                 ),
               ],
             ),
-            Image.asset("assets/images/onboarding1.png"),
+            SizedBox(
+              width: double.infinity,
+              height: 285,
+              child: Lottie.asset(
+                "assets/images/onboarding2.json",
+                fit: BoxFit.cover,
+                alignment: Alignment.center,
+                height: 285,
+              ),
+            ),
             const SizedBox(height: 32),
             Text(
               "Laporkan Tumpukan dan Pelanggaran Sampah ",

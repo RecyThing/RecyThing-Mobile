@@ -7,6 +7,7 @@ import 'package:recything_mobile/widgets/forms/google_button.dart';
 import 'package:recything_mobile/widgets/forms/main_button.dart';
 import 'package:recything_mobile/widgets/forms/main_textfield.dart';
 import 'package:recything_mobile/widgets/typography/body_link.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../constants/pallete.dart';
 
@@ -21,6 +22,17 @@ class _LoginScreenState extends State<LoginScreen> {
   bool showPwd = false;
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    setOnboarding();
+  }
+
+  Future<void> setOnboarding() async {
+    final pref = await SharedPreferences.getInstance();
+    pref.setBool('onboarding', true);
+  }
 
   @override
   Widget build(BuildContext context) {

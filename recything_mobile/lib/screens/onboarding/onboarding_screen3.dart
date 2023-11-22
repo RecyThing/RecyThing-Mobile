@@ -1,5 +1,6 @@
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:recything_mobile/constants/pallete.dart';
 import 'package:recything_mobile/widgets/forms/main_button.dart';
 import 'package:recything_mobile/widgets/forms/secondary_button.dart';
@@ -30,7 +31,26 @@ class OnboardingScreen3 extends StatelessWidget {
                 ),
               ],
             ),
-            Image.asset("assets/images/onboarding1.png"),
+            Stack(
+              clipBehavior: Clip.none,
+              alignment: Alignment.center,
+              textDirection: TextDirection.rtl,
+              fit: StackFit.loose,
+              children: [
+                const SizedBox(height: 285),
+                Positioned(
+                  // right: MediaQuery.of(context).size.width * -0.1,
+                  width: 300,
+                  height: 285,
+                  child: Lottie.asset(
+                    "assets/images/onboarding3.json",
+                    fit: BoxFit.cover,
+                    alignment: Alignment.center,
+                    height: 285,
+                  ),
+                ),
+              ],
+            ),
             const SizedBox(height: 32),
             Text(
               "Kumpulkan Poin dan Tukarkan Dengan Voucher",
