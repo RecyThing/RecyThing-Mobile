@@ -16,7 +16,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   void initState() {
     super.initState();
-    context.read<GetUserProfileCubit>().fetchMe();
+    context.read<GetUserProfileCubit>().fetchMe(context);
   }
 
   @override

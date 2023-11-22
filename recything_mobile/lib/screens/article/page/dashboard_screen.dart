@@ -16,6 +16,7 @@ class _ArticleDashboardScreenState extends State<ArticleDashboardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       body: Padding(
         padding: const EdgeInsets.only(bottom: 30),
         child: ListView(

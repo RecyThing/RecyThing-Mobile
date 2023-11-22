@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:recything_mobile/bloc/auth/auth_cubit.dart';
 import 'package:recything_mobile/bloc/get_ai/get_ai_cubit.dart';
 import 'package:recything_mobile/bloc/get_user_profile/get_user_profile_cubit.dart';
 import 'package:recything_mobile/bloc/login/login_cubit.dart';
@@ -13,6 +14,7 @@ import 'package:recything_mobile/screens/article/page/detail_lokasi.dart';
 import 'package:recything_mobile/screens/article/page/kategori_daur_ulang_screen.dart';
 import 'package:recything_mobile/screens/dashboard.dart';
 import 'package:recything_mobile/screens/home/pages/edit_profile_screen.dart';
+import 'package:recything_mobile/screens/index_screen.dart';
 import 'package:recything_mobile/screens/lencana/pages/lencana_screen.dart';
 import 'package:recything_mobile/screens/home/pages/notifikasi_screen.dart';
 import 'package:recything_mobile/screens/home/pages/pertanyaan_umum_screen.dart';
@@ -52,10 +54,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider(create: (_) => AuthCubit()..appStarted()),
         BlocProvider(create: (_) => GetAiCubit()),
         BlocProvider(create: (_) => GetAllFaqCubit()),
         BlocProvider(create: (context) => LoginCubit()),
-        BlocProvider(create: (_) => GetUserProfileCubit())
+        BlocProvider(create: (_) => GetUserProfileCubit()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -66,8 +69,10 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Pallete.main),
           useMaterial3: true,
         ),
-        initialRoute: '/login',
+        initialRoute: '/index',
+        home: const IndexScreen(),
         routes: {
+          '/index': (context) => const IndexScreen(),
           '/splash': (context) => const SplashScreen(),
           '/onboarding': (context) => const OnboardingScreen(),
           '/missions': (context) => const MissionsScreen(),
@@ -102,7 +107,7 @@ class MyApp extends StatelessWidget {
           '/cariArtikel': (context) => const CariArtikelScreen(),
           '/daftarLokasi': (context) => const DaftarLokasiScreen(),
           '/detailLokasi': (context) => const DetailLokasiScreen(),
-          '/detailArtikel': (context) => const DetailArtikelScreen()
+          '/detailArtikel': (context) => const DetailArtikelScreen(),
         },
       ),
     );

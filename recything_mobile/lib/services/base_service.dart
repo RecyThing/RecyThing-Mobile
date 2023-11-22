@@ -1,12 +1,16 @@
 import 'dart:io';
 import 'package:dio/dio.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:recything_mobile/bloc/auth/auth_cubit.dart';
 import 'package:recything_mobile/constants/constans.dart';
 import 'package:recything_mobile/services/shared_pref_service.dart';
+import 'package:flutter/material.dart';
 
 abstract class BaseService {
   final Dio _dio = Dio();
 
   Future<Response> request(
+    BuildContext? context,
     String endpoint, {
     RequestType requestType = RequestType.get,
     dynamic data,
@@ -38,11 +42,14 @@ abstract class BaseService {
       if (e.error is SocketException ||
           e.type == DioExceptionType.connectionTimeout ||
           e.type == DioExceptionType.receiveTimeout) {
+        Navigator.pushNamed(context!, '/login');
         throw 'Periksa internet anda';
       } else if (e.response?.data != null) {
         final responseMsg = e.response!.data?['message'];
         if (responseMsg == 'missing or malformed jwt') {
           //masukin authbloc logoutnya
+          context!.read<AuthCubit>().loggedOut();
+          Navigator.pushNamed(context, '/login');
           throw 'Silahkan login kembali';
         }
         throw responseMsg;
