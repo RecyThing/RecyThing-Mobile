@@ -12,7 +12,7 @@ String loginModelToJson(LoginModel data) => json.encode(data.toJson());
 class LoginModel {
   bool status;
   String message;
-  Data data;
+  DataLogin data;
 
   LoginModel({
     required this.status,
@@ -23,7 +23,7 @@ class LoginModel {
   factory LoginModel.fromJson(Map<String, dynamic> json) => LoginModel(
         status: json["status"],
         message: json["message"],
-        data: Data.fromJson(json["data"]),
+        data: DataLogin.fromJson(json["data"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -33,20 +33,20 @@ class LoginModel {
       };
 }
 
-class Data {
+class DataLogin {
   String id;
   String fullname;
   String email;
   String token;
 
-  Data({
+  DataLogin({
     required this.id,
     required this.fullname,
     required this.email,
     required this.token,
   });
 
-  factory Data.fromJson(Map<String, dynamic> json) => Data(
+  factory DataLogin.fromJson(Map<String, dynamic> json) => DataLogin(
         id: json["id"],
         fullname: json["fullname"],
         email: json["email"],
