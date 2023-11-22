@@ -68,7 +68,7 @@ class CustomInterceptors extends Interceptor {
     options.baseUrl = baseUrl;
     String? token = await SharedPreferenceService.getToken();
     if (token != null) {
-      options.headers['token'] = token;
+      options.headers['Authorization'] = 'Bearer $token';
     }
     return super.onRequest(options, handler);
   }

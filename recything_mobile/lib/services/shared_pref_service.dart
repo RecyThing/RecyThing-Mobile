@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:recything_mobile/constants/constans.dart';
-import 'package:recything_mobile/model/login_model.dart';
+import 'package:recything_mobile/models/login_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPreferenceService {

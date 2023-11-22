@@ -1,10 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:recything_mobile/bloc/get_user_profile/get_user_profile_cubit.dart';
 import 'package:recything_mobile/constants/pallete.dart';
 import 'package:recything_mobile/screens/home/widgets/profile_informasi_akun.dart';
 import 'package:recything_mobile/screens/home/widgets/profile_informasi_lainnya.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
+
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<GetUserProfileCubit>().fetchMe();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,40 +39,51 @@ class ProfileScreen extends StatelessWidget {
             Text("Profile Pengguna",
                 style: ThemeFont.interText
                     .copyWith(fontSize: 16, fontWeight: FontWeight.w600)),
-            Row(
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(16),
-                  decoration: const BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Color.fromARGB(255, 69, 196, 169)),
-                  child: Text(
-                    "W",
-                    style: ThemeFont.interText.copyWith(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 36,
-                        color: Pallete.textMainButton),
-                  ),
-                ),
-                const SizedBox(
-                  width: 16,
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Kaisar Panjaitan",
-                      style: ThemeFont.interText
-                          .copyWith(fontSize: 16, fontWeight: FontWeight.w500),
-                    ),
-                    Text(
-                      "Emailku@gmail.com",
-                      style: ThemeFont.interText
-                          .copyWith(fontWeight: FontWeight.w400),
-                    ),
-                  ],
-                )
-              ],
+            BlocBuilder<GetUserProfileCubit, GetUserProfileState>(
+              builder: (context, state) {
+                if (state is GetUserProfileLoading) {
+                  return const CircularProgressIndicator();
+                } else if (state is GetUserProfilefailure) {
+                  return Text(state.message);
+                } else if (state is GetUserProfileSuccess) {
+                  return Row(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(16),
+                        decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Color.fromARGB(255, 69, 196, 169)),
+                        child: Text(
+                          state.data.fullname.characters.first,
+                          style: ThemeFont.interText.copyWith(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 36,
+                              color: Pallete.textMainButton),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 16,
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            state.data.fullname,
+                            style: ThemeFont.interText.copyWith(
+                                fontSize: 16, fontWeight: FontWeight.w500),
+                          ),
+                          Text(
+                            state.data.email,
+                            style: ThemeFont.interText
+                                .copyWith(fontWeight: FontWeight.w400),
+                          ),
+                        ],
+                      )
+                    ],
+                  );
+                }
+                return const SizedBox();
+              },
             ),
             const ProfileInformasiAkun(),
             const ProfileInformasiLainnya()
