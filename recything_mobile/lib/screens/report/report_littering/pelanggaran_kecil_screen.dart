@@ -3,9 +3,11 @@ import 'package:iconly/iconly.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:recything_mobile/constants/pallete.dart';
 import 'package:recything_mobile/screens/komunitas/berhasil_bergabung_screen.dart';
+import 'package:recything_mobile/screens/report/widget/date_picker_widget.dart';
 import 'package:recything_mobile/screens/report/widget/image_picker_button.dart';
 import 'package:recything_mobile/screens/report/widget/maps_report_screen.dart';
 import 'package:recything_mobile/screens/report/widget/text_field_report.dart';
+import 'package:recything_mobile/screens/report/widget/time_picker_widget.dart';
 import 'package:recything_mobile/widgets/forms/custom_back_button.dart';
 import 'package:recything_mobile/widgets/forms/main_button.dart';
 import 'package:recything_mobile/widgets/forms/main_textfield.dart';
@@ -18,66 +20,74 @@ class PelanggaranKecilScreen extends StatefulWidget {
 }
 
 class _PelanggaranKecilScreenState extends State<PelanggaranKecilScreen> {
-  DateTime selectedDate = DateTime.now();
-  TimeOfDay selectedTime = TimeOfDay.now();
-  TextEditingController dateController = TextEditingController();
-  TextEditingController timeController = TextEditingController();
+  // DateTime selectedDate = DateTime.now();
+  // TimeOfDay selectedTime = TimeOfDay.now();
+  // TextEditingController dateController = TextEditingController();
+  // TextEditingController timeController = TextEditingController();
 
   ImagePickerButton imagePickerButton = ImagePickerButton(
     onImagesSelected: (List<XFile>? selectedImages) {},
   );
-  Future<void> _selectDate(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
-      context: context,
-      initialDate: selectedDate,
-      firstDate: DateTime(2000),
-      lastDate: DateTime(2101),
-    );
-    if (picked != null && picked != selectedDate) {
-      dateController.text = picked.toString();
-      setState(() {
-        selectedDate = picked;
-      });
-    }
-  }
+  // Future<void> _selectDate(BuildContext context) async {
+  //   final DateTime? picked = await showDatePicker(
+  //     context: context,
+  //     initialDate: selectedDate,
+  //     firstDate: DateTime(2000),
+  //     lastDate: DateTime(2101),
+  //   );
+  //   if (picked != null && picked != selectedDate) {
+  //     dateController.text = picked.toString();
+  //     setState(() {
+  //       selectedDate = picked;
+  //     });
+  //   }
+  // }
 
-  Future<void> _selectTime(BuildContext context) async {
-    final TimeOfDay? picked = await showTimePicker(
-      context: context,
-      initialTime: selectedTime,
-    );
-    if (picked != null && picked != selectedTime) {
-      if (mounted) {
-        timeController.text = picked.format(context);
-      }
-      setState(() {
-        selectedTime = picked;
-      });
-    }
-  }
+  // Future<void> _selectTime(BuildContext context) async {
+  //   final TimeOfDay? picked = await showTimePicker(
+  //     context: context,
+  //     initialTime: selectedTime,
+  //   );
+  //   if (picked != null && picked != selectedTime) {
+  //     if (mounted) {
+  //       timeController.text = picked.format(context);
+  //     }
+  //     setState(() {
+  //       selectedTime = picked;
+  //     });
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white, //nggak teganti warna putih
+      appBar: AppBar(
+        title: Text(
+          'Pelanggaran Skala Kecil',
+          style: ThemeFont.heading6Medium,
+        ),
+        centerTitle: true,
+      ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(height: 40),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const CustomBackButton(),
-                  Text(
-                    "Pelanggaran Skala Kecil",
-                    style: ThemeFont.heading6Reguler,
-                  ),
-                  const SizedBox(width: 40)
-                ],
-              ),
-            ),
+            // const SizedBox(height: 40),
+            // Padding(
+            //   padding: const EdgeInsets.symmetric(horizontal: 16),
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //     children: [
+            //       const CustomBackButton(),
+            //       Text(
+            //         "Pelanggaran Skala Kecil",
+            //         style: ThemeFont.heading6Reguler,
+            //       ),
+            //       const SizedBox(width: 40)
+            //     ],
+            //   ),
+            // ),
             const SizedBox(height: 8),
             Padding(
               padding: const EdgeInsets.all(16.0),
@@ -154,19 +164,7 @@ class _PelanggaranKecilScreenState extends State<PelanggaranKecilScreen> {
                                   ],
                                 ),
                                 const SizedBox(width: 8),
-                                SizedBox(
-                                  width: 120,
-                                  child: GestureDetector(
-                                    onTap: () async {
-                                      await _selectDate(context);
-                                    },
-                                    child: MainTextField(
-                                      controller: dateController,
-                                      enabled: false,
-                                      hintText: "Tanggal",
-                                    ),
-                                  ),
-                                ),
+                                const Expanded(child: DatePickerWidget()),
                               ],
                             ),
                             const SizedBox(height: 16),
@@ -182,18 +180,19 @@ class _PelanggaranKecilScreenState extends State<PelanggaranKecilScreen> {
                                   ],
                                 ),
                                 const SizedBox(width: 8),
-                                SizedBox(
+                                const SizedBox(
                                   width: 120,
-                                  child: GestureDetector(
-                                    onTap: () async {
-                                      await _selectTime(context);
-                                    },
-                                    child: MainTextField(
-                                      controller: timeController,
-                                      enabled: false,
-                                      hintText: "00:00",
-                                    ),
-                                  ),
+                                  child: TimePickerWWidget(),
+                                  // child: GestureDetector(
+                                  //   onTap: () async {
+                                  //     await _selectTime(context);
+                                  //   },
+                                  //   child: MainTextField(
+                                  //     controller: timeController,
+                                  //     enabled: false,
+                                  //     hintText: "00:00",
+                                  //   ),
+                                  // ),
                                 ),
                               ],
                             ),
