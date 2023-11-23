@@ -11,6 +11,7 @@ import 'package:recything_mobile/screens/report/widget/text_field_report.dart';
 import 'package:recything_mobile/screens/report/widget/time_picker_widget.dart';
 import 'package:recything_mobile/widgets/forms/main_button.dart';
 import 'package:recything_mobile/widgets/forms/main_textfield.dart';
+import 'package:recything_mobile/widgets/forms/success_screen.dart';
 
 class PelanggaranKecilScreen extends StatefulWidget {
   const PelanggaranKecilScreen({super.key});
@@ -191,7 +192,7 @@ class _PelanggaranKecilScreenState extends State<PelanggaranKecilScreen> {
                           onPressed: () {
                             Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) =>
-                                  const LaporanBerhasilWidget(),
+                                  const SuccessScreen(title: 'Laporan Terkirim', subtitle: 'Terimakasih telah berkontribusi untuk melaporkan pelanggaran dan kondisi sampah yang kamu temui, kami sangat mengapresiasi usaha anda.'),
                             ));
                           },
                           child: Text(
