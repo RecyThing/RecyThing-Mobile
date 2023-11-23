@@ -1,13 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconly/iconly.dart';
+import 'package:recything_mobile/bloc/forgot_password/forgot_password_cubit.dart';
+import 'package:recything_mobile/bloc/forgot_password/forgot_password_state.dart';
+import 'package:recything_mobile/widgets/error_snackbar.dart';
 import 'package:recything_mobile/widgets/forms/custom_back_button.dart';
 import 'package:recything_mobile/widgets/forms/main_button.dart';
 import 'package:recything_mobile/widgets/forms/main_textfield.dart';
+import 'package:recything_mobile/widgets/success_snackbar.dart';
 
 import '../../constants/pallete.dart';
 
-class ResetPasswordScreen extends StatelessWidget {
+class ResetPasswordScreen extends StatefulWidget {
   const ResetPasswordScreen({super.key});
+
+  @override
+  State<ResetPasswordScreen> createState() => _ResetPasswordScreenState();
+}
+
+class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
+  final emailController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -42,26 +54,57 @@ class ResetPasswordScreen extends StatelessWidget {
               const SizedBox(
                 height: 24,
               ),
-              const MainTextField(
-                  label: "Masukan Email Anda", prefixIcon: IconlyLight.message),
+              MainTextField(
+                controller: emailController,
+                label: "Masukan Email Anda",
+                prefixIcon: IconlyLight.message,
+              ),
               const SizedBox(
                 height: 24,
               ),
               Row(
                 children: [
-                  Expanded(
-                      child: MainButton(
-                    child: Text(
-                      "Selanjutnya",
-                      style: ThemeFont.heading6Reguler.copyWith(
-                        color: Pallete.textMainButton,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/verifikasi_otp');
+                  BlocListener<ForgotPasswordCubit, ForgotPasswordState>(
+                    listener: (context, state) {
+                      if (state is SendOTPSuccess) {
+                        SuccessSnackbar.showSnackbar(
+                          context,
+                          title: "OTP terkirim!",
+                          message:
+                              "Silahkan cek email anda untuk verifikasi OTP.",
+                        );
+                        Navigator.pushNamed(context, '/verifikasi_otp');
+                      }
+                      if (state is SendOTPFailed) {
+                        ErrorSnackbar.showSnackbar(
+                          context,
+                          title: "OTP gagal terkirim",
+                          message: state.message,
+                        );
+                      }
                     },
-                  )),
+                    child:
+                        BlocBuilder<ForgotPasswordCubit, ForgotPasswordState>(
+                      builder: (context, state) {
+                        return Expanded(
+                          child: MainButton(
+                            child: Text(
+                              "Selanjutnya",
+                              style: ThemeFont.heading6Reguler.copyWith(
+                                color: Pallete.textMainButton,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                            onPressed: () async {
+                              await context
+                                  .read<ForgotPasswordCubit>()
+                                  .sendOTP(email: emailController.text);
+                            },
+                          ),
+                        );
+                      },
+                    ),
+                  ),
                 ],
               ),
               const SizedBox(
