@@ -73,6 +73,10 @@ class ThemeFont {
     fontSize: 28,
     fontWeight: FontWeight.w700,
   );
+  static TextStyle heading3Medium = GoogleFonts.inter(
+    fontSize: 28,
+    fontWeight: FontWeight.w500,
+  );
   static TextStyle heading4Reguler = GoogleFonts.inter(
     fontSize: 24,
     fontWeight: FontWeight.w500,
