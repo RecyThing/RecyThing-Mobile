@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:recything_mobile/constants/pallete.dart';
-import 'package:recything_mobile/screens/report/report-rubbish/detail_riwayat_pelaporan_screen.dart';
 import 'package:recything_mobile/screens/report/widget/image_picker_button.dart';
 import 'package:recything_mobile/screens/report/widget/checkbox_report.dart';
 import 'package:recything_mobile/screens/report/widget/maps_report_screen.dart';
 import 'package:recything_mobile/screens/report/widget/text_field_report.dart';
+import 'package:recything_mobile/widgets/forms/success_screen.dart';
 
 class ReportRubbishScreen extends StatefulWidget {
   final String? locationAddress;
@@ -211,13 +211,16 @@ class _ReportRubbishScreenState extends State<ReportRubbishScreen> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) =>
-                                    DetailRiwayatPelaporanScreen(
-                                  lokasiPatokanText: lokasiPatokanText,
-                                  kondisiSampahText: kondisiSampahText,
-                                  lokasiTumpukanText: lokasiTumpukanText,
-                                ),
-                              ));
+                                  builder: (context) => const SuccessScreen(
+                                      title: 'Laporan Terkirim',
+                                      subtitle:
+                                          'Terimakasih telah berkontribusi untuk melaporkan pelanggaran dan kondisi sampah yang kamu temui, kami sangat mengapresiasi usaha anda.')
+                                  //     DetailRiwayatPelaporanScreen(
+                                  //   lokasiPatokanText: lokasiPatokanText,
+                                  //   kondisiSampahText: kondisiSampahText,
+                                  //   lokasiTumpukanText: lokasiTumpukanText,
+                                  // ),
+                                  ));
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Pallete.main,
