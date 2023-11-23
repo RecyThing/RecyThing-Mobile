@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -18,12 +17,12 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<void> redirect() async {
-    final pref = await SharedPreferences.getInstance();
-    bool onboarding = pref.getBool('onboarding') ?? false;
+    //   final pref = await SharedPreferences.getInstance();
+    //bool onboarding = pref.getBool('onboarding') ?? false;
     String route = "/onboarding";
-    if (onboarding) {
-      route = "/login";
-    }
+    // if (onboarding) {
+    //   route = "/login";
+    // }
     Timer(const Duration(seconds: 3), () {
       Navigator.of(context).pushNamedAndRemoveUntil(route, (route) => false);
     });
