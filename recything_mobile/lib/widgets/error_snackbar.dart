@@ -5,10 +5,11 @@ import 'package:recything_mobile/constants/pallete.dart';
 class ErrorSnackbar {
   static void showSnackbar(context,
       {required String message, required String title}) {
+    ScaffoldMessenger.of(context).removeCurrentSnackBar();
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         clipBehavior: Clip.none,
-        duration: const Duration(seconds: 5),
+        duration: const Duration(seconds: 3),
         dismissDirection: DismissDirection.horizontal,
         behavior: SnackBarBehavior.floating,
         backgroundColor: Colors.transparent,
@@ -90,8 +91,8 @@ class ErrorSnackbar {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       GestureDetector(
-                        onTap: () =>
-                            ScaffoldMessenger.of(context).hideCurrentSnackBar(),
+                        onTap: () => ScaffoldMessenger.of(context)
+                            .removeCurrentSnackBar(),
                         child: const Icon(
                           Icons.close,
                           color: Colors.white,

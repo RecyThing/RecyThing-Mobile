@@ -62,6 +62,7 @@ class _MainTextFieldState extends State<MainTextField> {
       enabled: widget.enable,
       focusNode: _focusNode,
       obscureText: widget.obscureText,
+      obscuringCharacter: '●',
       onTap: widget.onTap,
       maxLines: widget.obscureText == false ? widget.maxLines : 1,
       decoration: InputDecoration(
