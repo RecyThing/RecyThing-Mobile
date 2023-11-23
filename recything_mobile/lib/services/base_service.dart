@@ -46,7 +46,8 @@ abstract class BaseService {
         throw 'Periksa internet anda';
       } else if (e.response?.data != null) {
         final responseMsg = e.response!.data?['message'];
-        if (responseMsg == 'missing or malformed jwt') {
+        if (responseMsg == 'missing or malformed jwt' ||
+            responseMsg == 'invalid or expired jwt') {
           //masukin authbloc logoutnya
           context!.read<AuthCubit>().loggedOut();
           Navigator.pushNamed(context, '/login');

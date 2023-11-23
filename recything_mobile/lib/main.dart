@@ -5,6 +5,7 @@ import 'package:recything_mobile/bloc/get_ai/get_ai_cubit.dart';
 import 'package:recything_mobile/bloc/get_user_profile/get_user_profile_cubit.dart';
 import 'package:recything_mobile/bloc/login/login_cubit.dart';
 import 'package:recything_mobile/bloc/get_all_faq/get_all_faq_cubit.dart';
+import 'package:recything_mobile/bloc/update_user_profile/update_user_profile_cubit.dart';
 import 'package:recything_mobile/constants/pallete.dart';
 import 'package:recything_mobile/screens/article/page/artikel_by_kategori.dart';
 import 'package:recything_mobile/screens/article/page/cari_artikel.dart';
@@ -59,6 +60,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => GetAllFaqCubit()),
         BlocProvider(create: (context) => LoginCubit()),
         BlocProvider(create: (_) => GetUserProfileCubit()),
+        BlocProvider(create: (_) => UpdateUserProfileCubit())
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
