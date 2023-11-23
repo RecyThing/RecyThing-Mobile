@@ -8,7 +8,6 @@ import 'package:recything_mobile/screens/report/widget/image_picker_button.dart'
 import 'package:recything_mobile/screens/report/widget/maps_report_screen.dart';
 import 'package:recything_mobile/screens/report/widget/text_field_report.dart';
 import 'package:recything_mobile/screens/report/widget/time_picker_widget.dart';
-import 'package:recything_mobile/widgets/forms/custom_back_button.dart';
 import 'package:recything_mobile/widgets/forms/main_button.dart';
 import 'package:recything_mobile/widgets/forms/main_textfield.dart';
 
@@ -20,43 +19,9 @@ class PelanggaranKecilScreen extends StatefulWidget {
 }
 
 class _PelanggaranKecilScreenState extends State<PelanggaranKecilScreen> {
-  // DateTime selectedDate = DateTime.now();
-  // TimeOfDay selectedTime = TimeOfDay.now();
-  // TextEditingController dateController = TextEditingController();
-  // TextEditingController timeController = TextEditingController();
-
   ImagePickerButton imagePickerButton = ImagePickerButton(
     onImagesSelected: (List<XFile>? selectedImages) {},
   );
-  // Future<void> _selectDate(BuildContext context) async {
-  //   final DateTime? picked = await showDatePicker(
-  //     context: context,
-  //     initialDate: selectedDate,
-  //     firstDate: DateTime(2000),
-  //     lastDate: DateTime(2101),
-  //   );
-  //   if (picked != null && picked != selectedDate) {
-  //     dateController.text = picked.toString();
-  //     setState(() {
-  //       selectedDate = picked;
-  //     });
-  //   }
-  // }
-
-  // Future<void> _selectTime(BuildContext context) async {
-  //   final TimeOfDay? picked = await showTimePicker(
-  //     context: context,
-  //     initialTime: selectedTime,
-  //   );
-  //   if (picked != null && picked != selectedTime) {
-  //     if (mounted) {
-  //       timeController.text = picked.format(context);
-  //     }
-  //     setState(() {
-  //       selectedTime = picked;
-  //     });
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -73,21 +38,6 @@ class _PelanggaranKecilScreenState extends State<PelanggaranKecilScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // const SizedBox(height: 40),
-            // Padding(
-            //   padding: const EdgeInsets.symmetric(horizontal: 16),
-            //   child: Row(
-            //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //     children: [
-            //       const CustomBackButton(),
-            //       Text(
-            //         "Pelanggaran Skala Kecil",
-            //         style: ThemeFont.heading6Reguler,
-            //       ),
-            //       const SizedBox(width: 40)
-            //     ],
-            //   ),
-            // ),
             const SizedBox(height: 8),
             Padding(
               padding: const EdgeInsets.all(16.0),
@@ -152,47 +102,43 @@ class _PelanggaranKecilScreenState extends State<PelanggaranKecilScreen> {
                           children: [
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              mainAxisSize: MainAxisSize.max,
                               children: [
-                                Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    const Icon(IconlyLight.calendar),
-                                    const SizedBox(width: 12),
-                                    Text("Tanggal",
-                                        style: ThemeFont.bodyNormalReguler),
-                                  ],
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 14),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      const Icon(IconlyLight.calendar),
+                                      const SizedBox(width: 12),
+                                      Text("Tanggal",
+                                          style: ThemeFont.bodyNormalReguler),
+                                    ],
+                                  ),
                                 ),
-                                const SizedBox(width: 8),
-                                const Expanded(child: DatePickerWidget()),
+                                const SizedBox(
+                                  width: 120,
+                                  child: DatePickerWidget(),
+                                ),
                               ],
                             ),
                             const SizedBox(height: 16),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Row(
-                                  children: [
-                                    const Icon(IconlyLight.time_circle),
-                                    const SizedBox(width: 12),
-                                    Text("Jam",
-                                        style: ThemeFont.bodyNormalReguler),
-                                  ],
+                                Padding(
+                                  padding: const EdgeInsets.only(bottom: 14),
+                                  child: Row(
+                                    children: [
+                                      const Icon(IconlyLight.time_circle),
+                                      const SizedBox(width: 12),
+                                      Text("Jam",
+                                          style: ThemeFont.bodyNormalReguler),
+                                    ],
+                                  ),
                                 ),
-                                const SizedBox(width: 8),
                                 const SizedBox(
                                   width: 120,
                                   child: TimePickerWWidget(),
-                                  // child: GestureDetector(
-                                  //   onTap: () async {
-                                  //     await _selectTime(context);
-                                  //   },
-                                  //   child: MainTextField(
-                                  //     controller: timeController,
-                                  //     enabled: false,
-                                  //     hintText: "00:00",
-                                  //   ),
-                                  // ),
                                 ),
                               ],
                             ),
