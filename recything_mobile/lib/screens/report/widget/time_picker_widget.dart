@@ -6,11 +6,13 @@ class TimePickerWWidget extends StatefulWidget {
   const TimePickerWWidget({Key? key}) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _TimePickerWWidgetState createState() => _TimePickerWWidgetState();
 }
 
 class _TimePickerWWidgetState extends State<TimePickerWWidget> {
   TextEditingController timeInput = TextEditingController();
+  bool isTimeSelected = false;
 
   @override
   void initState() {
@@ -20,58 +22,51 @@ class _TimePickerWWidgetState extends State<TimePickerWWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      // padding: const EdgeInsets.all(16),
-      child: Center(
-        child: TextField(
-          controller: timeInput,
-          decoration: const InputDecoration(
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.all(
-                Radius.circular(12),
-              ),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(12)),
-              borderSide: BorderSide(color: Pallete.info),
-            ),
-            focusColor: Pallete.info,
-            hintText: '00:00',
+    return TextField(
+      controller: timeInput,
+      decoration: const InputDecoration(
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(12),
           ),
-          style: ThemeFont.bodySmall.copyWith(
-            color: Pallete.dark3,
-            fontWeight: FontWeight.w500,
-          ),
-          readOnly: true,
-          onTap: () async {
-            TimeOfDay? pickedTime = await showTimePicker(
-              context: context,
-              initialTime: TimeOfDay.now(),
-            );
-
-            if (pickedTime != null) {
-              print(pickedTime.format(context));
-              DateTime currentTime = DateTime.now();
-              DateTime parsedTime = DateTime(
-                currentTime.year,
-                currentTime.month,
-                currentTime.day,
-                pickedTime.hour,
-                pickedTime.minute,
-              );
-
-              print(parsedTime);
-              String formattedTime = DateFormat('hh:mm a').format(parsedTime);
-
-              setState(() {
-                timeInput.text = formattedTime;
-              });
-            } else {
-              print('Time is not selected');
-            }
-          },
         ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(12),
+          ),
+          borderSide: BorderSide(color: Pallete.info),
+        ),
+        focusColor: Pallete.info,
+        hintText: '00:00',
       ),
+      style: ThemeFont.bodySmallMedium.copyWith(
+        color: isTimeSelected ? Pallete.dark1 : Pallete.dark3,
+        fontWeight: FontWeight.w500,
+      ),
+      readOnly: true,
+      onTap: () async {
+        TimeOfDay? pickedTime = await showTimePicker(
+          context: context,
+          initialTime: TimeOfDay.now(),
+        );
+
+        if (pickedTime != null) {
+          DateTime currentTime = DateTime.now();
+          DateTime parsedTime = DateTime(
+            currentTime.year,
+            currentTime.month,
+            currentTime.day,
+            pickedTime.hour,
+            pickedTime.minute,
+          );
+
+          String formattedTime = DateFormat('hh:mm a').format(parsedTime);
+
+          setState(() {
+            timeInput.text = formattedTime;
+          });
+        }
+      },
     );
   }
 }
