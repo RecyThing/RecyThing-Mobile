@@ -5,6 +5,7 @@ import 'package:recything_mobile/constants/pallete.dart';
 import 'package:recything_mobile/screens/komunitas/berhasil_bergabung_screen.dart';
 import 'package:recything_mobile/screens/report/widget/date_picker_widget.dart';
 import 'package:recything_mobile/screens/report/widget/image_picker_button.dart';
+import 'package:recything_mobile/screens/report/widget/laporan_berhasil_widget.dart';
 import 'package:recything_mobile/screens/report/widget/maps_report_screen.dart';
 import 'package:recything_mobile/screens/report/widget/text_field_report.dart';
 import 'package:recything_mobile/screens/report/widget/time_picker_widget.dart';
@@ -190,7 +191,7 @@ class _PelanggaranKecilScreenState extends State<PelanggaranKecilScreen> {
                           onPressed: () {
                             Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) =>
-                                  const BerhasilBergabungScreen(),
+                                  const LaporanBerhasilWidget(),
                             ));
                           },
                           child: Text(
