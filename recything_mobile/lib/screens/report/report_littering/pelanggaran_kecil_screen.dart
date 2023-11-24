@@ -4,11 +4,11 @@ import 'package:image_picker/image_picker.dart';
 import 'package:recything_mobile/constants/pallete.dart';
 import 'package:recything_mobile/screens/report/widget/date_picker_widget.dart';
 import 'package:recything_mobile/screens/report/widget/image_picker_button.dart';
+import 'package:recything_mobile/screens/report/widget/main_button_widget.dart';
 import 'package:recything_mobile/screens/report/widget/maps_report_screen.dart';
 import 'package:recything_mobile/screens/report/widget/text_field_report.dart';
 import 'package:recything_mobile/screens/report/widget/time_picker_widget.dart';
 import 'package:recything_mobile/widgets/forms/main_button.dart';
-import 'package:recything_mobile/widgets/forms/main_textfield.dart';
 import 'package:recything_mobile/widgets/forms/success_screen.dart';
 
 class PelanggaranKecilScreen extends StatefulWidget {
@@ -22,6 +22,7 @@ class _PelanggaranKecilScreenState extends State<PelanggaranKecilScreen> {
   ImagePickerButton imagePickerButton = ImagePickerButton(
     onImagesSelected: (List<XFile>? selectedImages) {},
   );
+  bool isFieldFilled = false;
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +50,7 @@ class _PelanggaranKecilScreenState extends State<PelanggaranKecilScreen> {
                     child: Row(
                       children: [
                         const Expanded(
-                          child: MainTextField(
+                          child: TextFieldReport(
                             label: "Lokasi Pelanggaran",
                             prefixIcon: IconlyLight.location,
                           ),
@@ -81,7 +82,7 @@ class _PelanggaranKecilScreenState extends State<PelanggaranKecilScreen> {
                   ),
                   const SizedBox(height: 8),
                   TextFieldReport(
-                    hinttext: 'Cth: Sebelah Masjid Nawawi',
+                    hintText: 'Cth: Sebelah Masjid Nawawi',
                     hintStyle: ThemeFont.bodySmallMedium.copyWith(
                       color: Pallete.dark3,
                     ),
@@ -153,7 +154,7 @@ class _PelanggaranKecilScreenState extends State<PelanggaranKecilScreen> {
                     style: ThemeFont.bodySmallMedium,
                   ),
                   const SizedBox(height: 8),
-                  const MainTextField(
+                  const TextFieldReport(
                     hintText:
                         "Cth: Saya melihat Seseorang membuang sampah sembarangan ke sungai",
                     maxLines: 5,
@@ -186,20 +187,34 @@ class _PelanggaranKecilScreenState extends State<PelanggaranKecilScreen> {
                   Row(
                     children: [
                       Expanded(
-                        child: MainButton(
-                          onPressed: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) =>
-                                  const SuccessScreen(title: 'Laporan Terkirim', subtitle: 'Terimakasih telah berkontribusi untuk melaporkan pelanggaran dan kondisi sampah yang kamu temui, kami sangat mengapresiasi usaha anda.'),
-                            ));
-                          },
-                          child: Text(
-                            "Kirim",
-                            style: ThemeFont.heading6Reguler
-                                .copyWith(color: Colors.white),
+                          child: MainButtonWidget(
+                              onPressed: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => const SuccessScreen(
+                                      title: 'Laporan Terkirim',
+                                      subtitle:
+                                          'Terimakasih telah berkontribusi untuk melaporkan pelanggaran dan kondisi sampah yang kamu temui, kami sangat mengapresiasi usaha anda.'),
+                                ));
+                              },
+                              child: Text(
+                                'Kirim',
+                                style: ThemeFont.heading6Bold
+                                    .copyWith(color: Colors.white),
+                              ))
+                          // MainButton(
+                          //   onPressed: () {
+                          //     Navigator.of(context).push(MaterialPageRoute(
+                          //       builder: (context) =>
+                          //           const SuccessScreen(title: 'Laporan Terkirim', subtitle: 'Terimakasih telah berkontribusi untuk melaporkan pelanggaran dan kondisi sampah yang kamu temui, kami sangat mengapresiasi usaha anda.'),
+                          //     ));
+                          //   },
+                          //   child: Text(
+                          //     "Kirim",
+                          //     style: ThemeFont.heading6Reguler
+                          //         .copyWith(color: Colors.white),
+                          //   ),
+                          // ),
                           ),
-                        ),
-                      ),
                     ],
                   ),
                 ],
