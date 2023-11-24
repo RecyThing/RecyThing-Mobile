@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:recything_mobile/constants/pallete.dart';
 
 class TextFieldReport extends StatelessWidget {
-  final String? hinttext;
-  
+  final String? hintText;
   final int? maxLines;
   final Color? focusColor;
   final TextStyle? labelStyle, hintStyle;
@@ -15,7 +14,7 @@ class TextFieldReport extends StatelessWidget {
 
   const TextFieldReport({
     Key? key,
-    this.hinttext,
+    this.hintText,
     this.maxLines,
     this.focusColor,
     this.labelStyle,
@@ -23,7 +22,8 @@ class TextFieldReport extends StatelessWidget {
     this.controller,
     this.onChanged,
     this.label,
-    this.prefixIcon, this.hintStyle,
+    this.prefixIcon,
+    this.hintStyle,
   }) : super(key: key);
 
   @override
@@ -42,7 +42,7 @@ class TextFieldReport extends StatelessWidget {
         labelText: label,
         prefixIcon:
             prefixIcon != null ? Icon(prefixIcon, color: Pallete.dark3) : null,
-        hintText: hinttext,
+        hintText: hintText,
         hintStyle: labelStyle ?? const TextStyle(color: Pallete.dark3),
         contentPadding: contentPadding ?? const EdgeInsets.all(16),
       ),
