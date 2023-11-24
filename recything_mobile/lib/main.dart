@@ -40,8 +40,6 @@ import 'package:recything_mobile/screens/report/report-rubbish/detail_riwayat_pe
 import 'package:recything_mobile/screens/report/report-rubbish/report_rubbish_screen.dart';
 import 'package:recything_mobile/screens/report/widget/maps_report_screen.dart';
 import 'package:recything_mobile/screens/report/report_littering/report_littering_screen.dart';
-import 'package:recything_mobile/screens/report/report_rubbish_maps_screen.dart';
-import 'package:recything_mobile/screens/report/widget/maps_report_screen.dart';
 import 'package:recything_mobile/screens/reset_password/reset_password_screen.dart';
 import 'package:recything_mobile/screens/splash/splash_screen.dart';
 import 'package:recything_mobile/screens/verifikasi_otp/verifikasi_otp_screen.dart';
@@ -76,32 +74,6 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Pallete.main),
           useMaterial3: true,
         ),
-
-        initialRoute: '/choose-report',
-        routes: {
-          // '/splash': (context) => const SplashScreen(),
-          // '/onboarding': (context) => const OnboardingScreen(),
-          // '/missions': (context) => const MissionsScreen(),
-          // '/detail-mission': (context) => const DetailMissionScreen(),
-          // '/unggah-bukti': (context) => const UnggahBuktiScreen(),
-          // '/login': (context) => const LoginScreen(),
-          // '/dashboard': (context) => const Dasboard(),
-          // '/profile': (context) => const ProfileScreen(),
-          // '/notif': (context) => const NotifikasiScreen(),
-          // '/poinku': (context) => const PoinkuScreen(),
-          // '/detailVoucher': (context) => const DetailVoucherScreen(),
-          // '/tukarVoucher': (context) => const TukatVoucherScreen(),
-          // '/detailTransaksi': (context) => const DetailTransaksiScreen(),
-          // '/register': (context) => const RegisterScreen(),
-          // '/reset_password': (context) => const ResetPasswordScreen(),
-          // '/verifikasi_otp': (context) => const VerifikasiOtpScreen(),
-          // '/password_baru': (context) => const PasswordBaruScreen(),
-          // '/editProfile': (context) => const EditProfileScreen(),
-          // '/pertanyaanUmum': (context) => const PertanyaanUmumScren(),
-          // '/detailPermasalahan': (context) => const DetailPermasalahanScreen(),
-          // '/lencana': (context) => const LencanaScreen(),
-          // '/ubahPassword': (context) => const UbahPasswordScreen(),
-          // '/recy': (context) => const RecyAiScreen(),
         initialRoute: '/index',
         home: const IndexScreen(),
         routes: {
@@ -128,30 +100,17 @@ class MyApp extends StatelessWidget {
           '/lencana': (context) => const LencanaScreen(),
           '/ubahPassword': (context) => const UbahPasswordScreen(),
           '/recy': (context) => const RecyAiScreen(),
-
           '/choose-report': (context) => const ChooseReportScreen(),
           '/report-rubbish': (context) => const ReportRubbishScreen(),
           '/report-littering': (context) => const ReportLitteringScreen(),
           '/detail-report': (context) => const DetailRiwayatPelaporanScreen(),
-
-          '/maps-report': (context) => const MapsReportScreen(
-                reportType: '',
-              ),
-          // '/artikelByKategori': (context) => const ArtikelByKategoriScreen(),
-          // '/kategoriDaurUlang': (context) => const KategoriDaurUlangScreen(),
-          // '/cariArtikel': (context) => const CariArtikelScreen(),
-          // '/daftarLokasi': (context) => const DaftarLokasiScreen(),
-          // '/detailLokasi': (context) => const DetailLokasiScreen(),
-          // '/detailArtikel': (context) => const DetailArtikelScreen()
-
-          '/maps-report': (context) => const MapsReportScreen(),
+          '/maps-report': (context) => const MapsReportScreen(reportType: ''),
           '/artikelByKategori': (context) => const ArtikelByKategoriScreen(),
           '/kategoriDaurUlang': (context) => const KategoriDaurUlangScreen(),
           '/cariArtikel': (context) => const CariArtikelScreen(),
           '/daftarLokasi': (context) => const DaftarLokasiScreen(),
           '/detailLokasi': (context) => const DetailLokasiScreen(),
           '/detailArtikel': (context) => const DetailArtikelScreen(),
-
         },
       ),
     );
