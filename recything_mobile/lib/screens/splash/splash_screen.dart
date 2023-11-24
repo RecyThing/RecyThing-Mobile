@@ -17,8 +17,8 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<void> redirect() async {
-    //   final pref = await SharedPreferences.getInstance();
-    //bool onboarding = pref.getBool('onboarding') ?? false;
+    // final pref = await SharedPreferences.getInstance();
+    // bool onboarding = pref.getBool('onboarding') ?? false;
     String route = "/onboarding";
     // if (onboarding) {
     //   route = "/login";

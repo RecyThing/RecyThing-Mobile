@@ -18,7 +18,6 @@ class EditProfileScreen extends StatefulWidget {
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
   String _dateController = "Masukan tanggal lahir";
-  String selectedValue = " ";
 
   @override
   Widget build(BuildContext context) {
@@ -88,13 +87,13 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               } else if (state is GetUserProfilefailure) {
                 return Text(state.message);
               } else if (state is GetUserProfileSuccess) {
-                TextEditingController nameEcd =
+                final nameEcd =
                     TextEditingController(text: state.data.fullname);
-                TextEditingController emailEcd =
-                    TextEditingController(text: state.data.email);
-                TextEditingController alamatEcd =
+                final emailEcd = TextEditingController(text: state.data.email);
+                final alamatEcd =
                     TextEditingController(text: state.data.address);
-                selectedValue = state.data.purpose;
+
+                // String selectedValue = state.data.purpose;
                 _dateController = state.data.dateOfBirth;
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -180,11 +179,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     ),
                     DropdownMenu(
                         width: MediaQuery.of(context).size.width * 0.9,
-                        initialSelection: tujuanList.first,
+                        initialSelection:
+                            tujuanList.contains(state.data.purpose)
+                                ? state.data.purpose
+                                : tujuanList.first,
                         onSelected: (String? value) {
                           // This is called when the user selects an item.
                           setState(() {
-                            selectedValue = value ?? " ";
+                            state.data.purpose = value!;
                           });
                         },
                         inputDecorationTheme: InputDecorationTheme(
@@ -201,7 +203,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           return DropdownMenuEntry<String>(
                               value: value, label: value);
                         }).toList()),
-                    Text(selectedValue),
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 16),
                       child: SizedBox(
@@ -215,7 +216,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                         fullname: nameEcd.text,
                                         address: alamatEcd.text,
                                         date: _dateController,
-                                        purpose: selectedValue);
+                                        purpose: state.data.purpose);
                               },
                               child: Text(
                                 "Simpan",
