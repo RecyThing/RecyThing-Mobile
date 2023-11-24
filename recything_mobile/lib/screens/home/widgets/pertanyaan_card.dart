@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:recything_mobile/constants/pallete.dart';
+import 'package:recything_mobile/models/faq_model.dart';
+import 'package:recything_mobile/screens/home/pages/detail_permasalahan_screen.dart';
 
 class PertanyaanCard extends StatefulWidget {
-  const PertanyaanCard({super.key});
+  final FaqModel item;
+  const PertanyaanCard({super.key, required this.item});
 
   @override
   State<PertanyaanCard> createState() => _PertanyaanCardState();
@@ -13,7 +16,7 @@ class _PertanyaanCardState extends State<PertanyaanCard> {
   Widget build(BuildContext context) {
     return ExpansionTile(
       title: Text(
-        'Cara mengelola sampah',
+        widget.item.title,
         style: ThemeFont.bodyNormalSemiBold,
       ),
       tilePadding: EdgeInsets.zero,
@@ -24,7 +27,7 @@ class _PertanyaanCardState extends State<PertanyaanCard> {
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Text(
-                "Cara mengelola sampah Cara mengelola sampah dapat melibatkan beberapa langkah, termasuk aaaaaaaaaaa",
+                widget.item.desc,
                 style: ThemeFont.bodySmallRegular,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
@@ -32,7 +35,11 @@ class _PertanyaanCardState extends State<PertanyaanCard> {
             ),
             TextButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, '/detailPermasalahan');
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return DetailPermasalahanScreen(
+                      item: widget.item,
+                    );
+                  }));
                 },
                 child: Text(
                   "Selengkapnya",

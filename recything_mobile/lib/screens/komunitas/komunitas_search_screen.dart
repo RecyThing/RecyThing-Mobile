@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 import 'package:recything_mobile/constants/pallete.dart';
-import 'package:recything_mobile/screens/komunitas/widgets/komunitas_card.dart';
+import 'package:recything_mobile/widgets/badges.dart';
 import 'package:recything_mobile/widgets/forms/custom_back_button.dart';
 import 'package:recything_mobile/widgets/forms/main_textfield.dart';
 
@@ -69,29 +69,53 @@ class KomunitasSearchScreen extends StatelessWidget {
               Center(
                   child:
                       Image.asset("assets/images/empty_komunitas_search.png")),
+              const SizedBox(height: 24),
+              Text("Rekomendasi Kota", style: ThemeFont.bodySmallMedium),
               const SizedBox(height: 16),
-              const KomunitasCard(
-                title: "Electronic Waste RJ Indonesian Community",
-                lokasi: "Jakarta",
-                anggota: "25,6",
-                image:
-                    "https://www.seiu1000.org/sites/main/files/main-images/camera_lense_0.jpeg",
+              const Wrap(
+                spacing: 8,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(bottom: 8),
+                    child: CustomBadge(text: "Jakarta"),
+                  ),
+                  CustomBadge(text: "Bandung"),
+                  CustomBadge(text: "Surabaya"),
+                  CustomBadge(text: "Tangerang"),
+                ],
               ),
-              const KomunitasCard(
-                title: "Zero Waste Indonesia Community",
-                lokasi: "Bogor",
-                anggota: "5,6",
-                image:
-                    "https://media.istockphoto.com/id/517188688/photo/mountain-landscape.jpg?s=612x612&w=0&k=20&c=A63koPKaCyIwQWOTFBRWXj_PwCrR4cEoOw2S9Q7yVl8=",
+              const SizedBox(height: 16),
+              const Divider(),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10),
+                child: Row(
+                  children: [
+                    const SizedBox(width: 10),
+                    const Icon(IconlyLight.location),
+                    const SizedBox(width: 10),
+                    Text(
+                      "Jakarta Barat, DKI Jakarta",
+                      style: ThemeFont.bodySmallMedium,
+                    ),
+                  ],
+                ),
               ),
-              const KomunitasCard(
-                title: "Komunitas Edukasi Bijak Sampah",
-                lokasi: "Bandung",
-                anggota: "11,6",
-                image:
-                    "https://helpx.adobe.com/content/dam/help/en/photoshop/using/convert-color-image-black-white/jcr_content/main-pars/before_and_after/image-before/Landscape-Color.jpg",
+              const Divider(),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10),
+                child: Row(
+                  children: [
+                    const SizedBox(width: 10),
+                    const Icon(IconlyLight.location),
+                    const SizedBox(width: 10),
+                    Text(
+                      "Jakarta Barat, DKI Jakarta",
+                      style: ThemeFont.bodySmallMedium,
+                    ),
+                  ],
+                ),
               ),
-              const SizedBox(height: 24)
+              const Divider(),
             ],
           ),
         ),

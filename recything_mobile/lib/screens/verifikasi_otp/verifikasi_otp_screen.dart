@@ -1,12 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:otp_text_field/otp_field_style.dart';
+import 'package:recything_mobile/bloc/forgot_password/forgot_password_cubit.dart';
+import 'package:recything_mobile/bloc/forgot_password/forgot_password_state.dart';
+import 'package:recything_mobile/widgets/error_snackbar.dart';
 import 'package:recything_mobile/widgets/forms/custom_back_button.dart';
 import 'package:recything_mobile/widgets/forms/main_button.dart';
-import 'package:recything_mobile/widgets/forms/otp_textfield.dart';
+import 'package:otp_text_field/otp_field.dart';
+import 'package:otp_text_field/style.dart';
 
 import '../../constants/pallete.dart';
 
-class VerifikasiOtpScreen extends StatelessWidget {
+class VerifikasiOtpScreen extends StatefulWidget {
   const VerifikasiOtpScreen({super.key});
+
+  @override
+  State<VerifikasiOtpScreen> createState() => _VerifikasiOtpScreenState();
+}
+
+class _VerifikasiOtpScreenState extends State<VerifikasiOtpScreen> {
+  final OtpFieldController otpController = OtpFieldController();
+  String otp = "";
 
   @override
   Widget build(BuildContext context) {
@@ -39,24 +53,22 @@ class VerifikasiOtpScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 24),
-              SizedBox(
+              OTPTextField(
+                controller: otpController,
+                length: 4,
                 width: MediaQuery.of(context).size.width,
-                child: const Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    SizedBox(
-                        height: 70, width: 70, child: OtpTextField(label: "")),
-                    Expanded(child: SizedBox()),
-                    SizedBox(
-                        height: 70, width: 70, child: OtpTextField(label: "")),
-                    Expanded(child: SizedBox()),
-                    SizedBox(
-                        height: 70, width: 70, child: OtpTextField(label: "")),
-                    Expanded(child: SizedBox()),
-                    SizedBox(
-                        height: 70, width: 70, child: OtpTextField(label: "")),
-                  ],
-                ),
+                textFieldAlignment: MainAxisAlignment.spaceAround,
+                fieldWidth: 70,
+                fieldStyle: FieldStyle.box,
+                keyboardType: TextInputType.text,
+                outlineBorderRadius: 15,
+                otpFieldStyle: OtpFieldStyle(enabledBorderColor: Pallete.dark3),
+                contentPadding: const EdgeInsets.symmetric(vertical: 18),
+                style: const TextStyle(fontSize: 22),
+                onChanged: (pin) {
+                  otp = pin.toUpperCase();
+                  // otpController.set(otp.padRight(4).substring(0, 4).split(""));
+                },
               ),
               const SizedBox(height: 8),
               Row(
@@ -69,7 +81,7 @@ class VerifikasiOtpScreen extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () {
-                      Navigator.of(context).pushNamed("/reset_password");
+                      // Navigator.of(context).pushNamed("/reset_password");
                     },
                     child: Text(
                       "Kirim Ulang",
@@ -85,18 +97,41 @@ class VerifikasiOtpScreen extends StatelessWidget {
               Row(
                 children: [
                   Expanded(
-                      child: MainButton(
-                    child: Text(
-                      "Konfirmasi",
-                      style: ThemeFont.heading6Reguler.copyWith(
-                        color: Pallete.textMainButton,
-                        fontWeight: FontWeight.w700,
+                    child:
+                        BlocListener<ForgotPasswordCubit, ForgotPasswordState>(
+                      listener: (context, state) {
+                        if (state is VerifyOTPFailed) {
+                          ErrorSnackbar.showSnackbar(
+                            context,
+                            title: "Verifikasi gagal",
+                            message: state.message,
+                          );
+                        }
+                        if (state is VerifyOTPSuccess) {
+                          Navigator.pushNamed(context, '/password_baru');
+                        }
+                      },
+                      child:
+                          BlocBuilder<ForgotPasswordCubit, ForgotPasswordState>(
+                        builder: (context, state) {
+                          return MainButton(
+                            child: Text(
+                              "Konfirmasi",
+                              style: ThemeFont.heading6Reguler.copyWith(
+                                color: Pallete.textMainButton,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                            onPressed: () {
+                              context
+                                  .read<ForgotPasswordCubit>()
+                                  .verifyOTP(otp: otp);
+                            },
+                          );
+                        },
                       ),
                     ),
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/password_baru');
-                    },
-                  )),
+                  ),
                 ],
               ),
               const SizedBox(

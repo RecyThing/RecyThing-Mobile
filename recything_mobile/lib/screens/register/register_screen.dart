@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconly/iconly.dart';
+import 'package:recything_mobile/bloc/register/register_cubit.dart';
+import 'package:recything_mobile/bloc/register/register_state.dart';
+import 'package:recything_mobile/widgets/error_snackbar.dart';
 import 'package:recything_mobile/widgets/forms/google_button.dart';
 import 'package:recything_mobile/widgets/forms/main_button.dart';
 import 'package:recything_mobile/widgets/forms/main_textfield.dart';
+import 'package:recything_mobile/widgets/success_snackbar.dart';
 import 'package:recything_mobile/widgets/typography/body_link.dart';
 
 import '../../constants/pallete.dart';
@@ -17,6 +22,11 @@ class RegisterScreen extends StatefulWidget {
 class _RegisterScreenState extends State<RegisterScreen> {
   bool showPwd = false;
   bool showPwd2 = false;
+
+  TextEditingController nameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController password2Controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -53,17 +63,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   const SizedBox(
                     height: 24,
                   ),
-                  const MainTextField(
+                  MainTextField(
+                    controller: nameController,
                     label: "Masukan Nama Lengkap",
                     prefixIcon: IconlyLight.profile,
                   ),
                   const SizedBox(height: 12),
-                  const MainTextField(
+                  MainTextField(
+                    controller: emailController,
                     label: "Masukan Email",
                     prefixIcon: IconlyLight.message,
                   ),
                   const SizedBox(height: 12),
                   MainTextField(
+                    controller: passwordController,
                     label: "Masukan Kata Sandi",
                     prefixIcon: IconlyLight.lock,
                     obscureText: !showPwd,
@@ -81,6 +94,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                   const SizedBox(height: 12),
                   MainTextField(
+                    controller: password2Controller,
                     label: "Konfirmasi Kata Sandi",
                     prefixIcon: IconlyLight.lock,
                     obscureText: !showPwd2,
@@ -137,17 +151,58 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   Row(
                     children: [
                       Expanded(
+                        child: BlocListener<RegisterCubit, RegisterState>(
+                          listener: (context, state) {
+                            if (state is RegisterFailed) {
+                              ErrorSnackbar.showSnackbar(
+                                context,
+                                title: "Oops, Akun Tidak Valid",
+                                message: state.message,
+                              );
+                            }
+                            if (state is RegisterSuccess) {
+                              SuccessSnackbar.showSnackbar(
+                                context,
+                                title: "Registrasi berhasil!",
+                                message:
+                                    "Silahkan cek email anda untuk verifikasi akun.",
+                              );
+                              Navigator.of(context).pushNamedAndRemoveUntil(
+                                  "/login", (route) => false);
+                            }
+                          },
                           child: MainButton(
-                        child: Text(
-                          "Register",
-                          style: ThemeFont.heading6Reguler.copyWith(
-                            color: Pallete.textMainButton,
+                            child: BlocBuilder<RegisterCubit, RegisterState>(
+                              builder: (context, state) {
+                                if (state is RegisterLoading) {
+                                  return const SizedBox(
+                                    height: 23,
+                                    width: 23,
+                                    child: CircularProgressIndicator(
+                                      color: Colors.white,
+                                    ),
+                                  );
+                                } else {
+                                  return Text(
+                                    "Register",
+                                    style: ThemeFont.heading6Reguler.copyWith(
+                                      color: Pallete.textMainButton,
+                                    ),
+                                  );
+                                }
+                              },
+                            ),
+                            onPressed: () {
+                              context.read<RegisterCubit>().register(
+                                    fullname: nameController.text,
+                                    email: emailController.text,
+                                    password: passwordController.text,
+                                    confirmPassword: password2Controller.text,
+                                  );
+                            },
                           ),
                         ),
-                        onPressed: () {
-                          Navigator.pushNamed(context, '/login');
-                        },
-                      )),
+                      ),
                     ],
                   ),
                   const SizedBox(

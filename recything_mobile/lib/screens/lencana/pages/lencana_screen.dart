@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:recything_mobile/constants/pallete.dart';
-import 'package:recything_mobile/screens/home/lencana/pages/lencana_bronze_screen.dart';
-import 'package:recything_mobile/screens/home/lencana/pages/lencana_gold_screen.dart';
-import 'package:recything_mobile/screens/home/lencana/pages/lencana_platinum_screen.dart';
-import 'package:recything_mobile/screens/home/lencana/pages/lencana_silver_screen.dart';
+import 'package:recything_mobile/screens/lencana/pages/lencana_bronze_screen.dart';
+import 'package:recything_mobile/screens/lencana/pages/lencana_gold_screen.dart';
+import 'package:recything_mobile/screens/lencana/pages/lencana_platinum_screen.dart';
+import 'package:recything_mobile/screens/lencana/pages/lencana_silver_screen.dart';
 
 import 'package:recything_mobile/widgets/forms/custom_back_button.dart';
 
