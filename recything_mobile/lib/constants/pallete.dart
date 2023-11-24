@@ -129,6 +129,11 @@ class ThemeFont {
     fontWeight: FontWeight.w600,
   );
 
+  static TextStyle bodyMediumMedium = GoogleFonts.inter(
+    fontSize: 18,
+    fontWeight: FontWeight.w500,
+  );
+
   static TextStyle bodyMediumReguler = GoogleFonts.inter(
     fontSize: 18,
     fontWeight: FontWeight.w400,
