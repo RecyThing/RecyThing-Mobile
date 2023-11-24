@@ -4,8 +4,10 @@ import 'package:image_picker/image_picker.dart';
 import 'package:recything_mobile/constants/pallete.dart';
 import 'package:recything_mobile/screens/report/widget/image_picker_button.dart';
 import 'package:recything_mobile/screens/report/widget/checkbox_report.dart';
+import 'package:recything_mobile/screens/report/widget/main_button_widget.dart';
 import 'package:recything_mobile/screens/report/widget/maps_report_screen.dart';
 import 'package:recything_mobile/screens/report/widget/text_field_report.dart';
+import 'package:recything_mobile/widgets/forms/main_button.dart';
 import 'package:recything_mobile/widgets/forms/success_screen.dart';
 
 class ReportRubbishScreen extends StatefulWidget {
@@ -59,7 +61,7 @@ class _ReportRubbishScreenState extends State<ReportRubbishScreen> {
                           labelStyle: ThemeFont.bodySmallMedium.copyWith(
                             color: Pallete.dark3,
                           ),
-                          hinttext: 'Lokasi Tumpukan',
+                          hintText: 'Lokasi Tumpukan',
                           hintStyle: ThemeFont.bodySmallMedium.copyWith(
                             color: Pallete.dark3,
                           ),
@@ -77,25 +79,22 @@ class _ReportRubbishScreenState extends State<ReportRubbishScreen> {
                       const SizedBox(
                         width: 8,
                       ),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  const MapsReportScreen(reportType: 'rubbish'),
-                            ),
-                          );
-                          // Navigator.pushNamed(context, "/maps-report");
-                        },
-                        child: Container(
-                          width: 56,
-                          height: 56,
-                          decoration: BoxDecoration(
-                              color: Pallete.main,
-                              borderRadius: BorderRadius.circular(12)),
-                          child: Image.asset("assets/images/location_map.png"),
+                      SizedBox(
+                        width: 55,
+                        height: 55,
+                        child: MainButton(
+                          onPressed: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => const MapsReportScreen(
+                                    reportType: 'rubbish'),
+                              ),
+                            );
+                            // Navigator.pushNamed(context, "/maps-report");
+                          },
+                          child: Image.asset("assets/images/map_icon.png"),
                         ),
-                      ),
+                      )
                     ],
                   ),
                   const SizedBox(
@@ -109,7 +108,7 @@ class _ReportRubbishScreenState extends State<ReportRubbishScreen> {
                     height: 4,
                   ),
                   TextFieldReport(
-                    hinttext: 'Cth: Sebelah Masjid Nawawi',
+                    hintText: 'Cth: Sebelah Masjid Nawawi',
                     hintStyle: ThemeFont.bodySmallMedium.copyWith(
                       color: Pallete.dark3,
                     ),
@@ -164,7 +163,7 @@ class _ReportRubbishScreenState extends State<ReportRubbishScreen> {
                   ),
                   TextFieldReport(
                     maxLines: 5,
-                    hinttext:
+                    hintText:
                         'Cth: Saya melihat tumpukan sampah yang sangat banyak, sampah sangat bercampur basah dan kering',
                     hintStyle: ThemeFont.bodySmallMedium,
                     onChanged: (value) {
@@ -202,39 +201,42 @@ class _ReportRubbishScreenState extends State<ReportRubbishScreen> {
                   const SizedBox(
                     height: 47,
                   ),
-                  Align(
-                    alignment: Alignment.center,
-                    child: SizedBox(
-                      width: double.infinity,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
-                              context,
+                  Row(
+                    children: [
+                      Expanded(
+                        child: MainButtonWidget(
+                          onPressed: () {
+                            Navigator.of(context).push(
                               MaterialPageRoute(
-                                  builder: (context) => const SuccessScreen(
-                                      title: 'Laporan Terkirim',
-                                      subtitle:
-                                          'Terimakasih telah berkontribusi untuk melaporkan pelanggaran dan kondisi sampah yang kamu temui, kami sangat mengapresiasi usaha anda.')
-                                  //     DetailRiwayatPelaporanScreen(
-                                  //   lokasiPatokanText: lokasiPatokanText,
-                                  //   kondisiSampahText: kondisiSampahText,
-                                  //   lokasiTumpukanText: lokasiTumpukanText,
-                                  // ),
-                                  ));
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Pallete.main,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12)),
-                          padding: const EdgeInsets.symmetric(vertical: 16),
-                        ),
-                        child: const Text(
-                          'Kirim',
-                          style: TextStyle(color: Colors.white),
+                                builder: (context) => const SuccessScreen(
+                                    title: 'Laporan Terkirim',
+                                    subtitle:
+                                        'Terimakasih telah berkontribusi untuk melaporkan pelanggaran dan kondisi sampah yang kamu temui, kami sangat mengapresiasi usaha anda.'),
+                              ),
+                            );
+                          },
+                          child: Text(
+                            'Kirim',
+                            style: ThemeFont.heading6Bold
+                                .copyWith(color: Colors.white),
+                          ),
                         ),
                       ),
-                    ),
-                  )
+                    ],
+                  ),
+
+                  //       onPressed: () {
+                  //         Navigator.push(
+                  //             context,
+                  //             MaterialPageRoute(
+                  //                 builder: (context) => const SuccessScreen(
+                  //                     title: 'Laporan Terkirim',
+                  //                     subtitle:
+                  //                         'Terimakasih telah berkontribusi untuk melaporkan pelanggaran dan kondisi sampah yang kamu temui, kami sangat mengapresiasi usaha anda.')
+                  //     DetailRiwayatPelaporanScreen(
+                  //   lokasiPatokanText: lokasiPatokanText,
+                  //   kondisiSampahText: kondisiSampahText,
+                  //   lokasiTumpukanText: lokasiTumpukanText,
                 ],
               ),
             ),
