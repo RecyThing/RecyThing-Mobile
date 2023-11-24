@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:recything_mobile/constants/pallete.dart';
-import 'package:recything_mobile/screens/komunitas/berhasil_bergabung_screen.dart';
+import 'package:recything_mobile/screens/report/widget/date_picker_widget.dart';
 import 'package:recything_mobile/screens/report/widget/image_picker_button.dart';
+import 'package:recything_mobile/screens/report/widget/main_button_widget.dart';
 import 'package:recything_mobile/screens/report/widget/maps_report_screen.dart';
 import 'package:recything_mobile/screens/report/widget/text_field_report.dart';
-import 'package:recything_mobile/widgets/forms/custom_back_button.dart';
+import 'package:recything_mobile/screens/report/widget/time_picker_widget.dart';
 import 'package:recything_mobile/widgets/forms/main_button.dart';
-import 'package:recything_mobile/widgets/forms/main_textfield.dart';
+import 'package:recything_mobile/widgets/forms/success_screen.dart';
 
 class PelanggaranBesarScreen extends StatefulWidget {
   const PelanggaranBesarScreen({super.key});
@@ -18,66 +19,26 @@ class PelanggaranBesarScreen extends StatefulWidget {
 }
 
 class _PelanggaranBesarScreenState extends State<PelanggaranBesarScreen> {
-  DateTime selectedDate = DateTime.now();
-  TimeOfDay selectedTime = TimeOfDay.now();
-  TextEditingController dateController = TextEditingController();
-  TextEditingController timeController = TextEditingController();
-
+  bool isHazardousTrash = false;
   ImagePickerButton imagePickerButton = ImagePickerButton(
     onImagesSelected: (List<XFile>? selectedImages) {},
   );
-  Future<void> _selectDate(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
-      context: context,
-      initialDate: selectedDate,
-      firstDate: DateTime(2000),
-      lastDate: DateTime(2101),
-    );
-    if (picked != null && picked != selectedDate) {
-      dateController.text = picked.toString();
-      setState(() {
-        selectedDate = picked;
-      });
-    }
-  }
-
-  Future<void> _selectTime(BuildContext context) async {
-    final TimeOfDay? picked = await showTimePicker(
-      context: context,
-      initialTime: selectedTime,
-    );
-    if (picked != null && picked != selectedTime) {
-      if (mounted) {
-        timeController.text = picked.format(context);
-      }
-      setState(() {
-        selectedTime = picked;
-      });
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white, //nggak teganti warna putih
+      appBar: AppBar(
+        title: Text(
+          'Pelanggaran Skala Besar',
+          style: ThemeFont.heading6Medium,
+        ),
+        centerTitle: true,
+      ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(height: 40),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const CustomBackButton(),
-                  Text(
-                    "Pelanggaran Skala Besar",
-                    style: ThemeFont.heading6Reguler,
-                  ),
-                  const SizedBox(width: 40)
-                ],
-              ),
-            ),
             const SizedBox(height: 8),
             Padding(
               padding: const EdgeInsets.all(16.0),
@@ -89,7 +50,7 @@ class _PelanggaranBesarScreenState extends State<PelanggaranBesarScreen> {
                     child: Row(
                       children: [
                         const Expanded(
-                          child: MainTextField(
+                          child: TextFieldReport(
                             label: "Lokasi Pelanggaran",
                             prefixIcon: IconlyLight.location,
                           ),
@@ -121,7 +82,7 @@ class _PelanggaranBesarScreenState extends State<PelanggaranBesarScreen> {
                   ),
                   const SizedBox(height: 8),
                   TextFieldReport(
-                    hinttext: 'Cth: Sebelah Masjid Nawawi',
+                    hintText: 'Cth: Sungai Bengawan sebelah Hotel Teratai',
                     hintStyle: ThemeFont.bodySmallMedium.copyWith(
                       color: Pallete.dark3,
                     ),
@@ -142,30 +103,22 @@ class _PelanggaranBesarScreenState extends State<PelanggaranBesarScreen> {
                           children: [
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              mainAxisSize: MainAxisSize.max,
                               children: [
-                                Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    const Icon(IconlyLight.calendar),
-                                    const SizedBox(width: 12),
-                                    Text("Tanggal",
-                                        style: ThemeFont.bodyNormalReguler),
-                                  ],
-                                ),
-                                const SizedBox(width: 8),
-                                SizedBox(
-                                  width: 120,
-                                  child: GestureDetector(
-                                    onTap: () async {
-                                      await _selectDate(context);
-                                    },
-                                    child: MainTextField(
-                                      controller: dateController,
-                                      enabled: false,
-                                      hintText: "Tanggal",
-                                    ),
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 14),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      const Icon(IconlyLight.calendar),
+                                      const SizedBox(width: 12),
+                                      Text("Tanggal",
+                                          style: ThemeFont.bodyNormalReguler),
+                                    ],
                                   ),
+                                ),
+                                const SizedBox(
+                                  width: 120,
+                                  child: DatePickerWidget(),
                                 ),
                               ],
                             ),
@@ -173,27 +126,20 @@ class _PelanggaranBesarScreenState extends State<PelanggaranBesarScreen> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Row(
-                                  children: [
-                                    const Icon(IconlyLight.time_circle),
-                                    const SizedBox(width: 12),
-                                    Text("Jam",
-                                        style: ThemeFont.bodyNormalReguler),
-                                  ],
-                                ),
-                                const SizedBox(width: 8),
-                                SizedBox(
-                                  width: 120,
-                                  child: GestureDetector(
-                                    onTap: () async {
-                                      await _selectTime(context);
-                                    },
-                                    child: MainTextField(
-                                      controller: timeController,
-                                      enabled: false,
-                                      hintText: "00:00",
-                                    ),
+                                Padding(
+                                  padding: const EdgeInsets.only(bottom: 14),
+                                  child: Row(
+                                    children: [
+                                      const Icon(IconlyLight.time_circle),
+                                      const SizedBox(width: 12),
+                                      Text("Jam",
+                                          style: ThemeFont.bodyNormalReguler),
+                                    ],
                                   ),
+                                ),
+                                const SizedBox(
+                                  width: 120,
+                                  child: TimePickerWWidget(),
                                 ),
                               ],
                             ),
@@ -207,8 +153,102 @@ class _PelanggaranBesarScreenState extends State<PelanggaranBesarScreen> {
                     "Ceritakan Detail Kejadian",
                     style: ThemeFont.bodySmallMedium,
                   ),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  TextFieldReport(
+                    hintText: 'Cth: PT Mencari Cinta Sejati',
+                    hintStyle: ThemeFont.bodySmallMedium.copyWith(
+                      color: Pallete.dark3,
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  Container(
+                    padding: const EdgeInsets.all(16),
+                    width: double.infinity,
+                    height: 110,
+                    decoration: BoxDecoration(
+                      color: const Color(0XFFFBD0DA),
+                      borderRadius: BorderRadius.circular(12),
+                      boxShadow: const [
+                        BoxShadow(
+                          color: Colors.black12,
+                          offset: Offset(0, 0),
+                          blurRadius: 13,
+                          spreadRadius: -2,
+                        ),
+                      ],
+                    ),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                children: [
+                                  const Icon(
+                                    IconlyLight.danger,
+                                    color: Color(0XFF5F071C),
+                                  ),
+                                  const SizedBox(width: 8),
+                                  Text(
+                                    'Sampah Berbahaya?',
+                                    style:
+                                        ThemeFont.bodyNormalSemiBold.copyWith(
+                                      color: const Color(0XFF5F071C),
+                                    ),
+                                  ),
+                                  const SizedBox(width: 8),
+                                ],
+                              ),
+                              const SizedBox(width: 3),
+                              Text(
+                                'Mengandung radioaktif, beracun, Mempengaruhi ekosistem sekitar.',
+                                style: ThemeFont.bodySmallMedium.copyWith(
+                                  color: const Color(0XFF5F071C),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          alignment: Alignment.center,
+                          child: Switch(
+                              value: isHazardousTrash,
+                              onChanged: (bool value) {
+                                setState(() {
+                                  isHazardousTrash = value;
+                                });
+                              },
+                              trackOutlineColor:
+                                  MaterialStateProperty.resolveWith(
+                                (final Set<MaterialState> states) {
+                                  if (states.contains(MaterialState.selected)) {
+                                    return null;
+                                  }
+
+                                  return const Color(0XFF5F071C);
+                                },
+                              ),
+                              inactiveThumbColor: const Color(0XFF5F071C),
+                              inactiveTrackColor: Colors.white,
+                              activeColor: Colors.white,
+                              activeTrackColor: const Color(0XFF5F071C)),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 16,
+                  ),
+                  const SizedBox(height: 16),
+                  Text(
+                    "Ceritakan Detail Kejadian",
+                    style: ThemeFont.bodySmallMedium,
+                  ),
                   const SizedBox(height: 8),
-                  const MainTextField(
+                  const TextFieldReport(
                     hintText:
                         "Cth: Saya melihat Seseorang membuang sampah sembarangan ke sungai",
                     maxLines: 5,
@@ -241,20 +281,36 @@ class _PelanggaranBesarScreenState extends State<PelanggaranBesarScreen> {
                   Row(
                     children: [
                       Expanded(
-                        child: MainButton(
-                          onPressed: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) =>
-                                  const BerhasilBergabungScreen(),
-                            ));
-                          },
-                          child: Text(
-                            "Kirim",
-                            style: ThemeFont.heading6Reguler
-                                .copyWith(color: Colors.white),
+                          child: MainButtonWidget(
+                              onPressed: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => const SuccessScreen(
+                                      title: 'Laporan Terkirim',
+                                      subtitle:
+                                          'Terimakasih telah berkontribusi untuk melaporkan pelanggaran dan kondisi sampah yang kamu temui, kami sangat mengapresiasi usaha anda.'),
+                                ));
+                              },
+                              child: Text(
+                                'Kirim',
+                                style: ThemeFont.heading6Bold
+                                    .copyWith(color: Colors.white),
+                              ))
+                          // MainButton(
+                          //   onPressed: () {
+                          //     Navigator.of(context).push(MaterialPageRoute(
+                          //       builder: (context) => const SuccessScreen(
+                          //           title: 'Laporan Terkirim',
+                          //           subtitle:
+                          //               'Terimakasih telah berkontribusi untuk melaporkan pelanggaran dan kondisi sampah yang kamu temui, kami sangat mengapresiasi usaha anda.'),
+                          //     ));
+                          //   },
+                          //   child: Text(
+                          //     "Kirim",
+                          //     style: ThemeFont.heading6Reguler
+                          //         .copyWith(color: Colors.white),
+                          //   ),
+                          // ),
                           ),
-                        ),
-                      ),
                     ],
                   ),
                 ],
