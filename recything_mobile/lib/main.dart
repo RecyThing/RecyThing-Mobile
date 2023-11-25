@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recything_mobile/bloc/auth/auth_cubit.dart';
 import 'package:recything_mobile/bloc/forgot_password/forgot_password_cubit.dart';
 import 'package:recything_mobile/bloc/get_ai/get_ai_cubit.dart';
+import 'package:recything_mobile/bloc/get_report_hisstory/get_report_history_cubit.dart';
 import 'package:recything_mobile/bloc/get_user_profile/get_user_profile_cubit.dart';
 import 'package:recything_mobile/bloc/login/login_cubit.dart';
 import 'package:recything_mobile/bloc/get_all_faq/get_all_faq_cubit.dart';
@@ -65,6 +66,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => UpdateUserProfileCubit()),
         BlocProvider(create: (context) => RegisterCubit()),
         BlocProvider(create: (context) => ForgotPasswordCubit()),
+        BlocProvider(create: (_) => GetReportHistoryCubit())
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
