@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconly/iconly.dart';
+import 'package:recything_mobile/bloc/auth/auth_cubit.dart';
 import 'package:recything_mobile/constants/pallete.dart';
+import 'package:recything_mobile/widgets/forms/main_button.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ProfileInformasiLainnya extends StatelessWidget {
@@ -78,10 +81,78 @@ class ProfileInformasiLainnya extends StatelessWidget {
               style: ThemeFont.bodyNormalReguler.copyWith(color: Pallete.error),
             ),
             trailing: IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  showDialog(
+                      context: context,
+                      builder: ((context) => AlertDialog(
+                            content: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text(
+                                  textAlign: TextAlign.center,
+                                  "Apakah Kamu Yakin untuk Keluar?",
+                                  style: ThemeFont.interText.copyWith(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                const SizedBox(
+                                  height: 4,
+                                ),
+                                const SizedBox(
+                                  height: 16,
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    SizedBox(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.3,
+                                        child: MainButton(
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                            },
+                                            child: Text(
+                                              "Batal",
+                                              style: ThemeFont.heading6Reguler
+                                                  .copyWith(
+                                                      color: Pallete
+                                                          .textMainButton,
+                                                      fontWeight:
+                                                          FontWeight.w700),
+                                            ))),
+                                    SizedBox(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.3,
+                                      child: OutlinedButton(
+                                          style: OutlinedButton.styleFrom(
+                                            foregroundColor: Pallete.error,
+                                            padding: const EdgeInsets.all(16),
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.circular(
+                                                  8), // Ganti dengan radius yang Anda inginkan
+                                            ),
+                                            side: const BorderSide(
+                                                color: Pallete.error),
+                                          ),
+                                          onPressed: () {
+                                            context
+                                                .read<AuthCubit>()
+                                                .loggedOut();
+                                          },
+                                          child: const Text("Keluar")),
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
+                          )));
+                },
                 icon: const Icon(
                   Icons.arrow_forward_ios,
                   size: 16,
+                  color: Pallete.error,
                 )),
           ),
           const Divider(),
