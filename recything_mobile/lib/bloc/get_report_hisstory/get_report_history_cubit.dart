@@ -13,7 +13,7 @@ class GetReportHistoryCubit extends Cubit<GetReportHistoryState> {
   void fetchReportHistory(BuildContext? context) async {
     emit(GetReportHistoryLoading());
     try {
-      final data = await _repo.getUserProfile(context!);
+      final data = await _repo.getReportHistory(context!);
       emit(GetReportHistorySuccess(data: data));
     } catch (e) {
       emit(GetReportHistoryFailure(message: e.toString()));

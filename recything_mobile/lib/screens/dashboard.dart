@@ -7,7 +7,8 @@ import 'package:recything_mobile/screens/komunitas/komunitas_screen.dart';
 import 'package:recything_mobile/screens/report/report-rubbish/choose_report_screen.dart';
 
 class Dasboard extends StatefulWidget {
-  const Dasboard({super.key});
+  final int? index;
+  const Dasboard({super.key, this.index});
 
   @override
   State<Dasboard> createState() => _DasboardState();
@@ -22,6 +23,14 @@ class _DasboardState extends State<Dasboard> {
     const MissionsScreen(),
     const KomunitasScreen(),
   ];
+  @override
+  void initState() {
+    super.initState();
+    if (widget.index != null) {
+      currenIndex = widget.index!;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
