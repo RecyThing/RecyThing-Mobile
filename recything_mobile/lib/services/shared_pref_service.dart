@@ -37,6 +37,6 @@ class SharedPreferenceService {
   static Future<void> deleteUser() async {
     final pref = await SharedPreferences.getInstance();
 
-    await pref.remove(baseUrl);
+    await pref.remove(userKey);
   }
 }
