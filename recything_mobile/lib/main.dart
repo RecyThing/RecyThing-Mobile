@@ -100,7 +100,7 @@ class MyApp extends StatelessWidget {
           '/reset_password': (context) => const ResetPasswordScreen(),
           '/verifikasi_otp': (context) => const VerifikasiOtpScreen(),
           '/password_baru': (context) => const PasswordBaruScreen(),
-          '/editProfile': (context) => const EditProfileScreen(),
+          // '/editProfile': (context) => const EditProfileScreen(),
           '/pertanyaanUmum': (context) => const PertanyaanUmumScren(),
           '/lencana': (context) => const LencanaScreen(),
           '/ubahPassword': (context) => const UbahPasswordScreen(),
