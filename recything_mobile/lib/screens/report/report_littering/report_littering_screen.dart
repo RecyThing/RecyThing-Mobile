@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:recything_mobile/constants/pallete.dart';
 import 'package:recything_mobile/screens/report/report_littering/pelanggaran_besar_screen.dart';
 import 'package:recything_mobile/screens/report/report_littering/pelanggaran_kecil_screen.dart';
-import 'package:recything_mobile/screens/report/report_littering/widgets/choose_report_card.dart';
+import 'package:recything_mobile/screens/report/report_littering/widgets/card_report_littering.dart.dart';
 import 'package:recything_mobile/screens/report/widget/main_button_widget.dart';
 
 class ReportLitteringScreen extends StatefulWidget {
@@ -47,9 +47,9 @@ class _ReportLitteringScreenState extends State<ReportLitteringScreen> {
                   }
                 }
               : null,
-          child: const Text(
+          child: Text(
             "Selanjutnya",
-            style: TextStyle(color: Colors.white),
+            style: ThemeFont.heading6Bold.copyWith(color: Colors.white),
           ),
         ),
       ),
