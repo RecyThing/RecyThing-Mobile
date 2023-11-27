@@ -62,13 +62,13 @@ class CardReportLittering extends StatelessWidget {
                       BottomSheetWidget(
                         title: 'Apa itu Pelanggaran Individu?',
                         subtitle:
-                            'Merupakan jenis pelanggaran yang dilakukan oleh individu atau masyarakat umum terkait dengan kasus pembuangan sampah sembarangan yang kamu lihat.\nContoh Pelanggaran Individu meliputi:\nMembuang Sampah ke Sungai \nMembuang Sampah di Jalan Raya\nMembuang Sampah di Taman\nMembuang Puntung Rokok di Taman\nMembuang Sampah di Tepi Pantai\nDan Membuang Sampah Sembarangan lainnya',
+                            'Merupakan jenis pelanggaran yang dilakukan oleh individu atau masyarakat umum terkait dengan kasus pembuangan sampah sembarangan yang kamu lihat.\nContoh Pelanggaran Individu meliputi:\n• Membuang Sampah ke Sungai \n• Membuang Sampah di Jalan Raya\n• Membuang Sampah di Taman\n• Membuang Puntung Rokok di Taman\n• Membuang Sampah di Tepi Pantai\n• Dan Membuang Sampah Sembarangan lainnya',
                       ).customShowModalBottomSheet(context);
                     } else if (currentIndex == 1) {
                       BottomSheetWidget(
                         title: 'Apa itu Pelanggaran Perusahaan?',
                         subtitle:
-                            'Jenis pelaporan ini berkaitan dengan pelanggaran yang dilakukan oleh perusahaan, bisnis, atau pabrik dalam hal pembuangan limbah atau sampah yang tidak sesuai dengan standar dan regulasi lingkungan. Contoh Pelaporan perusahaan meliputi:\nPembuangan Limbah Pabrik ke Sungai\nPenyimpanan Berbahaya Limbah Industri Tanpa Izin\nPembuangan Limbah Kimia Beracun ke Sungai\nPembuangan Limbah Bahan Kimia ke Saluran Umum',
+                            'Jenis pelaporan ini berkaitan dengan pelanggaran yang dilakukan oleh perusahaan, bisnis, atau pabrik dalam hal pembuangan limbah atau sampah yang tidak sesuai dengan standar dan regulasi lingkungan.\nContoh Pelaporan perusahaan meliputi:\n• Pembuangan Limbah Pabrik ke Sungai\n• Penyimpanan Berbahaya Limbah Industri Tanpa Izin\n• Pembuangan Limbah Kimia Beracun ke Sungai\n• Pembuangan Limbah Bahan Kimia ke Saluran Umum',
                       ).customShowModalBottomSheet(context);
                     }
                   },
