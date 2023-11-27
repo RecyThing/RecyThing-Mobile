@@ -44,69 +44,67 @@ class _ReportRubbishScreenState extends State<ReportRubbishScreen> {
         ),
         centerTitle: true,
       ),
-      body: Builder(
-        builder: (context) {
-          return SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(16),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(height: 8),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    children: [
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width * .76,
-                        child: TextFieldReport(
-                          label: 'Lokasi Tumpukan',
-                          labelStyle: ThemeFont.bodySmallMedium.copyWith(
-                            color: Pallete.dark3,
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: TextFieldReport(
+                            label: 'Lokasi Tumpukan',
+                            labelStyle: ThemeFont.bodySmallMedium.copyWith(
+                              color: Pallete.dark3,
+                            ),
+                            hintText: 'Lokasi Tumpukan',
+                            hintStyle: ThemeFont.bodySmallMedium.copyWith(
+                              color: Pallete.dark3,
+                            ),
+                            onChanged: (value) {
+                              setState(() {
+                                lokasiTumpukanText = value;
+                              });
+                            },
+                            prefixIcon: IconlyLight.location,
+                            maxLines: 1,
+                            controller: TextEditingController(
+                                text: widget.locationAddress ?? ""),
                           ),
-                          hintText: 'Lokasi Tumpukan',
-                          hintStyle: ThemeFont.bodySmallMedium.copyWith(
-                            color: Pallete.dark3,
+                        ),
+                        const SizedBox(width: 8),
+                        SizedBox(
+                          width: 55,
+                          height: 55,
+                          child: MainButton(
+                            onPressed: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => const MapsReportScreen(
+                                      reportType: 'rubbish'),
+                                ),
+                              );
+                              // Navigator.pushNamed(context, "/maps-report");
+                            },
+                            child: Image.asset("assets/images/map_icon.png"),
                           ),
-                          onChanged: (value) {
-                            setState(() {
-                              lokasiTumpukanText = value;
-                            });
-                          },
-                          prefixIcon: IconlyLight.location,
-                          maxLines: 1,
-                          controller: TextEditingController(
-                              text: widget.locationAddress ?? ""),
                         ),
-                      ),
-                      const SizedBox(
-                        width: 8,
-                      ),
-                      SizedBox(
-                        width: 55,
-                        height: 55,
-                        child: MainButton(
-                          onPressed: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) => const MapsReportScreen(
-                                    reportType: 'rubbish'),
-                              ),
-                            );
-                            // Navigator.pushNamed(context, "/maps-report");
-                          },
-                          child: Image.asset("assets/images/map_icon.png"),
-                        ),
-                      )
-                    ],
+                      ],
+                    ),
                   ),
-                  const SizedBox(
-                    height: 24,
-                  ),
+                  const SizedBox(height: 24),
                   Text(
                     'Tambah Lokasi Patokan',
                     style: ThemeFont.bodySmallMedium,
                   ),
-                  const SizedBox(
-                    height: 4,
-                  ),
+                  const SizedBox(height: 4),
                   TextFieldReport(
                     hintText: 'Cth: Sebelah Masjid Nawawi',
                     hintStyle: ThemeFont.bodySmallMedium.copyWith(
@@ -224,24 +222,24 @@ class _ReportRubbishScreenState extends State<ReportRubbishScreen> {
                       ),
                     ],
                   ),
-
-                  //       onPressed: () {
-                  //         Navigator.push(
-                  //             context,
-                  //             MaterialPageRoute(
-                  //                 builder: (context) => const SuccessScreen(
-                  //                     title: 'Laporan Terkirim',
-                  //                     subtitle:
-                  //                         'Terimakasih telah berkontribusi untuk melaporkan pelanggaran dan kondisi sampah yang kamu temui, kami sangat mengapresiasi usaha anda.')
-                  //     DetailRiwayatPelaporanScreen(
-                  //   lokasiPatokanText: lokasiPatokanText,
-                  //   kondisiSampahText: kondisiSampahText,
-                  //   lokasiTumpukanText: lokasiTumpukanText,
                 ],
               ),
             ),
-          );
-        },
+
+            //       onPressed: () {
+            //         Navigator.push(
+            //             context,
+            //             MaterialPageRoute(
+            //                 builder: (context) => const SuccessScreen(
+            //                     title: 'Laporan Terkirim',
+            //                     subtitle:
+            //                         'Terimakasih telah berkontribusi untuk melaporkan pelanggaran dan kondisi sampah yang kamu temui, kami sangat mengapresiasi usaha anda.')
+            //     DetailRiwayatPelaporanScreen(
+            //   lokasiPatokanText: lokasiPatokanText,
+            //   kondisiSampahText: kondisiSampahText,
+            //   lokasiTumpukanText: lokasiTumpukanText,
+          ],
+        ),
       ),
     );
   }
