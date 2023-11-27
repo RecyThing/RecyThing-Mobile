@@ -14,6 +14,7 @@ class _ChooseReportState extends State<ChooseReport> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: Colors.white,
         title: Text(
           'Pelaporan',
