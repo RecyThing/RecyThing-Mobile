@@ -23,22 +23,23 @@ class _TimePickerWWidgetState extends State<TimePickerWWidget> {
   @override
   Widget build(BuildContext context) {
     return TextField(
+      textAlign: TextAlign.center,
       controller: timeInput,
       decoration: const InputDecoration(
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(12),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(12),
+            ),
           ),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(12),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(12),
+            ),
+            borderSide: BorderSide(color: Pallete.info),
           ),
-          borderSide: BorderSide(color: Pallete.info),
-        ),
-        focusColor: Pallete.info,
-        hintText: '00:00',
-      ),
+          focusColor: Pallete.info,
+          hintText: '00:00',
+          hintStyle: TextStyle()),
       style: ThemeFont.bodySmallMedium.copyWith(
         color: isTimeSelected ? Pallete.dark1 : Pallete.dark3,
         fontWeight: FontWeight.w500,
