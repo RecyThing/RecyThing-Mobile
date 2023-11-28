@@ -172,25 +172,24 @@ class _MapsReportScreenState extends State<MapsReportScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: const Padding(
-          padding: EdgeInsets.only(left: 16),
-          child: CustomBackButton(),
-        ),
-        actions: const [
-          Padding(
-            padding: EdgeInsets.only(right: 16),
-            child: SizedBox(
-              width: 263,
-              height: 56,
-              child: TextFieldReport(
-                prefixIcon: IconlyLight.search,
-                hintText: 'Cari disini',
-              ),
-            ),
-          ),
-        ],
-      ),
+      // appBar: AppBar(
+      //   leading: const Padding(
+      //     padding: EdgeInsets.only(left: 16),
+      //     child: CustomBackButton(),
+      //   ),
+      //   title: const Padding(
+      //     padding: EdgeInsets.only(right: 16),
+      //     child: SizedBox(
+      //       width: 263,
+      //       height: 56,
+      //       child: TextFieldReport(
+      //         prefixIcon: IconlyLight.search,
+      //         hintText: 'Cari disini',
+      //       ),
+      //     ),
+      //   ),
+      //   backgroundColor: Colors.transparent,
+      // ),
       body: SafeArea(
         child: Stack(
           children: [
@@ -215,23 +214,23 @@ class _MapsReportScreenState extends State<MapsReportScreen> {
                 _controller.complete(controller);
               },
             ),
-            // const Positioned(
-            //   top: 13,
-            //   left: 16,
-            //   child: CustomBackButton(),
-            // ),
-            // const SizedBox(
-            //   width: 9,
-            // ),
-            // const Positioned(
-            //   top: 13,
-            //   left: 81,
-            //   right: 16,
-            //   child: TextFieldReport(
-            //     prefixIcon: IconlyLight.search,
-            //     hintText: 'Cari disini',
-            //   ),
-            // ),
+            const Positioned(
+              top: 13,
+              left: 16,
+              child: CustomBackButton(),
+            ),
+            const SizedBox(
+              width: 9,
+            ),
+            const Positioned(
+              top: 13,
+              left: 81,
+              right: 16,
+              child: TextFieldReport(
+                prefixIcon: IconlyLight.search,
+                hintText: 'Cari disini',
+              ),
+            ),
             Positioned(
                 bottom: 24,
                 left: 16,
@@ -252,6 +251,8 @@ class _MapsReportScreenState extends State<MapsReportScreen> {
                 width: 48,
                 height: 48,
                 child: FloatingActionButton(
+                  shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(100))),
                   onPressed: () {
                     if (_currentPosition != null) {
                       _goToCurrentPosition();
@@ -263,8 +264,8 @@ class _MapsReportScreenState extends State<MapsReportScreen> {
                       );
                     }
                   },
-                  backgroundColor: Colors.blue,
-                  child: const Icon(IconlyLight.location),
+                  backgroundColor: Colors.white,
+                  child: const Icon(Icons.my_location, color: Pallete.main,),
                 ),
               ),
             ),
