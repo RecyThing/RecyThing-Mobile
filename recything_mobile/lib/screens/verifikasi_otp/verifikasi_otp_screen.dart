@@ -39,7 +39,7 @@ class _VerifikasiOtpScreenState extends State<VerifikasiOtpScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: 66),
-                const CustomBackButton(),
+                CustomBackButton(onPressed: () => BackAlert.showAlert(context)),
                 const SizedBox(
                   height: 24,
                 ),
