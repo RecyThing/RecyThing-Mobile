@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:recything_mobile/constants/pallete.dart';
 
-class MainButton extends StatelessWidget {
+class ErrorButton extends StatelessWidget {
   final void Function()? onPressed;
   final Widget child;
-  const MainButton({
+  const ErrorButton({
     super.key,
     required this.onPressed,
     required this.child,
@@ -15,11 +15,13 @@ class MainButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: onPressed,
       style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all(Pallete.main),
+        backgroundColor: MaterialStateProperty.all(Colors.white),
+        elevation: MaterialStateProperty.all(0),
         padding: MaterialStateProperty.all(const EdgeInsets.all(16)),
         shape: MaterialStateProperty.all(
           RoundedRectangleBorder(
             borderRadius: BorderRadiusDirectional.circular(8),
+            side: BorderSide(color: Pallete.error),
           ),
         ),
       ),
