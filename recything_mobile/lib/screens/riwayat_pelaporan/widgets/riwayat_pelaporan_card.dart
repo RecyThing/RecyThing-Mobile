@@ -31,19 +31,23 @@ class RiwayatPelaporanCard extends StatelessWidget {
         leading: Container(
           padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(
-              color: item.status == "ditolak"
-                  ? Pallete.errorBackground
-                  : const Color(0xffE2FEE1),
+              color: item.reportType == "pelanggaran sampah"
+                  ? const Color(0XFFFEF7E0)
+                  : item.status == "ditolak"
+                      ? Pallete.errorBackground
+                      : const Color(0xffE2FEE1),
               shape: BoxShape.circle),
           child: Image.asset(
-            "assets/images/tumpukan_sampah.png",
+            item.reportType == "tumpukan sampah"
+                ? "assets/images/tumpukan_sampah.png"
+                : "assets/images/pelanggaran_sampah.png",
             width: 50,
           ),
         ),
         title: Text(
           item.reportType == "tumpukan sampah"
               ? "Tumpukan Sampah"
-              : "Pelanggaran Sampah",
+              : "Pelanggaran",
           style: ThemeFont.bodyNormalSemiBold,
         ),
         subtitle: Text(

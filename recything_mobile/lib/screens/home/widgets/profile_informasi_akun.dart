@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 import 'package:recything_mobile/constants/pallete.dart';
+import 'package:recything_mobile/models/user_model.dart';
+import 'package:recything_mobile/screens/home/pages/edit_profile_screen.dart';
 import 'package:recything_mobile/widgets/forms/custom_teks.dart';
 
 class ProfileInformasiAkun extends StatelessWidget {
-  const ProfileInformasiAkun({super.key});
+  final UserModel user;
+  const ProfileInformasiAkun({super.key, required this.user});
 
   @override
   Widget build(BuildContext context) {
@@ -30,16 +33,23 @@ class ProfileInformasiAkun extends StatelessWidget {
                 const SizedBox(
                   width: 8,
                 ),
-                const CustomTeks(
-                  name: "Lengkapi Profile",
-                  color: Pallete.error,
-                  size: 8,
-                )
+                if ((user.dateOfBirth == "") ||
+                    (user.purpose == "") ||
+                    (user.address == ""))
+                  const CustomTeks(
+                    name: "Lengkapi Profile",
+                    color: Pallete.error,
+                    size: 8,
+                  )
               ],
             ),
             trailing: IconButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, '/editProfile');
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => EditProfileScreen(user: user)));
+                  // Navigator.pushNamed(context, '/editProfile', );
                 },
                 icon: const Icon(
                   Icons.arrow_forward_ios,
