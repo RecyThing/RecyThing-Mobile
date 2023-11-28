@@ -1,14 +1,19 @@
-// ignore_for_file: use_build_context_synchronously, unused_field
+// ignore_for_file: use_build_context_synchronously
 
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:iconly/iconly.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:recything_mobile/constants/pallete.dart';
 import 'package:recything_mobile/screens/report/report-rubbish/report_rubbish_screen.dart';
 import 'package:recything_mobile/screens/report/report_littering/pelanggaran_besar_screen.dart';
 import 'package:recything_mobile/screens/report/report_littering/pelanggaran_kecil_screen.dart';
+import 'package:recything_mobile/screens/report/widget/main_button_widget.dart';
+import 'package:recything_mobile/screens/report/widget/text_field_report.dart';
+import 'package:recything_mobile/widgets/forms/custom_back_button.dart';
 
 class MapsReportScreen extends StatefulWidget {
   final String reportType;
@@ -20,6 +25,8 @@ class MapsReportScreen extends StatefulWidget {
 }
 
 class _MapsReportScreenState extends State<MapsReportScreen> {
+  Completer<GoogleMapController> _controller = Completer();
+
   Position? _currentPosition;
   String? _currentAddress;
   MarkerId? _selectedMarkerId;
@@ -36,6 +43,15 @@ class _MapsReportScreenState extends State<MapsReportScreen> {
           _currentPosition = position;
           _getAddress(position);
         });
+
+        if (_controller.isCompleted) {
+          final controller = await _controller.future;
+          controller.animateCamera(
+            CameraUpdate.newLatLng(
+              LatLng(position.latitude, position.longitude),
+            ),
+          );
+        }
       } catch (e) {
         // print('Error getting location: $e');
       }
@@ -102,21 +118,13 @@ class _MapsReportScreenState extends State<MapsReportScreen> {
             builder: (context) => const PelanggaranKecilScreen(),
           ),
         );
-      }else if (widget.reportType == 'pelanggaran-besar') {
+      } else if (widget.reportType == 'pelanggaran-besar') {
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(
             builder: (context) => const PelanggaranBesarScreen(),
           ),
         );
       }
-
-      // Navigator.of(context).pushReplacement(
-      //   MaterialPageRoute(
-      //     builder: (context) => ReportRubbishScreen(
-      //       locationAddress: _currentAddress,
-      //     ),
-      //   ),
-      // );
     }
   }
 
@@ -129,7 +137,6 @@ class _MapsReportScreenState extends State<MapsReportScreen> {
         onTap: () {
           _selectMarker('CurrentLocation');
         },
-        // infoWindow: const InfoWindow(title: 'Current Location'),
       );
       _markers['CurrentLocation'] = marker;
     });
@@ -138,6 +145,19 @@ class _MapsReportScreenState extends State<MapsReportScreen> {
   void _selectMarker(String markerId) {
     setState(() {
       _selectedMarkerId = MarkerId(markerId);
+    });
+  }
+
+  void _goToCurrentPosition() {
+    _controller.future.then((controller) {
+      controller.animateCamera(
+        CameraUpdate.newLatLng(
+          LatLng(
+            _currentPosition?.latitude ?? 0.0,
+            _currentPosition?.longitude ?? 0.0,
+          ),
+        ),
+      );
     });
   }
 
@@ -152,54 +172,99 @@ class _MapsReportScreenState extends State<MapsReportScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: const Padding(
+          padding: EdgeInsets.only(left: 16),
+          child: CustomBackButton(),
+        ),
+        actions: const [
+          Padding(
+            padding: EdgeInsets.only(right: 16),
+            child: SizedBox(
+              width: 263,
+              height: 56,
+              child: TextFieldReport(
+                prefixIcon: IconlyLight.search,
+                hintText: 'Cari disini',
+              ),
+            ),
+          ),
+        ],
+      ),
       body: SafeArea(
         child: Stack(
           children: [
             GoogleMap(
-              myLocationEnabled: true,
+              // myLocationEnabled: true,
               zoomGesturesEnabled: true,
               zoomControlsEnabled: false,
-              initialCameraPosition: CameraPosition(
-                zoom: 18,
-                target: _currentPosition != null
-                    ? LatLng(
-                        _currentPosition!.latitude, _currentPosition!.longitude)
-                    : const LatLng(0.0, 0.0),
-              ),
+              initialCameraPosition: _currentPosition != null
+                  ? CameraPosition(
+                      zoom: 18,
+                      target: LatLng(
+                        _currentPosition!.latitude,
+                        _currentPosition!.longitude,
+                      ),
+                    )
+                  : const CameraPosition(target: LatLng(0.0, 0.0), zoom: 18),
               markers: _markers.values.toSet(),
               onTap: (LatLng position) {
                 _selectMarker('');
               },
-              onMapCreated: (GoogleMapController controller) async {
-                // if (_currentPosition != null) {
-                //   _updateMarker(_currentPosition!);
-                // }
+              onMapCreated: (GoogleMapController controller) {
+                _controller.complete(controller);
               },
             ),
+            // const Positioned(
+            //   top: 13,
+            //   left: 16,
+            //   child: CustomBackButton(),
+            // ),
+            // const SizedBox(
+            //   width: 9,
+            // ),
+            // const Positioned(
+            //   top: 13,
+            //   left: 81,
+            //   right: 16,
+            //   child: TextFieldReport(
+            //     prefixIcon: IconlyLight.search,
+            //     hintText: 'Cari disini',
+            //   ),
+            // ),
             Positioned(
-              bottom: 24,
-              left: 16,
+                bottom: 24,
+                left: 16,
+                right: 16,
+                child: MainButtonWidget(
+                    onPressed: () {
+                      _updateAddress();
+                    },
+                    child: Text(
+                      'Selanjutnya',
+                      style:
+                          ThemeFont.heading6Bold.copyWith(color: Colors.white),
+                    ))),
+            Positioned(
+              bottom: 96,
               right: 16,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Pallete.main,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(
-                      12,
-                    ),
-                  ),
-                ),
-                onPressed: () {
-                  _updateAddress();
-                },
-                child: const Padding(
-                  padding: EdgeInsets.all(16),
-                  child: Text(
-                    'Selanjutnya',
-                    style: TextStyle(
-                      color: Colors.white,
-                    ),
-                  ),
+              child: SizedBox(
+                width: 48,
+                height: 48,
+                child: FloatingActionButton(
+                  onPressed: () {
+                    if (_currentPosition != null) {
+                      _goToCurrentPosition();
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Current position is not available.'),
+                        ),
+                      );
+                    }
+                  },
+                  backgroundColor: Colors.blue,
+                  child: const Icon(IconlyLight.location),
                 ),
               ),
             ),
