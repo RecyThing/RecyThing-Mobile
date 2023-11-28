@@ -31,7 +31,7 @@ class TextFieldReport extends StatelessWidget {
     return TextField(
       controller: controller,
       onChanged: onChanged,
-      decoration: InputDecoration(
+      decoration: InputDecoration(filled: true, fillColor: Colors.white,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
         ),
