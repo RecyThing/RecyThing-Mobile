@@ -14,11 +14,9 @@ class UnggahBuktiScreen extends StatelessWidget {
       body: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16),
         width: double.infinity,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
+        child: ListView(
           children: [
-            Expanded(
-                child: Column(
+            Column(
               children: [
                 const SizedBox(
                   height: 24,
@@ -96,7 +94,7 @@ class UnggahBuktiScreen extends StatelessWidget {
                   height: 164,
                 ),
               ],
-            )),
+            ),
             Container(
               width: double.infinity,
               padding: const EdgeInsets.only(bottom: 44),

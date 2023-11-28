@@ -1,8 +1,12 @@
+import 'package:device_preview/device_preview.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recything_mobile/bloc/auth/auth_cubit.dart';
 import 'package:recything_mobile/bloc/forgot_password/forgot_password_cubit.dart';
 import 'package:recything_mobile/bloc/get_ai/get_ai_cubit.dart';
+import 'package:recything_mobile/bloc/get_history_report_by_id/get_history_report_by_id_cubit.dart';
+import 'package:recything_mobile/bloc/get_report_hisstory/get_report_history_cubit.dart';
 import 'package:recything_mobile/bloc/get_user_profile/get_user_profile_cubit.dart';
 import 'package:recything_mobile/bloc/login/login_cubit.dart';
 import 'package:recything_mobile/bloc/get_all_faq/get_all_faq_cubit.dart';
@@ -16,7 +20,6 @@ import 'package:recything_mobile/screens/article/page/detail_artikel.dart';
 import 'package:recything_mobile/screens/article/page/detail_lokasi.dart';
 import 'package:recything_mobile/screens/article/page/kategori_daur_ulang_screen.dart';
 import 'package:recything_mobile/screens/dashboard.dart';
-import 'package:recything_mobile/screens/home/pages/edit_profile_screen.dart';
 import 'package:recything_mobile/screens/home/pages/notifikasi_screen.dart';
 import 'package:recything_mobile/screens/home/pages/pertanyaan_umum_screen.dart';
 import 'package:recything_mobile/screens/home/pages/profile_screen.dart';
@@ -45,7 +48,12 @@ import 'package:recything_mobile/screens/splash/splash_screen.dart';
 import 'package:recything_mobile/screens/verifikasi_otp/verifikasi_otp_screen.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    DevicePreview(
+      enabled: !kReleaseMode,
+      builder: (context) => const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -64,8 +72,12 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => UpdateUserProfileCubit()),
         BlocProvider(create: (context) => RegisterCubit()),
         BlocProvider(create: (context) => ForgotPasswordCubit()),
+        BlocProvider(create: (_) => GetReportHistoryCubit()),
+        BlocProvider(create: (_) => GetHistoryReportByIdCubit())
       ],
       child: MaterialApp(
+        locale: DevicePreview.locale(context),
+        builder: DevicePreview.appBuilder,
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         theme: ThemeData(
@@ -95,7 +107,7 @@ class MyApp extends StatelessWidget {
           '/reset_password': (context) => const ResetPasswordScreen(),
           '/verifikasi_otp': (context) => const VerifikasiOtpScreen(),
           '/password_baru': (context) => const PasswordBaruScreen(),
-          '/editProfile': (context) => const EditProfileScreen(),
+          // '/editProfile': (context) => const EditProfileScreen(),
           '/pertanyaanUmum': (context) => const PertanyaanUmumScren(),
           '/lencana': (context) => const LencanaScreen(),
           '/ubahPassword': (context) => const UbahPasswordScreen(),

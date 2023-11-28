@@ -25,40 +25,41 @@ class MissionCard extends StatelessWidget {
         ],
       ),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          SizedBox(
-            width: 76,
-            height: 80,
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(12),
-              child: Image.network(
-                'https://ichef.bbci.co.uk/news/976/cpsprodpb/1D11/production/_129014470_gettyimages-1402625142.jpg',
-                fit: BoxFit.cover,
+          Row(
+            children: [
+              SizedBox(
+                width: 76,
+                height: 80,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(12),
+                  child: Image.network(
+                    'https://ichef.bbci.co.uk/news/976/cpsprodpb/1D11/production/_129014470_gettyimages-1402625142.jpg',
+                    fit: BoxFit.cover,
+                  ),
+                ),
               ),
-            ),
-          ),
-          const SizedBox(
-            width: 16,
-          ),
-          SizedBox(
-            width: 166,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: ThemeFont.bodyNormalSemiBold,
+              const SizedBox(
+                width: 16,
+              ),
+              SizedBox(
+                width: 166,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      title,
+                      style: ThemeFont.bodyNormalSemiBold,
+                    ),
+                    const SizedBox(
+                      height: 6,
+                    ),
+                    subTitle
+                  ],
                 ),
-                const SizedBox(
-                  height: 6,
-                ),
-                subTitle
-              ],
-            ),
-          ),
-          const SizedBox(
-            width: 24,
+              ),
+            ],
           ),
           CircleAvatar(
             backgroundColor: Pallete.mainDarker,
@@ -68,7 +69,7 @@ class MissionCard extends StatelessWidget {
                 icon: const Icon(
                   Icons.arrow_forward_ios,
                   color: Colors.white,
-                  size: 22,
+                  size: 20,
                 )),
           )
         ],

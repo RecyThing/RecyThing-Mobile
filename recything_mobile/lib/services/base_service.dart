@@ -33,9 +33,13 @@ abstract class BaseService {
           {
             return await _dio.put(endpoint, data: data, options: options);
           }
+        case RequestType.patch:
+          {
+            return await _dio.patch(endpoint, data: data, options: options);
+          }
         case RequestType.delete:
           {
-            return await _dio.put(endpoint, data: data, options: options);
+            return await _dio.delete(endpoint, data: data, options: options);
           }
       }
     } on DioException catch (e) {
@@ -65,7 +69,7 @@ abstract class BaseService {
   }
 }
 
-enum RequestType { get, post, update, delete }
+enum RequestType { get, post, update, delete, patch }
 
 class CustomInterceptors extends Interceptor {
   @override

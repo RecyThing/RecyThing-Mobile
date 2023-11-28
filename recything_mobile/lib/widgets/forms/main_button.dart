@@ -19,7 +19,8 @@ class MainButton extends StatelessWidget {
         padding: MaterialStateProperty.all(const EdgeInsets.all(16)),
         shape: MaterialStateProperty.all(
           RoundedRectangleBorder(
-              borderRadius: BorderRadiusDirectional.circular(8)),
+            borderRadius: BorderRadiusDirectional.circular(8),
+          ),
         ),
       ),
       child: child,

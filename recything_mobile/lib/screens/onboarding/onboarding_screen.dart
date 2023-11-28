@@ -12,7 +12,7 @@ class OnboardingScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.all(24),
+        padding: const EdgeInsets.fromLTRB(24, 16, 24, 24),
         child: Column(
           children: [
             const SizedBox(height: 20),
@@ -31,27 +31,13 @@ class OnboardingScreen extends StatelessWidget {
                 ),
               ],
             ),
-            Stack(
-              clipBehavior: Clip.none,
+            Lottie.asset(
+              "assets/images/onboarding1.json",
               alignment: Alignment.center,
-              textDirection: TextDirection.rtl,
-              fit: StackFit.loose,
-              children: [
-                const SizedBox(height: 285),
-                Positioned(
-                  right: MediaQuery.of(context).size.width * -0.1,
-                  width: 300,
-                  height: 285,
-                  child: Lottie.asset(
-                    "assets/images/onboarding1.json",
-                    fit: BoxFit.cover,
-                    alignment: Alignment.center,
-                    height: 285,
-                  ),
-                ),
-              ],
+              height: 240,
+              // width: 300,
             ),
-            const SizedBox(height: 32),
+            // const SizedBox(height: 32),
             Text(
               "Jelajahi Informasi dan Daur Ulang Sampahmu",
               style: ThemeFont.heading5Bold,

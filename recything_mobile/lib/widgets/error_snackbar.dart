@@ -3,8 +3,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:recything_mobile/constants/pallete.dart';
 
 class ErrorSnackbar {
-  static void showSnackbar(context,
-      {required String message, required String title}) {
+  static void showSnackbar(
+    context, {
+    required String message,
+    required String title,
+  }) {
     ScaffoldMessenger.of(context).removeCurrentSnackBar();
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(

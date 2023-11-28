@@ -3,8 +3,8 @@ import 'package:iconly/iconly.dart';
 import 'package:recything_mobile/constants/pallete.dart';
 
 class CustomBackButton extends StatelessWidget {
-  // final void Function()? onPressed;
-  const CustomBackButton({super.key});
+  final void Function()? onPressed;
+  const CustomBackButton({super.key, this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,11 @@ class CustomBackButton extends StatelessWidget {
       ),
       child: InkWell(
         onTap: () {
-          Navigator.of(context).pop();
+          if (onPressed != null) {
+            onPressed!();
+          } else {
+            Navigator.of(context).pop();
+          }
         },
         child: const Padding(
           padding: EdgeInsets.all(8),
