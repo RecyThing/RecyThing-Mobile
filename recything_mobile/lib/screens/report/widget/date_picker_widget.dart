@@ -22,6 +22,7 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
   @override
   Widget build(BuildContext context) {
     return TextField(
+      textAlign: TextAlign.center,
       controller: dateInput,
       decoration: const InputDecoration(
         border: OutlineInputBorder(
