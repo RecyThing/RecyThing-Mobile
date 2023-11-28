@@ -42,21 +42,21 @@ class _MapsReportScreenState extends State<MapsReportScreen> {
 
     if (status == PermissionStatus.denied) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text(
               'Izin lokasi ditolak. Aktifkan izin di pengaturan aplikasi.'),
         ),
       );
     } else if (status == PermissionStatus.permanentlyDenied) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text(
               'Izin lokasi ditolak secara permanen. Buka pengaturan aplikasi untuk mengaktifkan izin.'),
         ),
       );
     } else if (status == PermissionStatus.granted) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text('Izin lokasi diberikan.'),
         ),
       );
@@ -78,7 +78,7 @@ class _MapsReportScreenState extends State<MapsReportScreen> {
   }
 
   Future<void> _updateAddress() async {
-    if (_currentPosition != null) {
+    if (_currentPosition != null){
       await _getAddress(_currentPosition!);
 
       Navigator.of(context).pop();
@@ -136,7 +136,7 @@ class _MapsReportScreenState extends State<MapsReportScreen> {
                 target: _currentPosition != null
                     ? LatLng(
                         _currentPosition!.latitude, _currentPosition!.longitude)
-                    : LatLng(0.0, 0.0),
+                    : const LatLng(0.0, 0.0),
               ),
               markers: _markers.values.toSet(),
               onTap: (LatLng position) {
@@ -164,8 +164,8 @@ class _MapsReportScreenState extends State<MapsReportScreen> {
                 onPressed: () {
                   _updateAddress();
                 },
-                child: Padding(
-                  padding: const EdgeInsets.all(16),
+                child: const Padding(
+                  padding: EdgeInsets.all(16),
                   child: Text(
                     'Selanjutnya',
                     style: TextStyle(
