@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:recything_mobile/bloc/get_history_report_by_id/get_history_report_by_id_cubit.dart';
 import 'package:recything_mobile/constants/pallete.dart';
 import 'package:recything_mobile/screens/dashboard.dart';
@@ -177,7 +178,11 @@ class _DetailPelanggaranScreenState extends State<DetailPelanggaranScreen> {
                             Text("Tanggal : ",
                                 style: ThemeFont.bodySmallRegular
                                     .copyWith(color: Pallete.dark3)),
-                            Text(state.data.insidentDate ?? "",
+                            Text(
+                                DateFormat("dd MMMM yyyy")
+                                    .format(DateTime.parse(
+                                        state.data.insidentDate!))
+                                    .toString(),
                                 style: ThemeFont.bodySmallRegular
                                     .copyWith(color: Pallete.dark3)),
                           ],

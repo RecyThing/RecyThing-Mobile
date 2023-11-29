@@ -141,8 +141,8 @@ class ProfileInformasiLainnya extends StatelessWidget {
                                                 .read<AuthCubit>()
                                                 .loggedOut();
 
-                                            // Navigator.pushNamed(
-                                            //     context, '/login');
+                                            Navigator.pushNamed(
+                                                context, '/login');
                                           },
                                           child: const Text("Keluar")),
                                     ),
