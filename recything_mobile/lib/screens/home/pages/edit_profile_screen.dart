@@ -38,7 +38,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       context: context,
       initialDate: currentDate,
       firstDate: DateTime(1900),
-      lastDate: DateTime(2101),
+      lastDate: DateTime.now(),
     );
 
     setState(() {

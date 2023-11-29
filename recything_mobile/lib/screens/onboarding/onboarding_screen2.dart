@@ -12,7 +12,7 @@ class OnboardingScreen2 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.all(24),
+        padding: const EdgeInsets.fromLTRB(24, 16, 24, 24),
         child: Column(
           children: [
             const SizedBox(height: 20),
@@ -33,15 +33,13 @@ class OnboardingScreen2 extends StatelessWidget {
             ),
             SizedBox(
               width: double.infinity,
-              height: 285,
+              height: 240,
               child: Lottie.asset(
                 "assets/images/onboarding2.json",
-                fit: BoxFit.cover,
-                alignment: Alignment.center,
-                height: 285,
+                height: 240,
               ),
             ),
-            const SizedBox(height: 32),
+            // const SizedBox(height: 32),
             Text(
               "Laporkan Tumpukan dan Pelanggaran Sampah ",
               style: ThemeFont.heading5Bold,
