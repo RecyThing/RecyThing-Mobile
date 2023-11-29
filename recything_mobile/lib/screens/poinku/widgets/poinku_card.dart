@@ -25,6 +25,7 @@ class _PoinkuCardState extends State<PoinkuCard> {
       showDialog(
           context: context,
           builder: (context) => AlertDialog(
+                elevation: 0,
                 content: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [

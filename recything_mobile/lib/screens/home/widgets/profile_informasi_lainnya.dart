@@ -85,6 +85,7 @@ class ProfileInformasiLainnya extends StatelessWidget {
                   showDialog(
                       context: context,
                       builder: ((context) => AlertDialog(
+                            elevation: 0,
                             content: Column(
                               mainAxisSize: MainAxisSize.min,
                               children: [
