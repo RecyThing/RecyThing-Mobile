@@ -1,4 +1,8 @@
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:recything_mobile/bloc/post_report/post_report_rubbish_state.dart';
 import 'package:recything_mobile/models/report_model.dart';
 import 'package:recything_mobile/repositories/report_repo.dart';
@@ -6,18 +10,33 @@ import 'package:recything_mobile/repositories/report_repo.dart';
 class PostReportRubbishCubit extends Cubit<PostReportRubbishState> {
   PostReportRubbishCubit() : super(PostReportRubbishInitial());
 
+  bool isCheckedKering = false;
+  bool isCheckedBasah = false;
+
+  void toggleCheckboxKering() {
+    isCheckedKering = !isCheckedKering;
+    emit(PostReportRubbishCheckboxUpdated());
+  }
+
+  void toggleCheckboxBasah() {
+    isCheckedBasah = !isCheckedBasah;
+    emit(PostReportRubbishCheckboxUpdated());
+  }
+
   void reports(
-      {required String reportType,
+      {BuildContext? context,
+      required String reportType,
       required String location,
       required num longitude,
       required num latitude,
       required String addressPoint,
       required String trashType,
       required String desc,
-      required List<ImageModel> images}) async {
+      required List<XFile> images}) async {
     try {
       emit(PostReportRubbishLoading());
-      await ReportRepo().reports(
+      await ReportRepo().addReport(
+          context: context!,
           reportType: reportType,
           location: location,
           longitude: longitude,

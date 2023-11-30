@@ -1,7 +1,9 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:logger/logger.dart';
 import 'package:recything_mobile/constants/api.dart';
 import 'package:recything_mobile/models/report_model.dart';
@@ -25,7 +27,66 @@ class ReportRepo extends BaseService {
 
   Dio dio = Dio(BaseOptions(baseUrl: Api.baseUrl));
 
-  Future<void> reports({
+  // Future<void> addReport({
+  //   required String reportType,
+  //   required String location,
+  //   required num longitude,
+  //   required num latitude,
+  //   required String addressPoint,
+  //   required String trashType,
+  //   required String desc,
+  //   required List<XFile> images,
+  // }) async {
+  //   try {
+  //     List<MultipartFile> imageFiles = [];
+
+  //     for (var image in images) {
+  //       List<int> imageBytes = await image.readAsBytes();
+  //       String imageName = DateTime.now().toString();
+  //       MultipartFile file = MultipartFile.fromBytes(
+  //         imageBytes,
+  //         filename: imageName,
+  //       );
+  //       imageFiles.add(file);
+  //     }
+  //     final data = {
+  //       "report_type": reportType,
+  //       "location": location,
+  //       "longitude": longitude,
+  //       "latitude": latitude,
+  //       "address_point": addressPoint,
+  //       "trash_type": trashType,
+  //       "description": desc,
+  //       "images": imageFiles,
+  //     };
+
+  //     FormData formData = FormData.fromMap(data);
+  //     Logger().i(data);
+
+  //     final response = await dio.post(
+  //       "/reports",
+  //       data: data,
+  //       options: Options(
+  //         headers: {
+  //           'Content-Type': 'multipart/form-data',
+  //         },
+  //       ),
+  //     );
+
+  //     Map<String, dynamic> responseData = json.decode(response.toString());
+  //     Logger().i(responseData);
+  //   } on DioException catch (e) {
+  //     Logger().e(e.response);
+  //     if (e.response != null) {
+  //       final response = jsonDecode(e.response.toString());
+  //       throw response["message"];
+  //     } else {
+  //       throw "An unexpected error occured";
+  //     }
+  //   }
+  // }
+  Future<String> addReport({
+    required BuildContext context,
     required String reportType,
     required String location,
     required num longitude,
@@ -33,31 +94,37 @@ class ReportRepo extends BaseService {
     required String addressPoint,
     required String trashType,
     required String desc,
-    required List<ImageModel> images,
+    required List<XFile> images,
   }) async {
-    try {
-      final data = {
-        "report_type": reportType,
-        "location": location,
-        "longitude": longitude,
-        "latitude": latitude,
-        "address_point": addressPoint,
-        "trash_type": trashType,
-        "description": desc,
-        "images": images.map((image) => image.toJson()).toList(),
-      };
-      Logger().i(data);
+    List<MultipartFile> imageFiles = [];
 
-      final response = await dio.post("reports", data: data);
-
-      Map<String, dynamic> responseData = json.decode(response.toString());
-      Logger().i(responseData);
-    } on DioException catch (e) {
-      Logger().e(e.response);
-      if (e.response != null) {
-        final response = jsonDecode(e.response.toString());
-        throw response["message"];
-      }
+    for (var image in images) {
+      List<int> imageBytes = await image.readAsBytes();
+      String imageName = DateTime.now().toString();
+      MultipartFile file = MultipartFile.fromBytes(
+        imageBytes,
+        filename: imageName,
+      );
+      imageFiles.add(file);
     }
+    final data = {
+      "report_type": reportType,
+      "location": location,
+      "longitude": longitude,
+      "latitude": latitude,
+      "address_point": addressPoint,
+      "trash_type": trashType,
+      "description": desc,
+      "images": imageFiles,
+    };
+
+    FormData formData = FormData.fromMap(data);
+
+    final response = await request(context, 'reports',
+        requestType: RequestType.post, data: formData);
+
+    Logger().i(response);
+
+    return "berhasil";
   }
 }

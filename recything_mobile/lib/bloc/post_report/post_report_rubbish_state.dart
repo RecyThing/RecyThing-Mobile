@@ -17,3 +17,5 @@ class PostReportRubbishFailed extends PostReportRubbishState {
 
   PostReportRubbishFailed({required this.message});
 }
+
+class PostReportRubbishCheckboxUpdated extends PostReportRubbishState {}
