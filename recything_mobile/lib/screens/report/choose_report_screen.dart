@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:recything_mobile/constants/pallete.dart';
 import 'package:recything_mobile/screens/report/widget/report_card.dart';
-import 'package:recything_mobile/screens/riwayat_pelaporan/pages/riwayat_pelaporan_screen.dart';
 
 class ChooseReportScreen extends StatefulWidget {
   const ChooseReportScreen({Key? key}) : super(key: key);
 
   @override
-  State<ChooseReportScreen> createState() => _ChooseReportScreenState();
+  // ignore: library_private_types_in_public_api
+  _ChooseReportScreenState createState() => _ChooseReportScreenState();
 }
 
 class _ChooseReportScreenState extends State<ChooseReportScreen> {
@@ -81,10 +81,27 @@ class _ChooseReportScreenState extends State<ChooseReportScreen> {
               const SizedBox(
                 height: 24,
               ),
-              const RiwayatPelaporanScreen(),
-              const SizedBox(
-                height: 20,
-              )
+              Center(
+                child: Column(
+                  children: [
+                    Image.asset(
+                      'assets/images/riwayat.png',
+                      width: 100,
+                      height: 98,
+                    ),
+                    const SizedBox(
+                      height: 11,
+                    ),
+                    Text(
+                      'Kamu belum pernah melaporkan',
+                      style: ThemeFont.bodySmallMedium.copyWith(
+                        color: Pallete.dark3,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
         ),

@@ -11,18 +11,18 @@ import 'package:recything_mobile/screens/report/widget/time_picker_widget.dart';
 import 'package:recything_mobile/widgets/forms/main_button.dart';
 import 'package:recything_mobile/widgets/forms/success_screen.dart';
 
-class PelanggaranKecilScreen extends StatefulWidget {
-  const PelanggaranKecilScreen({super.key});
+class PelanggaranBesarScreen extends StatefulWidget {
+  const PelanggaranBesarScreen({super.key});
 
   @override
-  State<PelanggaranKecilScreen> createState() => _PelanggaranKecilScreenState();
+  State<PelanggaranBesarScreen> createState() => _PelanggaranBesarScreenState();
 }
 
-class _PelanggaranKecilScreenState extends State<PelanggaranKecilScreen> {
+class _PelanggaranBesarScreenState extends State<PelanggaranBesarScreen> {
+  bool isHazardousTrash = false;
   ImagePickerButton imagePickerButton = ImagePickerButton(
     onImagesSelected: (List<XFile>? selectedImages) {},
   );
-  bool isFieldFilled = false;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +30,7 @@ class _PelanggaranKecilScreenState extends State<PelanggaranKecilScreen> {
       backgroundColor: Colors.white, //nggak teganti warna putih
       appBar: AppBar(
         title: Text(
-          'Pelanggaran Skala Kecil',
+          'Pelanggaran Skala Besar',
           style: ThemeFont.heading6Medium,
         ),
         centerTitle: true,
@@ -82,7 +82,7 @@ class _PelanggaranKecilScreenState extends State<PelanggaranKecilScreen> {
                   ),
                   const SizedBox(height: 8),
                   TextFieldReport(
-                    hintText: 'Cth: Sebelah Masjid Nawawi',
+                    hintText: 'Cth: Sungai Bengawan sebelah Hotel Teratai',
                     hintStyle: ThemeFont.bodySmallMedium.copyWith(
                       color: Pallete.dark3,
                     ),
@@ -153,6 +153,100 @@ class _PelanggaranKecilScreenState extends State<PelanggaranKecilScreen> {
                     "Ceritakan Detail Kejadian",
                     style: ThemeFont.bodySmallMedium,
                   ),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  TextFieldReport(
+                    hintText: 'Cth: PT Mencari Cinta Sejati',
+                    hintStyle: ThemeFont.bodySmallMedium.copyWith(
+                      color: Pallete.dark3,
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  Container(
+                    padding: const EdgeInsets.all(16),
+                    width: double.infinity,
+                    height: 110,
+                    decoration: BoxDecoration(
+                      color: const Color(0XFFFBD0DA),
+                      borderRadius: BorderRadius.circular(12),
+                      boxShadow: const [
+                        BoxShadow(
+                          color: Colors.black12,
+                          offset: Offset(0, 0),
+                          blurRadius: 13,
+                          spreadRadius: -2,
+                        ),
+                      ],
+                    ),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                children: [
+                                  const Icon(
+                                    IconlyLight.danger,
+                                    color: Color(0XFF5F071C),
+                                  ),
+                                  const SizedBox(width: 8),
+                                  Text(
+                                    'Sampah Berbahaya?',
+                                    style:
+                                        ThemeFont.bodyNormalSemiBold.copyWith(
+                                      color: const Color(0XFF5F071C),
+                                    ),
+                                  ),
+                                  const SizedBox(width: 8),
+                                ],
+                              ),
+                              const SizedBox(width: 3),
+                              Text(
+                                'Mengandung radioaktif, beracun, Mempengaruhi ekosistem sekitar.',
+                                style: ThemeFont.bodySmallMedium.copyWith(
+                                  color: const Color(0XFF5F071C),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          alignment: Alignment.center,
+                          child: Switch(
+                              value: isHazardousTrash,
+                              onChanged: (bool value) {
+                                setState(() {
+                                  isHazardousTrash = value;
+                                });
+                              },
+                              trackOutlineColor:
+                                  MaterialStateProperty.resolveWith(
+                                (final Set<MaterialState> states) {
+                                  if (states.contains(MaterialState.selected)) {
+                                    return null;
+                                  }
+
+                                  return const Color(0XFF5F071C);
+                                },
+                              ),
+                              inactiveThumbColor: const Color(0XFF5F071C),
+                              inactiveTrackColor: Colors.white,
+                              activeColor: Colors.white,
+                              activeTrackColor: const Color(0XFF5F071C)),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 16,
+                  ),
+                  const SizedBox(height: 16),
+                  Text(
+                    "Ceritakan Detail Kejadian",
+                    style: ThemeFont.bodySmallMedium,
+                  ),
                   const SizedBox(height: 8),
                   const TextFieldReport(
                     hintText:
@@ -204,8 +298,10 @@ class _PelanggaranKecilScreenState extends State<PelanggaranKecilScreen> {
                           // MainButton(
                           //   onPressed: () {
                           //     Navigator.of(context).push(MaterialPageRoute(
-                          //       builder: (context) =>
-                          //           const SuccessScreen(title: 'Laporan Terkirim', subtitle: 'Terimakasih telah berkontribusi untuk melaporkan pelanggaran dan kondisi sampah yang kamu temui, kami sangat mengapresiasi usaha anda.'),
+                          //       builder: (context) => const SuccessScreen(
+                          //           title: 'Laporan Terkirim',
+                          //           subtitle:
+                          //               'Terimakasih telah berkontribusi untuk melaporkan pelanggaran dan kondisi sampah yang kamu temui, kami sangat mengapresiasi usaha anda.'),
                           //     ));
                           //   },
                           //   child: Text(
