@@ -67,6 +67,24 @@ abstract class BaseService {
       rethrow;
     }
   }
+
+  Future<Response> post(
+    BuildContext? context,
+    String endpoint, {
+    RequestType requestType = RequestType.post,
+    dynamic data,
+    Map<String, dynamic>? params,
+    Options? options,
+  }) async {
+    return await request(
+      context,
+      endpoint,
+      requestType: RequestType.post,
+      data: data,
+      params: params,
+      options: options,
+    );
+  }
 }
 
 enum RequestType { get, post, update, delete, patch }
