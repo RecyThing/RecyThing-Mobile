@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:recything_mobile/bloc/update_password/update_password_cubit.dart';
 import 'package:recything_mobile/constants/pallete.dart';
+import 'package:recything_mobile/widgets/error_snackbar.dart';
 import 'package:recything_mobile/widgets/forms/custom_back_button.dart';
 import 'package:recything_mobile/widgets/forms/main_button.dart';
 import 'package:recything_mobile/widgets/forms/password_text_field.dart';
+import 'package:recything_mobile/widgets/success_snackbar.dart';
 
 class UbahPasswordScreen extends StatefulWidget {
   const UbahPasswordScreen({super.key});
@@ -12,6 +16,10 @@ class UbahPasswordScreen extends StatefulWidget {
 }
 
 class _UbahPasswordScreenState extends State<UbahPasswordScreen> {
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController newPasswordController = TextEditingController();
+  TextEditingController confirmPasswordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,6 +40,25 @@ class _UbahPasswordScreenState extends State<UbahPasswordScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            SizedBox(
+              child: BlocListener<UpdatePasswordCubit, UpdatePasswordState>(
+                listener: (context, state) {
+                  if (state is UpdatePasswordSuccess) {
+                    SuccessSnackbar.showSnackbar(context,
+                        title: "Kata Sandi Diperbarui",
+                        message: "Kata Sandi berhasil diubah",
+                        isTopSnackbar: true);
+                    Navigator.pop(context);
+                  } else if (state is UpdatePasswordFailed) {
+                    ErrorSnackbar.showSnackbar(context,
+                        title: "Gagal Memperbarui",
+                        message: state.errorMsg,
+                        isTopSnackbar: true);
+                  }
+                },
+                child: SizedBox(),
+              ),
+            ),
             Text(
               "Kata Sandi Baru",
               style: ThemeFont.heading3Bold,
@@ -43,19 +70,45 @@ class _UbahPasswordScreenState extends State<UbahPasswordScreen> {
                 style: ThemeFont.bodyNormalReguler,
               ),
             ),
-            const PasswordTextField(label: "Masukkan Kata Sandi Sekarang"),
-            const PasswordTextField(label: "Masukkan Kata Sandi Baru"),
-            const PasswordTextField(label: "Masukkan Kata Sandi Sekarang"),
+            PasswordTextField(
+              label: "Masukkan Kata Sandi Sekarang",
+              controller: passwordController,
+            ),
+            PasswordTextField(
+              label: "Masukkan Kata Sandi Baru",
+              controller: newPasswordController,
+            ),
+            PasswordTextField(
+              label: "Konfirmasi Kata Sandi Baru",
+              controller: confirmPasswordController,
+            ),
             SizedBox(
               width: MediaQuery.of(context).size.width,
-              child: MainButton(
-                  onPressed: () {},
-                  child: Text(
-                    "Simpan",
-                    style: ThemeFont.heading6Reguler.copyWith(
-                        color: Pallete.textMainButton,
-                        fontWeight: FontWeight.w700),
-                  )),
+              child: BlocBuilder<UpdatePasswordCubit, UpdatePasswordState>(
+                builder: (context, state) {
+                  return MainButton(
+                      onPressed: () => context
+                          .read<UpdatePasswordCubit>()
+                          .updatePassword(
+                              password: passwordController.text,
+                              newPassword: newPasswordController.text,
+                              confirmPassword: confirmPasswordController.text),
+                      child: state is UpdatePasswordLoading
+                          ? SizedBox(
+                              width: 23,
+                              height: 23,
+                              child: CircularProgressIndicator(
+                                color: Colors.white,
+                              ),
+                            )
+                          : Text(
+                              "Simpan",
+                              style: ThemeFont.heading6Reguler.copyWith(
+                                  color: Pallete.textMainButton,
+                                  fontWeight: FontWeight.w700),
+                            ));
+                },
+              ),
             )
           ],
         ),
