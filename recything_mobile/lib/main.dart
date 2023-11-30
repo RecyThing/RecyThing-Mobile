@@ -46,7 +46,8 @@ import 'package:recything_mobile/screens/report/report_rubbish_maps_screen.dart'
 import 'package:recything_mobile/screens/report/widget/maps_report_screen.dart';
 import 'package:recything_mobile/screens/reset_password/reset_password_screen.dart';
 import 'package:recything_mobile/screens/splash/splash_screen.dart';
-import 'package:recything_mobile/screens/verifikasi_otp/verifikasi_otp_screen.dart';
+import 'package:recything_mobile/screens/verifikasi_otp/verifikasi_otp_screen.dart'; 
+import 'bloc/recy_bot/post_recy_bot_cubit.dart';
 
 void main() {
   runApp(
@@ -74,7 +75,8 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => RegisterCubit()),
         BlocProvider(create: (context) => ForgotPasswordCubit()),
         BlocProvider(create: (_) => GetReportHistoryCubit()),
-        BlocProvider(create: (_) => GetHistoryReportByIdCubit())
+        BlocProvider(create: (_) => GetHistoryReportByIdCubit()),
+        BlocProvider(create: (_) => PostRecyBotCubit()),
       ],
       child: MaterialApp(
         locale: DevicePreview.locale(context),

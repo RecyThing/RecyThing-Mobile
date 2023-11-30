@@ -7,6 +7,8 @@ import 'package:recything_mobile/screens/recy/widget/recy_chat.dart';
 import 'package:recything_mobile/screens/recy/widget/user_chat.dart';
 import 'package:recything_mobile/widgets/forms/custom_back_button.dart';
 
+import '../../../bloc/recy_bot/post_recy_bot_cubit.dart';
+
 class RecyAiScreen extends StatefulWidget {
   const RecyAiScreen({super.key});
 
@@ -68,14 +70,15 @@ class _RecyAiScreenState extends State<RecyAiScreen> {
               time:
                   "${DateTime.now().hour.toString()}:${DateTime.now().minute.toString()}",
             ),
-            BlocBuilder<GetAiCubit, GetAiState>(builder: (context, state) {
-              if (state is GetAiLoading) {
+            BlocBuilder<PostRecyBotCubit, PostRecyBotState>(
+                builder: (context, state) {
+              if (state is PostRecyBotLoading) {
                 return const SizedBox(
                   child: CircularProgressIndicator(),
                 );
-              } else if (state is GetAiFailure) {
+              } else if (state is PostRecyBotFailure) {
                 return Text(state.msg);
-              } else if (state is GetAiSuccess) {
+              } else if (state is PostRecyBotSuccess) {
                 return Column(
                   children: [
                     UserChat(
@@ -83,7 +86,7 @@ class _RecyAiScreenState extends State<RecyAiScreen> {
                         time:
                             "${DateTime.now().hour.toString()}:${DateTime.now().minute.toString()}"),
                     RecyChat(
-                      text: state.data,
+                      text: state.answer,
                       time:
                           "${DateTime.now().hour.toString()}:${DateTime.now().minute.toString()}",
                     ),
@@ -126,7 +129,7 @@ class _RecyAiScreenState extends State<RecyAiScreen> {
               child: IconButton(
                   onPressed: () {
                     myMessage = aiEcd.text;
-                    context.read<GetAiCubit>().fetchAi(aiEcd.text);
+                    context.read<PostRecyBotCubit>().postQuestion(aiEcd.text);
                     reset();
                   },
                   icon: const Icon(
