@@ -10,6 +10,7 @@ import 'package:recything_mobile/bloc/get_report_hisstory/get_report_history_cub
 import 'package:recything_mobile/bloc/get_user_profile/get_user_profile_cubit.dart';
 import 'package:recything_mobile/bloc/login/login_cubit.dart';
 import 'package:recything_mobile/bloc/get_all_faq/get_all_faq_cubit.dart';
+import 'package:recything_mobile/bloc/post_report/post_report_rubbish_cubit.dart';
 import 'package:recything_mobile/bloc/update_user_profile/update_user_profile_cubit.dart';
 import 'package:recything_mobile/bloc/register/register_cubit.dart';
 import 'package:recything_mobile/constants/pallete.dart';
@@ -73,7 +74,8 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => RegisterCubit()),
         BlocProvider(create: (context) => ForgotPasswordCubit()),
         BlocProvider(create: (_) => GetReportHistoryCubit()),
-        BlocProvider(create: (_) => GetHistoryReportByIdCubit())
+        BlocProvider(create: (_) => GetHistoryReportByIdCubit()),
+        BlocProvider(create: (_) => PostReportRubbishCubit()),
       ],
       child: MaterialApp(
         locale: DevicePreview.locale(context),
