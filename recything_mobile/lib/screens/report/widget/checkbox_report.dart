@@ -56,7 +56,7 @@ class _CheckboxReportState extends State<CheckboxReport> {
           onTap: () {
             setState(() {
               isChecked = !isChecked;
-              widget.onChanged(isChecked);
+              // widget.onChanged(isChecked);
             });
           },
           child: Text(
