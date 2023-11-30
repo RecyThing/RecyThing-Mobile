@@ -3,9 +3,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:logger/logger.dart';
 import 'package:recything_mobile/constants/api.dart';
-import 'package:recything_mobile/models/update_password.dart';
 import 'package:recything_mobile/services/shared_pref_service.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class UpdatePasswordRepo {
   Dio dio = Dio(BaseOptions(baseUrl: Api.baseUrl));
