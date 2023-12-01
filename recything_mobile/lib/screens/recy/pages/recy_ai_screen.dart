@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconly/iconly.dart';
-import 'package:recything_mobile/bloc/get_ai/get_ai_cubit.dart';
 import 'package:recything_mobile/constants/pallete.dart';
 import 'package:recything_mobile/screens/recy/widget/recy_chat.dart';
 import 'package:recything_mobile/screens/recy/widget/user_chat.dart';
 import 'package:recything_mobile/widgets/forms/custom_back_button.dart';
-
-import '../../../bloc/recy_bot/post_recy_bot_cubit.dart';
+import '../../../bloc/cubit/post_recy_bot_cubit.dart';
 
 class RecyAiScreen extends StatefulWidget {
   const RecyAiScreen({super.key});
@@ -20,7 +18,7 @@ class _RecyAiScreenState extends State<RecyAiScreen> {
   @override
   Widget build(BuildContext context) {
     TextEditingController aiEcd = TextEditingController();
-    String? myMessage;
+    // String? myMessage;
 
     void reset() {
       aiEcd.clear();
@@ -72,24 +70,31 @@ class _RecyAiScreenState extends State<RecyAiScreen> {
             ),
             BlocBuilder<PostRecyBotCubit, PostRecyBotState>(
                 builder: (context, state) {
-              if (state is PostRecyBotLoading) {
-                return const SizedBox(
-                  child: CircularProgressIndicator(),
-                );
-              } else if (state is PostRecyBotFailure) {
+              // if (state is PostRecyBotLoading) {
+              //   return const SizedBox(
+              //     child: CircularProgressIndicator(),
+              //   );
+              // } else
+
+              if (state is PostRecyBotFailure) {
                 return Text(state.msg);
               } else if (state is PostRecyBotSuccess) {
                 return Column(
                   children: [
-                    UserChat(
-                        text: myMessage ?? "",
-                        time:
-                            "${DateTime.now().hour.toString()}:${DateTime.now().minute.toString()}"),
-                    RecyChat(
-                      text: state.answer,
-                      time:
-                          "${DateTime.now().hour.toString()}:${DateTime.now().minute.toString()}",
-                    ),
+                    for (var item
+                        in context.read<PostRecyBotCubit>().QuestionAnswerList)
+                      Column(
+                        children: [
+                          UserChat(
+                            text: item["question"] ?? "",
+                            time: item["time"] ?? "",
+                          ),
+                          RecyChat(
+                            text: item["answer"] ?? "",
+                            time: item["time"] ?? "",
+                          ),
+                        ],
+                      ),
                   ],
                 );
               }
@@ -128,7 +133,13 @@ class _RecyAiScreenState extends State<RecyAiScreen> {
                   borderRadius: BorderRadius.circular(12)),
               child: IconButton(
                   onPressed: () {
-                    myMessage = aiEcd.text;
+                    // myMessage = aiEcd.text;
+                    // context.read<PostRecyBotCubit>().QuestionAnswerList.add({
+                    //   "question": aiEcd.text,
+                    //   "time":
+                    //       "${DateTime.now().hour.toString()}:${DateTime.now().minute.toString()}",
+                    // });
+
                     context.read<PostRecyBotCubit>().postQuestion(aiEcd.text);
                     reset();
                   },

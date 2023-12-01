@@ -5,7 +5,7 @@ import '../services/shared_pref_service.dart';
 class RecyBotRepo {
   Dio dio = Dio();
 
-  Future<String> postQuestion(String value) async {
+  Future<String> postQuestion(String question) async {
     final String? authToken = await SharedPreferenceService.getToken();
 
     if (authToken == null) {
@@ -16,7 +16,7 @@ class RecyBotRepo {
         'Bearer $authToken';
     final response = await dio.post(
       'https://recybot---recything-api-niyyqhuhua-uc.a.run.app/recybot',
-      data: {'question': value},
+      data: {'question': question},
     );
     return response.data['data'];
   }

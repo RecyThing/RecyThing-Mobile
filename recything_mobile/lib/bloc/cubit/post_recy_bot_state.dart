@@ -9,7 +9,7 @@ sealed class PostRecyBotState {
 
 final class PostRecyBotInitial extends PostRecyBotState {}
 
-final class PostRecyBotLoading extends PostRecyBotState {}
+// final class PostRecyBotLoading extends PostRecyBotState {}
 
 final class PostRecyBotSuccess extends PostRecyBotState {
   final String answer;
@@ -18,6 +18,15 @@ final class PostRecyBotSuccess extends PostRecyBotState {
 
   @override
   List<Object> get props => [answer];
+}
+
+final class PostRecyBotSuccessAddQuestion extends PostRecyBotState {
+  final String question;
+
+  const PostRecyBotSuccessAddQuestion({required this.question});
+
+  @override
+  List<Object> get props => [question];
 }
 
 final class PostRecyBotFailure extends PostRecyBotState {
