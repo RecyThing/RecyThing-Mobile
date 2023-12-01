@@ -46,7 +46,6 @@ abstract class BaseService {
       if (e.error is SocketException ||
           e.type == DioExceptionType.connectionTimeout ||
           e.type == DioExceptionType.receiveTimeout) {
-        Navigator.pushNamed(context!, '/login');
         throw 'Periksa internet anda';
       } else if (e.response?.data != null) {
         final responseMsg = e.response!.data?['message'];
