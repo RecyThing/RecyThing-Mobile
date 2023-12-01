@@ -13,7 +13,11 @@ import 'package:recything_mobile/screens/report/report_littering/pelanggaran_bes
 import 'package:recything_mobile/screens/report/report_littering/pelanggaran_kecil_screen.dart';
 import 'package:recything_mobile/screens/report/widget/main_button_widget.dart';
 import 'package:recything_mobile/screens/report/widget/text_field_report.dart';
+import 'package:recything_mobile/services/map_service.dart';
 import 'package:recything_mobile/widgets/forms/custom_back_button.dart';
+// import 'package:flutter_google_places/flutter_google_places.dart' as loc;
+// import 'package:google_api_headers/google_api_headers.dart' as header;
+// import 'package:google_maps_webservice/places.dart' as places;
 
 class MapsReportScreen extends StatefulWidget {
   final String reportType;
@@ -25,12 +29,34 @@ class MapsReportScreen extends StatefulWidget {
 }
 
 class _MapsReportScreenState extends State<MapsReportScreen> {
+  TextEditingController _searchController = TextEditingController();
   Completer<GoogleMapController> _controller = Completer();
+  // GoogleMapController? _controller;
+  // Location location = Location(latitude: null, longitude: null, timestamp: null);
 
   Position? _currentPosition;
   String? _currentAddress;
   MarkerId? _selectedMarkerId;
 
+  // getCurrentLocation() async {
+  //   bool serviceEnabled;
+  //   PermissionStatus permissionGranted;
+
+  //   serviceEnabled = await location.serviceEnabled();
+  //   if (!serviceEnabled) {
+  //     serviceEnabled = await location.requestService();
+  //     if (!serviceEnabled) {
+  //       return;
+  //     }
+  //   }
+
+  //   permissionGranted = await location.hasPermission();
+  //   if (permissionGranted == PermissionStatus.denied) {
+  //     permissionGranted = await location.requestPermission();
+  //     if (permissionGranted != PermissionStatus.granted) {
+  //       return;
+  //     }
+  //   }
   Future<void> _getCurrentPosition() async {
     PermissionStatus status = await _handleLocationPermission(context);
 
@@ -161,6 +187,68 @@ class _MapsReportScreenState extends State<MapsReportScreen> {
     });
   }
 
+//     Future<void> _handleSearch() async {
+//       places.Prediction? p = await loc.PlacesAutocomplete.show(
+//           context: context,
+//           apiKey: 'AIzaSyAygD-3hvHHwBjAYzw_NIzkZR6-cshy-zs',
+//           onError: onError, // call the onError function below
+//           mode: loc.Mode.overlay,
+//           language: 'en', //you can set any language for search
+//           strictbounds: false,
+//           types: [],
+//           decoration: InputDecoration(
+//               hintText: 'search',
+//               focusedBorder: OutlineInputBorder(
+//                   borderRadius: BorderRadius.circular(20),
+//                   borderSide: const BorderSide(color: Colors.white))),
+//           components: [] // you can determine search for just one country
+//           );
+
+//       // displayPrediction(p!, homeScaffoldKey.currentState);
+//     }
+
+//     void onError(places.PlacesAutocompleteResponse response) {
+//       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+//         elevation: 0,
+//         behavior: SnackBarBehavior.floating,
+//         backgroundColor: Colors.transparent,
+//         content: SnackBar(
+//           content: Text('Error'),
+//           // title: 'Message',
+//           // message: response.errorMessage!,
+//           // contentType: ContentType.failure,
+//         ),
+//       ));
+//     }
+
+//     Future<void> displayPrediction(
+//         places.Prediction p, ScaffoldState? currentState) async {
+//       places.GoogleMapsPlaces _places = places.GoogleMapsPlaces(
+//           apiKey: 'AIzaSyAygD-3hvHHwBjAYzw_NIzkZR6-cshy-zs ',
+//           apiHeaders: await const header.GoogleApiHeaders().getHeaders());
+//       places.PlacesDetailsResponse detail =
+//           await _places.getDetailsByPlaceId(p.placeId!);
+// // detail will get place details that user chose from Prediction search
+//       final lat = detail.result.geometry!.location.lat;
+//       final lng = detail.result.geometry!.location.lng;
+//       _markers.clear(); //clear old marker and set new one
+//       final marker = Marker(
+//         markerId: const MarkerId('deliveryMarker'),
+//         position: LatLng(lat, lng),
+//         infoWindow: const InfoWindow(
+//           title: '',
+//         ),
+//       );
+//       setState(() {
+//         _markers['myLocation'] = marker;
+//         _controller?.animateCamera(
+//           CameraUpdate.newCameraPosition(
+//             CameraPosition(target: LatLng(lat, lng), zoom: 15),
+//           ),
+//         );
+//       });
+//     }
+
   @override
   void initState() {
     _getCurrentPosition();
@@ -222,13 +310,18 @@ class _MapsReportScreenState extends State<MapsReportScreen> {
             const SizedBox(
               width: 9,
             ),
-            const Positioned(
+            // Row(children: [Expanded(child: TextFormField(controller: _searchController, decoration: InputDecoration(),))]),
+            Positioned(
               top: 13,
-              left: 81,
-              right: 16,
+              left: 81, right: 30,
+              // right: 16,
               child: TextFieldReport(
+                controller: _searchController,
                 prefixIcon: IconlyLight.search,
                 hintText: 'Cari disini',
+                onChanged: (value) {
+                  LocationService().getPlaceId(_searchController.text);
+                },
               ),
             ),
             Positioned(
@@ -265,7 +358,10 @@ class _MapsReportScreenState extends State<MapsReportScreen> {
                     }
                   },
                   backgroundColor: Colors.white,
-                  child: const Icon(Icons.my_location, color: Pallete.main,),
+                  child: const Icon(
+                    Icons.my_location,
+                    color: Pallete.main,
+                  ),
                 ),
               ),
             ),
@@ -275,3 +371,4 @@ class _MapsReportScreenState extends State<MapsReportScreen> {
     );
   }
 }
+// }
