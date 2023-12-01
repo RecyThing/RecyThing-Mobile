@@ -11,15 +11,26 @@ class PostReportRubbishCubit extends Cubit<PostReportRubbishState> {
 
   bool isCheckedKering = false;
   bool isCheckedBasah = false;
+  
 
-  void toggleCheckboxKering() {
-    isCheckedKering = !isCheckedKering;
-    emit(PostReportRubbishCheckboxUpdated());
+  void toggleCheckboxKering(bool value) {
+    isCheckedKering = value;
   }
 
-  void toggleCheckboxBasah() {
-    isCheckedBasah = !isCheckedBasah;
-    emit(PostReportRubbishCheckboxUpdated());
+  void toggleCheckboxBasah(bool value) {
+    isCheckedBasah = value;
+  }
+
+  String getTrashType() {
+    if (isCheckedKering && isCheckedBasah) {
+      return 'Sampah Kering dan Basah';
+    } else if (isCheckedKering) {
+      return 'Sampah Kering';
+    } else if (isCheckedBasah) {
+      return 'Sampah Basah';
+    } else {
+      return '';
+    }
   }
 
   void reports(
