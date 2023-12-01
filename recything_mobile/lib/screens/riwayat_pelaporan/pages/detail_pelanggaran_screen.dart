@@ -108,7 +108,7 @@ class _DetailPelanggaranScreenState extends State<DetailPelanggaranScreen> {
                           children: [
                             Text("Status Pelaporan : ",
                                 style: ThemeFont.bodySmallSemiBold),
-                            Text(state.data.status.toUpperCase(),
+                            Text(state.data.status!.toUpperCase(),
                                 style: ThemeFont.bodySmallSemiBold.copyWith(
                                     color: state.data.status == "ditolak"
                                         ? Pallete.error
@@ -142,7 +142,7 @@ class _DetailPelanggaranScreenState extends State<DetailPelanggaranScreen> {
                   DetailCard(
                       title:
                           "Lokasi ${kataKata.first[0].toUpperCase() + kataKata.first.substring(1)}",
-                      value: state.data.location),
+                      value: state.data.location ?? ""),
                   const SizedBox(
                     height: 16,
                   ),

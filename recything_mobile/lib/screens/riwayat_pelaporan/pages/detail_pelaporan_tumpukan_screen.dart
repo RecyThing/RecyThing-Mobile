@@ -98,7 +98,7 @@ class _DetailPelaporanTumpukanScreenState
                           children: [
                             Text("Status Pelaporan : ",
                                 style: ThemeFont.bodySmallSemiBold),
-                            Text(state.data.status.toUpperCase(),
+                            Text(state.data.status!.toUpperCase(),
                                 style: ThemeFont.bodySmallSemiBold.copyWith(
                                     color: state.data.status == "ditolak"
                                         ? Pallete.error
@@ -132,7 +132,7 @@ class _DetailPelaporanTumpukanScreenState
                   DetailCard(
                       title:
                           "Lokasi ${kataKata.first[0].toUpperCase() + kataKata.first.substring(1)}",
-                      value: state.data.location),
+                      value: state.data.location ?? ""),
                   const SizedBox(
                     height: 16,
                   ),

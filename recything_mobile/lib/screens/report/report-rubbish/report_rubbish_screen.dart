@@ -76,11 +76,12 @@ class _ReportRubbishScreenState extends State<ReportRubbishScreen> {
   //         id: '', image: image.path, createdAt: now, updatedAt: now);
   //   }).toList();
   // }
-List<File>? convertImagesToFiles(List<XFile>? selectedImages) {
+  List<File>? convertImagesToFiles(List<XFile>? selectedImages) {
     if (selectedImages == null) return null;
 
     return selectedImages.map((image) => File(image.path)).toList();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -262,6 +263,8 @@ List<File>? convertImagesToFiles(List<XFile>? selectedImages) {
                                   return CircularProgressIndicator(
                                     color: Colors.white,
                                   );
+                                } else if (state is PostReportRubbishFailed) {
+                                  return Text(state.message);
                                 } else {
                                   return Text(
                                     "Kirim",

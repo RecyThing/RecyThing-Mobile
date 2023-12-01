@@ -51,7 +51,8 @@ class RiwayatPelaporanCard extends StatelessWidget {
           style: ThemeFont.bodyNormalSemiBold,
         ),
         subtitle: Text(
-          DateFormat('dd MMMM yyyy | HH.mm').format(item.createAt),
+          DateFormat('dd MMMM yyyy | HH.mm')
+              .format(item.createAt ?? DateTime.now()),
           style:
               ThemeFont.bodySmallRegular.copyWith(color: Pallete.textSecondary),
         ),
@@ -66,7 +67,7 @@ class RiwayatPelaporanCard extends StatelessWidget {
           child: Text(
             item.status == "perlu ditinjau"
                 ? "Proses"
-                : item.status[0].toUpperCase() + item.status.substring(1),
+                : item.status![0].toUpperCase() + item.status!.substring(1),
             style: ThemeFont.bodySmallSemiBold.copyWith(
                 color: item.status == "ditolak" ? Pallete.error : Pallete.main),
           ),

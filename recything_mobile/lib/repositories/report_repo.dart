@@ -25,8 +25,6 @@ class ReportRepo extends BaseService {
     return ReportModel.fromJson(res.data["data"]);
   }
 
-  Dio dio = Dio(BaseOptions(baseUrl: Api.baseUrl));
-
   // Future<void> addReport({
   //   required String reportType,
   //   required String location,
@@ -94,37 +92,47 @@ class ReportRepo extends BaseService {
     required String addressPoint,
     required String trashType,
     required String desc,
-    required List<XFile> images,
+    required List<File> images,
   }) async {
-    List<MultipartFile> imageFiles = [];
+    try {
+      List<MultipartFile> imageFiles = [];
 
-    for (var image in images) {
-      List<int> imageBytes = await image.readAsBytes();
-      String imageName = DateTime.now().toString();
-      MultipartFile file = MultipartFile.fromBytes(
-        imageBytes,
-        filename: imageName,
+      for (var image in images) {
+        MultipartFile multipartFile = await MultipartFile.fromFile(
+          image.path,
+          filename: "image${images.indexOf(image)}.png",
+        );
+        imageFiles.add(multipartFile);
+      }
+      FormData formData = FormData.fromMap({
+        "report_type": reportType,
+        "location": location,
+        "longitude": longitude,
+        "latitude": latitude,
+        "address_point": addressPoint,
+        "trash_type": trashType,
+        "description": desc,
+        "images": imageFiles
+      });
+      Logger().e(formData);
+
+      final response = await request(
+        context,
+        "reports",
+        requestType: RequestType.post,
+        data: formData,
+        options: Options(
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        ),
       );
-      imageFiles.add(file);
+      Logger().e(response);
+
+      return "message";
+    } catch (error) {
+      print("Error sending data: $error");
+      return "error";
     }
-    final data = {
-      "report_type": reportType,
-      "location": location,
-      "longitude": longitude,
-      "latitude": latitude,
-      "address_point": addressPoint,
-      "trash_type": trashType,
-      "description": desc,
-      "images": imageFiles,
-    };
-
-    FormData formData = FormData.fromMap(data);
-
-    final response = await request(context, 'reports',
-        requestType: RequestType.post, data: formData);
-
-    Logger().i(response);
-
-    return "berhasil";
   }
 }
