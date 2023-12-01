@@ -1,11 +1,7 @@
-import 'dart:convert';
 import 'dart:io';
-
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:logger/logger.dart';
-import 'package:recything_mobile/constants/api.dart';
 import 'package:recything_mobile/models/report_model.dart';
 import 'package:recything_mobile/services/base_service.dart';
 
@@ -114,7 +110,16 @@ class ReportRepo extends BaseService {
         "description": desc,
         "images": imageFiles
       });
-      Logger().e(formData);
+      Logger().e(""" 
+        "report_type": $reportType,
+        "location": $location,
+        "longitude": $longitude,
+        "latitude": $latitude,
+        "address_point": $addressPoint,
+        "trash_type": $trashType,
+        "description": $desc,
+        "images": $imageFiles
+      """);
 
       final response = await request(
         context,
