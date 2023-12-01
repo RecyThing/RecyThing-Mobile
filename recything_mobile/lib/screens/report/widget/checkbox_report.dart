@@ -3,6 +3,7 @@ import 'package:recything_mobile/constants/pallete.dart';
 
 class CheckboxReport extends StatefulWidget {
   final String label;
+  
   final void Function(bool?) onChanged;
 
   const CheckboxReport({
@@ -26,7 +27,7 @@ class _CheckboxReportState extends State<CheckboxReport> {
         GestureDetector(
           onTap: () {
             setState(() {
-              isChecked = !isChecked;
+               isChecked = !isChecked;
               widget.onChanged(isChecked);
             });
           },
