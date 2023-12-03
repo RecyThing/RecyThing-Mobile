@@ -67,7 +67,6 @@ class _PelanggaranKecilScreenState extends State<PelanggaranKecilScreen> {
                                       reportType: 'pelanggaran-kecil'),
                                 ),
                               );
-                              // Navigator.pushNamed(context, "/maps-report");
                             },
                             child: Image.asset("assets/images/map_icon.png"),
                           ),
