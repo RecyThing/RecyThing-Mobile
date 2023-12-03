@@ -31,26 +31,12 @@ class ReportRubbishScreen extends StatefulWidget {
 }
 
 class _ReportRubbishScreenState extends State<ReportRubbishScreen> {
-  // bool isCheckedKering = false;
-  // bool isCheckedBasah = false;
   List<XFile>? selectedImages;
 
   TextEditingController lokasiPatokanController = TextEditingController();
   TextEditingController kondisiSampahController = TextEditingController();
 
   late ImagePickerButton imagePickerButton;
-
-  // String getTrashType() {
-  //   if (isCheckedKering && isCheckedBasah) {
-  //     return 'Sampah Kering dan Basah';
-  //   } else if (isCheckedKering) {
-  //     return 'Sampah Kering';
-  //   } else if (isCheckedBasah) {
-  //     return 'Sampah Basah';
-  //   } else {
-  //     return '';
-  //   }
-  // }
 
   @override
   void initState() {
@@ -183,10 +169,6 @@ class _ReportRubbishScreenState extends State<ReportRubbishScreen> {
                                   .read<PostReportRubbishCubit>()
                                   .isCheckedBasah
                                   .toString());
-                          print('Basah ADA = ' +
-                              context
-                                  .read<PostReportRubbishCubit>()
-                                  .getTrashType());
                         },
                       )
                     ],
@@ -288,11 +270,6 @@ class _ReportRubbishScreenState extends State<ReportRubbishScreen> {
                                     trashType: context
                                         .read<PostReportRubbishCubit>()
                                         .getTrashType(),
-                                    // isCheckedKering
-                                    //     ? 'Sampah Kering'
-                                    //     : isCheckedBasah
-                                    //         ? 'Sampah Basah'
-                                    //         : '',
                                     desc: kondisiSampahController.text,
                                     images: selectedImages!,
                                   );
