@@ -11,7 +11,6 @@ class PostReportRubbishCubit extends Cubit<PostReportRubbishState> {
 
   bool isCheckedKering = false;
   bool isCheckedBasah = false;
-  
 
   void toggleCheckboxKering(bool value) {
     isCheckedKering = value;
