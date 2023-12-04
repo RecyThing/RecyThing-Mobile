@@ -12,6 +12,16 @@ class PostRecyBotCubit extends Cubit<PostRecyBotState> {
     QuestionAnswerList.clear();
   }
 
+  void getAnswer(String question) async {
+    final answer = await recyBotRepo.postQuestion(question);
+      QuestionAnswerList.add({
+        "question": question,
+        "answer": answer,
+        "time":
+            "${DateTime.now().hour.toString()}:${DateTime.now().minute.toString()}"
+      });
+  }
+
   // void addQuestionToList(String question, status) {
   //   try {
   //     QuestionAnswerList.add({
