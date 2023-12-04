@@ -9,7 +9,7 @@ sealed class PostRecyBotState {
 
 final class PostRecyBotInitial extends PostRecyBotState {}
 
-// final class PostRecyBotLoading extends PostRecyBotState {}
+final class PostRecyBotLoading extends PostRecyBotState {}
 
 final class PostRecyBotSuccess extends PostRecyBotState {
   final String answer;

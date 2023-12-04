@@ -71,11 +71,32 @@ class _RecyAiScreenState extends State<RecyAiScreen> {
             BlocBuilder<PostRecyBotCubit, PostRecyBotState>(
                 builder: (context, state) {
               // if (state is PostRecyBotLoading) {
-              //   return const SizedBox(
-              //     child: CircularProgressIndicator(),
-              //   );
-              // } else
+              // ScaffoldMessenger.of(context).showSnackBar(
+              //   SnackBar(
+              //     content: Text('Loading...'),
+              //   ),
+              // );
 
+              // final snackBar = SnackBar(
+              //   content: const Row(
+              //     children: [
+              //       Text("Loading..."),
+              //       SizedBox(width: 10),
+              //       SizedBox(
+              //         width: 20,
+              //         height: 20,
+              //         child: CircularProgressIndicator(),
+              //       )
+              //     ],
+              //   ),
+              // );
+              // ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              // return SizedBox.shrink();
+
+              // return const SizedBox(
+              //   child: CircularProgressIndicator(),
+              // );
+              // }
               if (state is PostRecyBotFailure) {
                 return Text(state.msg);
               } else if (state is PostRecyBotSuccess) {
@@ -93,11 +114,38 @@ class _RecyAiScreenState extends State<RecyAiScreen> {
                             text: item["answer"] ?? "",
                             time: item["time"] ?? "",
                           ),
+                          if (state is PostRecyBotLoading) ...[
+                            const SizedBox(
+                              height: 20,
+                              width: 20,
+                              child: CircularProgressIndicator(),
+                            )
+                          ]
                         ],
                       ),
                   ],
                 );
               }
+
+              // else if (state is PostRecyBotSuccessAddQuestion) {
+              //   return Column(
+              //     children: [
+              //       for (var item
+              //           in context.read<PostRecyBotCubit>().QuestionAnswerList)
+              //         Column(
+              //           children: [
+              //             UserChat(
+              //                 text: item["question"] ?? "",
+              //                 time: item["time"] ?? ""),
+              //             if (state is PostRecyBotSuccess)
+              //               RecyChat(
+              //                   text: item["answer"] ?? "",
+              //                   time: item["time"] ?? "")
+              //           ],
+              //         ),
+              //     ],
+              //   );
+              // }
               return const SizedBox();
             })
           ],
@@ -139,7 +187,6 @@ class _RecyAiScreenState extends State<RecyAiScreen> {
                     //   "time":
                     //       "${DateTime.now().hour.toString()}:${DateTime.now().minute.toString()}",
                     // });
-
                     context.read<PostRecyBotCubit>().postQuestion(aiEcd.text);
                     reset();
                   },
