@@ -22,23 +22,8 @@ class PostRecyBotCubit extends Cubit<PostRecyBotState> {
       });
   }
 
-  // void addQuestionToList(String question, status) {
-  //   try {
-  //     QuestionAnswerList.add({
-  //       "text": question,
-  //       "status": status,
-  //       "time":
-  //           "${DateTime.now().hour.toString()}:${DateTime.now().minute.toString()}"
-  //     });
-  //     emit(PostRecyBotSuccessAddQuestion(question: question));
-  //   } catch (e) {
-  //     emit(PostRecyBotFailure(msg: e.toString()));
-  //   }
-  // }
-
   void postQuestion(String question) async {
     emit(PostRecyBotLoading());
-    // emit(PostRecyBotSuccessAddQuestion(question: question));
     try {
       final answer = await recyBotRepo.postQuestion(question);
       QuestionAnswerList.add({
@@ -52,32 +37,4 @@ class PostRecyBotCubit extends Cubit<PostRecyBotState> {
       emit(PostRecyBotFailure(msg: e.toString()));
     }
   }
-  // void addQuestion(String question, status) {
-  //   try {
-  //     QuestionAnswerList.add({
-  //       "text": question,
-  //       "status": status,
-  //       "time":
-  //           "${DateTime.now().hour.toString()}:${DateTime.now().minute.toString()}"
-  //     });
-  //     emit(PostRecyBotSuccessAddQuestion(question: question));
-  //   } catch (e) {
-  //     emit(PostRecyBotFailure(msg: e.toString()));
-  //   }
-  // }
-
-  // void postQuestion(String question) async {
-  //   try {
-  //     final answer = await recyBotRepo.postQuestion(question);
-  //     QuestionAnswerList.add({
-  //       "text": answer,
-  //       "status": "recy",
-  //       "time":
-  //           "${DateTime.now().hour.toString()}:${DateTime.now().minute.toString()}"
-  //     });
-  //     emit(PostRecyBotSuccess(answer: answer));
-  //   } catch (e) {
-  //     emit(PostRecyBotFailure(msg: e.toString()));
-  //   }
-  // }
 }
