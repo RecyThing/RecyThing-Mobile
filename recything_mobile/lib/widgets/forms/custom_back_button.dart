@@ -3,7 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconly/iconly.dart';
 import 'package:recything_mobile/constants/pallete.dart';
 
-import '../../bloc/cubit/post_recy_bot_cubit.dart';
+import '../../bloc/recyBot/post_recy_bot_cubit.dart';
+
 
 class CustomBackButton extends StatelessWidget {
   final void Function()? onPressed;

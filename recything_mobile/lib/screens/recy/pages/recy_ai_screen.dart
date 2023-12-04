@@ -5,7 +5,8 @@ import 'package:recything_mobile/constants/pallete.dart';
 import 'package:recything_mobile/screens/recy/widget/recy_chat.dart';
 import 'package:recything_mobile/screens/recy/widget/user_chat.dart';
 import 'package:recything_mobile/widgets/forms/custom_back_button.dart';
-import '../../../bloc/cubit/post_recy_bot_cubit.dart';
+
+import '../../../bloc/recyBot/post_recy_bot_cubit.dart';
 
 class RecyAiScreen extends StatefulWidget {
   const RecyAiScreen({super.key});
