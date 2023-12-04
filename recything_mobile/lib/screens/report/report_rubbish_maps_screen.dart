@@ -37,6 +37,7 @@
 //       BuildContext context) async {
 //     PermissionStatus status = await Permission.location.request();
 
+
 //     if (status == PermissionStatus.denied) {
 //       ScaffoldMessenger.of(context).showSnackBar(
 //         SnackBar(
@@ -58,6 +59,29 @@
 //         ),
 //       );
 //     }
+
+    // if (status == PermissionStatus.denied) {
+    //   ScaffoldMessenger.of(context).showSnackBar(
+    //     const SnackBar(
+    //       content: Text(
+    //           'Izin lokasi ditolak. Aktifkan izin di pengaturan aplikasi.'),
+    //     ),
+    //   );
+    // } else if (status == PermissionStatus.permanentlyDenied) {
+    //   ScaffoldMessenger.of(context).showSnackBar(
+    //     const SnackBar(
+    //       content: Text(
+    //           'Izin lokasi ditolak secara permanen. Buka pengaturan aplikasi untuk mengaktifkan izin.'),
+    //     ),
+    //   );
+    // } else if (status == PermissionStatus.granted) {
+    //   ScaffoldMessenger.of(context).showSnackBar(
+    //     const SnackBar(
+    //       content: Text('Izin lokasi diberikan.'),
+    //     ),
+    //   );
+    // }
+
 
 //     return status;
 //   }

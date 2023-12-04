@@ -206,6 +206,7 @@ class _MapsReportScreenState extends State<MapsReportScreen> {
                       ),
                     )
                   : const CameraPosition(target: LatLng(0.0, 0.0), zoom: 18),
+
               markers: _markers.values.toSet(),
               onTap: (LatLng position) {
                 _selectMarker('');
@@ -265,7 +266,10 @@ class _MapsReportScreenState extends State<MapsReportScreen> {
                     }
                   },
                   backgroundColor: Colors.white,
-                  child: const Icon(Icons.my_location, color: Pallete.main,),
+                  child: const Icon(
+                    Icons.my_location,
+                    color: Pallete.main,
+                  ),
                 ),
               ),
             ),
