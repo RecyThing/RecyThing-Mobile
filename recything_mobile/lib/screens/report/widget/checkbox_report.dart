@@ -12,6 +12,7 @@ class CheckboxReport extends StatefulWidget {
   }) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _CheckboxReportState createState() => _CheckboxReportState();
 }
 
@@ -55,7 +56,7 @@ class _CheckboxReportState extends State<CheckboxReport> {
           onTap: () {
             setState(() {
               isChecked = !isChecked;
-              widget.onChanged(isChecked);
+              // widget.onChanged(isChecked);
             });
           },
           child: Text(

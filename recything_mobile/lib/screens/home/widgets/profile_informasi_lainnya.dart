@@ -85,6 +85,7 @@ class ProfileInformasiLainnya extends StatelessWidget {
                   showDialog(
                       context: context,
                       builder: ((context) => AlertDialog(
+                            elevation: 0,
                             content: Column(
                               mainAxisSize: MainAxisSize.min,
                               children: [
@@ -141,8 +142,8 @@ class ProfileInformasiLainnya extends StatelessWidget {
                                                 .read<AuthCubit>()
                                                 .loggedOut();
 
-                                            // Navigator.pushNamed(
-                                            //     context, '/login');
+                                            Navigator.pushNamed(
+                                                context, '/login');
                                           },
                                           child: const Text("Keluar")),
                                     ),

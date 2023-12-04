@@ -60,95 +60,148 @@ class _RecyAiScreenState extends State<RecyAiScreen> {
               ],
             ),
           )),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            RecyChat(
-              text: "Halo! Saya Recy. Bagaimana Saya bisa membantu Anda?",
-              time:
-                  "${DateTime.now().hour.toString()}:${DateTime.now().minute.toString()}",
-            ),
-            BlocBuilder<PostRecyBotCubit, PostRecyBotState>(
-                builder: (context, state) {
-              // if (state is PostRecyBotLoading) {
-              // ScaffoldMessenger.of(context).showSnackBar(
-              //   SnackBar(
-              //     content: Text('Loading...'),
-              //   ),
-              // );
+      body: SizedBox(
+        height: MediaQuery.of(context).size.height * 0.7,
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              RecyChat(
+                text: "Halo! Saya Recy. Bagaimana Saya bisa membantu Anda?",
+                time:
+                    "${DateTime.now().hour.toString()}:${DateTime.now().minute.toString()}",
+              ),
+              BlocListener<PostRecyBotCubit, PostRecyBotState>(
+                listener: (context, state) {
+                  if (state is PostRecyBotSuccess) {
+                  } else if (state is PostRecyBotLoading) {}
+                },
+                child: Builder(
+                  builder: (BuildContext context) {
+                    // Use ListView.builder to build the list
+                    return ListView.builder(
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemCount: context
+                          .watch<PostRecyBotCubit>()
+                          .QuestionAnswerList
+                          .length,
+                      itemBuilder: (context, index) {
+                        var item = context
+                            .watch<PostRecyBotCubit>()
+                            .QuestionAnswerList[index];
 
-              // final snackBar = SnackBar(
-              //   content: const Row(
-              //     children: [
-              //       Text("Loading..."),
-              //       SizedBox(width: 10),
-              //       SizedBox(
-              //         width: 20,
-              //         height: 20,
-              //         child: CircularProgressIndicator(),
-              //       )
-              //     ],
-              //   ),
-              // );
-              // ScaffoldMessenger.of(context).showSnackBar(snackBar);
-              // return SizedBox.shrink();
+                        return Column(
+                          children: [
+                            UserChat(
+                              text: item["question"] ?? "",
+                              time: item["time"] ?? "",
+                            ),
+                            if (index ==
+                                    context
+                                            .watch<PostRecyBotCubit>()
+                                            .QuestionAnswerList
+                                            .length -
+                                        1 &&
+                                context.watch<PostRecyBotCubit>().state
+                                    is PostRecyBotLoading)
+                              RecyChat(
+                                text: "mengetik . . .",
+                                time: "",
+                              ),
+                            RecyChat(
+                              text: item["answer"] ?? "",
+                              time: item["time"] ?? "",
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  },
+                ),
+              ),
+              // BlocBuilder<PostRecyBotCubit, PostRecyBotState>(
+              //     builder: (context, state) {
+              //   // if (state is PostRecyBotLoading) {
+              //   // ScaffoldMessenger.of(context).showSnackBar(
+              //   //   SnackBar(
+              //   //     content: Text('Loading...'),
+              //   //   ),
+              //   // );
 
-              // return const SizedBox(
-              //   child: CircularProgressIndicator(),
-              // );
-              // }
-              if (state is PostRecyBotFailure) {
-                return Text(state.msg);
-              } else if (state is PostRecyBotSuccess) {
-                return Column(
-                  children: [
-                    for (var item
-                        in context.read<PostRecyBotCubit>().QuestionAnswerList)
-                      Column(
-                        children: [
-                          UserChat(
-                            text: item["question"] ?? "",
-                            time: item["time"] ?? "",
-                          ),
-                          RecyChat(
-                            text: item["answer"] ?? "",
-                            time: item["time"] ?? "",
-                          ),
-                          if (state is PostRecyBotLoading) ...[
-                            const SizedBox(
-                              height: 20,
-                              width: 20,
-                              child: CircularProgressIndicator(),
-                            )
-                          ]
-                        ],
-                      ),
-                  ],
-                );
-              }
+              //   // final snackBar = SnackBar(
+              //   //   content: const Row(
+              //   //     children: [
+              //   //       Text("Loading..."),
+              //   //       SizedBox(width: 10),
+              //   //       SizedBox(
+              //   //         width: 20,
+              //   //         height: 20,
+              //   //         child: CircularProgressIndicator(),
+              //   //       )
+              //   //     ],
+              //   //   ),
+              //   // );
+              //   // ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              //   // return SizedBox.shrink();
 
-              // else if (state is PostRecyBotSuccessAddQuestion) {
-              //   return Column(
-              //     children: [
-              //       for (var item
-              //           in context.read<PostRecyBotCubit>().QuestionAnswerList)
-              //         Column(
-              //           children: [
-              //             UserChat(
+              //   // return const SizedBox(
+              //   //   child: CircularProgressIndicator(),
+              //   // );
+              //   // }
+              //   if (state is PostRecyBotFailure) {
+              //     return Text(state.msg);
+              //   } else if (state is PostRecyBotSuccess) {
+              //     return Column(
+              //       children: [
+              //         for (var item in context
+              //             .read<PostRecyBotCubit>()
+              //             .QuestionAnswerList)
+              //           Column(
+              //             children: [
+              //               UserChat(
               //                 text: item["question"] ?? "",
-              //                 time: item["time"] ?? ""),
-              //             if (state is PostRecyBotSuccess)
+              //                 time: item["time"] ?? "",
+              //               ),
               //               RecyChat(
-              //                   text: item["answer"] ?? "",
-              //                   time: item["time"] ?? "")
-              //           ],
-              //         ),
-              //     ],
-              //   );
-              // }
-              return const SizedBox();
-            })
-          ],
+              //                 text: item["answer"] ?? "",
+              //                 time: item["time"] ?? "",
+              //               ),
+              //               if (state is PostRecyBotLoading) ...[
+              //                 const SizedBox(
+              //                   height: 20,
+              //                   width: 20,
+              //                   child: CircularProgressIndicator(),
+              //                 )
+              //               ]
+              //             ],
+              //           ),
+              //       ],
+              //     );
+              //   }
+
+              //   // else if (state is PostRecyBotSuccessAddQuestion) {
+              //   //   return Column(
+              //   //     children: [
+              //   //       for (var item
+              //   //           in context.read<PostRecyBotCubit>().QuestionAnswerList)
+              //   //         Column(
+              //   //           children: [
+              //   //             UserChat(
+              //   //                 text: item["question"] ?? "",
+              //   //                 time: item["time"] ?? ""),
+              //   //             if (state is PostRecyBotSuccess)
+              //   //               RecyChat(
+              //   //                   text: item["answer"] ?? "",
+              //   //                   time: item["time"] ?? "")
+              //   //           ],
+              //   //         ),
+              //   //     ],
+              //   //   );
+              //   // }
+              //   return const SizedBox();
+              // })
+            ],
+          ),
         ),
       ),
       floatingActionButton: Container(

@@ -4,6 +4,7 @@ import 'package:recything_mobile/bloc/get_history_report_by_id/get_history_repor
 import 'package:recything_mobile/constants/pallete.dart';
 import 'package:recything_mobile/screens/dashboard.dart';
 import 'package:recything_mobile/screens/riwayat_pelaporan/widgets/detail_card.dart';
+import 'package:recything_mobile/screens/riwayat_pelaporan/widgets/pelaporan_image_card.dart';
 import 'package:recything_mobile/widgets/forms/custom_back_button.dart';
 
 class DetailPelaporanTumpukanScreen extends StatefulWidget {
@@ -97,7 +98,7 @@ class _DetailPelaporanTumpukanScreenState
                           children: [
                             Text("Status Pelaporan : ",
                                 style: ThemeFont.bodySmallSemiBold),
-                            Text(state.data.status.toUpperCase(),
+                            Text(state.data.status!.toUpperCase(),
                                 style: ThemeFont.bodySmallSemiBold.copyWith(
                                     color: state.data.status == "ditolak"
                                         ? Pallete.error
@@ -131,7 +132,7 @@ class _DetailPelaporanTumpukanScreenState
                   DetailCard(
                       title:
                           "Lokasi ${kataKata.first[0].toUpperCase() + kataKata.first.substring(1)}",
-                      value: state.data.location),
+                      value: state.data.location ?? ""),
                   const SizedBox(
                     height: 16,
                   ),
@@ -178,19 +179,40 @@ class _DetailPelaporanTumpukanScreenState
                             shrinkWrap: true,
                             itemCount: state.data.image?.length,
                             itemBuilder: (context, index) {
-                              return Container(
-                                // width: 80,
-                                // height: 80,
-                                margin: const EdgeInsets.only(right: 8, top: 8),
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(12),
-                                    image: DecorationImage(
-                                      fit: BoxFit.cover,
-                                      image: NetworkImage(
-                                          state.data.image![index].image!),
-                                      onError: (exception, stackTrace) =>
-                                          const Icon(Icons.photo),
-                                    )),
+                              String imageUrl = state.data.image![index].image!;
+                              FileType fileType =
+                                  PelaporanImageCard.getFileType(imageUrl);
+
+                              return GestureDetector(
+                                onTap: () {
+                                  if (fileType == FileType.image) {
+                                    PelaporanImageCard.showImage(
+                                        context, imageUrl);
+                                  } else if (fileType == FileType.video) {
+                                    PelaporanImageCard.showVideo(
+                                        context, imageUrl);
+                                  }
+                                },
+                                child: Container(
+                                  clipBehavior: Clip.antiAlias,
+                                  margin:
+                                      const EdgeInsets.only(right: 8, top: 8),
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(12),
+                                      border: fileType == FileType.video
+                                          ? Border.all(color: Pallete.dark4)
+                                          : Border.all(
+                                              color: Colors.transparent)),
+                                  child: fileType == FileType.image
+                                      ? Image.network(
+                                          state.data.image![index].image!,
+                                          fit: BoxFit.cover,
+                                        )
+                                      : Icon(
+                                          Icons.play_arrow,
+                                          size: 50,
+                                        ),
+                                ),
                               );
                             }),
                       ],

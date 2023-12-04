@@ -7,7 +7,8 @@ class ChooseReportScreen extends StatefulWidget {
   const ChooseReportScreen({Key? key}) : super(key: key);
 
   @override
-  State<ChooseReportScreen> createState() => _ChooseReportScreenState();
+  // ignore: library_private_types_in_public_api
+  _ChooseReportScreenState createState() => _ChooseReportScreenState();
 }
 
 class _ChooseReportScreenState extends State<ChooseReportScreen> {
@@ -81,10 +82,29 @@ class _ChooseReportScreenState extends State<ChooseReportScreen> {
               const SizedBox(
                 height: 24,
               ),
-              const RiwayatPelaporanScreen(),
-              const SizedBox(
-                height: 20,
-              )
+              RiwayatPelaporanScreen()
+              //
+              // Center(
+              //   child: Column(
+              //     children: [
+              //       Image.asset(
+              //         'assets/images/riwayat.png',
+              //         width: 100,
+              //         height: 98,
+              //       ),
+              //       const SizedBox(
+              //         height: 11,
+              //       ),
+              //       Text(
+              //         'Kamu belum pernah melaporkan',
+              //         style: ThemeFont.bodySmallMedium.copyWith(
+              //           color: Pallete.dark3,
+              //         ),
+              //         textAlign: TextAlign.center,
+              //       ),
+              //     ],
+              //   ),
+              // ),
             ],
           ),
         ),

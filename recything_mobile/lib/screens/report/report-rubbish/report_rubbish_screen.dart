@@ -1,17 +1,31 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconly/iconly.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:recything_mobile/bloc/post_report/post_report_rubbish_cubit.dart';
+import 'package:recything_mobile/bloc/post_report/post_report_rubbish_state.dart';
 import 'package:recything_mobile/constants/pallete.dart';
-import 'package:recything_mobile/screens/report/report-rubbish/detail_riwayat_pelaporan_screen.dart';
-import 'package:recything_mobile/screens/report/widget/add_media_button.dart';
+import 'package:recything_mobile/models/report_model.dart';
+import 'package:recything_mobile/screens/report/widget/image_picker_button.dart';
 import 'package:recything_mobile/screens/report/widget/checkbox_report.dart';
+import 'package:recything_mobile/screens/report/widget/main_button_widget.dart';
+import 'package:recything_mobile/screens/report/widget/maps_report_screen.dart';
 import 'package:recything_mobile/screens/report/widget/text_field_report.dart';
+import 'package:recything_mobile/widgets/forms/main_button.dart';
+import 'package:recything_mobile/widgets/forms/success_screen.dart';
 
 class ReportRubbishScreen extends StatefulWidget {
   final String? locationAddress;
+  final double? latitude;
+  final double? longitude;
+
   const ReportRubbishScreen({
     Key? key,
     this.locationAddress,
+    this.latitude,
+    this.longitude,
   }) : super(key: key);
 
   @override
@@ -21,14 +35,52 @@ class ReportRubbishScreen extends StatefulWidget {
 class _ReportRubbishScreenState extends State<ReportRubbishScreen> {
   bool isCheckedKering = false;
   bool isCheckedBasah = false;
+  List<XFile>? selectedImages;
 
-  String? lokasiPatokanText;
-  String? kondisiSampahText;
-  String? lokasiTumpukanText;
+  TextEditingController lokasiPatokanController = TextEditingController();
+  TextEditingController kondisiSampahController = TextEditingController();
 
-  ImagePickerButton imagePickerButton = ImagePickerButton(
-    onImagesSelected: (List<XFile>? selectedImages) {},
-  );
+  late ImagePickerButton imagePickerButton;
+
+  String getTrashType() {
+    if (isCheckedKering && isCheckedBasah) {
+      return 'Sampah Kering dan Basah';
+    } else if (isCheckedKering) {
+      return 'Sampah Kering';
+    } else if (isCheckedBasah) {
+      return 'Sampah Basah';
+    } else {
+      return '';
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    imagePickerButton = ImagePickerButton(
+      onImagesSelected: (List<XFile>? images) {
+        setState(() {
+          selectedImages = images;
+        });
+      },
+    );
+  }
+
+  // List<ImageModel> convertImagesToModel(List<XFile>? selectedImages) {
+  //   if (selectedImages == null) return [];
+
+  //   DateTime now = DateTime.now();
+
+  //   return selectedImages.map((image) {
+  //     return ImageModel(
+  //         id: '', image: image.path, createdAt: now, updatedAt: now);
+  //   }).toList();
+  // }
+  List<File>? convertImagesToFiles(List<XFile>? selectedImages) {
+    if (selectedImages == null) return null;
+
+    return selectedImages.map((image) => File(image.path)).toList();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,76 +93,68 @@ class _ReportRubbishScreenState extends State<ReportRubbishScreen> {
         ),
         centerTitle: true,
       ),
-      body: Builder(
-        builder: (context) {
-          return SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(16),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(height: 8),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    children: [
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width * .76,
-                        child: TextFieldReport(
-                          label: 'Lokasi Tumpukan',
-                          labelStyle: ThemeFont.bodySmallMedium.copyWith(
-                            color: Pallete.dark3,
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: TextFieldReport(
+                            label: 'Lokasi Tumpukan',
+                            labelStyle: ThemeFont.bodySmallMedium.copyWith(
+                              color: Pallete.dark3,
+                            ),
+                            hintText: 'Lokasi Tumpukan',
+                            hintStyle: ThemeFont.bodySmallMedium.copyWith(
+                              color: Pallete.dark3,
+                            ),
+                            prefixIcon: IconlyLight.location,
+                            maxLines: 1,
+                            controller: TextEditingController(
+                              text: widget.locationAddress ?? "",
+                            ),
                           ),
-                          hinttext: 'Lokasi Tumpukan',
-                          hintStyle: ThemeFont.bodySmallMedium.copyWith(
-                            color: Pallete.dark3,
+                        ),
+                        const SizedBox(width: 8),
+                        SizedBox(
+                          width: 55,
+                          height: 55,
+                          child: MainButton(
+                            onPressed: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => const MapsReportScreen(
+                                      reportType: 'rubbish'),
+                                ),
+                              );
+                            },
+                            child: Image.asset("assets/images/map_icon.png"),
                           ),
-                          onChanged: (value) {
-                            setState(() {
-                              lokasiTumpukanText = value;
-                            });
-                          },
-                          prefixIcon: IconlyLight.location,
-                          maxLines: 1,
-                          controller: TextEditingController(
-                              text: widget.locationAddress ?? ""),
                         ),
-                      ),
-                      const SizedBox(
-                        width: 8,
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.pushNamed(context, "/maps-report");
-                        },
-                        child: Container(
-                          width: 56,
-                          height: 56,
-                          decoration: BoxDecoration(
-                              color: Pallete.main,
-                              borderRadius: BorderRadius.circular(12)),
-                          child: Image.asset("assets/images/location_map.png"),
-                        ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                  const SizedBox(
-                    height: 24,
-                  ),
+                  const SizedBox(height: 24),
                   Text(
                     'Tambah Lokasi Patokan',
                     style: ThemeFont.bodySmallMedium,
                   ),
-                  const SizedBox(
-                    height: 4,
-                  ),
+                  const SizedBox(height: 4),
                   TextFieldReport(
-                    hinttext: 'Cth: Sebelah Masjid Nawawi',
+                    controller: lokasiPatokanController,
+                    hintText: 'Cth: Sebelah Masjid Nawawi',
                     hintStyle: ThemeFont.bodySmallMedium.copyWith(
                       color: Pallete.dark3,
                     ),
-                    onChanged: (value) {
-                      setState(() {
-                        lokasiPatokanText = value;
-                      });
-                    },
                   ),
                   const SizedBox(
                     height: 16,
@@ -127,11 +171,9 @@ class _ReportRubbishScreenState extends State<ReportRubbishScreen> {
                       CheckboxReport(
                         label: 'Sampah Kering',
                         onChanged: (bool? value) {
-                          setState(
-                            () {
-                              isCheckedKering = value!;
-                            },
-                          );
+                          context
+                              .read<PostReportRubbishCubit>()
+                              .toggleCheckboxKering();
                         },
                       ),
                       const SizedBox(
@@ -140,9 +182,9 @@ class _ReportRubbishScreenState extends State<ReportRubbishScreen> {
                       CheckboxReport(
                         label: 'Sampah Basah',
                         onChanged: (bool? value) {
-                          setState(() {
-                            isCheckedBasah = value!;
-                          });
+                          context
+                              .read<PostReportRubbishCubit>()
+                              .toggleCheckboxBasah();
                         },
                       )
                     ],
@@ -156,15 +198,11 @@ class _ReportRubbishScreenState extends State<ReportRubbishScreen> {
                     height: 4,
                   ),
                   TextFieldReport(
+                    controller: kondisiSampahController,
                     maxLines: 5,
-                    hinttext:
+                    hintText:
                         'Cth: Saya melihat tumpukan sampah yang sangat banyak, sampah sangat bercampur basah dan kering',
                     hintStyle: ThemeFont.bodySmallMedium,
-                    onChanged: (value) {
-                      setState(() {
-                        kondisiSampahText = value;
-                      });
-                    },
                   ),
                   const SizedBox(
                     height: 16,
@@ -185,51 +223,86 @@ class _ReportRubbishScreenState extends State<ReportRubbishScreen> {
                   Text(
                     'Format file: JPG, PNG, MP4',
                     style: ThemeFont.bodySmallRegular.copyWith(
-                        color: Pallete.dark3, fontWeight: FontWeight.w400),
+                      color: Pallete.dark3,
+                      fontWeight: FontWeight.w400,
+                    ),
                   ),
                   Text(
                     'Maksimum file: 20 MB',
                     style: ThemeFont.bodySmallRegular.copyWith(
-                        color: Pallete.dark3, fontWeight: FontWeight.w400),
+                      color: Pallete.dark3,
+                      fontWeight: FontWeight.w400,
+                    ),
                   ),
                   const SizedBox(
                     height: 47,
                   ),
-                  Align(
-                    alignment: Alignment.center,
-                    child: SizedBox(
-                      width: double.infinity,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    DetailRiwayatPelaporanScreen(
-                                  lokasiPatokanText: lokasiPatokanText,
-                                  kondisiSampahText: kondisiSampahText,
-                                  lokasiTumpukanText: lokasiTumpukanText,
+                  Row(
+                    children: [
+                      Expanded(
+                        child: BlocListener<PostReportRubbishCubit,
+                            PostReportRubbishState>(
+                          listener: (context, state) {
+                            if (state is PostReportRubbishSuccess) {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => const SuccessScreen(
+                                    title: 'Laporan Terkirim',
+                                    subtitle:
+                                        'Terimakasih telah berkontribusi untuk melaporkan pelanggaran dan kondisi sampah yang kamu temui, kami sangat mengapresiasi usaha anda.',
+                                  ),
                                 ),
-                              ));
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Pallete.main,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12)),
-                          padding: const EdgeInsets.symmetric(vertical: 16),
-                        ),
-                        child: const Text(
-                          'Kirim',
-                          style: TextStyle(color: Colors.white),
+                              );
+                            }
+                          },
+                          child: MainButton(
+                            child: BlocBuilder<PostReportRubbishCubit,
+                                PostReportRubbishState>(
+                              builder: (context, state) {
+                                if (state is PostReportRubbishLoading) {
+                                  return CircularProgressIndicator(
+                                    color: Colors.white,
+                                  );
+                                } else if (state is PostReportRubbishFailed) {
+                                  return Text(state.message);
+                                } else {
+                                  return Text(
+                                    "Kirim",
+                                    style: ThemeFont.heading6Bold.copyWith(
+                                      color: Pallete.textMainButton,
+                                    ),
+                                  );
+                                }
+                              },
+                            ),
+                            onPressed: () {
+                              context.read<PostReportRubbishCubit>().reports(
+                                    context: context,
+                                    reportType: "tumpukan sampah",
+                                    location: widget.locationAddress ?? "",
+                                    latitude: widget.latitude ?? 0.0,
+                                    longitude: widget.longitude ?? 0.0,
+                                    addressPoint: lokasiPatokanController.text,
+                                    trashType: "sampah kering",
+                                    // isCheckedKering
+                                    //     ? 'Sampah Kering'
+                                    //     : isCheckedBasah
+                                    //         ? 'Sampah Basah'
+                                    //         : '',
+                                    desc: kondisiSampahController.text,
+                                    images: selectedImages!,
+                                  );
+                            },
+                          ),
                         ),
                       ),
-                    ),
-                  )
+                    ],
+                  ),
                 ],
               ),
             ),
-          );
-        },
+          ],
+        ),
       ),
     );
   }

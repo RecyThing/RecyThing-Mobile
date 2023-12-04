@@ -46,7 +46,6 @@ abstract class BaseService {
       if (e.error is SocketException ||
           e.type == DioExceptionType.connectionTimeout ||
           e.type == DioExceptionType.receiveTimeout) {
-        Navigator.pushNamed(context!, '/login');
         throw 'Periksa internet anda';
       } else if (e.response?.data != null) {
         final responseMsg = e.response!.data?['message'];
@@ -66,6 +65,24 @@ abstract class BaseService {
     } catch (exeption) {
       rethrow;
     }
+  }
+
+  Future<Response> post(
+    BuildContext? context,
+    String endpoint, {
+    RequestType requestType = RequestType.post,
+    dynamic data,
+    Map<String, dynamic>? params,
+    Options? options,
+  }) async {
+    return await request(
+      context,
+      endpoint,
+      requestType: RequestType.post,
+      data: data,
+      params: params,
+      options: options,
+    );
   }
 }
 

@@ -10,8 +10,10 @@ import 'package:recything_mobile/bloc/get_report_hisstory/get_report_history_cub
 import 'package:recything_mobile/bloc/get_user_profile/get_user_profile_cubit.dart';
 import 'package:recything_mobile/bloc/login/login_cubit.dart';
 import 'package:recything_mobile/bloc/get_all_faq/get_all_faq_cubit.dart';
+import 'package:recything_mobile/bloc/post_report/post_report_rubbish_cubit.dart';
 import 'package:recything_mobile/bloc/update_user_profile/update_user_profile_cubit.dart';
 import 'package:recything_mobile/bloc/register/register_cubit.dart';
+import 'package:recything_mobile/bloc/update_password/update_password_cubit.dart';
 import 'package:recything_mobile/constants/pallete.dart';
 import 'package:recything_mobile/screens/article/page/artikel_by_kategori.dart';
 import 'package:recything_mobile/screens/article/page/cari_artikel.dart';
@@ -38,15 +40,14 @@ import 'package:recything_mobile/screens/poinku/pages/poinku_screen.dart';
 import 'package:recything_mobile/screens/poinku/pages/tukar_voucher_screen.dart';
 import 'package:recything_mobile/screens/recy/pages/recy_ai_screen.dart';
 import 'package:recything_mobile/screens/register/register_screen.dart';
-import 'package:recything_mobile/screens/report/report-rubbish/choose_report_screen.dart';
+import 'package:recything_mobile/screens/report/choose_report_screen.dart';
 import 'package:recything_mobile/screens/report/report-rubbish/detail_riwayat_pelaporan_screen.dart';
 import 'package:recything_mobile/screens/report/report-rubbish/report_rubbish_screen.dart';
-import 'package:recything_mobile/screens/report/report_littering/report_littering_screen.dart';
-import 'package:recything_mobile/screens/report/report_rubbish_maps_screen.dart';
 import 'package:recything_mobile/screens/report/widget/maps_report_screen.dart';
+import 'package:recything_mobile/screens/report/report_littering/report_littering_screen.dart';
 import 'package:recything_mobile/screens/reset_password/reset_password_screen.dart';
 import 'package:recything_mobile/screens/splash/splash_screen.dart';
-import 'package:recything_mobile/screens/verifikasi_otp/verifikasi_otp_screen.dart'; 
+import 'package:recything_mobile/screens/verifikasi_otp/verifikasi_otp_screen.dart';
 import 'bloc/cubit/post_recy_bot_cubit.dart';
 
 void main() {
@@ -76,6 +77,8 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => ForgotPasswordCubit()),
         BlocProvider(create: (_) => GetReportHistoryCubit()),
         BlocProvider(create: (_) => GetHistoryReportByIdCubit()),
+        BlocProvider(create: (_) => UpdatePasswordCubit()),
+        BlocProvider(create: (_) => PostReportRubbishCubit()),
         BlocProvider(create: (_) => PostRecyBotCubit()),
       ],
       child: MaterialApp(
@@ -86,11 +89,11 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           scaffoldBackgroundColor: Pallete.textMainButton,
           fontFamily: "Inter",
-          colorScheme: ColorScheme.fromSeed(seedColor: Pallete.main),
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.white),
           useMaterial3: true,
         ),
-        initialRoute: '/index',
-        home: const IndexScreen(),
+        initialRoute: '/splash',
+        // home: const IndexScreen(),
         routes: {
           '/index': (context) => const IndexScreen(),
           '/splash': (context) => const SplashScreen(),
@@ -117,11 +120,9 @@ class MyApp extends StatelessWidget {
           '/recy': (context) => const RecyAiScreen(),
           '/choose-report': (context) => const ChooseReportScreen(),
           '/report-rubbish': (context) => const ReportRubbishScreen(),
-          '/report-rubbish--report': (context) =>
-              const ReportRubbishMapsScreen(),
           '/report-littering': (context) => const ReportLitteringScreen(),
           '/detail-report': (context) => const DetailRiwayatPelaporanScreen(),
-          '/maps-report': (context) => const MapsReportScreen(),
+          '/maps-report': (context) => const MapsReportScreen(reportType: ''),
           '/artikelByKategori': (context) => const ArtikelByKategoriScreen(),
           '/kategoriDaurUlang': (context) => const KategoriDaurUlangScreen(),
           '/cariArtikel': (context) => const CariArtikelScreen(),

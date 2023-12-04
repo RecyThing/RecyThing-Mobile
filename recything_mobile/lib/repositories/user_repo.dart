@@ -6,7 +6,7 @@ import 'package:recything_mobile/services/base_service.dart';
 class UserRepo extends BaseService {
   Future<UserModel> getUserProfile(BuildContext context) async {
     final res = await request(context, 'users/profile');
-    Logger().e(res);
+    Logger().i(res);
     return UserModel.fromJson(res.data["data"]);
   }
 
@@ -25,7 +25,7 @@ class UserRepo extends BaseService {
           "date_of_birth": date,
           "purpose": purpose
         });
-    Logger().e(res);
+    Logger().i(res);
     return res.data["message"];
   }
 }

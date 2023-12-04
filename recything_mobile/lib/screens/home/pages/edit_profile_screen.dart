@@ -51,6 +51,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
         leading: const Padding(
           padding: EdgeInsets.only(left: 16),
           child: CustomBackButton(),
