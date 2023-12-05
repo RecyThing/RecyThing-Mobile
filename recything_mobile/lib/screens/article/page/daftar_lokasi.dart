@@ -13,7 +13,7 @@ class DaftarLokasiScreen extends StatefulWidget {
 class _DaftarLokasiScreenState extends State<DaftarLokasiScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: Padding(
         padding: EdgeInsets.only(top: 66),
         child: Column(
@@ -24,7 +24,9 @@ class _DaftarLokasiScreenState extends State<DaftarLokasiScreen> {
                 children: [
                   HeaderPageWidget(title: 'Daftar Lokasi'),
                   SizedBox(height: 24),
-                  SearchBarWidget(),
+                  SearchBarWidget(
+                    onChanged: (String) {},
+                  ),
                   SizedBox(height: 8),
                 ],
               ),

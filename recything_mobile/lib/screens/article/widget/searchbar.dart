@@ -4,7 +4,9 @@ import 'package:recything_mobile/screens/article/theme/color_style.dart';
 import 'package:recything_mobile/screens/article/theme/text_style.dart';
 
 class SearchBarWidget extends StatelessWidget {
-  const SearchBarWidget({super.key});
+  final Function(String)? onChanged;
+  
+  SearchBarWidget({super.key, required this.onChanged,});
 
   @override
   Widget build(BuildContext context) {
@@ -22,6 +24,7 @@ class SearchBarWidget extends StatelessWidget {
             hintText: "Cari disini...",
             hintStyle: ThemeText().bodySmallMedium,
             border: InputBorder.none),
+            onChanged: onChanged,
       ),
     );
   }

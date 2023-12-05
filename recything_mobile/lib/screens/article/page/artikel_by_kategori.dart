@@ -7,20 +7,23 @@ class ArtikelByKategoriScreen extends StatefulWidget {
   const ArtikelByKategoriScreen({super.key});
 
   @override
-  State<ArtikelByKategoriScreen> createState() => _ArtikelByKategoriScreenState();
+  State<ArtikelByKategoriScreen> createState() =>
+      _ArtikelByKategoriScreenState();
 }
 
 class _ArtikelByKategoriScreenState extends State<ArtikelByKategoriScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: Padding(
         padding: EdgeInsets.only(top: 66, left: 16, right: 16),
         child: Column(
           children: [
             HeaderPageWidget(title: 'Minyak'),
             SizedBox(height: 24),
-            SearchBarWidget(),
+            SearchBarWidget(
+              onChanged: (String) {},
+            ),
             SizedBox(height: 8),
             ListArtikelWidget(),
           ],

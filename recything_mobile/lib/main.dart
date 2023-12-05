@@ -49,6 +49,7 @@ import 'package:recything_mobile/screens/reset_password/reset_password_screen.da
 import 'package:recything_mobile/screens/splash/splash_screen.dart';
 import 'package:recything_mobile/screens/verifikasi_otp/verifikasi_otp_screen.dart';
 
+import 'bloc/get_article/get_article_cubit.dart';
 import 'bloc/recyBot/post_recy_bot_cubit.dart';
 
 void main() {
@@ -81,6 +82,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => UpdatePasswordCubit()),
         BlocProvider(create: (_) => PostReportRubbishCubit()),
         BlocProvider(create: (_) => PostRecyBotCubit()),
+        BlocProvider(create: (_) => GetArticleCubit()),
       ],
       child: MaterialApp(
         locale: DevicePreview.locale(context),
