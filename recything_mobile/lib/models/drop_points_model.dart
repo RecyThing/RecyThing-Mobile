@@ -1,3 +1,32 @@
+class DropModel {
+  List<DropPointsModel>? data;
+  PaginationModel? pagination;
+
+  DropModel({this.data, this.pagination});
+  factory DropModel.fromJson(Map<String, dynamic> json) => DropModel(
+      data: json["data"] == null
+          ? []
+          : List<DropPointsModel>.from(
+              json["data"]!.map((x) => DropPointsModel.fromJson(x))),
+      pagination: json["pagination"] == null
+          ? null
+          : PaginationModel.fromJson(json["pagination"]));
+}
+
+class PaginationModel {
+  int limit;
+  int currentPage;
+  int lastPage;
+
+  PaginationModel(
+      {required this.limit, required this.currentPage, required this.lastPage});
+  factory PaginationModel.fromJson(Map<String, dynamic> json) =>
+      PaginationModel(
+          limit: json["limit"],
+          currentPage: json["current_page"],
+          lastPage: json["last_page"]);
+}
+
 class DropPointsModel {
   String id;
   String name;

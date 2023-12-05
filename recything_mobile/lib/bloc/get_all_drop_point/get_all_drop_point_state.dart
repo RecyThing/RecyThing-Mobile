@@ -14,7 +14,9 @@ final class GetAllDropPointLoading extends GetAllDropPointState {}
 final class GetAllDropPointSuccess extends GetAllDropPointState {
   final List<DropPointsModel> data;
 
-  GetAllDropPointSuccess({required this.data});
+  GetAllDropPointSuccess({
+    required this.data,
+  });
 }
 
 final class GetAllDropPointFailure extends GetAllDropPointState {

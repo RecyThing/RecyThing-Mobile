@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 import 'package:recything_mobile/constants/pallete.dart';
-import 'package:recything_mobile/models/drop_points_repo.dart';
+import 'package:recything_mobile/models/drop_points_model.dart';
 import 'package:recything_mobile/screens/article/theme/color_style.dart';
 
 class ListLokasiWidget extends StatelessWidget {
   final DropPointsModel item;
-  const ListLokasiWidget({
-    super.key,
-    required this.item,
-  });
+  final int no;
+  const ListLokasiWidget({super.key, required this.item, required this.no});
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +50,7 @@ class ListLokasiWidget extends StatelessWidget {
                 ],
               ),
               child: Text(
-                '420 M',
+                '$no M',
                 style: ThemeFont.interText
                     .copyWith(color: Pallete.main, fontWeight: FontWeight.w500),
               ),
