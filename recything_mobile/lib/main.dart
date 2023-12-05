@@ -1,5 +1,4 @@
 import 'package:device_preview/device_preview.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recything_mobile/bloc/auth/auth_cubit.dart';
@@ -12,6 +11,7 @@ import 'package:recything_mobile/bloc/get_vouchers/get_vouchers_cubit.dart';
 import 'package:recything_mobile/bloc/login/login_cubit.dart';
 import 'package:recything_mobile/bloc/get_all_faq/get_all_faq_cubit.dart';
 import 'package:recything_mobile/bloc/post_report/post_report_rubbish_cubit.dart';
+import 'package:recything_mobile/bloc/post_report_littering/post_report_littering_cubit.dart';
 import 'package:recything_mobile/bloc/update_user_profile/update_user_profile_cubit.dart';
 import 'package:recything_mobile/bloc/register/register_cubit.dart';
 import 'package:recything_mobile/bloc/update_password/update_password_cubit.dart';
@@ -53,12 +53,12 @@ import 'package:recything_mobile/screens/verifikasi_otp/verifikasi_otp_screen.da
 import 'bloc/recyBot/post_recy_bot_cubit.dart';
 
 void main() {
-  runApp(
-    DevicePreview(
-      enabled: !kReleaseMode,
-      builder: (context) => const MyApp(),
-    ),
-  );
+  runApp(const MyApp()
+      // DevicePreview(
+      //   enabled: !kReleaseMode,
+      //   builder: (context) => const MyApp(),
+      // ),
+      );
 }
 
 class MyApp extends StatelessWidget {
@@ -83,6 +83,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => PostReportRubbishCubit()),
         BlocProvider(create: (_) => PostRecyBotCubit()),
         BlocProvider(create: (_) => GetVouchersCubit()),
+        BlocProvider(create: (_) => PostReportLitteringCubit()),
       ],
       child: MaterialApp(
         locale: DevicePreview.locale(context),
@@ -95,7 +96,7 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.white),
           useMaterial3: true,
         ),
-        initialRoute: '/splash',
+        initialRoute: '/index',
         // home: const IndexScreen(),
         routes: {
           '/index': (context) => const IndexScreen(),

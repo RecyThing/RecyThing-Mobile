@@ -3,7 +3,9 @@ import 'package:intl/intl.dart';
 import 'package:recything_mobile/constants/pallete.dart';
 
 class TimePickerWWidget extends StatefulWidget {
-  const TimePickerWWidget({Key? key}) : super(key: key);
+  final TextEditingController controller;
+  const TimePickerWWidget({Key? key, required this.controller})
+      : super(key: key);
 
   @override
   // ignore: library_private_types_in_public_api
@@ -24,7 +26,7 @@ class _TimePickerWWidgetState extends State<TimePickerWWidget> {
   Widget build(BuildContext context) {
     return TextField(
       textAlign: TextAlign.center,
-      controller: timeInput,
+      controller: widget.controller,
       decoration: const InputDecoration(
           border: OutlineInputBorder(
             borderRadius: BorderRadius.all(
@@ -41,7 +43,7 @@ class _TimePickerWWidgetState extends State<TimePickerWWidget> {
           hintText: '00:00',
           hintStyle: TextStyle()),
       style: ThemeFont.bodySmallMedium.copyWith(
-        color: isTimeSelected ? Pallete.dark1 : Pallete.dark3,
+        color: isTimeSelected ? Pallete.dark1 : Pallete.dark1,
         fontWeight: FontWeight.w500,
       ),
       readOnly: true,
@@ -64,7 +66,7 @@ class _TimePickerWWidgetState extends State<TimePickerWWidget> {
           String formattedTime = DateFormat('hh:mm a').format(parsedTime);
 
           setState(() {
-            timeInput.text = formattedTime;
+            widget.controller.text = formattedTime;
           });
         }
       },
