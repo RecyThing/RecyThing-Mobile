@@ -7,6 +7,7 @@ class TextFieldReport extends StatelessWidget {
   final Color? focusColor;
   final TextStyle? labelStyle, hintStyle;
   final String? label;
+  final bool? enabled;
   final IconData? prefixIcon;
   final EdgeInsetsGeometry? contentPadding;
   final TextEditingController? controller;
@@ -18,6 +19,7 @@ class TextFieldReport extends StatelessWidget {
     this.maxLines,
     this.focusColor,
     this.labelStyle,
+    this.enabled,
     this.contentPadding,
     this.controller,
     this.onChanged,
@@ -31,19 +33,28 @@ class TextFieldReport extends StatelessWidget {
     return TextField(
       controller: controller,
       onChanged: onChanged,
-      decoration: InputDecoration(filled: true, fillColor: Colors.white,
+      enabled: enabled,
+      decoration: InputDecoration(
+        filled: true,
+        fillColor: Colors.white,
+        labelStyle: TextStyle(color: Pallete.dark1),
+        hintStyle: TextStyle(color: Pallete.dark3),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
         ),
+        disabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: BorderSide(color: focusColor ?? Pallete.dark1),
+        ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: focusColor ?? Pallete.main),
+          borderSide: BorderSide(color: focusColor ?? Pallete.info),
         ),
         labelText: label,
         prefixIcon:
             prefixIcon != null ? Icon(prefixIcon, color: Pallete.dark3) : null,
         hintText: hintText,
-        hintStyle: labelStyle ?? const TextStyle(color: Pallete.dark3),
+        // hintStyle: labelStyle ?? const TextStyle(color: Pallete.dark1),
         contentPadding: contentPadding ?? const EdgeInsets.all(16),
       ),
       // style: const TextStyle(

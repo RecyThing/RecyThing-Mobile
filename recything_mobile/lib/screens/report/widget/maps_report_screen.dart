@@ -13,7 +13,6 @@ import 'package:recything_mobile/screens/report/report_littering/pelanggaran_bes
 import 'package:recything_mobile/screens/report/report_littering/pelanggaran_kecil_screen.dart';
 import 'package:recything_mobile/screens/report/widget/main_button_widget.dart';
 import 'package:recything_mobile/screens/report/widget/text_field_report.dart';
-import 'package:recything_mobile/widgets/forms/custom_back_button.dart';
 
 class MapsReportScreen extends StatefulWidget {
   final String reportType;
@@ -115,13 +114,33 @@ class _MapsReportScreenState extends State<MapsReportScreen> {
       } else if (widget.reportType == 'pelanggaran-kecil') {
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(
-            builder: (context) => const PelanggaranKecilScreen(),
+            builder: (context) => const LitteringKecilScreen(),
           ),
         );
       } else if (widget.reportType == 'pelanggaran-besar') {
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(
-            builder: (context) => const PelanggaranBesarScreen(),
+            builder: (context) => const LitteringBesarScreen(),
+          ),
+        );
+      } else if (widget.reportType == 'littering') {
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(
+            builder: (context) => LitteringKecilScreen(
+              locationAddress: _currentAddress,
+              latitude: _currentPosition?.latitude.toString(),
+              longitude: _currentPosition?.longitude.toString(),
+            ),
+          ),
+        );
+      } else if (widget.reportType == 'littering-besar') {
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(
+            builder: (context) => LitteringBesarScreen(
+              locationAddress: _currentAddress,
+              latitude: _currentPosition?.latitude.toString(),
+              longitude: _currentPosition?.longitude.toString(),
+            ),
           ),
         );
       }
@@ -214,10 +233,34 @@ class _MapsReportScreenState extends State<MapsReportScreen> {
                 _controller.complete(controller);
               },
             ),
-            const Positioned(
+            Positioned(
               top: 13,
               left: 16,
-              child: CustomBackButton(),
+              child: Container(
+                width: 56,
+                height: 56,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(
+                    width: 1,
+                    color: Pallete.dark2,
+                  ),
+                ),
+                child: InkWell(
+                  onTap: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: const Padding(
+                    padding: EdgeInsets.all(8),
+                    child: Icon(
+                      IconlyLight.arrow_left,
+                      size: 24.0,
+                      color: Pallete.dark1,
+                    ),
+                  ),
+                ),
+              ),
             ),
             const SizedBox(
               width: 9,
@@ -265,7 +308,10 @@ class _MapsReportScreenState extends State<MapsReportScreen> {
                     }
                   },
                   backgroundColor: Colors.white,
-                  child: const Icon(Icons.my_location, color: Pallete.main,),
+                  child: const Icon(
+                    Icons.my_location,
+                    color: Pallete.main,
+                  ),
                 ),
               ),
             ),

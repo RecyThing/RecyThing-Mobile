@@ -47,13 +47,13 @@ class _UbahPasswordScreenState extends State<UbahPasswordScreen> {
                     SuccessSnackbar.showSnackbar(context,
                         title: "Kata Sandi Diperbarui",
                         message: "Kata Sandi berhasil diubah",
-                        isTopSnackbar: true);
+                        isTopSnackbar: false);
                     Navigator.pop(context);
                   } else if (state is UpdatePasswordFailed) {
                     ErrorSnackbar.showSnackbar(context,
                         title: "Gagal Memperbarui",
                         message: state.errorMsg,
-                        isTopSnackbar: true);
+                        isTopSnackbar: false);
                   }
                 },
                 child: SizedBox(),

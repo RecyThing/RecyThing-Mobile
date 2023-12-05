@@ -35,13 +35,13 @@ class _ReportLitteringScreenState extends State<ReportLitteringScreen> {
                   if (selectedCardIndex == 0) {
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (context) => const PelanggaranKecilScreen(),
+                        builder: (context) => const LitteringKecilScreen(),
                       ),
                     );
                   } else if (selectedCardIndex == 1) {
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (context) => const PelanggaranBesarScreen(),
+                        builder: (context) => const LitteringBesarScreen(),
                       ),
                     );
                   }

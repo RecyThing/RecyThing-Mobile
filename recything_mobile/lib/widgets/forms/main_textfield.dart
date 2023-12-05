@@ -5,6 +5,7 @@ class MainTextField extends StatefulWidget {
   final TextEditingController? controller;
   final String? label;
   final String? hintText;
+  final String? errorText;
   final IconData? prefixIcon;
   final bool obscureText;
 
@@ -20,6 +21,7 @@ class MainTextField extends StatefulWidget {
     this.controller,
     this.label,
     this.hintText,
+    this.errorText,
     this.prefixIcon,
     this.obscureText = false,
     this.enable = true,
@@ -66,6 +68,7 @@ class _MainTextFieldState extends State<MainTextField> {
       onTap: widget.onTap,
       maxLines: widget.obscureText == false ? widget.maxLines : 1,
       decoration: InputDecoration(
+        errorText: widget.errorText,
         border: const OutlineInputBorder(
           borderRadius: BorderRadius.all(
             Radius.circular(12),

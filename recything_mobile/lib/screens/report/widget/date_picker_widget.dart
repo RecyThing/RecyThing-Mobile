@@ -3,7 +3,9 @@ import 'package:intl/intl.dart';
 import 'package:recything_mobile/constants/pallete.dart';
 
 class DatePickerWidget extends StatefulWidget {
-  const DatePickerWidget({Key? key}) : super(key: key);
+  final TextEditingController controller;
+  const DatePickerWidget({Key? key, required this.controller})
+      : super(key: key);
 
   @override
   State<DatePickerWidget> createState() => _DatePickerWidgetState();
@@ -23,7 +25,7 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
   Widget build(BuildContext context) {
     return TextField(
       textAlign: TextAlign.center,
-      controller: dateInput,
+      controller: widget.controller,
       decoration: const InputDecoration(
         border: OutlineInputBorder(
           borderRadius: BorderRadius.all(
@@ -38,7 +40,7 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
         hintText: 'Tanggal',
       ),
       style: ThemeFont.bodySmallMedium.copyWith(
-        color: isDateSelected ? Pallete.dark1 : Pallete.dark3,
+        color: isDateSelected ? Pallete.dark1 : Pallete.dark1,
         fontWeight: FontWeight.w500,
       ),
       readOnly: true,
@@ -54,7 +56,7 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
           String formattedDate = DateFormat('dd/MM/yyyy').format(pickedDate);
 
           setState(() {
-            dateInput.text = formattedDate;
+            widget.controller.text = formattedDate;
             isDateSelected = true;
           });
         }

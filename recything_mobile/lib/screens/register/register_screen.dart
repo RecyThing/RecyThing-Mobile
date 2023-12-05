@@ -4,11 +4,12 @@ import 'package:iconly/iconly.dart';
 import 'package:recything_mobile/bloc/register/register_cubit.dart';
 import 'package:recything_mobile/bloc/register/register_state.dart';
 import 'package:recything_mobile/widgets/error_snackbar.dart';
-import 'package:recything_mobile/widgets/forms/google_button.dart';
+import 'package:recything_mobile/widgets/forms/custom_back_button.dart';
 import 'package:recything_mobile/widgets/forms/main_button.dart';
 import 'package:recything_mobile/widgets/forms/main_textfield.dart';
 import 'package:recything_mobile/widgets/success_snackbar.dart';
 import 'package:recything_mobile/widgets/typography/body_link.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 import '../../constants/pallete.dart';
 
@@ -27,6 +28,27 @@ class _RegisterScreenState extends State<RegisterScreen> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController password2Controller = TextEditingController();
+
+  String? nameError;
+  String? emailError;
+  String? passwordError;
+  String? password2Error;
+
+  var controller = WebViewController()
+    ..setJavaScriptMode(JavaScriptMode.unrestricted)
+    ..setBackgroundColor(const Color(0x00000000))
+    ..setNavigationDelegate(
+      NavigationDelegate(
+        onProgress: (int progress) {
+          // Update loading bar.
+        },
+        onPageStarted: (String url) {},
+        onPageFinished: (String url) {},
+        onWebResourceError: (WebResourceError error) {},
+      ),
+    )
+    ..loadRequest(Uri.parse(
+        'https://www.privacypolicyonline.com/live.php?token=da9bTUJMHIcsJ92ml8FwaD3uZrRqlMEp'));
 
   @override
   Widget build(BuildContext context) {
@@ -67,12 +89,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     controller: nameController,
                     label: "Masukan Nama Lengkap",
                     prefixIcon: IconlyLight.profile,
+                    errorText: nameError,
                   ),
                   const SizedBox(height: 12),
                   MainTextField(
                     controller: emailController,
                     label: "Masukan Email",
                     prefixIcon: IconlyLight.message,
+                    errorText: emailError,
                   ),
                   const SizedBox(height: 12),
                   MainTextField(
@@ -80,6 +104,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     label: "Masukan Kata Sandi",
                     prefixIcon: IconlyLight.lock,
                     obscureText: !showPwd,
+                    errorText: passwordError,
                     suffixIcon: GestureDetector(
                       onTap: () {
                         setState(() {
@@ -98,6 +123,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     label: "Konfirmasi Kata Sandi",
                     prefixIcon: IconlyLight.lock,
                     obscureText: !showPwd2,
+                    errorText: password2Error,
                     suffixIcon: GestureDetector(
                       onTap: () {
                         setState(() {
@@ -123,11 +149,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           style: ThemeFont.bodySmall
                               .copyWith(color: Pallete.textSecondary),
                         ),
-                        Text(
-                          "Ketentuan Layanan ",
-                          style: ThemeFont.bodySmall.copyWith(
-                            color: Pallete.main,
-                            fontWeight: FontWeight.w600,
+                        GestureDetector(
+                          onTap: () {
+                            showPrivacyPolicy();
+                          },
+                          child: Text(
+                            "Ketentuan Layanan ",
+                            style: ThemeFont.bodySmall.copyWith(
+                              color: Pallete.main,
+                              fontWeight: FontWeight.w600,
+                            ),
                           ),
                         ),
                         Text(
@@ -137,11 +168,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           style: ThemeFont.bodySmall
                               .copyWith(color: Pallete.textSecondary),
                         ),
-                        Text(
-                          " Kebijakan Privasi",
-                          style: ThemeFont.bodySmall.copyWith(
-                            color: Pallete.main,
-                            fontWeight: FontWeight.w600,
+                        GestureDetector(
+                          onTap: () {
+                            showPrivacyPolicy();
+                          },
+                          child: Text(
+                            " Kebijakan Privasi",
+                            style: ThemeFont.bodySmall.copyWith(
+                              color: Pallete.main,
+                              fontWeight: FontWeight.w600,
+                            ),
                           ),
                         ),
                       ],
@@ -193,6 +229,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               },
                             ),
                             onPressed: () {
+                              if (validate()) {
+                                return;
+                              }
                               context.read<RegisterCubit>().register(
                                     fullname: nameController.text,
                                     email: emailController.text,
@@ -208,15 +247,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   const SizedBox(
                     height: 16,
                   ),
-                  Row(
-                    children: [
-                      Expanded(
-                          child: GoogleButton(
-                        text: "Daftar Dengan Google",
-                        onPressed: () {},
-                      )),
-                    ],
-                  ),
+                  // Row(
+                  //   children: [
+                  //     Expanded(
+                  //         child: GoogleButton(
+                  //       text: "Daftar Dengan Google",
+                  //       onPressed: () {},
+                  //     )),
+                  //   ],
+                  // ),
                   const Expanded(child: SizedBox()),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -245,6 +284,70 @@ class _RegisterScreenState extends State<RegisterScreen> {
           ),
         ),
       ),
+    );
+  }
+
+  bool validate() {
+    bool isError = false;
+    setState(() {
+      nameError = null;
+      emailError = null;
+      passwordError = null;
+      password2Error = null;
+      if (emailController.text == "") {
+        nameError = "Nama Tidak Boleh Kosong";
+        isError = true;
+      }
+      if (emailController.text == "") {
+        emailError = "Email Tidak Boleh Kosong";
+        isError = true;
+      }
+      if (passwordController.text == "") {
+        passwordError = "Password Tidak Boleh Kosong";
+        isError = true;
+      }
+      if (password2Controller.text == "") {
+        password2Error = "Password Tidak Boleh Kosong";
+        isError = true;
+      }
+    });
+    return isError;
+  }
+
+  void showPrivacyPolicy() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          elevation: 0,
+          backgroundColor: Pallete.dark4,
+          insetPadding: EdgeInsets.zero,
+          contentPadding: EdgeInsets.zero,
+          clipBehavior: Clip.antiAlias,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16.0),
+          ),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.fromLTRB(15, 15, 0, 14),
+                child: Row(
+                  children: [
+                    CustomBackButton(),
+                  ],
+                ),
+              ),
+              SizedBox(
+                width: MediaQuery.of(context).size.width - 48,
+                height: MediaQuery.of(context).size.height * 50 / 100,
+                child: WebViewWidget(controller: controller),
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }
