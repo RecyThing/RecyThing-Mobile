@@ -20,15 +20,6 @@ final class PostRecyBotSuccess extends PostRecyBotState {
   List<Object> get props => [answer];
 }
 
-final class PostRecyBotSuccessAddQuestion extends PostRecyBotState {
-  final String question;
-
-  const PostRecyBotSuccessAddQuestion({required this.question});
-
-  @override
-  List<Object> get props => [question];
-}
-
 final class PostRecyBotFailure extends PostRecyBotState {
   final String msg;
 

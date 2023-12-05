@@ -5,7 +5,8 @@ import 'package:recything_mobile/constants/pallete.dart';
 import 'package:recything_mobile/screens/recy/widget/recy_chat.dart';
 import 'package:recything_mobile/screens/recy/widget/user_chat.dart';
 import 'package:recything_mobile/widgets/forms/custom_back_button.dart';
-import '../../../bloc/cubit/post_recy_bot_cubit.dart';
+
+import '../../../bloc/recyBot/post_recy_bot_cubit.dart';
 
 class RecyAiScreen extends StatefulWidget {
   const RecyAiScreen({super.key});
@@ -18,7 +19,8 @@ class _RecyAiScreenState extends State<RecyAiScreen> {
   @override
   Widget build(BuildContext context) {
     TextEditingController aiEcd = TextEditingController();
-    // String? myMessage;
+    String status = " Online";
+    bool enableTyping = true;
 
     void reset() {
       aiEcd.clear();
@@ -52,10 +54,19 @@ class _RecyAiScreenState extends State<RecyAiScreen> {
                   decoration: const BoxDecoration(
                       shape: BoxShape.circle, color: Pallete.main),
                 ),
-                Text(
-                  " Online",
-                  style:
-                      ThemeFont.bodySmallRegular.copyWith(color: Pallete.main),
+                BlocBuilder<PostRecyBotCubit, PostRecyBotState>(
+                  builder: (context, state) {
+                    if (state is PostRecyBotLoading) {
+                      status = " Mengetik . . . .";
+                    } else {
+                      status = " Online";
+                    }
+                    return Text(
+                      status,
+                      style: ThemeFont.bodySmallRegular
+                          .copyWith(color: Pallete.main),
+                    );
+                  },
                 )
               ],
             ),
@@ -71,13 +82,9 @@ class _RecyAiScreenState extends State<RecyAiScreen> {
                     "${DateTime.now().hour.toString()}:${DateTime.now().minute.toString()}",
               ),
               BlocListener<PostRecyBotCubit, PostRecyBotState>(
-                listener: (context, state) {
-                  if (state is PostRecyBotSuccess) {
-                  } else if (state is PostRecyBotLoading) {}
-                },
+                listener: (context, state) {},
                 child: Builder(
                   builder: (BuildContext context) {
-                    // Use ListView.builder to build the list
                     return ListView.builder(
                       shrinkWrap: true,
                       physics: NeverScrollableScrollPhysics(),
@@ -96,18 +103,6 @@ class _RecyAiScreenState extends State<RecyAiScreen> {
                               text: item["question"] ?? "",
                               time: item["time"] ?? "",
                             ),
-                            if (index ==
-                                    context
-                                            .watch<PostRecyBotCubit>()
-                                            .QuestionAnswerList
-                                            .length -
-                                        1 &&
-                                context.watch<PostRecyBotCubit>().state
-                                    is PostRecyBotLoading)
-                              RecyChat(
-                                text: "mengetik . . .",
-                                time: "",
-                              ),
                             RecyChat(
                               text: item["answer"] ?? "",
                               time: item["time"] ?? "",
@@ -119,87 +114,6 @@ class _RecyAiScreenState extends State<RecyAiScreen> {
                   },
                 ),
               ),
-              // BlocBuilder<PostRecyBotCubit, PostRecyBotState>(
-              //     builder: (context, state) {
-              //   // if (state is PostRecyBotLoading) {
-              //   // ScaffoldMessenger.of(context).showSnackBar(
-              //   //   SnackBar(
-              //   //     content: Text('Loading...'),
-              //   //   ),
-              //   // );
-
-              //   // final snackBar = SnackBar(
-              //   //   content: const Row(
-              //   //     children: [
-              //   //       Text("Loading..."),
-              //   //       SizedBox(width: 10),
-              //   //       SizedBox(
-              //   //         width: 20,
-              //   //         height: 20,
-              //   //         child: CircularProgressIndicator(),
-              //   //       )
-              //   //     ],
-              //   //   ),
-              //   // );
-              //   // ScaffoldMessenger.of(context).showSnackBar(snackBar);
-              //   // return SizedBox.shrink();
-
-              //   // return const SizedBox(
-              //   //   child: CircularProgressIndicator(),
-              //   // );
-              //   // }
-              //   if (state is PostRecyBotFailure) {
-              //     return Text(state.msg);
-              //   } else if (state is PostRecyBotSuccess) {
-              //     return Column(
-              //       children: [
-              //         for (var item in context
-              //             .read<PostRecyBotCubit>()
-              //             .QuestionAnswerList)
-              //           Column(
-              //             children: [
-              //               UserChat(
-              //                 text: item["question"] ?? "",
-              //                 time: item["time"] ?? "",
-              //               ),
-              //               RecyChat(
-              //                 text: item["answer"] ?? "",
-              //                 time: item["time"] ?? "",
-              //               ),
-              //               if (state is PostRecyBotLoading) ...[
-              //                 const SizedBox(
-              //                   height: 20,
-              //                   width: 20,
-              //                   child: CircularProgressIndicator(),
-              //                 )
-              //               ]
-              //             ],
-              //           ),
-              //       ],
-              //     );
-              //   }
-
-              //   // else if (state is PostRecyBotSuccessAddQuestion) {
-              //   //   return Column(
-              //   //     children: [
-              //   //       for (var item
-              //   //           in context.read<PostRecyBotCubit>().QuestionAnswerList)
-              //   //         Column(
-              //   //           children: [
-              //   //             UserChat(
-              //   //                 text: item["question"] ?? "",
-              //   //                 time: item["time"] ?? ""),
-              //   //             if (state is PostRecyBotSuccess)
-              //   //               RecyChat(
-              //   //                   text: item["answer"] ?? "",
-              //   //                   time: item["time"] ?? "")
-              //   //           ],
-              //   //         ),
-              //   //     ],
-              //   //   );
-              //   // }
-              //   return const SizedBox();
-              // })
             ],
           ),
         ),
@@ -209,20 +123,30 @@ class _RecyAiScreenState extends State<RecyAiScreen> {
         child: Row(
           children: [
             Expanded(
-              child: TextFormField(
-                controller: aiEcd,
-                decoration: InputDecoration(
-                  hintText: 'Tuliskan disini',
-                  hintStyle:
-                      ThemeFont.bodySmallMedium.copyWith(color: Pallete.dark3),
-                  filled: true,
-                  fillColor: Pallete.light2,
-                  contentPadding: const EdgeInsets.all(10),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    borderSide: BorderSide.none,
-                  ),
-                ),
+              child: BlocBuilder<PostRecyBotCubit, PostRecyBotState>(
+                builder: (context, state) {
+                  if (state is PostRecyBotLoading) {
+                    enableTyping = false;
+                  } else {
+                    enableTyping = true;
+                  }
+                  return TextFormField(
+                    enabled: enableTyping,
+                    controller: aiEcd,
+                    decoration: InputDecoration(
+                      hintText: 'Tuliskan disini',
+                      hintStyle: ThemeFont.bodySmallMedium
+                          .copyWith(color: Pallete.dark3),
+                      filled: true,
+                      fillColor: Pallete.light2,
+                      contentPadding: const EdgeInsets.all(10),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: BorderSide.none,
+                      ),
+                    ),
+                  );
+                },
               ),
             ),
             Container(
@@ -232,21 +156,23 @@ class _RecyAiScreenState extends State<RecyAiScreen> {
                     color: Pallete.main,
                   ),
                   borderRadius: BorderRadius.circular(12)),
-              child: IconButton(
-                  onPressed: () {
-                    // myMessage = aiEcd.text;
-                    // context.read<PostRecyBotCubit>().QuestionAnswerList.add({
-                    //   "question": aiEcd.text,
-                    //   "time":
-                    //       "${DateTime.now().hour.toString()}:${DateTime.now().minute.toString()}",
-                    // });
-                    context.read<PostRecyBotCubit>().postQuestion(aiEcd.text);
-                    reset();
-                  },
-                  icon: const Icon(
-                    IconlyLight.send,
-                    color: Pallete.main,
-                  )),
+              child: BlocBuilder<PostRecyBotCubit, PostRecyBotState>(
+                builder: (context, state) {
+                  return IconButton(
+                      onPressed: () {
+                        if (state is! PostRecyBotLoading) {
+                          context
+                              .read<PostRecyBotCubit>()
+                              .postQuestion(aiEcd.text);
+                          reset();
+                        }
+                      },
+                      icon: const Icon(
+                        IconlyLight.send,
+                        color: Pallete.main,
+                      ));
+                },
+              ),
             )
           ],
         ),
