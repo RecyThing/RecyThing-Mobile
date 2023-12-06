@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:recything_mobile/bloc/post_report/post_report_rubbish_state.dart';
 import 'package:recything_mobile/repositories/report_repo.dart';
 
