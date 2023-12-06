@@ -1,16 +1,38 @@
 import 'package:dashed_line/dashed_line.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:recything_mobile/constants/pallete.dart';
 import 'package:recything_mobile/widgets/forms/main_button.dart';
 
 class PoinkuVoucher extends StatelessWidget {
-  const PoinkuVoucher({super.key});
+  final String imageUrl;
+  final String voucherTitle;
+  final String point;
+  final DateTime expiredDate;
+  final String description;
+
+  const PoinkuVoucher(
+      {super.key,
+      required this.imageUrl,
+      required this.voucherTitle,
+      required this.point,
+      required this.expiredDate,
+      required this.description});
 
   @override
   Widget build(BuildContext context) {
+    final formattedPoint =
+        NumberFormat.decimalPattern('id_ID').format(int.parse(point));
+
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, '/detailVoucher');
+        Navigator.pushNamed(context, '/detailVoucher', arguments: {
+          'imageUrl': imageUrl,
+          'voucherTitle': voucherTitle,
+          'point': point,
+          'expiredDate': expiredDate,
+          'description': description
+        });
       },
       child: Column(
         children: [
@@ -22,8 +44,8 @@ class PoinkuVoucher extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    Image.asset(
-                      "assets/images/voucher.png",
+                    Image.network(
+                      imageUrl,
                       width: MediaQuery.of(context).size.width * 0.3,
                     ),
                     const SizedBox(
@@ -34,12 +56,12 @@ class PoinkuVoucher extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "Voucher 5.000 E-Wallet Dana",
+                            voucherTitle,
                             style: ThemeFont.interText.copyWith(fontSize: 16),
                             overflow: TextOverflow.visible,
                           ),
                           Text(
-                            "5.200 Poin",
+                            '$formattedPoint Poin',
                             style: ThemeFont.interText.copyWith(
                                 fontWeight: FontWeight.bold, fontSize: 16),
                           )
@@ -78,7 +100,7 @@ class PoinkuVoucher extends StatelessWidget {
                           style: ThemeFont.interText
                               .copyWith(fontWeight: FontWeight.bold)),
                       Text(
-                        "20 Oktober 2023",
+                        DateFormat("d MMMM y", "id_ID").format(expiredDate),
                         style: ThemeFont.interText
                             .copyWith(color: Pallete.textSecondary),
                       )

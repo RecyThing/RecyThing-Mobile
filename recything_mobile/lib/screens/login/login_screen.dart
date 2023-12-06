@@ -4,7 +4,6 @@ import 'package:iconly/iconly.dart';
 import 'package:recything_mobile/bloc/login/login_cubit.dart';
 import 'package:recything_mobile/bloc/login/login_state.dart';
 import 'package:recything_mobile/widgets/error_snackbar.dart';
-import 'package:recything_mobile/widgets/forms/google_button.dart';
 import 'package:recything_mobile/widgets/forms/main_button.dart';
 import 'package:recything_mobile/widgets/forms/main_textfield.dart';
 import 'package:recything_mobile/widgets/success_snackbar.dart';
@@ -24,6 +23,8 @@ class _LoginScreenState extends State<LoginScreen> {
   bool showPwd = false;
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  String? emailError;
+  String? passwordError;
 
   @override
   void initState() {
@@ -75,6 +76,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     controller: emailController,
                     label: "Masukan Email / No HP",
                     prefixIcon: IconlyLight.message,
+                    errorText: emailError,
                   ),
                   const SizedBox(
                     height: 12,
@@ -84,6 +86,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     label: "Masukan Kata Sandi",
                     prefixIcon: IconlyLight.lock,
                     obscureText: !showPwd,
+                    errorText: passwordError,
                     suffixIcon: GestureDetector(
                       onTap: () {
                         setState(() {
@@ -169,6 +172,9 @@ class _LoginScreenState extends State<LoginScreen> {
                               },
                             ),
                             onPressed: () {
+                              if (validate()) {
+                                return;
+                              }
                               context.read<LoginCubit>().login(
                                     email: emailController.text,
                                     password: passwordController.text,
@@ -182,15 +188,15 @@ class _LoginScreenState extends State<LoginScreen> {
                   const SizedBox(
                     height: 16,
                   ),
-                  Row(
-                    children: [
-                      Expanded(
-                          child: GoogleButton(
-                        text: "Masuk Dengan Google",
-                        onPressed: () {},
-                      )),
-                    ],
-                  ),
+                  // Row(
+                  //   children: [
+                  //     Expanded(
+                  //         child: GoogleButton(
+                  //       text: "Masuk Dengan Google",
+                  //       onPressed: () {},
+                  //     )),
+                  //   ],
+                  // ),
                   const Expanded(child: SizedBox()),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -220,5 +226,22 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
+  }
+
+  bool validate() {
+    bool isError = false;
+    setState(() {
+      emailError = null;
+      passwordError = null;
+      if (emailController.text == "") {
+        emailError = "Email Tidak Boleh Kosong";
+        isError = true;
+      }
+      if (passwordController.text == "") {
+        passwordError = "Password Tidak Boleh Kosong";
+        isError = true;
+      }
+    });
+    return isError;
   }
 }

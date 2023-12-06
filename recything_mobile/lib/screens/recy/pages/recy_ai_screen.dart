@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconly/iconly.dart';
-import 'package:recything_mobile/bloc/get_ai/get_ai_cubit.dart';
 import 'package:recything_mobile/constants/pallete.dart';
 import 'package:recything_mobile/screens/recy/widget/recy_chat.dart';
 import 'package:recything_mobile/screens/recy/widget/user_chat.dart';
 import 'package:recything_mobile/widgets/forms/custom_back_button.dart';
+
+import '../../../bloc/recyBot/post_recy_bot_cubit.dart';
 
 class RecyAiScreen extends StatefulWidget {
   const RecyAiScreen({super.key});
@@ -18,7 +19,8 @@ class _RecyAiScreenState extends State<RecyAiScreen> {
   @override
   Widget build(BuildContext context) {
     TextEditingController aiEcd = TextEditingController();
-    String? myMessage;
+    String status = " Online";
+    bool enableTyping = true;
 
     void reset() {
       aiEcd.clear();
@@ -52,47 +54,68 @@ class _RecyAiScreenState extends State<RecyAiScreen> {
                   decoration: const BoxDecoration(
                       shape: BoxShape.circle, color: Pallete.main),
                 ),
-                Text(
-                  " Online",
-                  style:
-                      ThemeFont.bodySmallRegular.copyWith(color: Pallete.main),
+                BlocBuilder<PostRecyBotCubit, PostRecyBotState>(
+                  builder: (context, state) {
+                    if (state is PostRecyBotLoading) {
+                      status = " Mengetik . . . .";
+                    } else {
+                      status = " Online";
+                    }
+                    return Text(
+                      status,
+                      style: ThemeFont.bodySmallRegular
+                          .copyWith(color: Pallete.main),
+                    );
+                  },
                 )
               ],
             ),
           )),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            RecyChat(
-              text: "Halo! Saya Recy. Bagaimana Saya bisa membantu Anda?",
-              time:
-                  "${DateTime.now().hour.toString()}:${DateTime.now().minute.toString()}",
-            ),
-            BlocBuilder<GetAiCubit, GetAiState>(builder: (context, state) {
-              if (state is GetAiLoading) {
-                return const SizedBox(
-                  child: CircularProgressIndicator(),
-                );
-              } else if (state is GetAiFailure) {
-                return Text(state.msg);
-              } else if (state is GetAiSuccess) {
-                return Column(
-                  children: [
-                    UserChat(
-                        text: myMessage ?? "",
-                        time:
-                            "${DateTime.now().hour.toString()}:${DateTime.now().minute.toString()}"),
-                    RecyChat(
-                      text: state.data,
-                      time:
-                          "${DateTime.now().hour.toString()}:${DateTime.now().minute.toString()}",
-                    ),
-                  ],
-                );
-              }
-              return const SizedBox();
-            })
-          ],
+      body: SizedBox(
+        height: MediaQuery.of(context).size.height * 0.7,
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              RecyChat(
+                text: "Halo! Saya Recy. Bagaimana Saya bisa membantu Anda?",
+                time:
+                    "${DateTime.now().hour.toString()}:${DateTime.now().minute.toString()}",
+              ),
+              BlocListener<PostRecyBotCubit, PostRecyBotState>(
+                listener: (context, state) {},
+                child: Builder(
+                  builder: (BuildContext context) {
+                    return ListView.builder(
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemCount: context
+                          .watch<PostRecyBotCubit>()
+                          .QuestionAnswerList
+                          .length,
+                      itemBuilder: (context, index) {
+                        var item = context
+                            .watch<PostRecyBotCubit>()
+                            .QuestionAnswerList[index];
+
+                        return Column(
+                          children: [
+                            UserChat(
+                              text: item["question"] ?? "",
+                              time: item["time"] ?? "",
+                            ),
+                            RecyChat(
+                              text: item["answer"] ?? "",
+                              time: item["time"] ?? "",
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
         ),
       ),
       floatingActionButton: Container(
@@ -100,20 +123,30 @@ class _RecyAiScreenState extends State<RecyAiScreen> {
         child: Row(
           children: [
             Expanded(
-              child: TextFormField(
-                controller: aiEcd,
-                decoration: InputDecoration(
-                  hintText: 'Tuliskan disini',
-                  hintStyle:
-                      ThemeFont.bodySmallMedium.copyWith(color: Pallete.dark3),
-                  filled: true,
-                  fillColor: Pallete.light2,
-                  contentPadding: const EdgeInsets.all(10),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    borderSide: BorderSide.none,
-                  ),
-                ),
+              child: BlocBuilder<PostRecyBotCubit, PostRecyBotState>(
+                builder: (context, state) {
+                  if (state is PostRecyBotLoading) {
+                    enableTyping = false;
+                  } else {
+                    enableTyping = true;
+                  }
+                  return TextFormField(
+                    enabled: enableTyping,
+                    controller: aiEcd,
+                    decoration: InputDecoration(
+                      hintText: 'Tuliskan disini',
+                      hintStyle: ThemeFont.bodySmallMedium
+                          .copyWith(color: Pallete.dark3),
+                      filled: true,
+                      fillColor: Pallete.light2,
+                      contentPadding: const EdgeInsets.all(10),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: BorderSide.none,
+                      ),
+                    ),
+                  );
+                },
               ),
             ),
             Container(
@@ -123,16 +156,23 @@ class _RecyAiScreenState extends State<RecyAiScreen> {
                     color: Pallete.main,
                   ),
                   borderRadius: BorderRadius.circular(12)),
-              child: IconButton(
-                  onPressed: () {
-                    myMessage = aiEcd.text;
-                    context.read<GetAiCubit>().fetchAi(aiEcd.text);
-                    reset();
-                  },
-                  icon: const Icon(
-                    IconlyLight.send,
-                    color: Pallete.main,
-                  )),
+              child: BlocBuilder<PostRecyBotCubit, PostRecyBotState>(
+                builder: (context, state) {
+                  return IconButton(
+                      onPressed: () {
+                        if (state is! PostRecyBotLoading) {
+                          context
+                              .read<PostRecyBotCubit>()
+                              .postQuestion(aiEcd.text);
+                          reset();
+                        }
+                      },
+                      icon: const Icon(
+                        IconlyLight.send,
+                        color: Pallete.main,
+                      ));
+                },
+              ),
             )
           ],
         ),

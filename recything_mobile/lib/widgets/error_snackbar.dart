@@ -3,12 +3,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:recything_mobile/constants/pallete.dart';
 
 class ErrorSnackbar {
-  static void showSnackbar(
-    context, {
-    required String message,
-    required String title,
-    bool isTopSnackbar = false
-  }) {
+  static void showSnackbar(context,
+      {required String message,
+      required String title,
+      bool isTopSnackbar = false}) {
     ScaffoldMessenger.of(context).removeCurrentSnackBar();
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
@@ -19,11 +17,12 @@ class ErrorSnackbar {
         backgroundColor: Colors.transparent,
         // width: MediaQuery.of(context).size.width,
         elevation: 0,
-        margin: isTopSnackbar ? EdgeInsets.only(
-          bottom: MediaQuery.of(context).size.height - 250,
-          left: 10,
-          right: 10
-        ) : EdgeInsets.zero,
+        margin: isTopSnackbar
+            ? EdgeInsets.only(
+                bottom: MediaQuery.of(context).size.height - 250,
+                left: 10,
+                right: 10)
+            : EdgeInsets.zero,
         content: Container(
           clipBehavior: Clip.none,
           decoration: BoxDecoration(

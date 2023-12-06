@@ -14,10 +14,9 @@ class DetailLokasiScreen extends StatefulWidget {
 class _DetailLokasiScreenState extends State<DetailLokasiScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
+    return Scaffold(
+        body: ListView(
+          children: const [
             Padding(
               padding: EdgeInsets.only(left: 16, right: 16, top: 66),
               child: HeaderPageWidget(title: 'Detail Lokasi'),
@@ -31,6 +30,6 @@ class _DetailLokasiScreenState extends State<DetailLokasiScreen> {
             ),
           ],
         ),
-        bottomNavigationBar: BottomDetailLokasiWidget());
+        bottomNavigationBar: const BottomDetailLokasiWidget());
   }
 }
