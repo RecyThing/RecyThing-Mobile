@@ -121,19 +121,9 @@ class _MapsReportScreenState extends State<MapsReportScreen> {
           MaterialPageRoute(
             builder: (context) => ReportRubbishScreen(
               locationAddress: _currentAddress,
+              latitude: _currentPosition?.latitude.toString(),
+              longitude: _currentPosition?.longitude.toString(),
             ),
-          ),
-        );
-      } else if (widget.reportType == 'pelanggaran-kecil') {
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(
-            builder: (context) => const LitteringKecilScreen(),
-          ),
-        );
-      } else if (widget.reportType == 'pelanggaran-besar') {
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(
-            builder: (context) => const LitteringBesarScreen(),
           ),
         );
       } else if (widget.reportType == 'littering') {
@@ -223,7 +213,6 @@ class _MapsReportScreenState extends State<MapsReportScreen> {
                       ),
                     )
                   : const CameraPosition(target: LatLng(0.0, 0.0), zoom: 18),
-
               markers: _markers.values.toSet(),
               onTap: (LatLng position) {
                 _selectMarker('');
