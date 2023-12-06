@@ -36,15 +36,14 @@ class PostReportRubbishCubit extends Cubit<PostReportRubbishState> {
       {BuildContext? context,
       required String reportType,
       required String location,
-      required num longitude,
-      required num latitude,
+      required String longitude,
+      required String latitude,
       required String addressPoint,
       required String trashType,
       required String desc,
-      required List<XFile> images}) async {
+      required List<File> images}) async {
     try {
       emit(PostReportRubbishLoading());
-      List<File> imageFiles = images.map((xFile) => File(xFile.path)).toList();
       await ReportRepo().addReport(
           context: context!,
           reportType: reportType,
@@ -54,7 +53,7 @@ class PostReportRubbishCubit extends Cubit<PostReportRubbishState> {
           addressPoint: addressPoint,
           trashType: trashType,
           desc: desc,
-          images: imageFiles);
+          images: images);
       emit(PostReportRubbishSuccess());
     } catch (e) {
       emit(PostReportRubbishFailed(message: e.toString()));
