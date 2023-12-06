@@ -1,6 +1,7 @@
 import 'package:dashed_line/dashed_line.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:recything_mobile/constants/pallete.dart';
 import 'package:recything_mobile/widgets/forms/main_button.dart';
 
@@ -21,6 +22,7 @@ class PoinkuVoucher extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    initializeDateFormatting();
     final formattedPoint =
         NumberFormat.decimalPattern('id_ID').format(int.parse(point));
 
