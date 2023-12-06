@@ -180,12 +180,22 @@ class _DetailPelanggaranScreenState extends State<DetailPelanggaranScreen> {
                                 style: ThemeFont.bodySmallRegular
                                     .copyWith(color: Pallete.dark3)),
                             Text(
-                                DateFormat("dd MMMM yyyy")
-                                    .format(DateTime.parse(
-                                        state.data.insidentDate!))
-                                    .toString(),
-                                style: ThemeFont.bodySmallRegular
-                                    .copyWith(color: Pallete.dark3)),
+                              (() {
+                                try {
+                                  final parsedDate =
+                                      DateTime.parse(state.data.insidentDate!);
+                                  return DateFormat("dd MMMM yyyy")
+                                      .format(parsedDate)
+                                      .toString();
+                                } catch (e) {
+                                  print("Error parsing date: $e");
+                                  return "Invalid Date Format";
+                                }
+                              })(),
+                              style: ThemeFont.bodySmallRegular.copyWith(
+                                color: Pallete.dark3,
+                              ),
+                            ),
                           ],
                         ),
                         const SizedBox(
@@ -194,12 +204,18 @@ class _DetailPelanggaranScreenState extends State<DetailPelanggaranScreen> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text("Jam : ",
-                                style: ThemeFont.bodySmallRegular
-                                    .copyWith(color: Pallete.dark3)),
-                            Text(state.data.insidentTime ?? "",
-                                style: ThemeFont.bodySmallRegular
-                                    .copyWith(color: Pallete.dark3)),
+                            Text(
+                              "Jam : ",
+                              style: ThemeFont.bodySmallRegular.copyWith(
+                                color: Pallete.dark3,
+                              ),
+                            ),
+                            Text(
+                              state.data.insidentTime ?? "",
+                              style: ThemeFont.bodySmallRegular.copyWith(
+                                color: Pallete.dark3,
+                              ),
+                            ),
                           ],
                         ),
                       ],

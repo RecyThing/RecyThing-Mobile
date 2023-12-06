@@ -1,28 +1,65 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconly/iconly.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
+import 'package:recything_mobile/bloc/post_report_littering/post_report_littering_cubit.dart';
+import 'package:recything_mobile/bloc/post_report_littering/post_report_littering_state.dart';
 import 'package:recything_mobile/constants/pallete.dart';
 import 'package:recything_mobile/screens/report/widget/date_picker_widget.dart';
-import 'package:recything_mobile/screens/report/widget/image_picker_button.dart';
+import 'package:recything_mobile/screens/report/widget/file_picker_button.dart';
 import 'package:recything_mobile/screens/report/widget/main_button_widget.dart';
 import 'package:recything_mobile/screens/report/widget/maps_report_screen.dart';
 import 'package:recything_mobile/screens/report/widget/text_field_report.dart';
 import 'package:recything_mobile/screens/report/widget/time_picker_widget.dart';
+import 'package:recything_mobile/widgets/error_snackbar.dart';
 import 'package:recything_mobile/widgets/forms/main_button.dart';
 import 'package:recything_mobile/widgets/forms/success_screen.dart';
 
-class PelanggaranBesarScreen extends StatefulWidget {
-  const PelanggaranBesarScreen({super.key});
+class LitteringBesarScreen extends StatefulWidget {
+  final String? locationAddress;
+  final String? latitude;
+  final String? longitude;
+  const LitteringBesarScreen({
+    super.key,
+    this.locationAddress,
+    this.latitude,
+    this.longitude,
+  });
 
   @override
-  State<PelanggaranBesarScreen> createState() => _PelanggaranBesarScreenState();
+  State<LitteringBesarScreen> createState() => _LitteringBesarScreenState();
 }
 
-class _PelanggaranBesarScreenState extends State<PelanggaranBesarScreen> {
+class _LitteringBesarScreenState extends State<LitteringBesarScreen> {
   bool isHazardousTrash = false;
-  ImagePickerButton imagePickerButton = ImagePickerButton(
-    onImagesSelected: (List<XFile>? selectedImages) {},
-  );
+
+  List<File> selectedImages = [];
+  late FilePickerButton imagePickerButton;
+
+  bool isFieldFilled = false;
+  final locationController = TextEditingController();
+  final addressPointController = TextEditingController(text: "");
+  final descriptionController = TextEditingController(text: "");
+  final companyNameController = TextEditingController();
+  final dateController = TextEditingController();
+  final timeController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    imagePickerButton = FilePickerButton(
+      onImagesSelected: (List<File>? images) {
+        setState(() {
+          selectedImages = images ?? [];
+        });
+        return null;
+      },
+    );
+
+    locationController.text = widget.locationAddress ?? "";
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,10 +86,12 @@ class _PelanggaranBesarScreenState extends State<PelanggaranBesarScreen> {
                     width: MediaQuery.of(context).size.width,
                     child: Row(
                       children: [
-                        const Expanded(
+                        Expanded(
                           child: TextFieldReport(
                             label: "Lokasi Pelanggaran",
                             prefixIcon: IconlyLight.location,
+                            controller: locationController,
+                            enabled: false,
                           ),
                         ),
                         const SizedBox(width: 8),
@@ -64,7 +103,7 @@ class _PelanggaranBesarScreenState extends State<PelanggaranBesarScreen> {
                               Navigator.of(context).push(
                                 MaterialPageRoute(
                                   builder: (context) => const MapsReportScreen(
-                                      reportType: 'pelanggaran-kecil'),
+                                      reportType: 'littering-besar'),
                                 ),
                               );
                               // Navigator.pushNamed(context, "/maps-report");
@@ -86,6 +125,7 @@ class _PelanggaranBesarScreenState extends State<PelanggaranBesarScreen> {
                     hintStyle: ThemeFont.bodySmallMedium.copyWith(
                       color: Pallete.dark3,
                     ),
+                    controller: addressPointController,
                   ),
                   const SizedBox(height: 24),
                   Text(
@@ -116,9 +156,11 @@ class _PelanggaranBesarScreenState extends State<PelanggaranBesarScreen> {
                                     ],
                                   ),
                                 ),
-                                const SizedBox(
+                                SizedBox(
                                   width: 120,
-                                  child: DatePickerWidget(),
+                                  child: DatePickerWidget(
+                                    controller: dateController,
+                                  ),
                                 ),
                               ],
                             ),
@@ -137,9 +179,11 @@ class _PelanggaranBesarScreenState extends State<PelanggaranBesarScreen> {
                                     ],
                                   ),
                                 ),
-                                const SizedBox(
+                                SizedBox(
                                   width: 120,
-                                  child: TimePickerWWidget(),
+                                  child: TimePickerWWidget(
+                                    controller: timeController,
+                                  ),
                                 ),
                               ],
                             ),
@@ -150,7 +194,7 @@ class _PelanggaranBesarScreenState extends State<PelanggaranBesarScreen> {
                   ),
                   const SizedBox(height: 16),
                   Text(
-                    "Ceritakan Detail Kejadian",
+                    "Informasi Perusahaan",
                     style: ThemeFont.bodySmallMedium,
                   ),
                   const SizedBox(
@@ -161,6 +205,7 @@ class _PelanggaranBesarScreenState extends State<PelanggaranBesarScreen> {
                     hintStyle: ThemeFont.bodySmallMedium.copyWith(
                       color: Pallete.dark3,
                     ),
+                    controller: companyNameController,
                   ),
                   const SizedBox(height: 16),
                   Container(
@@ -248,10 +293,11 @@ class _PelanggaranBesarScreenState extends State<PelanggaranBesarScreen> {
                     style: ThemeFont.bodySmallMedium,
                   ),
                   const SizedBox(height: 8),
-                  const TextFieldReport(
+                  TextFieldReport(
                     hintText:
                         "Cth: Saya melihat Seseorang membuang sampah sembarangan ke sungai",
                     maxLines: 5,
+                    controller: descriptionController,
                   ),
                   const SizedBox(height: 16),
                   Text('Bukti Foto / Video',
@@ -281,36 +327,80 @@ class _PelanggaranBesarScreenState extends State<PelanggaranBesarScreen> {
                   Row(
                     children: [
                       Expanded(
-                          child: MainButtonWidget(
-                              onPressed: () {
-                                Navigator.of(context).push(MaterialPageRoute(
+                        child: BlocListener<PostReportLitteringCubit,
+                            PostReportLitteringState>(
+                          listener: (context, state) {
+                            if (state is PostReportLitteringSuccess) {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
                                   builder: (context) => const SuccessScreen(
                                       title: 'Laporan Terkirim',
                                       subtitle:
                                           'Terimakasih telah berkontribusi untuk melaporkan pelanggaran dan kondisi sampah yang kamu temui, kami sangat mengapresiasi usaha anda.'),
-                                ));
-                              },
-                              child: Text(
-                                'Kirim',
-                                style: ThemeFont.heading6Bold
-                                    .copyWith(color: Colors.white),
-                              ))
-                          // MainButton(
-                          //   onPressed: () {
-                          //     Navigator.of(context).push(MaterialPageRoute(
-                          //       builder: (context) => const SuccessScreen(
-                          //           title: 'Laporan Terkirim',
-                          //           subtitle:
-                          //               'Terimakasih telah berkontribusi untuk melaporkan pelanggaran dan kondisi sampah yang kamu temui, kami sangat mengapresiasi usaha anda.'),
-                          //     ));
-                          //   },
-                          //   child: Text(
-                          //     "Kirim",
-                          //     style: ThemeFont.heading6Reguler
-                          //         .copyWith(color: Colors.white),
-                          //   ),
-                          // ),
+                                ),
+                              );
+                            }
+                            if (state is PostReportLitteringFailed) {
+                              ErrorSnackbar.showSnackbar(
+                                context,
+                                message: state.message,
+                                title: "Laporan gagal",
+                              );
+                            }
+                          },
+                          child: BlocBuilder<PostReportLitteringCubit,
+                              PostReportLitteringState>(
+                            builder: (context, state) {
+                              return MainButtonWidget(
+                                onPressed: () {
+                                  DateTime dateTime = DateFormat("MM/dd/yyyy")
+                                      .parse(dateController.text);
+                                  context
+                                      .read<PostReportLitteringCubit>()
+                                      .addReport(
+                                        context: context,
+                                        reportType: "pelanggaran sampah",
+                                        scaleType: "skala besar",
+                                        location: locationController.text,
+                                        latitude: widget.latitude ?? "0",
+                                        longitude: widget.longitude ?? "0",
+                                        companyName: companyNameController.text,
+                                        addressPoint:
+                                            addressPointController.text,
+                                        insidentDate: DateFormat("yyyy-MM-dd")
+                                            .format(dateTime),
+                                        insidentTime: timeController.text,
+                                        desc: descriptionController.text,
+                                        dangerousWaste: isHazardousTrash,
+                                        images: selectedImages,
+                                      );
+                                },
+                                child: BlocBuilder<PostReportLitteringCubit,
+                                    PostReportLitteringState>(
+                                  builder: (context, state) {
+                                    if (state is PostReportLitteringLoading) {
+                                      return const SizedBox(
+                                        height: 23,
+                                        width: 23,
+                                        child: CircularProgressIndicator(
+                                          color: Colors.white,
+                                        ),
+                                      );
+                                    } else {
+                                      return Text(
+                                        'Kirim',
+                                        style: ThemeFont.heading6Bold.copyWith(
+                                          color: Colors.white,
+                                        ),
+                                      );
+                                    }
+                                  },
+                                ),
+                              );
+                            },
                           ),
+                        ),
+                      ),
                     ],
                   ),
                 ],
