@@ -19,10 +19,8 @@ class ProgressStep extends StatelessWidget {
             ProgressCard(
               title: 'Satu tantangan untukmu.',
               subTitle: 'Buanglah sampah yang\nberserakan pada tempatnya',
-              backgroundColor: progressState == 'Terima Tantangan' ||
-                      progressState == 'Selesaikan Tantangan Pertama'
-                  ? Colors.white
-                  : Pallete.mainSubtle,
+              backgroundColor:
+                  progressState == 'Aktif' ? Colors.white : Pallete.mainSubtle,
             ),
             const SizedBox(
               height: 24,
@@ -63,7 +61,7 @@ class ProgressStep extends StatelessWidget {
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(100),
                   border: Border.all(
-                      color: progressState == 'Terima Tantangan'
+                      color: progressState == 'Aktif'
                           ? Pallete.dark4
                           : Pallete.main,
                       width: 3),
@@ -76,8 +74,7 @@ class ProgressStep extends StatelessWidget {
                     ),
                   ],
                 ),
-                child: progressState == 'Terima Tantangan' ||
-                        progressState == 'Selesaikan Tantangan Pertama'
+                child: progressState == 'Aktif'
                     ? const SizedBox()
                     : const Icon(
                         Icons.check,
@@ -121,9 +118,8 @@ class ProgressStep extends StatelessWidget {
                 ),
               ),
               DottedLine(
-                dashColor: progressState == 'verified'
-                    ? Pallete.main
-                    : Pallete.dark4,
+                dashColor:
+                    progressState == 'verified' ? Pallete.main : Pallete.dark4,
                 lineThickness: 3,
                 lineLength: 94,
                 dashLength: 6,

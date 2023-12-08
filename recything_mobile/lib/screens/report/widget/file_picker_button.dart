@@ -16,7 +16,7 @@ class FilePickerButton extends StatefulWidget {
 
 class _FilePickerButtonState extends State<FilePickerButton> {
   FilePickerResult? selectedFiles;
-  List<File>? value;
+  List<File> value = [];
 
   List<Widget> widgets = [];
 
@@ -30,8 +30,8 @@ class _FilePickerButtonState extends State<FilePickerButton> {
     if (result != null) {
       List<File> files = result.paths.map((path) => File(path!)).toList();
 
-      widget.onImagesSelected(files);
-      value = files;
+      value.addAll(files);
+      widget.onImagesSelected(value);
 
       updateWidgets();
     } else {
@@ -42,8 +42,8 @@ class _FilePickerButtonState extends State<FilePickerButton> {
 
   void removeFile(int index) {
     setState(() {
-      if (value != null && index >= 0 && index < value!.length) {
-        value!.removeAt(index);
+      if (index >= 0 && index < value.length) {
+        value.removeAt(index);
         updateWidgets();
         widget.onImagesSelected(value);
       }
@@ -51,108 +51,106 @@ class _FilePickerButtonState extends State<FilePickerButton> {
   }
 
   void updateWidgets() {
-    widgets = value?.asMap().entries.map((entry) {
-          final int index = entry.key;
-          final File file = entry.value;
+    widgets = value.asMap().entries.map((entry) {
+      final int index = entry.key;
+      final File file = entry.value;
 
-          Widget widget;
+      Widget widget;
 
-          if (isImageFile(file)) {
-            widget = Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8),
-              child: Stack(
-                children: [
-                  Container(
-                    width: 80,
-                    height: 80,
-                    decoration: BoxDecoration(
-                      color: Colors.black,
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Image.file(
-                      File(file.path),
-                      width: 80,
-                      height: 80,
-                    ),
-                  ),
-                  Positioned(
-                    top: 0,
-                    right: 0,
-                    child: GestureDetector(
-                      onTap: () {
-                        removeFile(index);
-                      },
-                      child: Container(
-                        decoration: const BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Pallete.main,
-                        ),
-                        padding: const EdgeInsets.all(4),
-                        child: const Icon(
-                          Icons.close,
-                          color: Colors.white,
-                          size: 16,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
+      if (isImageFile(file)) {
+        widget = Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8),
+          child: Stack(
+            children: [
+              Container(
+                width: 80,
+                height: 80,
+                clipBehavior: Clip.antiAlias,
+                decoration: BoxDecoration(
+                  color: Colors.black,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Image.file(
+                  File(file.path),
+                  width: 80,
+                  height: 80,
+                ),
               ),
-            );
-          } else if (isVideoFile(file)) {
-            // Assuming you have a function isVideoFile to check if it's a video file
-            widget = Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8),
-              child: Stack(
-                children: [
-                  Container(
-                    width: 80,
-                    height: 80,
-                    decoration: BoxDecoration(
-                      color: Colors.black,
-                      borderRadius: BorderRadius.circular(12),
+              Positioned(
+                top: 0,
+                right: 0,
+                child: GestureDetector(
+                  onTap: () {
+                    removeFile(index);
+                  },
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Pallete.main,
                     ),
-                    child: Center(
-                      child: Text(
-                        'Video',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                        ),
-                      ),
+                    padding: const EdgeInsets.all(4),
+                    child: const Icon(
+                      Icons.close,
+                      color: Colors.white,
+                      size: 16,
                     ),
                   ),
-                  Positioned(
-                    top: 0,
-                    right: 0,
-                    child: GestureDetector(
-                      onTap: () {
-                        removeFile(index);
-                      },
-                      child: Container(
-                        decoration: const BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Pallete.main,
-                        ),
-                        padding: const EdgeInsets.all(4),
-                        child: const Icon(
-                          Icons.close,
-                          color: Colors.white,
-                          size: 16,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
+                ),
               ),
-            );
-          } else {
-            widget = Container();
-          }
+            ],
+          ),
+        );
+      } else if (isVideoFile(file)) {
+        // Assuming you have a function isVideoFile to check if it's a video file
+        widget = Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8),
+          child: Stack(
+            children: [
+              Container(
+                width: 80,
+                height: 80,
+                decoration: BoxDecoration(
+                  color: Colors.black,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Center(
+                  child: Icon(
+                    Icons.play_arrow,
+                    color: Colors.white,
+                    size: 32,
+                  ),
+                ),
+              ),
+              Positioned(
+                top: 0,
+                right: 0,
+                child: GestureDetector(
+                  onTap: () {
+                    removeFile(index);
+                  },
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Pallete.main,
+                    ),
+                    padding: const EdgeInsets.all(4),
+                    child: const Icon(
+                      Icons.close,
+                      color: Colors.white,
+                      size: 16,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
+      } else {
+        widget = Container();
+      }
 
-          return widget;
-        }).toList() ??
-        [];
+      return widget;
+    }).toList();
   }
 
   bool isImageFile(File file) {

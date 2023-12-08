@@ -51,6 +51,7 @@ class _TimePickerWWidgetState extends State<TimePickerWWidget> {
         TimeOfDay? pickedTime = await showTimePicker(
           context: context,
           initialTime: TimeOfDay.now(),
+          // lastTime: TimeOfDay.now(),
         );
 
         if (pickedTime != null) {
