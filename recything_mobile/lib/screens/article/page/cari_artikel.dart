@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recything_mobile/bloc/get_article/get_article_cubit.dart';
+import 'package:recything_mobile/screens/article/widget/cari_artikel/artikel_tidak_ditemukan.dart';
 import 'package:recything_mobile/screens/article/widget/header_page.dart';
 import 'package:recything_mobile/screens/article/widget/searchbar.dart';
 import 'package:recything_mobile/screens/article/widget/tapbar.dart';
@@ -33,6 +34,9 @@ class _CariArtikelScreenState extends State<CariArtikelScreen> {
                 return SearchBarWidget(
                   onChanged: (value) {
                     context.read<GetArticleCubit>().searchArticle(value);
+                    // if (state is GetArticleFailure) {
+                    //   return Center(child: ArtikelTidakDitemukanWidget());
+                    // }
                     if (value == "") {
                       context.read<GetArticleCubit>().getAllArticle(1);
                     }

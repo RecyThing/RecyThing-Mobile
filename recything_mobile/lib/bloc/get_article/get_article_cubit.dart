@@ -24,8 +24,9 @@ class GetArticleCubit extends Cubit<GetArticleState> {
       final response = await ArticleRepo().searchArticle(data);
       if (response.isEmpty) {
         emit(GetArticleFailure(message: "data not found"));
+      } else {
+        emit(GetArticleSuccess(data: response));
       }
-      emit(GetArticleSuccess(data: response));
     } catch (e) {
       emit(GetArticleFailure(message: e.toString()));
     }

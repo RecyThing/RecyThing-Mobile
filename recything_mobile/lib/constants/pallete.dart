@@ -6,6 +6,7 @@ class Pallete {
   static const Color mainDarker = Color(0XFF3BA639);
   static const Color mainLigther = Color(0XFF9BFF99);
   static const Color mainSubtle = Color(0XFFE3FFE3);
+  static const Color greenWA = Color(0XFF25D366);
 
   static const Color secondary = Color(0XFFFFCD29);
   static const Color secondaryDarker = Color(0XFFD4AF35);
@@ -17,6 +18,7 @@ class Pallete {
   static const Color errorLigther = Color(0XFFFF5C5C);
   static const Color errorSubtle = Color(0XFFFF8080);
   static const Color errorBackground = Color(0xffFEF1F1);
+  static const Color purpleIG = Color(0XFFF00073);
 
   static const Color warning = Color(0XFFFFCC00);
   static const Color warningDarker = Color(0XFFE5B800);
@@ -27,6 +29,9 @@ class Pallete {
   static const Color infoDarker = Color(0XFF0027C4);
   static const Color infoLigther = Color(0XFF5B79EF);
   static const Color infoSubtle = Color(0XFF9DAFF9);
+  static const Color primaryBlue = Color(0XFF4038FF);
+  static const Color blueFB = Color(0XFF1877F2);
+  static const Color blueTelegram = Color(0XFF0088CC);
 
   static const Color success = Color(0XFF00FF90);
   static const Color successDarker = Color(0XFF05A660);

@@ -15,7 +15,7 @@ class ArticleRepo {
     }
 
     dio.options.headers['Authorization'] = 'Bearer $authToken';
-    final response = await dio.get('$baseUrl/articles?page=$page');
+    final response = await dio.get('$baseUrl/articles?limit=10&page=$page');
     return List<ArticleModel>.from((response.data['data'] as Iterable)
         .map((e) => ArticleModel.fromJson(e)));
   }
@@ -28,7 +28,7 @@ class ArticleRepo {
     }
 
     dio.options.headers['Authorization'] = 'Bearer $authToken';
-    final response = await dio.get('$baseUrl/articles?search=$data');
+    final response = await dio.get('$baseUrl/articles?search=$data&limit=10');
     return List<ArticleModel>.from((response.data['data'] as Iterable)
         .map((e) => ArticleModel.fromJson(e)));
   }
