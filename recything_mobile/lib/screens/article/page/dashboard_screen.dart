@@ -20,11 +20,11 @@ class _ArticleDashboardScreenState extends State<ArticleDashboardScreen> {
       body: Padding(
         padding: const EdgeInsets.only(bottom: 30),
         child: ListView(
-          children: const [
+          children: [
             ArticleDashboardHeader(),
             Padding(
                 padding: EdgeInsets.only(top: 24, left: 16, right: 16),
-                child: SearchBarWidget()),
+                child: SearchBarWidget(onChanged: (String ) {  },)),
             MenuKategoriWidget(),
             MenuTukarSampahWidget(),
             MenuArticlePopular()

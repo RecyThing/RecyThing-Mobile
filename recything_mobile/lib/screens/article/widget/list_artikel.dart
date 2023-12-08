@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../bloc/get_article/get_article_cubit.dart';
 import '../theme/text_style.dart';
 
 class ListArtikelWidget extends StatelessWidget {
@@ -6,89 +8,100 @@ class ListArtikelWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-        padding: const EdgeInsets.all(0),
-        shrinkWrap: true,
-        itemCount: 3,
-        itemBuilder: (context, index) {
-          return GestureDetector(
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8),
-                  child: Row(
+    return BlocBuilder<GetArticleCubit, GetArticleState>(
+      builder: (context, state) {
+        if (state is GetArticleSuccess) {
+          return ListView.builder(
+              padding: const EdgeInsets.all(0),
+              shrinkWrap: true,
+              itemCount: state.data.length,
+              itemBuilder: (context, index) {
+                return GestureDetector(
+                  child: Column(
                     children: [
-                      Container(
-                        decoration: BoxDecoration(
-                            border: Border.all(color: Colors.transparent),
-                            borderRadius: BorderRadius.circular(12)),
-                        height: 86,
-                        width: 86,
-                        child: Image.asset(
-                          'assets/images/minyak.png',
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                      const SizedBox(width: 8),
-                      Expanded(
-                        child: SizedBox(
-                          height: 96,
-                          // width: 226,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(
-                                height: 24,
-                                width: double.infinity,
-                                child: Text(
-                                  'Minyak',
-                                  style: ThemeText().bodySmallRegular2,
-                                ),
-                              ),
-                              SizedBox(
-                                height: 48,
-                                child: SizedBox(
-                                  height: 24,
-                                  child: Text(
-                                    'Pakai sisa minyak gorengmu untuk ini!',
-                                    style: ThemeText().bodyNormalMedium,
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8),
+                        child: Row(
+                          children: [
+                            SizedBox(
+                                height: 86,
+                                width: 86,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(12),
+                                  child: Image.network(
+                                    state.data[index].image,
+                                    fit: BoxFit.cover,
                                   ),
-                                ),
-                              ),
-                              SizedBox(
-                                height: 24,
-                                child: Row(
+                                )),
+                            const SizedBox(width: 8),
+                            Expanded(
+                              child: SizedBox(
+                                height: 96,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text('22 Okt 2023',
-                                        style: ThemeText().bodySmallRegular3),
-                                    const SizedBox(width: 7),
-                                    Image.asset(
-                                        'assets/icons/icon_vertical_divider.png'),
-                                    const SizedBox(width: 7),
-                                    Image.asset('assets/icons/icon_like.png'),
-                                    const SizedBox(width: 4),
-                                    const Text('182'),
-                                    const SizedBox(width: 4),
-                                    Image.asset('assets/icons/icon_share.png'),
-                                    const SizedBox(width: 8),
-                                    const Text('182'),
+                                    SizedBox(
+                                      height: 24,
+                                      width: double.infinity,
+                                      child: Text(
+                                        state.data[index].getCategoryString(),
+                                        style: ThemeText().bodySmallRegular2,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 48,
+                                      child: SizedBox(
+                                        height: 24,
+                                        child: Text(
+                                          state.data[index].title,
+                                          style: ThemeText().bodyNormalMedium,
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 24,
+                                      child: Row(
+                                        children: [
+                                          Text(state.data[index].createDate,
+                                              style: ThemeText()
+                                                  .bodySmallRegular3),
+                                          const SizedBox(width: 7),
+                                          Image.asset(
+                                              'assets/icons/icon_vertical_divider.png'),
+                                          const SizedBox(width: 7),
+                                          Image.asset(
+                                              'assets/icons/icon_like.png'),
+                                          const SizedBox(width: 4),
+                                          Text(state.data[index].like
+                                              .toString()),
+                                          const SizedBox(width: 4),
+                                          Image.asset(
+                                              'assets/icons/icon_share.png'),
+                                          const SizedBox(width: 8),
+                                          Text(state.data[index].share
+                                              .toString()),
+                                        ],
+                                      ),
+                                    )
                                   ],
                                 ),
-                              )
-                            ],
-                          ),
+                              ),
+                            )
+                          ],
                         ),
-                      )
+                      ),
+                      const Divider()
                     ],
                   ),
-                ),
-                const Divider()
-              ],
-            ),
-            onTap: () {
-              Navigator.pushNamed(context, '/detailArtikel');
-            },
-          );
-        });
+                  onTap: () {
+                    Navigator.pushNamed(context, '/detailArtikel',
+                        arguments: index);
+                  },
+                );
+              });
+        }
+        return SizedBox();
+      },
+    );
   }
 }

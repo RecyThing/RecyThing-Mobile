@@ -43,7 +43,9 @@ class ProfileInformasiLainnya extends StatelessWidget {
             ),
             title: Text("Tanya Recy", style: ThemeFont.bodyNormalReguler),
             trailing: IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, '/recy');
+                },
                 icon: const Icon(
                   Icons.arrow_forward_ios,
                   size: 16,

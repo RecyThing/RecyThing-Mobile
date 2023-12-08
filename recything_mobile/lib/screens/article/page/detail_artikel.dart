@@ -21,15 +21,15 @@ class _DetailArtikelScreenState extends State<DetailArtikelScreen> {
             child: HeaderPageWidget(title: 'Detail Artikel'),
           ),
           const SizedBox(height: 24),
-          SizedBox(
-            height: 240,
-            width: double.infinity,
-            child: Image.asset(
-              'assets/images/artikel_plastik.png',
-              fit: BoxFit.cover,
-            ),
-          ),
-          const SizedBox(height: 24),
+          // SizedBox(
+          //   height: 240,
+          //   width: double.infinity,
+          //   child: Image.asset(
+          //     'assets/images/artikel_plastik.png',
+          //     fit: BoxFit.cover,
+          //   ),
+          // ),
+          // const SizedBox(height: 24),
           const KontenDetailArtikelWidget()
         ],
       ),
