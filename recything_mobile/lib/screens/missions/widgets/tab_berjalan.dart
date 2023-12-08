@@ -100,6 +100,14 @@ class TabBerjalan extends StatelessWidget {
                           )
                         ],
                       ),
+                      imageUrl: '',
+                      args: {
+                        'imageUrl': 'data.missionImage',
+                        'title': 'data.name',
+                        'expiredDate': 'data.endDate',
+                        'point': 'data.point',
+                        'desc': 'data.description'
+                      },
                     ),
                     const SizedBox(
                       height: 8,

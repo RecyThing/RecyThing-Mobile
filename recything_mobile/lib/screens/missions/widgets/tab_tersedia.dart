@@ -1,24 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:recything_mobile/bloc/get_missions/get_missions_cubit.dart';
 import 'package:recything_mobile/constants/pallete.dart';
 import 'package:recything_mobile/screens/missions/widgets/mission_card.dart';
 
 class TabTersedia extends StatelessWidget {
-  final cardDataTersedia = [
-    {
-      'title': 'Tukarkan 1 kg\nsampah',
-      'subTitle': 'Dapatkan 100 poin pertamamu!'
-    },
-    {
-      'title': 'Laporkan 3 pelaku\nPelanggaran sampah',
-      'subTitle': 'Dapatkan 300 poin!'
-    },
-    {
-      'title': 'Lingkungan yang\nlebih bersih!',
-      'subTitle': 'Dapatkan 500 poin!'
-    },
-    {'title': 'Tukarkan 2 kg\nSampah Logam', 'subTitle': 'Dapatkan 5000 poin!'}
-  ];
-
   TabTersedia({super.key});
 
   @override
@@ -37,27 +23,47 @@ class TabTersedia extends StatelessWidget {
           ),
         ),
         Expanded(
-          child: ListView.builder(
-              shrinkWrap: true,
-              padding: const EdgeInsets.all(16),
-              itemCount: cardDataTersedia.length,
-              itemBuilder: (context, index) {
-                var data = cardDataTersedia[index];
-                return Column(
-                  children: [
-                    MissionCard(
-                      title: data['title'] ?? '-',
-                      subTitle: Text(
-                        data['subTitle'] ?? '-',
-                        style: ThemeFont.bodySmallRegular,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 8,
-                    )
-                  ],
-                );
-              }),
+          child: BlocBuilder<GetMissionsCubit, GetMissionsState>(
+            builder: (context, state) {
+              if (state is GetMissionsLoaded) {
+                return ListView.builder(
+                    shrinkWrap: true,
+                    padding: const EdgeInsets.all(16),
+                    itemCount: state.missions.data.length,
+                    itemBuilder: (context, index) {
+                      var data = state.missions.data[index];
+                      return Column(
+                        children: [
+                          MissionCard(
+                            title: data.name,
+                            subTitle: Text(
+                              data.description,
+                              style: ThemeFont.bodySmallRegular,
+                            ),
+                            imageUrl: data.missionImage,
+                            args: {
+                              'imageUrl': data.missionImage,
+                              'title': data.name,
+                              'expiredDate': data.endDate,
+                              'point': data.point,
+                              'desc': data.description,
+                              'progressState': 'Aktif'
+                            },
+                          ),
+                          const SizedBox(
+                            height: 8,
+                          )
+                        ],
+                      );
+                    });
+              }
+
+              return Center(
+                  child: CircularProgressIndicator(
+                color: Pallete.main,
+              ));
+            },
+          ),
         )
       ],
     );

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:intl/intl.dart';
 import 'package:recything_mobile/constants/pallete.dart';
 import 'package:recything_mobile/screens/missions/widgets/custom_leading_app_bar.dart';
 import 'package:recything_mobile/widgets/forms/progress_state_box.dart';
@@ -13,10 +15,16 @@ class DetailMissionScreen extends StatefulWidget {
 }
 
 class _DetailMissionScreenState extends State<DetailMissionScreen> {
-  String progressState = 'Unggah Bukti';
-
   @override
   Widget build(BuildContext context) {
+    initializeDateFormatting();
+
+    final args =
+        ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>;
+    final formattedDate =
+        DateFormat("d MMMM y", "id_ID").format(args['expiredDate']);
+    String progressState = args['progressState'];
+
     return Scaffold(
       appBar: const CustomLeadingAppBar(title: 'Detail Misi'),
       body: ListView(
@@ -26,8 +34,9 @@ class _DetailMissionScreenState extends State<DetailMissionScreen> {
             width: double.infinity,
             height: 240,
             child: Image.network(
-                fit: BoxFit.cover,
-                'https://th-thumbnailer.cdn-si-edu.com/VfbEt333BHHvojYjzpms7_qeTU0=/1000x750/filters:no_upscale()/https://tf-cmsv2-smithsonianmag-media.s3.amazonaws.com/filer/f6/30/f6300fcc-c929-4e30-adaa-fc3b62a495a5/42-18260830edit.jpg'),
+              args['imageUrl'],
+              fit: BoxFit.cover,
+            ),
           ),
           const SizedBox(
             height: 16,
@@ -41,7 +50,7 @@ class _DetailMissionScreenState extends State<DetailMissionScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Buang Sampah',
+                      args['title'],
                       style: ThemeFont.bodyLargeMedium,
                     ),
                     progressState == 'verified'
@@ -71,7 +80,7 @@ class _DetailMissionScreenState extends State<DetailMissionScreen> {
                           height: 4,
                         ),
                         Text(
-                          '02 Desember 2023',
+                          formattedDate,
                           style: ThemeFont.bodySmallSemiBold
                               .copyWith(color: Pallete.main),
                         )
@@ -85,9 +94,7 @@ class _DetailMissionScreenState extends State<DetailMissionScreen> {
                           height: 4,
                         ),
                         Text(
-                          progressState == 'verified'
-                              ? '5.000 Poin'
-                              : '100 Poin',
+                          '${args['point']} Poin',
                           style: ThemeFont.bodySmallSemiBold
                               .copyWith(color: Pallete.secondary),
                         )
@@ -106,7 +113,7 @@ class _DetailMissionScreenState extends State<DetailMissionScreen> {
                   height: 8,
                 ),
                 Text(
-                  'Buanglah sampah yang berserakan pada\ntempatnya',
+                  args['desc'],
                   style: ThemeFont.bodySmallRegular,
                 ),
                 const SizedBox(
@@ -121,17 +128,19 @@ class _DetailMissionScreenState extends State<DetailMissionScreen> {
                     : SizedBox(
                         width: double.infinity,
                         child: MainButton(
-                            onPressed: progressState == 'Unggah Bukti'
-                                ? () => Navigator.pushNamed(
+                            onPressed: progressState == 'Aktif'
+                                ? () {}
+                                : () => Navigator.pushNamed(
                                             context, '/unggah-bukti')
                                         .then((value) {
                                       setState(() {
                                         progressState = value.toString();
                                       });
-                                    })
-                                : () {},
+                                    }),
                             child: Text(
-                              progressState,
+                              progressState == 'Aktif'
+                                  ? 'Terima Tantangan'
+                                  : 'Unggah Bukti',
                               style: ThemeFont.heading6Bold
                                   .copyWith(color: Colors.white),
                             )),
