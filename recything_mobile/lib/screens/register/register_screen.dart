@@ -294,7 +294,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       emailError = null;
       passwordError = null;
       password2Error = null;
-      if (emailController.text == "") {
+      if (nameController.text == "") {
         nameError = "Nama Tidak Boleh Kosong";
         isError = true;
       }

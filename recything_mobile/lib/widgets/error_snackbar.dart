@@ -96,8 +96,9 @@ class ErrorSnackbar {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       GestureDetector(
-                        onTap: () => ScaffoldMessenger.of(context)
-                            .removeCurrentSnackBar(),
+                        onTap: () {
+                          // ScaffoldMessenger.of(context).removeCurrentSnackBar();
+                        },
                         child: const Icon(
                           Icons.close,
                           color: Colors.white,

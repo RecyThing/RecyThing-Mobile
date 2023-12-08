@@ -96,8 +96,12 @@ class SuccessSnackbar {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       GestureDetector(
-                        onTap: () => ScaffoldMessenger.of(context)
-                            .removeCurrentSnackBar(),
+                        onTap: () {
+                          // if (context != null) {
+                          //   ScaffoldMessenger.of(context)
+                          //       .removeCurrentSnackBar();
+                          // }
+                        },
                         child: const Icon(
                           Icons.close,
                           color: Colors.white,

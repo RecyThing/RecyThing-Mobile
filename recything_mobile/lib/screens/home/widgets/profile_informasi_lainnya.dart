@@ -143,7 +143,7 @@ class ProfileInformasiLainnya extends StatelessWidget {
                                                 .loggedOut();
 
                                             Navigator.pushNamed(
-                                                context, '/login');
+                                                context, '/index');
                                           },
                                           child: const Text("Keluar")),
                                     ),
