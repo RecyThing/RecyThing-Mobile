@@ -4,8 +4,15 @@ import 'package:recything_mobile/constants/pallete.dart';
 class MissionCard extends StatelessWidget {
   final String title;
   final Widget subTitle;
+  final String imageUrl;
+  final Map<String, dynamic> args;
 
-  const MissionCard({super.key, required this.title, required this.subTitle});
+  const MissionCard(
+      {super.key,
+      required this.title,
+      required this.subTitle,
+      required this.imageUrl,
+      required this.args});
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +42,7 @@ class MissionCard extends StatelessWidget {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(12),
                   child: Image.network(
-                    'https://ichef.bbci.co.uk/news/976/cpsprodpb/1D11/production/_129014470_gettyimages-1402625142.jpg',
+                    imageUrl,
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -64,8 +71,8 @@ class MissionCard extends StatelessWidget {
           CircleAvatar(
             backgroundColor: Pallete.mainDarker,
             child: IconButton(
-                onPressed: () =>
-                    Navigator.pushNamed(context, '/detail-mission'),
+                onPressed: () => Navigator.pushNamed(context, '/detail-mission',
+                    arguments: args),
                 icon: const Icon(
                   Icons.arrow_forward_ios,
                   color: Colors.white,
