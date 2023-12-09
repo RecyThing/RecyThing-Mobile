@@ -31,6 +31,8 @@ class _DetailLokasiScreenState extends State<DetailLokasiScreen> {
             ),
           ],
         ),
-        bottomNavigationBar: const BottomDetailLokasiWidget());
+        bottomNavigationBar: BottomDetailLokasiWidget(
+          item: widget.item,
+        ));
   }
 }
