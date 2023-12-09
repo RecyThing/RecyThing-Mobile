@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 import 'package:recything_mobile/constants/pallete.dart';
 import 'package:recything_mobile/models/drop_points_model.dart';
+import 'package:recything_mobile/screens/article/page/detail_lokasi.dart';
 import 'package:recything_mobile/screens/article/theme/color_style.dart';
 
 class ListLokasiWidget extends StatelessWidget {
@@ -92,7 +93,10 @@ class ListLokasiWidget extends StatelessWidget {
                 ],
               ),
               onTap: () {
-                Navigator.pushNamed(context, '/detailLokasi');
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => DetailLokasiScreen(item: item)));
               },
             )
           ],

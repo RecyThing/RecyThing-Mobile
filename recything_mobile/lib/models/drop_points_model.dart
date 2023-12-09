@@ -31,12 +31,16 @@ class DropPointsModel {
   String id;
   String name;
   String address;
+  num? latitude;
+  num? longitude;
   List<ScheduleModel>? scheduleModel;
 
   DropPointsModel(
       {required this.id,
       required this.name,
       required this.address,
+      this.latitude,
+      this.longitude,
       this.scheduleModel});
 
   factory DropPointsModel.fromJson(Map<String, dynamic> json) =>
@@ -44,6 +48,8 @@ class DropPointsModel {
           id: json["id"] ?? "",
           name: json["name"],
           address: json["address"],
+          latitude: json["latitude"],
+          longitude: json["longitude"],
           scheduleModel: json["schedule"] == null
               ? []
               : List<ScheduleModel>.from(
@@ -63,19 +69,19 @@ class ScheduleModel {
   String day;
   String openTime;
   String closeTime;
-  bool closed;
+  bool? closed;
 
   ScheduleModel(
       {required this.day,
       required this.openTime,
       required this.closeTime,
-      required this.closed});
+      this.closed});
 
   factory ScheduleModel.fromJson(Map<String, dynamic> json) => ScheduleModel(
       day: json["day"] ?? " ",
       openTime: json["open_time"] ?? " ",
       closeTime: json["closeTime"] ?? " ",
-      closed: json["close"] ?? false);
+      closed: json["closed"]);
 
   Map<String, dynamic> toJson() => {
         "day": day,
