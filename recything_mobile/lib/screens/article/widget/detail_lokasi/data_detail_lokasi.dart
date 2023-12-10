@@ -1,42 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:recything_mobile/constants/pallete.dart';
+import 'package:recything_mobile/models/drop_points_model.dart';
 
 class DataDetailLokasiWidget extends StatelessWidget {
-  const DataDetailLokasiWidget({super.key});
+  final DropPointsModel item;
+  const DataDetailLokasiWidget({super.key, required this.item});
 
   @override
   Widget build(BuildContext context) {
+    CameraPosition _kGooglePlex = CameraPosition(
+        target: LatLng(
+            item.latitude?.toDouble() ?? 0, item.longitude?.toDouble() ?? 0),
+        zoom: 14);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Container(
-          decoration: const BoxDecoration(
-            color: Colors.white,
-            boxShadow: [
-              BoxShadow(
-                color: Color(0x26000000),
-                spreadRadius: 0,
-                blurRadius: 3,
-                offset: Offset(0, -2),
-              ),
-            ],
-          ),
-          child: Text(
-            '420 M',
-            style: ThemeFont.interText.copyWith(
-                fontSize: 12, fontWeight: FontWeight.w500, color: Pallete.main),
-            textAlign: TextAlign.left,
-          ),
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height * 0.2,
+          child: GoogleMap(
+              mapType: MapType.terrain, initialCameraPosition: _kGooglePlex),
         ),
         const SizedBox(height: 12),
         Text(
-          'Ruko Gajah Mada Padang',
+          item.name,
           style: ThemeFont.bodyNormalSemiBold,
         ),
         const SizedBox(height: 4),
         Text(
-          'Jl. Gajah Mada, Kp. Olo, Kec. Naggalo, Kota Padang, Sumatera Barat',
+          item.address,
           style: ThemeFont.bodySmallRegular,
         ),
         const SizedBox(height: 12),
@@ -46,103 +41,30 @@ class DataDetailLokasiWidget extends StatelessWidget {
           'Jam Operasional',
           style: ThemeFont.bodySmallSemiBold,
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              'Senin',
-              style: ThemeFont.bodySmallRegular,
-            ),
-            Text(
-              '09:00 - 18:30 (WIB)',
-              style: ThemeFont.bodySmallRegular,
-            ),
-          ],
-        ),
-        const SizedBox(height: 2),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              'Selasa',
-              style: ThemeFont.bodySmallRegular,
-            ),
-            Text(
-              '09:00 - 18:30 (WIB)',
-              style: ThemeFont.bodySmallRegular,
-            ),
-          ],
-        ),
-        const SizedBox(height: 2),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              'Rabu',
-              style: ThemeFont.bodySmallRegular,
-            ),
-            Text(
-              '09:00 - 18:30 (WIB)',
-              style: ThemeFont.bodySmallRegular,
-            ),
-          ],
-        ),
-        const SizedBox(height: 2),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              'Kamis',
-              style: ThemeFont.bodySmallRegular,
-            ),
-            Text(
-              '09:00 - 18:30 (WIB)',
-              style: ThemeFont.bodySmallRegular,
-            ),
-          ],
-        ),
-        const SizedBox(height: 2),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              'Jumat',
-              style: ThemeFont.bodySmallSemiBold,
-            ),
-            Text(
-              '09:00 - 18:30 (WIB)',
-              style: ThemeFont.bodySmallSemiBold,
-            ),
-          ],
-        ),
-        const SizedBox(height: 2),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              'Sabtu',
-              style: ThemeFont.bodySmallRegular,
-            ),
-            Text(
-              '09:00 - 18:30 (WIB)',
-              style: ThemeFont.bodySmallRegular,
-            ),
-          ],
-        ),
-        const SizedBox(height: 2),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              'Minggu',
-              style: ThemeFont.bodySmallRegular,
-            ),
-            Text(
-              '09:00 - 18:30 (WIB)',
-              style: ThemeFont.bodySmallRegular,
-            ),
-          ],
-        )
+        ListView.builder(
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+            itemCount: item.scheduleModel?.length ?? 0,
+            itemBuilder: (context, index) {
+              return Padding(
+                padding: const EdgeInsets.symmetric(vertical: 4),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "${item.scheduleModel?[index].day[0].toUpperCase()}${item.scheduleModel?[index].day.substring(1)}",
+                      style: ThemeFont.bodySmallRegular,
+                    ),
+                    Text(
+                      item.scheduleModel?[index].closed == true
+                          ? "Tutup"
+                          : '${item.scheduleModel?[index].openTime}-${item.scheduleModel?[0].closeTime} (WIB)',
+                      style: ThemeFont.bodySmallRegular,
+                    ),
+                  ],
+                ),
+              );
+            }),
       ],
     );
   }

@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recything_mobile/bloc/auth/auth_cubit.dart';
 import 'package:recything_mobile/bloc/forgot_password/forgot_password_cubit.dart';
 import 'package:recything_mobile/bloc/get_ai/get_ai_cubit.dart';
+import 'package:recything_mobile/bloc/get_all_drop_point/get_all_drop_point_cubit.dart';
 import 'package:recything_mobile/bloc/get_history_report_by_id/get_history_report_by_id_cubit.dart';
 import 'package:recything_mobile/bloc/get_missions/get_missions_cubit.dart';
 import 'package:recything_mobile/bloc/get_report_hisstory/get_report_history_cubit.dart';
@@ -21,7 +22,6 @@ import 'package:recything_mobile/screens/article/page/artikel_by_kategori.dart';
 import 'package:recything_mobile/screens/article/page/cari_artikel.dart';
 import 'package:recything_mobile/screens/article/page/daftar_lokasi.dart';
 import 'package:recything_mobile/screens/article/page/detail_artikel.dart';
-import 'package:recything_mobile/screens/article/page/detail_lokasi.dart';
 import 'package:recything_mobile/screens/article/page/kategori_daur_ulang_screen.dart';
 import 'package:recything_mobile/screens/dashboard.dart';
 import 'package:recything_mobile/screens/home/pages/notifikasi_screen.dart';
@@ -88,6 +88,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => GetVouchersCubit()),
         BlocProvider(create: (_) => PostReportLitteringCubit()),
         BlocProvider(create: (_) => GetMissionsCubit()),
+        BlocProvider(create: (_) => GetAllDropPointCubit())
       ],
       child: MaterialApp(
         locale: DevicePreview.locale(context),
@@ -100,8 +101,8 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.white),
           useMaterial3: true,
         ),
-        initialRoute: '/splash',
-        // home: const IndexScreen(),
+        initialRoute: '/index',
+        home: const IndexScreen(),
         routes: {
           '/index': (context) => const IndexScreen(),
           '/splash': (context) => const SplashScreen(),
@@ -135,7 +136,6 @@ class MyApp extends StatelessWidget {
           '/kategoriDaurUlang': (context) => const KategoriDaurUlangScreen(),
           '/cariArtikel': (context) => const CariArtikelScreen(),
           '/daftarLokasi': (context) => const DaftarLokasiScreen(),
-          '/detailLokasi': (context) => const DetailLokasiScreen(),
           '/detailArtikel': (context) => const DetailArtikelScreen(),
         },
       ),

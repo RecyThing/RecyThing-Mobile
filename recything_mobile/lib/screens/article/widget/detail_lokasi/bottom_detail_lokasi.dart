@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
+import 'package:maps_launcher/maps_launcher.dart';
+import 'package:recything_mobile/models/drop_points_model.dart';
 import '../../../../constants/pallete.dart';
 
 class BottomDetailLokasiWidget extends StatelessWidget {
-  const BottomDetailLokasiWidget({super.key});
+  final DropPointsModel item;
+  const BottomDetailLokasiWidget({super.key, required this.item});
 
   @override
   Widget build(BuildContext context) {
@@ -91,7 +94,10 @@ class BottomDetailLokasiWidget extends StatelessWidget {
                 style: ThemeFont.heading6Bold.copyWith(color: Colors.white),
               )),
             ),
-            onTap: () {},
+            onTap: () {
+              MapsLauncher.launchCoordinates(item.latitude?.toDouble() ?? 0,
+                  item.longitude?.toDouble() ?? 0);
+            },
           ),
         ],
       ),
