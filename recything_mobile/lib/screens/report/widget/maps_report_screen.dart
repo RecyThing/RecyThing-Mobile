@@ -12,8 +12,8 @@ import 'package:recything_mobile/screens/report/report-rubbish/report_rubbish_sc
 import 'package:recything_mobile/screens/report/report_littering/pelanggaran_besar_screen.dart';
 import 'package:recything_mobile/screens/report/report_littering/pelanggaran_kecil_screen.dart';
 import 'package:recything_mobile/screens/report/widget/main_button_widget.dart';
+import 'package:recything_mobile/screens/report/widget/maps_places.dart';
 import 'package:recything_mobile/screens/report/widget/text_field_report.dart';
-import 'package:recything_mobile/services/map_service.dart';
 
 class MapsReportScreen extends StatefulWidget {
   final String reportType;
@@ -25,7 +25,7 @@ class MapsReportScreen extends StatefulWidget {
 }
 
 class _MapsReportScreenState extends State<MapsReportScreen> {
-  TextEditingController _searchController = TextEditingController();
+  final FocusNode _searchFocusNode = FocusNode();
   Completer<GoogleMapController> _controller = Completer();
 
   Position? _currentPosition;
@@ -192,6 +192,12 @@ class _MapsReportScreenState extends State<MapsReportScreen> {
     super.initState();
   }
 
+  @override
+  void dispose() {
+    _searchFocusNode.dispose();
+    super.dispose();
+  }
+
   /// Menyimpan marker pada peta
   final Map<String, Marker> _markers = {};
 
@@ -256,21 +262,18 @@ class _MapsReportScreenState extends State<MapsReportScreen> {
             Positioned(
               top: 13,
               left: 81,
-              right: 80,
+              right: 16,
               child: TextFieldReport(
-                controller: _searchController,
+                focusNode: _searchFocusNode,
                 prefixIcon: IconlyLight.search,
                 hintText: 'Cari disini',
-              ),
-            ),
-            Positioned(
-              top: 13,
-              right: 16,
-              child: IconButton(
                 onPressed: () {
-                  LocationService().getPlace(_searchController.text);
+                  _searchFocusNode.unfocus();
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => MapsPlacesScreen()));
                 },
-                icon: Icon(Icons.search),
               ),
             ),
             Positioned(
