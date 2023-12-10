@@ -107,6 +107,7 @@ class _PoinkuTabarState extends State<PoinkuTabar>
                           point: dataIndexed.point.toString(),
                           expiredDate: dataIndexed.endDate,
                           description: dataIndexed.description,
+                          id: dataIndexed.id,
                         );
                       } else {
                         Timer(Duration(milliseconds: 30), () {

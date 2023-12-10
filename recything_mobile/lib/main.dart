@@ -16,6 +16,7 @@ import 'package:recything_mobile/bloc/login/login_cubit.dart';
 import 'package:recything_mobile/bloc/get_all_faq/get_all_faq_cubit.dart';
 import 'package:recything_mobile/bloc/post_report/post_report_rubbish_cubit.dart';
 import 'package:recything_mobile/bloc/post_report_littering/post_report_littering_cubit.dart';
+import 'package:recything_mobile/bloc/post_voucher/post_voucher_cubit.dart';
 import 'package:recything_mobile/bloc/update_user_profile/update_user_profile_cubit.dart';
 import 'package:recything_mobile/bloc/register/register_cubit.dart';
 import 'package:recything_mobile/bloc/update_password/update_password_cubit.dart';
@@ -39,7 +40,6 @@ import 'package:recything_mobile/screens/onboarding/onboarding_screen.dart';
 import 'package:recything_mobile/screens/password_baru/password_baru_screen.dart';
 import 'package:recything_mobile/screens/poinku/pages/detail_transaksi_screen.dart';
 import 'package:recything_mobile/screens/poinku/pages/detail_voucher_screen.dart';
-import 'package:recything_mobile/screens/poinku/pages/tukar_voucher_screen.dart';
 import 'package:recything_mobile/screens/recy/pages/recy_ai_screen.dart';
 import 'package:recything_mobile/screens/register/register_screen.dart';
 import 'package:recything_mobile/screens/report/choose_report_screen.dart';
@@ -90,7 +90,8 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => GetMissionsCubit()),
         BlocProvider(create: (_) => GetAllDropPointCubit()),
         BlocProvider(create: (_) => GetLencanaCubit()),
-        BlocProvider(create: (_) => GetHistoryPoinCubit())
+        BlocProvider(create: (_) => GetHistoryPoinCubit()),
+        BlocProvider(create: (_) => PostVoucherCubit())
       ],
       child: MaterialApp(
         locale: DevicePreview.locale(context),
@@ -117,7 +118,6 @@ class MyApp extends StatelessWidget {
           '/profile': (context) => const ProfileScreen(),
           '/notif': (context) => const NotifikasiScreen(),
           '/detailVoucher': (context) => const DetailVoucherScreen(),
-          '/tukarVoucher': (context) => const TukatVoucherScreen(),
           '/detailTransaksi': (context) => const DetailTransaksiScreen(),
           '/register': (context) => const RegisterScreen(),
           '/reset_password': (context) => const ResetPasswordScreen(),

@@ -1,7 +1,9 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 import 'package:recything_mobile/constants/api.dart';
 import 'package:recything_mobile/models/get_vouchers_model.dart';
+import 'package:recything_mobile/services/base_service.dart';
 import 'package:recything_mobile/services/shared_pref_service.dart';
 
 class GetVouchersRepo {
@@ -25,5 +27,18 @@ class GetVouchersRepo {
       Logger().e(e.response);
       throw Exception(e);
     }
+  }
+}
+
+class voucherRepo extends BaseService {
+  Future<String> postVoucher(
+      {required BuildContext context,
+      required String id,
+      required String phone}) async {
+    final res = await request(context, '/vouchers',
+        requestType: RequestType.post,
+        data: {"id_voucher": id, "phone": phone});
+    Logger().i(res);
+    return res.data["message"];
   }
 }
