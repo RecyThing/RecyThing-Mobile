@@ -7,6 +7,7 @@ class UserModel {
   String phone;
   String address;
   String purpose;
+  String? badge;
 
   UserModel(
       {required this.id,
@@ -16,7 +17,8 @@ class UserModel {
       required this.point,
       required this.phone,
       required this.address,
-      required this.purpose});
+      required this.purpose,
+      this.badge});
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
       id: json["id"] ?? "",
       fullname: json["fullname"] ?? "",
@@ -25,7 +27,8 @@ class UserModel {
       point: json["point"] ?? 0,
       phone: json["phone"] ?? "",
       address: json["address"] ?? "",
-      purpose: json["purpose"] ?? "");
+      purpose: json["purpose"] ?? "",
+      badge: json["badge"] ?? "");
 
   Map<String, dynamic> toJson() => {
         "id": id,
@@ -35,6 +38,7 @@ class UserModel {
         "point": point,
         "phone": phone,
         "address": address,
-        "purpose": purpose
+        "purpose": purpose,
+        "badge": badge
       };
 }

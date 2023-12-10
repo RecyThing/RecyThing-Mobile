@@ -38,7 +38,9 @@ class HomePoinCard extends StatelessWidget {
                   style:
                       ThemeFont.interText.copyWith(fontWeight: FontWeight.w400),
                 ),
-                const CustomTeks(name: "Gold", color: Pallete.secondaryDarker)
+                CustomTeks(
+                    name: user.badge ?? "bronze",
+                    color: _getBadgeColor(user.badge ?? "bronze"))
               ],
             ),
             const SizedBox(
@@ -86,5 +88,20 @@ class HomePoinCard extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+Color _getBadgeColor(String badge) {
+  switch (badge) {
+    case 'platinum':
+      return Pallete.platinum;
+    case 'gold':
+      return Pallete.gold;
+    case 'silver':
+      return Pallete.silver;
+    case 'bronze':
+      return Pallete.bronze;
+    default:
+      return Pallete.secondaryDarker;
   }
 }

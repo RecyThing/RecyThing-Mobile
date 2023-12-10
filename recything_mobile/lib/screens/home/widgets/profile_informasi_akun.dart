@@ -106,24 +106,37 @@ class ProfileInformasiAkun extends StatelessWidget {
                       builder: (context) => LencanaScreen(user: user)));
             },
             child: ListTile(
-              contentPadding: const EdgeInsets.symmetric(horizontal: 0.0),
-              leading: Image.asset(
-                "assets/icons/profile/lencana.png",
-                width: 24,
-              ),
-              title: Text(
-                "Lencana",
-                style: ThemeFont.bodyNormalReguler,
-              ),
-              trailing: const CustomTeks(
-                name: "Gold",
-                color: Pallete.secondaryDarker,
-              ),
-            ),
+                contentPadding: const EdgeInsets.symmetric(horizontal: 0.0),
+                leading: Image.asset(
+                  "assets/icons/profile/lencana.png",
+                  width: 24,
+                ),
+                title: Text(
+                  "Lencana",
+                  style: ThemeFont.bodyNormalReguler,
+                ),
+                trailing: CustomTeks(
+                    name: user.badge ?? "bronze",
+                    color: _getBadgeColor(user.badge ?? "bronze"))),
           ),
           const Divider()
         ],
       ),
     );
+  }
+}
+
+Color _getBadgeColor(String badge) {
+  switch (badge) {
+    case 'platinum':
+      return Pallete.platinum;
+    case 'gold':
+      return Pallete.gold;
+    case 'silver':
+      return Pallete.silver;
+    case 'bronze':
+      return Pallete.bronze;
+    default:
+      return Pallete.secondaryDarker;
   }
 }
