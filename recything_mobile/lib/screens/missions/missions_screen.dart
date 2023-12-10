@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:recything_mobile/bloc/get_missions/get_missions_cubit.dart';
 import 'package:recything_mobile/constants/pallete.dart';
 import 'package:recything_mobile/screens/missions/widgets/custom_app_bar.dart';
 import 'package:recything_mobile/screens/missions/widgets/tab_berjalan.dart';
@@ -22,7 +20,6 @@ class _MissionsScreenState extends State<MissionsScreen>
   void initState() {
     super.initState();
     _tabController = TabController(length: 3, vsync: this);
-    context.read<GetMissionsCubit>().getMissions();
   }
 
   @override

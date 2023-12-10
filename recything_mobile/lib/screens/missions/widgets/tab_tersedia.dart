@@ -4,8 +4,19 @@ import 'package:recything_mobile/bloc/get_missions/get_missions_cubit.dart';
 import 'package:recything_mobile/constants/pallete.dart';
 import 'package:recything_mobile/screens/missions/widgets/mission_card.dart';
 
-class TabTersedia extends StatelessWidget {
+class TabTersedia extends StatefulWidget {
   TabTersedia({super.key});
+
+  @override
+  State<TabTersedia> createState() => _TabTersediaState();
+}
+
+class _TabTersediaState extends State<TabTersedia> {
+  @override
+  void initState() {
+    context.read<GetMissionsCubit>().getMissions();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

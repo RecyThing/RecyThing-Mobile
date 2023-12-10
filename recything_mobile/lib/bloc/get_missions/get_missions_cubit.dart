@@ -8,13 +8,23 @@ part 'get_missions_state.dart';
 class GetMissionsCubit extends Cubit<GetMissionsState> {
   GetMissionsCubit() : super(GetMissionsInitial());
   final _getMissionsRepo = GetMissionsRepo();
+  GetMissionsModel? missionsData;
 
-  void getMissions() async {
+  void getMissions({String? filter}) async {
     emit(GetMissionsLoading());
 
     try {
-      final missionsData = await _getMissionsRepo.getMissions();
-      emit(GetMissionsLoaded(missions: missionsData));
+      if (filter == 'berjalan') {
+        missionsData = await _getMissionsRepo.getMissions(filter: 'berjalan');
+      } else if (filter == 'selesai') {
+        missionsData = await _getMissionsRepo.getMissions(filter: 'selesai');
+      } else {
+        missionsData = await _getMissionsRepo.getMissions();
+      }
+
+      emit(GetMissionsLoaded(
+          missions: missionsData ??
+              GetMissionsModel(status: false, message: 'message', data: [])));
     } catch (e) {
       emit(GetMissionsFailed());
     }
