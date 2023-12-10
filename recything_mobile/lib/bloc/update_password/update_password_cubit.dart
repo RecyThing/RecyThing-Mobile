@@ -8,20 +8,31 @@ class UpdatePasswordCubit extends Cubit<UpdatePasswordState> {
   UpdatePasswordCubit() : super(UpdatePasswordInitial());
   final _updatePasswordRepo = UpdatePasswordRepo();
 
+  void resetState() {
+    emit(UpdatePasswordInitial());
+  }
+
   void updatePassword(
       {required String password,
       required String newPassword,
       required String confirmPassword}) async {
     emit(UpdatePasswordLoading());
-    try {
-      await _updatePasswordRepo.updatePassword(
-          password: password,
-          newPassword: newPassword,
-          confirmPassword: confirmPassword);
-      emit(UpdatePasswordSuccess());
-    } catch (e) {
-      emit(UpdatePasswordFailed(errorMsg: e.toString()));
-      throw Exception(e);
+
+    if (password == newPassword &&
+        password.isNotEmpty &&
+        newPassword.isNotEmpty) {
+      emit(UpdatePasswordIdentical(errorMsg: 'Kata sandi baru harus berbeda'));
+    } else {
+      try {
+        await _updatePasswordRepo.updatePassword(
+            password: password,
+            newPassword: newPassword,
+            confirmPassword: confirmPassword);
+        emit(UpdatePasswordSuccess());
+      } catch (e) {
+        emit(UpdatePasswordFailed(errorMsg: e.toString()));
+        throw Exception(e);
+      }
     }
   }
 }

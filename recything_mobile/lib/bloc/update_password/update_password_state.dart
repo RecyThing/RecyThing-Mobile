@@ -13,6 +13,15 @@ final class UpdatePasswordLoading extends UpdatePasswordState {}
 
 final class UpdatePasswordSuccess extends UpdatePasswordState {}
 
+final class UpdatePasswordIdentical extends UpdatePasswordState {
+  final String errorMsg;
+
+  const UpdatePasswordIdentical({required this.errorMsg});
+
+  @override
+  List<Object> get props => [errorMsg];
+}
+
 final class UpdatePasswordFailed extends UpdatePasswordState {
   final String errorMsg;
 
