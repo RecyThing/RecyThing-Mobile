@@ -19,15 +19,37 @@ class _ImagePickerButtonState extends State<ImagePickerButton> {
   List<XFile>? selectedImages = [];
 
   Future<void> pickImage() async {
+    var maxFileSizeInBytes = 2 * 1048576;
     final imagePicker = ImagePicker();
     final pickedImages = await imagePicker.pickMultiImage();
 
     if (pickedImages != null) {
+      List<XFile> validImages = [];
+
+      for (var pickedImage in pickedImages) {
+        var imagePath = await pickedImage.readAsBytes();
+        var fileSize = imagePath.length;
+
+        if (fileSize <= maxFileSizeInBytes) {
+          validImages.add(pickedImage);
+        } else {
+          SnackBar(content: Text('ukuran gambar melebihi 2MB')); //snackbar nggak muncul
+          print('File is too large: ${pickedImage.path}');
+        }
+      }
+
       setState(() {
-        selectedImages!.addAll(pickedImages);
+        selectedImages!.addAll(validImages);
       });
+
       widget.onImagesSelected(selectedImages);
     }
+    // if (pickedImages != null) {
+    //   setState(() {
+    //     selectedImages!.addAll(pickedImages);
+    //   });
+    //   widget.onImagesSelected(selectedImages);
+    // }
   }
 
   void removeImage(int index) {

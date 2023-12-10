@@ -7,10 +7,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:recything_mobile/bloc/post_report/post_report_rubbish_cubit.dart';
 import 'package:recything_mobile/bloc/post_report/post_report_rubbish_state.dart';
 import 'package:recything_mobile/constants/pallete.dart';
-import 'package:recything_mobile/models/report_model.dart';
-import 'package:recything_mobile/screens/report/widget/image_picker_button.dart';
+import 'package:recything_mobile/screens/report/widget/file_picker_button.dart';
 import 'package:recything_mobile/screens/report/widget/checkbox_report.dart';
-import 'package:recything_mobile/screens/report/widget/main_button_widget.dart';
 import 'package:recything_mobile/screens/report/widget/maps_report_screen.dart';
 import 'package:recything_mobile/screens/report/widget/text_field_report.dart';
 import 'package:recything_mobile/widgets/forms/main_button.dart';
@@ -18,8 +16,8 @@ import 'package:recything_mobile/widgets/forms/success_screen.dart';
 
 class ReportRubbishScreen extends StatefulWidget {
   final String? locationAddress;
-  final double? latitude;
-  final double? longitude;
+  final String? latitude;
+  final String? longitude;
 
   const ReportRubbishScreen({
     Key? key,
@@ -33,49 +31,25 @@ class ReportRubbishScreen extends StatefulWidget {
 }
 
 class _ReportRubbishScreenState extends State<ReportRubbishScreen> {
-  bool isCheckedKering = false;
-  bool isCheckedBasah = false;
-  List<XFile>? selectedImages;
+  List<File> selectedImages = [];
+  late FilePickerButton imagePickerButton;
 
   TextEditingController lokasiPatokanController = TextEditingController();
   TextEditingController kondisiSampahController = TextEditingController();
 
-  late ImagePickerButton imagePickerButton;
-
-  String getTrashType() {
-    if (isCheckedKering && isCheckedBasah) {
-      return 'Sampah Kering dan Basah';
-    } else if (isCheckedKering) {
-      return 'Sampah Kering';
-    } else if (isCheckedBasah) {
-      return 'Sampah Basah';
-    } else {
-      return '';
-    }
-  }
-
   @override
   void initState() {
     super.initState();
-    imagePickerButton = ImagePickerButton(
-      onImagesSelected: (List<XFile>? images) {
+    imagePickerButton = FilePickerButton(
+      onImagesSelected: (List<File>? images) {
         setState(() {
-          selectedImages = images;
+          selectedImages = images ?? [];
         });
+        return null;
       },
     );
   }
 
-  // List<ImageModel> convertImagesToModel(List<XFile>? selectedImages) {
-  //   if (selectedImages == null) return [];
-
-  //   DateTime now = DateTime.now();
-
-  //   return selectedImages.map((image) {
-  //     return ImageModel(
-  //         id: '', image: image.path, createdAt: now, updatedAt: now);
-  //   }).toList();
-  // }
   List<File>? convertImagesToFiles(List<XFile>? selectedImages) {
     if (selectedImages == null) return null;
 
@@ -173,7 +147,12 @@ class _ReportRubbishScreenState extends State<ReportRubbishScreen> {
                         onChanged: (bool? value) {
                           context
                               .read<PostReportRubbishCubit>()
-                              .toggleCheckboxKering();
+                              .toggleCheckboxKering(value!);
+                          print('Kering = ' +
+                              context
+                                  .read<PostReportRubbishCubit>()
+                                  .isCheckedKering
+                                  .toString());
                         },
                       ),
                       const SizedBox(
@@ -184,7 +163,12 @@ class _ReportRubbishScreenState extends State<ReportRubbishScreen> {
                         onChanged: (bool? value) {
                           context
                               .read<PostReportRubbishCubit>()
-                              .toggleCheckboxBasah();
+                              .toggleCheckboxBasah(value!);
+                          print('Basah = ' +
+                              context
+                                  .read<PostReportRubbishCubit>()
+                                  .isCheckedBasah
+                                  .toString());
                         },
                       )
                     ],
@@ -280,17 +264,14 @@ class _ReportRubbishScreenState extends State<ReportRubbishScreen> {
                                     context: context,
                                     reportType: "tumpukan sampah",
                                     location: widget.locationAddress ?? "",
-                                    latitude: widget.latitude ?? 0.0,
-                                    longitude: widget.longitude ?? 0.0,
+                                    latitude: widget.latitude ?? "0",
+                                    longitude: widget.longitude ?? "0",
                                     addressPoint: lokasiPatokanController.text,
-                                    trashType: "sampah kering",
-                                    // isCheckedKering
-                                    //     ? 'Sampah Kering'
-                                    //     : isCheckedBasah
-                                    //         ? 'Sampah Basah'
-                                    //         : '',
+                                    trashType: context
+                                        .read<PostReportRubbishCubit>()
+                                        .getTrashType(),
                                     desc: kondisiSampahController.text,
-                                    images: selectedImages!,
+                                    images: selectedImages,
                                   );
                             },
                           ),

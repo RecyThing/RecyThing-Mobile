@@ -12,6 +12,7 @@ import 'package:recything_mobile/screens/report/report-rubbish/report_rubbish_sc
 import 'package:recything_mobile/screens/report/report_littering/pelanggaran_besar_screen.dart';
 import 'package:recything_mobile/screens/report/report_littering/pelanggaran_kecil_screen.dart';
 import 'package:recything_mobile/screens/report/widget/main_button_widget.dart';
+import 'package:recything_mobile/screens/report/widget/maps_places.dart';
 import 'package:recything_mobile/screens/report/widget/text_field_report.dart';
 
 class MapsReportScreen extends StatefulWidget {
@@ -24,25 +25,29 @@ class MapsReportScreen extends StatefulWidget {
 }
 
 class _MapsReportScreenState extends State<MapsReportScreen> {
+  final FocusNode _searchFocusNode = FocusNode();
   Completer<GoogleMapController> _controller = Completer();
 
   Position? _currentPosition;
   String? _currentAddress;
   MarkerId? _selectedMarkerId;
 
+  /// Mendapatkan lokasi saat ini dengan izin lokasi
   Future<void> _getCurrentPosition() async {
     PermissionStatus status = await _handleLocationPermission(context);
 
     if (status == PermissionStatus.granted) {
       try {
+        /// Mendaparkan posisi saat ini (geolocator)
         Position position = await Geolocator.getCurrentPosition(
           desiredAccuracy: LocationAccuracy.high,
         );
         setState(() {
           _currentPosition = position;
-          _getAddress(position);
+          _getAddress(position); // get alamat saat ini
         });
 
+        /// Menganimasikan kamera ke lokasi saat ini
         if (_controller.isCompleted) {
           final controller = await _controller.future;
           controller.animateCamera(
@@ -57,10 +62,12 @@ class _MapsReportScreenState extends State<MapsReportScreen> {
     }
   }
 
+  /// Izin Lokasi
   Future<PermissionStatus> _handleLocationPermission(
       BuildContext context) async {
     PermissionStatus status = await Permission.location.request();
 
+    /// Jika izin di tolak
     if (status == PermissionStatus.denied) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
@@ -68,6 +75,8 @@ class _MapsReportScreenState extends State<MapsReportScreen> {
               'Izin lokasi ditolak. Aktifkan izin di pengaturan aplikasi.'),
         ),
       );
+
+      /// Jika izin ditolak permanen
     } else if (status == PermissionStatus.permanentlyDenied) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
@@ -75,6 +84,8 @@ class _MapsReportScreenState extends State<MapsReportScreen> {
               'Izin lokasi ditolak secara permanen. Buka pengaturan aplikasi untuk mengaktifkan izin.'),
         ),
       );
+
+      /// Jika izin hanya sekali
     } else if (status == PermissionStatus.granted) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
@@ -86,6 +97,7 @@ class _MapsReportScreenState extends State<MapsReportScreen> {
     return status;
   }
 
+  /// Mendapatkan alamat dari posisi
   Future<void> _getAddress(Position position) async {
     await placemarkFromCoordinates(position.latitude, position.longitude)
         .then((List<Placemark> listPlacemark) {
@@ -98,6 +110,7 @@ class _MapsReportScreenState extends State<MapsReportScreen> {
     });
   }
 
+  /// Memperbarui alamat dan navigasi ke halaman berikutnya
   Future<void> _updateAddress() async {
     if (_currentPosition != null) {
       await _getAddress(_currentPosition!);
@@ -108,19 +121,9 @@ class _MapsReportScreenState extends State<MapsReportScreen> {
           MaterialPageRoute(
             builder: (context) => ReportRubbishScreen(
               locationAddress: _currentAddress,
+              latitude: _currentPosition?.latitude.toString(),
+              longitude: _currentPosition?.longitude.toString(),
             ),
-          ),
-        );
-      } else if (widget.reportType == 'pelanggaran-kecil') {
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(
-            builder: (context) => const LitteringKecilScreen(),
-          ),
-        );
-      } else if (widget.reportType == 'pelanggaran-besar') {
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(
-            builder: (context) => const LitteringBesarScreen(),
           ),
         );
       } else if (widget.reportType == 'littering') {
@@ -147,6 +150,7 @@ class _MapsReportScreenState extends State<MapsReportScreen> {
     }
   }
 
+  /// Memperbarui marker pada peta
   void _updateMarker(Position position) {
     setState(() {
       _markers.clear();
@@ -161,12 +165,14 @@ class _MapsReportScreenState extends State<MapsReportScreen> {
     });
   }
 
+  /// Memilih marker pada peta
   void _selectMarker(String markerId) {
     setState(() {
       _selectedMarkerId = MarkerId(markerId);
     });
   }
 
+  /// Menggerakkan kamera ke lokasi saat ini pada peta
   void _goToCurrentPosition() {
     _controller.future.then((controller) {
       controller.animateCamera(
@@ -186,34 +192,22 @@ class _MapsReportScreenState extends State<MapsReportScreen> {
     super.initState();
   }
 
+  @override
+  void dispose() {
+    _searchFocusNode.dispose();
+    super.dispose();
+  }
+
+  /// Menyimpan marker pada peta
   final Map<String, Marker> _markers = {};
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   leading: const Padding(
-      //     padding: EdgeInsets.only(left: 16),
-      //     child: CustomBackButton(),
-      //   ),
-      //   title: const Padding(
-      //     padding: EdgeInsets.only(right: 16),
-      //     child: SizedBox(
-      //       width: 263,
-      //       height: 56,
-      //       child: TextFieldReport(
-      //         prefixIcon: IconlyLight.search,
-      //         hintText: 'Cari disini',
-      //       ),
-      //     ),
-      //   ),
-      //   backgroundColor: Colors.transparent,
-      // ),
       body: SafeArea(
         child: Stack(
           children: [
             GoogleMap(
-              // myLocationEnabled: true,
               zoomGesturesEnabled: true,
               zoomControlsEnabled: false,
               initialCameraPosition: _currentPosition != null
@@ -225,7 +219,6 @@ class _MapsReportScreenState extends State<MapsReportScreen> {
                       ),
                     )
                   : const CameraPosition(target: LatLng(0.0, 0.0), zoom: 18),
-
               markers: _markers.values.toSet(),
               onTap: (LatLng position) {
                 _selectMarker('');
@@ -266,28 +259,37 @@ class _MapsReportScreenState extends State<MapsReportScreen> {
             const SizedBox(
               width: 9,
             ),
-            const Positioned(
+            Positioned(
               top: 13,
               left: 81,
               right: 16,
               child: TextFieldReport(
+                focusNode: _searchFocusNode,
                 prefixIcon: IconlyLight.search,
                 hintText: 'Cari disini',
+                onPressed: () {
+                  _searchFocusNode.unfocus();
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => MapsPlacesScreen()));
+                },
               ),
             ),
             Positioned(
-                bottom: 24,
-                left: 16,
-                right: 16,
-                child: MainButtonWidget(
-                    onPressed: () {
-                      _updateAddress();
-                    },
-                    child: Text(
-                      'Selanjutnya',
-                      style:
-                          ThemeFont.heading6Bold.copyWith(color: Colors.white),
-                    ))),
+              bottom: 24,
+              left: 16,
+              right: 16,
+              child: MainButtonWidget(
+                onPressed: () {
+                  _updateAddress();
+                },
+                child: Text(
+                  'Selanjutnya',
+                  style: ThemeFont.heading6Bold.copyWith(color: Colors.white),
+                ),
+              ),
+            ),
             Positioned(
               bottom: 96,
               right: 16,

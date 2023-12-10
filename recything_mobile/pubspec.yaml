@@ -70,7 +70,7 @@ dependencies:
   webview_flutter: ^4.4.2
   another_flushbar: ^1.12.30
   maps_launcher: ^2.2.0
-
+  uuid: ^4.2.1
 
 dev_dependencies:
   flutter_test:
