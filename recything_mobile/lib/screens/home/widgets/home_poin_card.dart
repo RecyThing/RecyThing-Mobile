@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:recything_mobile/constants/pallete.dart';
+import 'package:recything_mobile/models/user_model.dart';
 import 'package:recything_mobile/widgets/forms/custom_teks.dart';
 import 'package:recything_mobile/widgets/forms/main_button.dart';
 
 class HomePoinCard extends StatelessWidget {
-  const HomePoinCard({super.key});
+  final UserModel user;
+  const HomePoinCard({super.key, required this.user});
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +45,7 @@ class HomePoinCard extends StatelessWidget {
               height: 8,
             ),
             Text(
-              "500.992",
+              user.point.toString(),
               style: ThemeFont.interText
                   .copyWith(fontWeight: FontWeight.w700, fontSize: 28),
             ),
