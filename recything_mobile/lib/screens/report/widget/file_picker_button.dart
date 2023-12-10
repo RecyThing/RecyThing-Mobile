@@ -185,13 +185,13 @@ class _FilePickerButtonState extends State<FilePickerButton> {
               height: 80,
               decoration: BoxDecoration(
                 border: Border.all(
-                  color: Pallete.dark1,
+                  color: Pallete.dark4,
                 ),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: const Icon(
                 Icons.add,
-                color: Colors.grey,
+                color: Pallete.dark4,
               ),
             ),
           ),
