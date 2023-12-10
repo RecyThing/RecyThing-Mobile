@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:recything_mobile/constants/pallete.dart';
+import 'package:recything_mobile/models/user_model.dart';
 
 class HomeHeader extends StatelessWidget {
-  const HomeHeader({super.key});
+  final UserModel user;
+  const HomeHeader({super.key, required this.user});
 
   @override
   Widget build(BuildContext context) {
@@ -54,12 +56,14 @@ class HomeHeader extends StatelessWidget {
           child: Container(
             margin: const EdgeInsets.only(left: 16),
             padding: const EdgeInsets.all(12),
+            width: 40,
             decoration: BoxDecoration(
                 color: const Color.fromARGB(255, 69, 196, 169),
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(color: Pallete.textMainButton)),
             child: Text(
-              "W",
+              textAlign: TextAlign.center,
+              user.fullname.characters.first,
               style: ThemeFont.interText.copyWith(
                   fontWeight: FontWeight.bold, color: Pallete.textMainButton),
             ),

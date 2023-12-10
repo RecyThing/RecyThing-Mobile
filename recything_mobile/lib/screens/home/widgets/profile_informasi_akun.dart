@@ -88,8 +88,8 @@ class ProfileInformasiAkun extends StatelessWidget {
               "Poinku",
               style: ThemeFont.bodyNormalReguler,
             ),
-            trailing: const CustomTeks(
-              name: "500.992",
+            trailing: CustomTeks(
+              name: user.point.toString(),
               color: Pallete.main,
             ),
           ),
