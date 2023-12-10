@@ -3,11 +3,15 @@ import 'package:iconly/iconly.dart';
 import 'package:recything_mobile/constants/pallete.dart';
 import 'package:recything_mobile/models/user_model.dart';
 import 'package:recything_mobile/screens/home/pages/edit_profile_screen.dart';
+import 'package:recything_mobile/screens/lencana/pages/lencana_screen.dart';
 import 'package:recything_mobile/widgets/forms/custom_teks.dart';
 
 class ProfileInformasiAkun extends StatelessWidget {
   final UserModel user;
-  const ProfileInformasiAkun({super.key, required this.user});
+  const ProfileInformasiAkun({
+    super.key,
+    required this.user,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -96,7 +100,10 @@ class ProfileInformasiAkun extends StatelessWidget {
           const Divider(),
           GestureDetector(
             onTap: () {
-              Navigator.pushNamed(context, '/lencana');
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => LencanaScreen(user: user)));
             },
             child: ListTile(
               contentPadding: const EdgeInsets.symmetric(horizontal: 0.0),

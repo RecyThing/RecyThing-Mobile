@@ -6,6 +6,7 @@ import 'package:recything_mobile/bloc/forgot_password/forgot_password_cubit.dart
 import 'package:recything_mobile/bloc/get_ai/get_ai_cubit.dart';
 import 'package:recything_mobile/bloc/get_all_drop_point/get_all_drop_point_cubit.dart';
 import 'package:recything_mobile/bloc/get_history_report_by_id/get_history_report_by_id_cubit.dart';
+import 'package:recything_mobile/bloc/get_lencana/get_lencana_cubit.dart';
 import 'package:recything_mobile/bloc/get_missions/get_missions_cubit.dart';
 import 'package:recything_mobile/bloc/get_report_hisstory/get_report_history_cubit.dart';
 import 'package:recything_mobile/bloc/get_user_profile/get_user_profile_cubit.dart';
@@ -29,7 +30,6 @@ import 'package:recything_mobile/screens/home/pages/pertanyaan_umum_screen.dart'
 import 'package:recything_mobile/screens/home/pages/profile_screen.dart';
 import 'package:recything_mobile/screens/home/pages/ubah_password_screen.dart';
 import 'package:recything_mobile/screens/index_screen.dart';
-import 'package:recything_mobile/screens/lencana/pages/lencana_screen.dart';
 import 'package:recything_mobile/screens/login/login_screen.dart';
 import 'package:recything_mobile/screens/missions/detail_mission_screen.dart';
 import 'package:recything_mobile/screens/missions/missions_screen.dart';
@@ -88,7 +88,8 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => GetVouchersCubit()),
         BlocProvider(create: (_) => PostReportLitteringCubit()),
         BlocProvider(create: (_) => GetMissionsCubit()),
-        BlocProvider(create: (_) => GetAllDropPointCubit())
+        BlocProvider(create: (_) => GetAllDropPointCubit()),
+        BlocProvider(create: (_) => GetLencanaCubit())
       ],
       child: MaterialApp(
         locale: DevicePreview.locale(context),
@@ -124,7 +125,7 @@ class MyApp extends StatelessWidget {
           '/password_baru': (context) => const PasswordBaruScreen(),
           // '/editProfile': (context) => const EditProfileScreen(),
           '/pertanyaanUmum': (context) => const PertanyaanUmumScren(),
-          '/lencana': (context) => const LencanaScreen(),
+          // '/lencana': (context) => const LencanaScreen(),
           '/ubahPassword': (context) => const UbahPasswordScreen(),
           '/recy': (context) => const RecyAiScreen(),
           '/choose-report': (context) => const ChooseReportScreen(),
