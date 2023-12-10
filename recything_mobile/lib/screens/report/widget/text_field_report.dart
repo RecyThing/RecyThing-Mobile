@@ -12,6 +12,8 @@ class TextFieldReport extends StatelessWidget {
   final EdgeInsetsGeometry? contentPadding;
   final TextEditingController? controller;
   final ValueChanged<String>? onChanged;
+  final VoidCallback? onPressed;
+  final FocusNode? focusNode;
 
   const TextFieldReport({
     Key? key,
@@ -26,6 +28,7 @@ class TextFieldReport extends StatelessWidget {
     this.label,
     this.prefixIcon,
     this.hintStyle,
+    this.onPressed, this.focusNode,
   }) : super(key: key);
 
   @override
@@ -61,6 +64,8 @@ class TextFieldReport extends StatelessWidget {
       //   backgroundColor: Colors.white,
       // ),
       maxLines: maxLines,
+      onTap: onPressed,
+      focusNode: focusNode,
     );
   }
 }
