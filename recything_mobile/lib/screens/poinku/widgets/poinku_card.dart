@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:recything_mobile/constants/pallete.dart';
+import 'package:recything_mobile/models/user_model.dart';
 import 'package:recything_mobile/widgets/forms/main_button.dart';
 
 class PoinkuCard extends StatefulWidget {
-  const PoinkuCard({super.key});
+  final UserModel user;
+  const PoinkuCard({super.key, required this.user});
 
   @override
   State<PoinkuCard> createState() => _PoinkuCardState();
@@ -127,7 +129,7 @@ class _PoinkuCardState extends State<PoinkuCard> {
             height: 8,
           ),
           Text(
-            "500.992",
+            widget.user.point.toString(),
             style: ThemeFont.interText
                 .copyWith(fontWeight: FontWeight.w700, fontSize: 28),
           ),

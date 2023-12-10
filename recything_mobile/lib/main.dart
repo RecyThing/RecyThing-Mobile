@@ -5,6 +5,7 @@ import 'package:recything_mobile/bloc/auth/auth_cubit.dart';
 import 'package:recything_mobile/bloc/forgot_password/forgot_password_cubit.dart';
 import 'package:recything_mobile/bloc/get_ai/get_ai_cubit.dart';
 import 'package:recything_mobile/bloc/get_all_drop_point/get_all_drop_point_cubit.dart';
+import 'package:recything_mobile/bloc/get_history_poin/get_history_poin_cubit.dart';
 import 'package:recything_mobile/bloc/get_history_report_by_id/get_history_report_by_id_cubit.dart';
 import 'package:recything_mobile/bloc/get_lencana/get_lencana_cubit.dart';
 import 'package:recything_mobile/bloc/get_missions/get_missions_cubit.dart';
@@ -38,7 +39,6 @@ import 'package:recything_mobile/screens/onboarding/onboarding_screen.dart';
 import 'package:recything_mobile/screens/password_baru/password_baru_screen.dart';
 import 'package:recything_mobile/screens/poinku/pages/detail_transaksi_screen.dart';
 import 'package:recything_mobile/screens/poinku/pages/detail_voucher_screen.dart';
-import 'package:recything_mobile/screens/poinku/pages/poinku_screen.dart';
 import 'package:recything_mobile/screens/poinku/pages/tukar_voucher_screen.dart';
 import 'package:recything_mobile/screens/recy/pages/recy_ai_screen.dart';
 import 'package:recything_mobile/screens/register/register_screen.dart';
@@ -89,7 +89,8 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => PostReportLitteringCubit()),
         BlocProvider(create: (_) => GetMissionsCubit()),
         BlocProvider(create: (_) => GetAllDropPointCubit()),
-        BlocProvider(create: (_) => GetLencanaCubit())
+        BlocProvider(create: (_) => GetLencanaCubit()),
+        BlocProvider(create: (_) => GetHistoryPoinCubit())
       ],
       child: MaterialApp(
         locale: DevicePreview.locale(context),
@@ -115,7 +116,6 @@ class MyApp extends StatelessWidget {
           '/dashboard': (context) => const Dasboard(),
           '/profile': (context) => const ProfileScreen(),
           '/notif': (context) => const NotifikasiScreen(),
-          '/poinku': (context) => const PoinkuScreen(),
           '/detailVoucher': (context) => const DetailVoucherScreen(),
           '/tukarVoucher': (context) => const TukatVoucherScreen(),
           '/detailTransaksi': (context) => const DetailTransaksiScreen(),
@@ -123,9 +123,7 @@ class MyApp extends StatelessWidget {
           '/reset_password': (context) => const ResetPasswordScreen(),
           '/verifikasi_otp': (context) => const VerifikasiOtpScreen(),
           '/password_baru': (context) => const PasswordBaruScreen(),
-          // '/editProfile': (context) => const EditProfileScreen(),
           '/pertanyaanUmum': (context) => const PertanyaanUmumScren(),
-          // '/lencana': (context) => const LencanaScreen(),
           '/ubahPassword': (context) => const UbahPasswordScreen(),
           '/recy': (context) => const RecyAiScreen(),
           '/choose-report': (context) => const ChooseReportScreen(),

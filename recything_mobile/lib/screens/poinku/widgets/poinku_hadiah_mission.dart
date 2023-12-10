@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:recything_mobile/constants/pallete.dart';
+import 'package:recything_mobile/models/history_poin_model.dart';
 
-class PoinkuRiwayat extends StatelessWidget {
-  const PoinkuRiwayat({super.key});
+class PoinkuHadiahSampah extends StatelessWidget {
+  final HistoryPoinModel item;
+  const PoinkuHadiahSampah({super.key, required this.item});
 
   @override
   Widget build(BuildContext context) {
+    DateTime dateTime = DateTime.parse(item.createdAt);
+    String formattedDate = DateFormat('dd MMMM yyyy', 'id_ID').format(dateTime);
+    String formattedTime = DateFormat('HH.mm').format(dateTime);
+
     return GestureDetector(
       onTap: () => Navigator.pushNamed(context, '/detailTransaksi'),
       child: ListTile(
@@ -16,18 +23,21 @@ class PoinkuRiwayat extends StatelessWidget {
               color: Pallete.secondaryLigther.withOpacity(0.5),
               shape: BoxShape.circle),
           child: Image.asset(
-            "assets/icons/profile/poinku.png",
-            width: 24,
-            color: Pallete.secondary,
+            "assets/poinku/hadiah_mission.png",
+            width: 40,
           ),
         ),
         title: Text(
-          "Hadiah Mission",
+          item.typeTransaction
+                  ?.split(' ')
+                  .map((word) => word[0].toUpperCase() + word.substring(1))
+                  .join(' ') ??
+              "",
           style: ThemeFont.interText.copyWith(fontWeight: FontWeight.bold),
         ),
-        subtitle: const Text("20 Oktober 2023 | 14.21"),
+        subtitle: Text("$formattedDate | $formattedTime"),
         trailing: Text(
-          "+18.000",
+          "+${item.point}",
           style: ThemeFont.interText.copyWith(
               fontSize: 16, fontWeight: FontWeight.bold, color: Pallete.main),
         ),

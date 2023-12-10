@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:recything_mobile/constants/pallete.dart';
 import 'package:recything_mobile/models/user_model.dart';
+import 'package:recything_mobile/screens/poinku/pages/poinku_screen.dart';
 import 'package:recything_mobile/widgets/forms/custom_teks.dart';
 import 'package:recything_mobile/widgets/forms/main_button.dart';
 
@@ -12,7 +13,8 @@ class HomePoinCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, '/poinku');
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => PoinkuScreen(user: user)));
       },
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 16),
