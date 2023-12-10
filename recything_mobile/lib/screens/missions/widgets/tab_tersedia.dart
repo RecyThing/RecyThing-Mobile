@@ -35,7 +35,7 @@ class TabTersedia extends StatelessWidget {
                       return Column(
                         children: [
                           MissionCard(
-                            title: data.name,
+                            title: data.title,
                             subTitle: Text(
                               data.description,
                               style: ThemeFont.bodySmallRegular,
@@ -43,7 +43,7 @@ class TabTersedia extends StatelessWidget {
                             imageUrl: data.missionImage,
                             args: {
                               'imageUrl': data.missionImage,
-                              'title': data.name,
+                              'title': data.title,
                               'expiredDate': data.endDate,
                               'point': data.point,
                               'desc': data.description,
@@ -56,11 +56,16 @@ class TabTersedia extends StatelessWidget {
                         ],
                       );
                     });
+              } else if (state is GetMissionsLoading) {
+                return Center(
+                    child: CircularProgressIndicator(
+                  color: Pallete.main,
+                ));
               }
 
               return Center(
-                  child: CircularProgressIndicator(
-                color: Pallete.main,
+                  child: Text(
+                'Terjadi Kesalahan',
               ));
             },
           ),

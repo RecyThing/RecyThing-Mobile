@@ -101,7 +101,7 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.white),
           useMaterial3: true,
         ),
-        initialRoute: '/index',
+        initialRoute: '/splash',
         home: const IndexScreen(),
         routes: {
           '/index': (context) => const IndexScreen(),

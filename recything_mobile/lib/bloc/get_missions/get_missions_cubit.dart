@@ -12,7 +12,11 @@ class GetMissionsCubit extends Cubit<GetMissionsState> {
   void getMissions() async {
     emit(GetMissionsLoading());
 
-    final missionsData = await _getMissionsRepo.getMissions();
-    emit(GetMissionsLoaded(missions: missionsData));
+    try {
+      final missionsData = await _getMissionsRepo.getMissions();
+      emit(GetMissionsLoaded(missions: missionsData));
+    } catch (e) {
+      emit(GetMissionsFailed());
+    }
   }
 }
