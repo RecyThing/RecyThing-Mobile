@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconly/iconly.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:recything_mobile/bloc/post_report/post_report_rubbish_cubit.dart';
 import 'package:recything_mobile/bloc/post_report/post_report_rubbish_state.dart';
 import 'package:recything_mobile/constants/pallete.dart';
@@ -34,6 +33,7 @@ class _ReportRubbishScreenState extends State<ReportRubbishScreen> {
   List<File> selectedImages = [];
   late FilePickerButton imagePickerButton;
 
+  final locationController = TextEditingController();
   TextEditingController lokasiPatokanController = TextEditingController();
   TextEditingController kondisiSampahController = TextEditingController();
 
@@ -48,13 +48,15 @@ class _ReportRubbishScreenState extends State<ReportRubbishScreen> {
         return null;
       },
     );
+
+    locationController.text = widget.locationAddress ?? "";
   }
 
-  List<File>? convertImagesToFiles(List<XFile>? selectedImages) {
-    if (selectedImages == null) return null;
+  // List<File>? convertImagesToFiles(List<XFile>? selectedImages) {
+  //   if (selectedImages == null) return null;
 
-    return selectedImages.map((image) => File(image.path)).toList();
-  }
+  //   return selectedImages.map((image) => File(image.path)).toList();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -83,19 +85,10 @@ class _ReportRubbishScreenState extends State<ReportRubbishScreen> {
                       children: [
                         Expanded(
                           child: TextFieldReport(
-                            label: 'Lokasi Tumpukan',
-                            labelStyle: ThemeFont.bodySmallMedium.copyWith(
-                              color: Pallete.dark3,
-                            ),
                             hintText: 'Lokasi Tumpukan',
-                            hintStyle: ThemeFont.bodySmallMedium.copyWith(
-                              color: Pallete.dark3,
-                            ),
                             prefixIcon: IconlyLight.location,
-                            maxLines: 1,
-                            controller: TextEditingController(
-                              text: widget.locationAddress ?? "",
-                            ),
+                            controller: locationController,
+                            enabled: false,
                           ),
                         ),
                         const SizedBox(width: 8),
@@ -126,9 +119,6 @@ class _ReportRubbishScreenState extends State<ReportRubbishScreen> {
                   TextFieldReport(
                     controller: lokasiPatokanController,
                     hintText: 'Cth: Sebelah Masjid Nawawi',
-                    hintStyle: ThemeFont.bodySmallMedium.copyWith(
-                      color: Pallete.dark3,
-                    ),
                   ),
                   const SizedBox(
                     height: 16,
@@ -186,7 +176,6 @@ class _ReportRubbishScreenState extends State<ReportRubbishScreen> {
                     maxLines: 5,
                     hintText:
                         'Cth: Saya melihat tumpukan sampah yang sangat banyak, sampah sangat bercampur basah dan kering',
-                    hintStyle: ThemeFont.bodySmallMedium,
                   ),
                   const SizedBox(
                     height: 16,
