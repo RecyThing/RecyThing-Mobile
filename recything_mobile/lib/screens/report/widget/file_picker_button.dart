@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:recything_mobile/constants/pallete.dart';
 import 'package:path/path.dart' as p;
+import 'package:recything_mobile/widgets/error_snackbar.dart';
 
 class FilePickerButton extends StatefulWidget {
   final List<File>? Function(List<File>?) onImagesSelected;
@@ -26,6 +27,26 @@ class _FilePickerButtonState extends State<FilePickerButton> {
       type: FileType.custom,
       allowedExtensions: ['jpg', 'jpeg', 'png', 'mp4'],
     );
+
+    if (result != null) {
+      int totalSizeInBytes = 0;
+
+      for (var file in result.files) {
+        totalSizeInBytes += file.size;
+      }
+
+      double totalSizeInMB = totalSizeInBytes / (1024 * 1024);
+
+      if (totalSizeInMB > 20) {
+        // print('Total file size exceeds 20 MB');
+        ErrorSnackbar.showSnackbar(
+          context,
+          message: "Ukuran total file terlalu besar",
+          title: "Error",
+        );
+        return;
+      }
+    }
 
     if (result != null) {
       List<File> files = result.paths.map((path) => File(path!)).toList();

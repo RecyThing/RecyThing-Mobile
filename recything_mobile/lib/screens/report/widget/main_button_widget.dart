@@ -7,7 +7,7 @@ class MainButtonWidget extends StatelessWidget {
 
   const MainButtonWidget({
     Key? key,
-    required this.onPressed,
+    this.onPressed,
     required this.child,
   }) : super(key: key);
 

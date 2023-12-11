@@ -119,7 +119,8 @@ class ReportLitteringRepo extends BaseService {
         "dangerous_waste": dangerousWaste,
         "images": files,
       });
-      // Logger().i(formData);
+      // Logger().i(latitude);
+      // Logger().i(longitude);
 
       final response = await request(
         context,
