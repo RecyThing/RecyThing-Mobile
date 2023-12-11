@@ -55,6 +55,8 @@ class _MapsReportScreenState extends State<MapsReportScreen> {
         );
         setState(() {
           _currentPosition = position;
+              print('halo1 ${_currentPosition?.latitude}');
+
           _getAddress(position); // get alamat saat ini
         });
 
@@ -136,11 +138,26 @@ class _MapsReportScreenState extends State<MapsReportScreen> {
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(
             builder: (context) => ReportRubbishScreen(
-              locationAddress: _selectedLocationAddress,
-              // locationAddress: _currentAddress,
-              latitude: _currentPosition?.latitude.toString(),
-              longitude: _currentPosition?.longitude.toString(),
-            ),
+                locationAddress: _selectedLocationAddress,
+                // latitude: (_currentPosition != null)
+                //     ? _currentPosition!.latitude.toString()
+                //     : (selectedLat != null)
+                //         ? selectedLat.toString()
+                //         : '',
+                // longitude: (_currentPosition != null)
+                //     ? _currentPosition!.longitude.toString()
+                //     : (selectedLng != null)
+                //         ? selectedLng.toString()
+                //         : '',
+
+                latitude: selectedLat == null
+                    ? _currentPosition?.latitude.toString()
+                    : selectedLat.toString(),
+                longitude: selectedLng == null
+                    ? _currentPosition?.longitude.toString()
+                    : selectedLng.toString()
+
+                ),
           ),
         );
       } else if (widget.reportType == 'littering') {
@@ -209,6 +226,7 @@ class _MapsReportScreenState extends State<MapsReportScreen> {
         ),
       );
       _addCurrentLocationMarker();
+      setState(() {});
 
       ///
     });
@@ -240,6 +258,8 @@ class _MapsReportScreenState extends State<MapsReportScreen> {
   //   ));
   // }
 
+  double? selectedLat;
+  double? selectedLng;
   Future<void> displayPrediction(
       Prediction p, ScaffoldState? currentState) async {
     GoogleMapsPlaces places = GoogleMapsPlaces(
@@ -253,6 +273,9 @@ class _MapsReportScreenState extends State<MapsReportScreen> {
 
       final lat = detail.result.geometry!.location.lat;
       final lng = detail.result.geometry!.location.lng;
+
+      selectedLat = lat;
+      selectedLng = lng;
 
       markersList.clear();
       markersList.add(Marker(
@@ -282,6 +305,7 @@ class _MapsReportScreenState extends State<MapsReportScreen> {
   @override
   void initState() {
     _getCurrentPosition();
+    print('halo${_currentPosition?.latitude}');
     super.initState();
   }
 
@@ -386,6 +410,7 @@ class _MapsReportScreenState extends State<MapsReportScreen> {
               child: MainButtonWidget(
                 onPressed: () {
                   _updateAddress();
+                  print(_currentPosition?.latitude);
                 },
                 child: Text(
                   'Selanjutnya',
