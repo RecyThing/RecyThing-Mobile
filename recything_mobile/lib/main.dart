@@ -2,6 +2,7 @@ import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recything_mobile/bloc/auth/auth_cubit.dart';
+import 'package:recything_mobile/bloc/claim_mission/claim_mission_cubit.dart';
 import 'package:recything_mobile/bloc/forgot_password/forgot_password_cubit.dart';
 import 'package:recything_mobile/bloc/get_ai/get_ai_cubit.dart';
 import 'package:recything_mobile/bloc/get_all_drop_point/get_all_drop_point_cubit.dart';
@@ -88,7 +89,8 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => GetVouchersCubit()),
         BlocProvider(create: (_) => PostReportLitteringCubit()),
         BlocProvider(create: (_) => GetMissionsCubit()),
-        BlocProvider(create: (_) => GetAllDropPointCubit())
+        BlocProvider(create: (_) => GetAllDropPointCubit()),
+        BlocProvider(create: (_) => ClaimMissionCubit())
       ],
       child: MaterialApp(
         locale: DevicePreview.locale(context),
@@ -101,7 +103,7 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.white),
           useMaterial3: true,
         ),
-        initialRoute: '/splash',
+        initialRoute: '/index',
         home: const IndexScreen(),
         routes: {
           '/index': (context) => const IndexScreen(),

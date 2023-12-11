@@ -53,6 +53,7 @@ class _TabTersediaState extends State<TabTersedia> {
                             ),
                             imageUrl: data.missionImage,
                             args: {
+                              'missionId': data.missionId,
                               'imageUrl': data.missionImage,
                               'title': data.title,
                               'expiredDate': data.endDate,
