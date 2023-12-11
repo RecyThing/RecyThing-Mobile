@@ -10,4 +10,11 @@ class HistoryPoinRepo extends BaseService {
     return List<HistoryPoinModel>.from((res.data["data"] as Iterable)
         .map((e) => HistoryPoinModel.fromJson(e)));
   }
+
+  Future<String> claimPoin(BuildContext context) async {
+    final res = await request(context, '/users/point/daily',
+        requestType: RequestType.post);
+    Logger().i(res);
+    return res.data["message"];
+  }
 }
