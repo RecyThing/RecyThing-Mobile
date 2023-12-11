@@ -96,11 +96,12 @@ class _TabSelesaiState extends State<TabSelesai> {
                                 ),
                                 imageUrl: data.missionImage,
                                 args: {
-                                  'imageUrl': 'data.missionImage',
-                                  'title': 'data.name',
-                                  'expiredDate': 'data.endDate',
-                                  'point': 'data.point',
-                                  'desc': 'data.description'
+                                  'imageUrl': data.missionImage,
+                                  'title': data.title,
+                                  'expiredDate': data.endDate,
+                                  'point': data.point,
+                                  'desc': data.description,
+                                  'progressState': 'Selesai'
                                 },
                               ),
                               const SizedBox(

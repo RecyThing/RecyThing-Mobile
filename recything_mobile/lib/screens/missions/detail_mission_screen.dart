@@ -50,7 +50,7 @@ class DetailMissionScreen extends StatelessWidget {
                       args['title'],
                       style: ThemeFont.bodyLargeMedium,
                     ),
-                    progressState == 'verified'
+                    progressState == 'Selesai'
                         ? ProgressStateBox(
                             child: Text(
                             'Terverifikasi',
@@ -120,18 +120,25 @@ class DetailMissionScreen extends StatelessWidget {
                 const SizedBox(
                   height: 24,
                 ),
-                SizedBox(
-                  width: double.infinity,
-                  child: MainButton(
-                      onPressed: () => context
-                          .read<ClaimMissionCubit>()
-                          .claimMission(missionId: args['missionId']),
-                      child: Text(
-                        'Terima Tantangan',
-                        style: ThemeFont.heading6Bold
-                            .copyWith(color: Colors.white),
-                      )),
-                ),
+                progressState == 'Selesai'
+                    ? const SizedBox()
+                    : SizedBox(
+                        width: double.infinity,
+                        child: MainButton(
+                            onPressed: progressState == 'Aktif'
+                                ? () => context
+                                    .read<ClaimMissionCubit>()
+                                    .claimMission(missionId: args['missionId'])
+                                : () => Navigator.pushNamed(
+                                    context, '/unggah-bukti'),
+                            child: Text(
+                              progressState == 'Aktif'
+                                  ? 'Terima Tantangan'
+                                  : 'Unggah Bukti',
+                              style: ThemeFont.heading6Bold
+                                  .copyWith(color: Colors.white),
+                            )),
+                      ),
                 const SizedBox(
                   height: 20,
                 ),

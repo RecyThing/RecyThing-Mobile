@@ -36,7 +36,7 @@ class _TabBerjalanState extends State<TabBerjalan> {
                 return ListView.builder(
                     shrinkWrap: true,
                     padding: const EdgeInsets.all(16),
-                    itemCount: 2,
+                    itemCount: state.missions.data.length,
                     itemBuilder: (context, index) {
                       var data = state.missions.data[index];
                       return Column(
@@ -92,11 +92,12 @@ class _TabBerjalanState extends State<TabBerjalan> {
                             ),
                             imageUrl: data.missionImage,
                             args: {
-                              'imageUrl': 'data.missionImage',
-                              'title': 'data.name',
-                              'expiredDate': 'data.endDate',
-                              'point': 'data.point',
-                              'desc': 'data.description'
+                              'imageUrl': data.missionImage,
+                              'title': data.title,
+                              'expiredDate': data.endDate,
+                              'point': data.point,
+                              'desc': data.description,
+                              'progressState': 'Berjalan'
                             },
                           ),
                           const SizedBox(
