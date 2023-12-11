@@ -31,14 +31,10 @@ class ProgressCard extends StatelessWidget {
       ),
       child: Row(
         children: [
-          Column(
-            children: [
-              Container(
-                width: 32,
-                height: 32,
-                padding: const EdgeInsets.fromLTRB(28, 14, 22, 14),
-              ),
-            ],
+          Container(
+            width: 32,
+            height: 32,
+            padding: const EdgeInsets.fromLTRB(28, 14, 22, 14),
           ),
           const SizedBox(
             width: 32,
@@ -53,8 +49,10 @@ class ProgressCard extends StatelessWidget {
               const SizedBox(
                 height: 2,
               ),
-              Text(subTitle,
-                  style: ThemeFont.bodySmallRegular.copyWith(height: 1.7))
+              Text(
+                subTitle,
+                style: ThemeFont.bodySmallRegular.copyWith(height: 1.7),
+              )
             ],
           )
         ],

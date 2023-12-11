@@ -53,7 +53,7 @@ class _DetailMissionScreenState extends State<DetailMissionScreen> {
                       args['title'],
                       style: ThemeFont.bodyLargeMedium,
                     ),
-                    progressState == 'verified'
+                    progressState == 'Selesai'
                         ? ProgressStateBox(
                             child: Text(
                             'Terverifikasi',
@@ -123,7 +123,7 @@ class _DetailMissionScreenState extends State<DetailMissionScreen> {
                 const SizedBox(
                   height: 24,
                 ),
-                progressState == 'verified'
+                progressState == 'Selesai'
                     ? const SizedBox()
                     : SizedBox(
                         width: double.infinity,
