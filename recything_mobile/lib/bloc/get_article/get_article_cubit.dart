@@ -18,14 +18,54 @@ class GetArticleCubit extends Cubit<GetArticleState> {
     }
   }
 
+  // void getPopularArticle() async {
+  //   emit(GetArticleLoading());
+  //   try {
+  //     final response = await ArticleRepo().getPopularArticle();
+  //     emit(GetPopularArticleSuccess(data: response));
+  //   } catch (e) {
+  //     emit(GetArticleFailure(message: e.toString()));
+  //   }
+  // }
+
   void searchArticle(String data) async {
     emit(GetArticleLoading());
     try {
       final response = await ArticleRepo().searchArticle(data);
       if (response.isEmpty) {
         emit(GetArticleFailure(message: "data not found"));
+      } else {
+        emit(GetArticleSuccess(data: response));
       }
-      emit(GetArticleSuccess(data: response));
+    } catch (e) {
+      emit(GetArticleFailure(message: e.toString()));
+    }
+  }
+
+  void searchArticleByCategory(String filter, String data) async {
+    emit(GetArticleLoading());
+    try {
+      final response =
+          await ArticleRepo().searchArticleByCategory(filter, data);
+      if (response.isEmpty) {
+        emit(GetArticleFailure(message: "data not found"));
+      } else {
+        emit(GetArticleSuccess(data: response));
+      }
+    } catch (e) {
+      emit(GetArticleFailure(message: e.toString()));
+    }
+  }
+
+  void getArticleByCategory(String filter) async {
+    emit(GetArticleLoading());
+    try {
+      final response = await ArticleRepo().getArticleByCategory(filter);
+      if (response.isEmpty) {
+        emit(GetArticleFailure(message: "data not found"));
+      } else {
+        emit(GetArticleSuccess(data: response));
+      }
     } catch (e) {
       emit(GetArticleFailure(message: e.toString()));
     }

@@ -31,27 +31,72 @@ class MenuKategoriWidget extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 16),
-            const Row(
+            Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 ButtonKategoriDaurUlang(
                   assetImage: 'assets/icons/icon_plastik.png',
                   title: 'Plastik',
+                  onTap: () {
+                    String category = 'plastik';
+                    String title = 'Plastik';
+                    Navigator.pushNamed(
+                      context,
+                      '/artikelByKategori',
+                      arguments: {
+                        'category': category,
+                        'title': title,
+                      },
+                    );
+                  },
                 ),
-                // SizedBox(width: 27),
                 ButtonKategoriDaurUlang(
                   assetImage: 'assets/icons/icon_kaca.png',
                   title: 'Kaca',
+                  onTap: () {
+                    String category = 'kaca';
+                    String title = 'Kaca';
+                    Navigator.pushNamed(
+                      context,
+                      '/artikelByKategori',
+                      arguments: {
+                        'category': category,
+                        'title': title,
+                      },
+                    );
+                  },
                 ),
-                // SizedBox(width: 27),
                 ButtonKategoriDaurUlang(
                   assetImage: 'assets/icons/icon_logam.png',
                   title: 'Logam',
+                  onTap: () {
+                    String category = 'logam';
+                    String title = 'Logam';
+                    Navigator.pushNamed(
+                      context,
+                      '/artikelByKategori',
+                      arguments: {
+                        'category': category,
+                        'title': title,
+                      },
+                    );
+                  },
                 ),
-                // SizedBox(width: 27),
                 ButtonKategoriDaurUlang(
                   assetImage: 'assets/icons/icon_organik.png',
                   title: 'Organik',
+                  onTap: () {
+                    String category = 'organik';
+                    String title = 'Organik';
+                    Navigator.pushNamed(
+                      context,
+                      '/artikelByKategori',
+                      arguments: {
+                        'category': category,
+                        'title': title,
+                      },
+                    );
+                  },
                 )
               ],
             )

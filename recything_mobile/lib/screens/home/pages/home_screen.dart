@@ -6,6 +6,7 @@ import 'package:recything_mobile/screens/home/widgets/home_banner.dart';
 import 'package:recything_mobile/screens/home/widgets/home_header.dart';
 import 'package:recything_mobile/screens/home/widgets/home_poin_card.dart';
 import 'package:recything_mobile/screens/home/widgets/home_rekomendasi_artikel.dart';
+import '../../../bloc/get_popular_article/get_popular_article_cubit.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -18,6 +19,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     context.read<GetUserProfileCubit>().fetchMe(context);
+    context.read<GetPopularArticleCubit>().getPopularArticle();
   }
 
   @override
@@ -56,7 +58,10 @@ class _HomeScreenState extends State<HomeScreen> {
               height: 24,
             ),
             HomeBanner(),
-            HomeRekomendasiArtikel()
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+              child: HomeRekomendasiArtikel(),
+            )
           ],
         ),
       ),

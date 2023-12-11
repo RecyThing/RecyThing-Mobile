@@ -1,45 +1,54 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:recything_mobile/bloc/get_popular_article/get_popular_article_cubit.dart';
 import 'package:recything_mobile/screens/article/theme/text_style.dart';
-import 'package:recything_mobile/screens/article/widget/list_artikel.dart';
-import 'package:recything_mobile/widgets/typography/body_link.dart';
+import 'package:recything_mobile/screens/article/widget/dashboard_screen/list_artikel_populer.dart';
+import '../../../../constants/pallete.dart';
 
 class MenuArticlePopular extends StatelessWidget {
   const MenuArticlePopular({super.key});
 
-  get itemBuilder => null;
-
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 24, left: 16, right: 16),
-      child: SizedBox(
-        height: 408,
-        // width: 328,
-        child: Column(
-          children: [
-            SizedBox(
-              height: 24,
-              // width: 328,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Artikel Populer',
-                    style: ThemeText().heading6Medium,
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.pushNamed(context, '/cariArtikel');
-                    },
-                    child: const BodyLink('Lihat Semua'),
-                  ),
-                ],
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "Artikel Populer",
+                style: ThemeText().heading6Medium,
               ),
-            ),
-            const SizedBox(height: 8),
-            const Expanded(child: ListArtikelWidget())
-          ],
-        ),
+              TextButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/cariArtikel');
+                  },
+                  child: Text(
+                    "Lihat Semua",
+                    style: ThemeFont.interText.copyWith(
+                        color: Pallete.main, fontWeight: FontWeight.w400),
+                  ))
+            ],
+          ),
+          BlocBuilder<GetPopularArticleCubit, GetPopularArticleState>(
+            builder: (context, state) {
+              if (state is GetPopularArticleLoading) {
+                return SizedBox(
+                    height: 20, width: 20, child: CircularProgressIndicator());
+              } else if (state is GetPopularArticleFailure) {
+                return Text(state.message);
+              } else {
+                return ListArtikelPopuplerWidget(
+                  physicsScroll: const NeverScrollableScrollPhysics(),
+                  scrollDirection: Axis.vertical,
+                  itemCount: 3,
+                );
+              }
+            },
+          )
+        ],
       ),
     );
   }

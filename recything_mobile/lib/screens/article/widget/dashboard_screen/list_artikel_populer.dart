@@ -1,20 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../bloc/get_article/get_article_cubit.dart';
-import '../theme/text_style.dart';
+import '../../../../bloc/get_popular_article/get_popular_article_cubit.dart';
+import '../../theme/text_style.dart';
 
-class ListArtikelWidget extends StatelessWidget {
-  const ListArtikelWidget({super.key});
+class ListArtikelPopuplerWidget extends StatelessWidget {
+  final ScrollPhysics physicsScroll;
+  final Axis scrollDirection;
+  final int itemCount;
+
+  const ListArtikelPopuplerWidget({
+    super.key,
+    required this.physicsScroll,
+    required this.scrollDirection,
+    required this.itemCount,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<GetArticleCubit, GetArticleState>(
+    return BlocBuilder<GetPopularArticleCubit, GetPopularArticleState>(
       builder: (context, state) {
-        if (state is GetArticleSuccess) {
+        if (state is GetPopularArticleSuccess) {
           return ListView.builder(
+              physics: physicsScroll,
+              scrollDirection: scrollDirection,
               padding: const EdgeInsets.all(0),
               shrinkWrap: true,
-              itemCount: state.data.length,
+              itemCount: itemCount,
               itemBuilder: (context, index) {
                 return GestureDetector(
                   child: Column(
