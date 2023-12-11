@@ -46,6 +46,16 @@ class _LitteringBesarScreenState extends State<LitteringBesarScreen> {
   final dateController = TextEditingController();
   final timeController = TextEditingController();
 
+  bool isDataComplete() {
+    return locationController.text.isNotEmpty &&
+        addressPointController.text.isNotEmpty &&
+        dateController.text.isNotEmpty &&
+        timeController.text.isNotEmpty &&
+        companyNameController.text.isNotEmpty &&
+        descriptionController.text.isNotEmpty &&
+        selectedImages.isNotEmpty;
+  }
+
   @override
   void initState() {
     super.initState();
@@ -88,7 +98,7 @@ class _LitteringBesarScreenState extends State<LitteringBesarScreen> {
                       children: [
                         Expanded(
                           child: TextFieldReport(
-                            label: "Lokasi Pelanggaran",
+                            hintText: "Lokasi Pelanggaran",
                             prefixIcon: IconlyLight.location,
                             controller: locationController,
                             enabled: false,
@@ -106,7 +116,6 @@ class _LitteringBesarScreenState extends State<LitteringBesarScreen> {
                                       reportType: 'littering-besar'),
                                 ),
                               );
-                              // Navigator.pushNamed(context, "/maps-report");
                             },
                             child: Image.asset("assets/images/map_icon.png"),
                           ),
@@ -352,29 +361,35 @@ class _LitteringBesarScreenState extends State<LitteringBesarScreen> {
                               PostReportLitteringState>(
                             builder: (context, state) {
                               return MainButtonWidget(
-                                onPressed: () {
-                                  DateTime dateTime = DateFormat("MM/dd/yyyy")
-                                      .parse(dateController.text);
-                                  context
-                                      .read<PostReportLitteringCubit>()
-                                      .addReport(
-                                        context: context,
-                                        reportType: "pelanggaran sampah",
-                                        scaleType: "skala besar",
-                                        location: locationController.text,
-                                        latitude: widget.latitude ?? "0",
-                                        longitude: widget.longitude ?? "0",
-                                        companyName: companyNameController.text,
-                                        addressPoint:
-                                            addressPointController.text,
-                                        insidentDate: DateFormat("yyyy-MM-dd")
-                                            .format(dateTime),
-                                        insidentTime: timeController.text,
-                                        desc: descriptionController.text,
-                                        dangerousWaste: isHazardousTrash,
-                                        images: selectedImages,
-                                      );
-                                },
+                                onPressed: isDataComplete()
+                                    ? () {
+                                        DateTime dateTime =
+                                            DateFormat("MM/dd/yyyy")
+                                                .parse(dateController.text);
+                                        context
+                                            .read<PostReportLitteringCubit>()
+                                            .addReport(
+                                              context: context,
+                                              reportType: "pelanggaran sampah",
+                                              scaleType: "skala besar",
+                                              location: locationController.text,
+                                              latitude: widget.latitude ?? "0",
+                                              longitude:
+                                                  widget.longitude ?? "0",
+                                              companyName:
+                                                  companyNameController.text,
+                                              addressPoint:
+                                                  addressPointController.text,
+                                              insidentDate:
+                                                  DateFormat("yyyy-MM-dd")
+                                                      .format(dateTime),
+                                              insidentTime: timeController.text,
+                                              desc: descriptionController.text,
+                                              dangerousWaste: isHazardousTrash,
+                                              images: selectedImages,
+                                            );
+                                      }
+                                    : null,
                                 child: BlocBuilder<PostReportLitteringCubit,
                                     PostReportLitteringState>(
                                   builder: (context, state) {

@@ -1,5 +1,3 @@
-// ignore_for_file: use_build_context_synchronously
-
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_google_places/flutter_google_places.dart';
@@ -69,6 +67,8 @@ class _MapsReportScreenState extends State<MapsReportScreen> {
         );
         setState(() {
           _currentPosition = position;
+          print('halo1 ${_currentPosition?.latitude}');
+
           _getAddress(position); // get alamat saat ini
         });
 
@@ -82,7 +82,7 @@ class _MapsReportScreenState extends State<MapsReportScreen> {
           );
         }
       } catch (e) {
-        // print('Error getting location: $e');
+        print('Error getting location: $e');
       }
     }
   }
@@ -152,8 +152,6 @@ class _MapsReportScreenState extends State<MapsReportScreen> {
 
   /// Memperbarui alamat dan navigasi ke halaman berikutnya
   Future<void> _updateAddress() async {
-    // if (_currentPosition != null) {
-    //   await _getAddress(_currentPosition!);
     if (_isFromFloatingActionButton) {
       _selectedLocationAddress =
           'FloatingActionButton: ${_currentAddress ?? ''}';
@@ -166,9 +164,12 @@ class _MapsReportScreenState extends State<MapsReportScreen> {
           MaterialPageRoute(
             builder: (context) => ReportRubbishScreen(
               locationAddress: _selectedLocationAddress,
-              // locationAddress: _currentAddress,
-              latitude: _currentPosition?.latitude.toString(),
-              longitude: _currentPosition?.longitude.toString(),
+              latitude: selectedLat == null
+                  ? _currentPosition?.latitude.toString()
+                  : selectedLat.toString(),
+              longitude: selectedLng == null
+                  ? _currentPosition?.longitude.toString()
+                  : selectedLng.toString(),
             ),
           ),
         );
@@ -177,8 +178,12 @@ class _MapsReportScreenState extends State<MapsReportScreen> {
           MaterialPageRoute(
             builder: (context) => LitteringKecilScreen(
               locationAddress: _selectedLocationAddress,
-              latitude: _currentPosition?.latitude.toString(),
-              longitude: _currentPosition?.longitude.toString(),
+              latitude: selectedLat == null
+                  ? _currentPosition?.latitude.toString()
+                  : selectedLat.toString(),
+              longitude: selectedLng == null
+                  ? _currentPosition?.longitude.toString()
+                  : selectedLng.toString(),
             ),
           ),
         );
@@ -187,8 +192,12 @@ class _MapsReportScreenState extends State<MapsReportScreen> {
           MaterialPageRoute(
             builder: (context) => LitteringBesarScreen(
               locationAddress: _selectedLocationAddress,
-              latitude: _currentPosition?.latitude.toString(),
-              longitude: _currentPosition?.longitude.toString(),
+              latitude: selectedLat == null
+                  ? _currentPosition?.latitude.toString()
+                  : selectedLat.toString(),
+              longitude: selectedLng == null
+                  ? _currentPosition?.longitude.toString()
+                  : selectedLng.toString(),
             ),
           ),
         );
@@ -196,51 +205,36 @@ class _MapsReportScreenState extends State<MapsReportScreen> {
     }
   }
 
-  /// Memperbarui marker pada peta
-  // void _updateMarker(Position position) {
-  //   print("Update Marker at position: $position");
-  //   setState(() {
-  //     markersList.clear();
-  //     final marker = Marker(
-  //       markerId: const MarkerId('CurrentLocation'),
-  //       position: LatLng(position.latitude, position.longitude),
-  //       onTap: () {
-  //         _selectMarker('CurrentLocation');
-  //       },
-  //     );
-  //     markersList.add(marker);
-  //   });
-  // }
-
   /// Memilih marker pada peta
   void _selectMarker(String markerId) {
-    setState(() {
-      // _selectedMarkerId = MarkerId(markerId);
+    setState(
+      () {
+        // _selectedMarkerId = MarkerId(markerId);
 
-      if (markerId.isNotEmpty) {
-      } else {
-        _addCurrentLocationMarker();
-      }
-
-      ///
-    });
+        if (markerId.isNotEmpty) {
+        } else {
+          _addCurrentLocationMarker();
+        }
+      },
+    );
   }
 
   /// Menggerakkan kamera ke lokasi saat ini pada peta
   void _goToCurrentPosition() {
-    _controller.future.then((controller) {
-      controller.animateCamera(
-        CameraUpdate.newLatLng(
-          LatLng(
-            _currentPosition?.latitude ?? 0.0,
-            _currentPosition?.longitude ?? 0.0,
+    _controller.future.then(
+      (controller) {
+        controller.animateCamera(
+          CameraUpdate.newLatLng(
+            LatLng(
+              _currentPosition?.latitude ?? 0.0,
+              _currentPosition?.longitude ?? 0.0,
+            ),
           ),
-        ),
-      );
-      _addCurrentLocationMarker();
-
-      ///
-    });
+        );
+        _addCurrentLocationMarker();
+        setState(() {});
+      },
+    );
   }
 
   void _addCurrentLocationMarker() {
@@ -258,32 +252,24 @@ class _MapsReportScreenState extends State<MapsReportScreen> {
     });
   }
 
-  ///
-
-  // void onError(PlacesAutocompleteResponse response) {
-  //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-  //     elevation: 0,
-  //     behavior: SnackBarBehavior.floating,
-  //     backgroundColor: Colors.transparent,
-  //     content: Text('Error'),
-  //   ));
-  // }
-
+  double? selectedLat;
+  double? selectedLng;
   Future<void> displayPrediction(
-    Prediction p,
-    ScaffoldState? currentState,
-  ) async {
-    try {
-      GoogleMapsPlaces places = GoogleMapsPlaces(
-        apiKey: kGoogleApiKey,
-        apiHeaders: await const GoogleApiHeaders().getHeaders(),
-      );
+      Prediction p, ScaffoldState? currentState) async {
+    GoogleMapsPlaces places = GoogleMapsPlaces(
+      apiKey: kGoogleApiKey,
+      apiHeaders: await const GoogleApiHeaders().getHeaders(),
+    );
 
+    try {
       PlacesDetailsResponse detail =
           await places.getDetailsByPlaceId(p.placeId!);
 
       final lat = detail.result.geometry!.location.lat;
       final lng = detail.result.geometry!.location.lng;
+
+      selectedLat = lat;
+      selectedLng = lng;
 
       markersList.clear();
       markersList.add(Marker(
@@ -298,16 +284,91 @@ class _MapsReportScreenState extends State<MapsReportScreen> {
         CameraUpdate.newLatLngZoom(LatLng(lat, lng), 18.0),
       );
 
-      //update selected address
+      // Update selected address
       _selectedLocationAddress =
           '${detail.result.name}, ${detail.result.formattedAddress}';
       _isFromFloatingActionButton = false;
-    } catch (e) {}
+
+      // Log the latitude and longitude
+      print('Selected Location: $lat, $lng');
+    } catch (error) {
+      print('Error fetching place details: $error');
+    }
   }
+
+//   Future<void> displayPrediction(
+//     Prediction p,
+//     ScaffoldState? currentState,
+//   ) async {
+//     try {
+//       GoogleMapsPlaces places = GoogleMapsPlaces(
+//         apiKey: kGoogleApiKey,
+//         apiHeaders: await const GoogleApiHeaders().getHeaders(),
+//       );
+
+// <<<<<<< HEAD
+// =======
+//     try {
+// >>>>>>> origin/feature-reporting
+//       PlacesDetailsResponse detail =
+//           await places.getDetailsByPlaceId(p.placeId!);
+
+//       final lat = detail.result.geometry!.location.lat;
+//       final lng = detail.result.geometry!.location.lng;
+
+// <<<<<<< HEAD
+//       markersList.clear();
+//       markersList.add(Marker(
+//         markerId: const MarkerId("0"),
+//         position: LatLng(lat, lng),
+//         infoWindow: InfoWindow(title: detail.result.name),
+//       ));
+
+//       setState(() {});
+
+//       googleMapController.animateCamera(
+//         CameraUpdate.newLatLngZoom(LatLng(lat, lng), 18.0),
+//       );
+
+//       //update selected address
+//       _selectedLocationAddress =
+//           '${detail.result.name}, ${detail.result.formattedAddress}';
+//       _isFromFloatingActionButton = false;
+//     } catch (e) {}
+// =======
+//       selectedLat = lat;
+//       selectedLng = lng;
+
+//       markersList.clear();
+//       markersList.add(Marker(
+//         markerId: const MarkerId("0"),
+//         position: LatLng(lat, lng),
+//         infoWindow: InfoWindow(title: detail.result.name),
+//       ));
+
+//       setState(() {});
+
+//       googleMapController.animateCamera(
+//         CameraUpdate.newLatLngZoom(LatLng(lat, lng), 18.0),
+//       );
+
+//       // Update selected address
+//       _selectedLocationAddress =
+//           '${detail.result.name}, ${detail.result.formattedAddress}';
+//       _isFromFloatingActionButton = false;
+
+//       // Log the latitude and longitude
+//       print('Selected Location: $lat, $lng');
+//     } catch (error) {
+//       print('Error fetching place details: $error');
+//     }
+// >>>>>>> origin/feature-reporting
+//   }
 
   @override
   void initState() {
     _getCurrentPosition();
+    print('halo${_currentPosition?.latitude}');
     super.initState();
   }
 
@@ -318,7 +379,6 @@ class _MapsReportScreenState extends State<MapsReportScreen> {
   }
 
   /// Menyimpan marker pada peta
-  // final Map<String, Marker> _markers = {};
   Set<Marker> markersList = {};
 
   @override
@@ -339,6 +399,7 @@ class _MapsReportScreenState extends State<MapsReportScreen> {
                       ),
                     )
                   : const CameraPosition(target: LatLng(0.0, 0.0), zoom: 18),
+
               // markers: _markers.values.toSet(),
               // markers: markersList,
               markers: <Marker>[
@@ -354,6 +415,9 @@ class _MapsReportScreenState extends State<MapsReportScreen> {
                   },
                 ),
               ].toSet(),
+
+              //    markers: markersList,
+
               onTap: (LatLng position) {
                 Logger().e(position);
                 _selectMarker('');
@@ -425,6 +489,7 @@ class _MapsReportScreenState extends State<MapsReportScreen> {
                 hintText: 'Cari disini',
                 onPressed: () async {
                   _searchFocusNode.unfocus();
+
                   try {
                     Prediction? p = await PlacesAutocomplete.show(
                         context: context,

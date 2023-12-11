@@ -8,6 +8,7 @@ import 'package:recything_mobile/bloc/post_report/post_report_rubbish_state.dart
 import 'package:recything_mobile/constants/pallete.dart';
 import 'package:recything_mobile/screens/report/widget/file_picker_button.dart';
 import 'package:recything_mobile/screens/report/widget/checkbox_report.dart';
+import 'package:recything_mobile/screens/report/widget/main_button_widget.dart';
 import 'package:recything_mobile/screens/report/widget/maps_report_screen.dart';
 import 'package:recything_mobile/screens/report/widget/text_field_report.dart';
 import 'package:recything_mobile/widgets/forms/main_button.dart';
@@ -37,6 +38,15 @@ class _ReportRubbishScreenState extends State<ReportRubbishScreen> {
   TextEditingController lokasiPatokanController = TextEditingController();
   TextEditingController kondisiSampahController = TextEditingController();
 
+  bool isDataComplete() {
+    return locationController.text.isNotEmpty &&
+        lokasiPatokanController.text.isNotEmpty &&
+        (context.read<PostReportRubbishCubit>().isCheckedKering ||
+            context.read<PostReportRubbishCubit>().isCheckedBasah) &&
+        kondisiSampahController.text.isNotEmpty &&
+        selectedImages.isNotEmpty;
+  }
+
   @override
   void initState() {
     super.initState();
@@ -51,12 +61,6 @@ class _ReportRubbishScreenState extends State<ReportRubbishScreen> {
 
     locationController.text = widget.locationAddress ?? "";
   }
-
-  // List<File>? convertImagesToFiles(List<XFile>? selectedImages) {
-  //   if (selectedImages == null) return null;
-
-  //   return selectedImages.map((image) => File(image.path)).toList();
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -132,35 +136,35 @@ class _ReportRubbishScreenState extends State<ReportRubbishScreen> {
                   ),
                   Column(
                     children: [
-                      CheckboxReport(
-                        label: 'Sampah Kering',
-                        onChanged: (bool? value) {
-                          context
-                              .read<PostReportRubbishCubit>()
-                              .toggleCheckboxKering(value!);
-                          print('Kering = ' +
+                      CheckboxReportWidget(
+                          options: ['Sampah Kering', 'Sampah Basah'],
+                          onChanged: (selectOption) {
+                            if (selectOption == 'Sampah Kering') {
                               context
                                   .read<PostReportRubbishCubit>()
-                                  .isCheckedKering
-                                  .toString());
-                        },
-                      ),
-                      const SizedBox(
-                        height: 8,
-                      ),
-                      CheckboxReport(
-                        label: 'Sampah Basah',
-                        onChanged: (bool? value) {
-                          context
-                              .read<PostReportRubbishCubit>()
-                              .toggleCheckboxBasah(value!);
-                          print('Basah = ' +
+                                  .toggleCheckboxKering(true);
                               context
                                   .read<PostReportRubbishCubit>()
-                                  .isCheckedBasah
-                                  .toString());
-                        },
-                      )
+                                  .toggleCheckboxBasah(false);
+                              print('Kering = ' +
+                                  context
+                                      .read<PostReportRubbishCubit>()
+                                      .isCheckedKering
+                                      .toString());
+                            } else if (selectOption == 'Sampah Basah') {
+                              context
+                                  .read<PostReportRubbishCubit>()
+                                  .toggleCheckboxBasah(true);
+                              context
+                                  .read<PostReportRubbishCubit>()
+                                  .toggleCheckboxKering(false);
+                              print('Basah = ' +
+                                  context
+                                      .read<PostReportRubbishCubit>()
+                                      .isCheckedBasah
+                                      .toString());
+                            }
+                          }),
                     ],
                   ),
                   const SizedBox(
@@ -228,7 +232,7 @@ class _ReportRubbishScreenState extends State<ReportRubbishScreen> {
                               );
                             }
                           },
-                          child: MainButton(
+                          child: MainButtonWidget(
                             child: BlocBuilder<PostReportRubbishCubit,
                                 PostReportRubbishState>(
                               builder: (context, state) {
@@ -248,21 +252,27 @@ class _ReportRubbishScreenState extends State<ReportRubbishScreen> {
                                 }
                               },
                             ),
-                            onPressed: () {
-                              context.read<PostReportRubbishCubit>().reports(
-                                    context: context,
-                                    reportType: "tumpukan sampah",
-                                    location: widget.locationAddress ?? "",
-                                    latitude: widget.latitude ?? "0",
-                                    longitude: widget.longitude ?? "0",
-                                    addressPoint: lokasiPatokanController.text,
-                                    trashType: context
+                            onPressed: isDataComplete()
+                                ? () {
+                                    context
                                         .read<PostReportRubbishCubit>()
-                                        .getTrashType(),
-                                    desc: kondisiSampahController.text,
-                                    images: selectedImages,
-                                  );
-                            },
+                                        .reports(
+                                          context: context,
+                                          reportType: "tumpukan sampah",
+                                          location:
+                                              widget.locationAddress ?? "",
+                                          latitude: widget.latitude ?? "0",
+                                          longitude: widget.longitude ?? "0",
+                                          addressPoint:
+                                              lokasiPatokanController.text,
+                                          trashType: context
+                                              .read<PostReportRubbishCubit>()
+                                              .getTrashType(),
+                                          desc: kondisiSampahController.text,
+                                          images: selectedImages,
+                                        );
+                                  }
+                                : null,
                           ),
                         ),
                       ),

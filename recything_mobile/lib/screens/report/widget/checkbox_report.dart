@@ -1,73 +1,90 @@
 import 'package:flutter/material.dart';
 import 'package:recything_mobile/constants/pallete.dart';
 
-class CheckboxReport extends StatefulWidget {
-  final String label;
-  final void Function(bool?) onChanged;
+class CheckboxReportWidget extends StatefulWidget {
+  final List<String> options;
+  final Function(String?) onChanged;
 
-  const CheckboxReport({
-    Key? key,
-    required this.label,
+  CheckboxReportWidget({
+    required this.options,
     required this.onChanged,
-  }) : super(key: key);
+  });
 
   @override
-  // ignore: library_private_types_in_public_api
-  _CheckboxReportState createState() => _CheckboxReportState();
+  _CheckboxReportWidgetState createState() =>
+      _CheckboxReportWidgetState();
 }
 
-class _CheckboxReportState extends State<CheckboxReport> {
-  bool isChecked = false;
+class _CheckboxReportWidgetState
+    extends State<CheckboxReportWidget> {
+  String? _selectedOption;
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        GestureDetector(
-          onTap: () {
-            setState(() {
-              isChecked = !isChecked;
-              widget.onChanged(isChecked);
-            });
-          },
-          child: Container(
-            width: 24,
-            height: 24,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(4),
-              border: Border.all(
-                color: isChecked ? Pallete.main : Pallete.dark3,
-              ),
-              color: isChecked ? Pallete.main : Colors.transparent,
+    return Column(
+      children: widget.options.map((option) {
+        return Column(
+          children: [
+            Row(
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      _selectedOption = option;
+                      widget.onChanged(option);
+                    });
+                  },
+                  child: Container(
+                    width: 24,
+                    height: 24,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(4),
+                      border: Border.all(
+                        color: _selectedOption == option
+                            ? Pallete.main
+                            : Pallete.dark3,
+                      ),
+                      color: _selectedOption == option
+                          ? Pallete.main
+                          : Colors.transparent,
+                    ),
+                    child: _selectedOption == option
+                        ? Icon(
+                            Icons.check,
+                            size: 16,
+                            color: Colors.white,
+                          )
+                        : null,
+                  ),
+                ),
+                const SizedBox(
+                  width: 8,
+                ),
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      _selectedOption = option;
+                      widget.onChanged(option);
+                    });
+                  },
+                  child: Text(
+                    option,
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: _selectedOption == option
+                          ? Pallete.main
+                          : Pallete.dark3,
+                    ),
+                  ),
+                ),
+              ],
             ),
-            child: isChecked
-                ? const Icon(
-                    Icons.check,
-                    size: 16,
-                    color: Colors.white,
-                  )
-                : null,
-          ),
-        ),
-        const SizedBox(
-          width: 8,
-        ),
-        GestureDetector(
-          onTap: () {
-            setState(() {
-              isChecked = !isChecked;
-              // widget.onChanged(isChecked);
-            });
-          },
-          child: Text(
-            widget.label,
-            style: TextStyle(
-              color: isChecked ? Pallete.main : Pallete.dark3,
-              fontSize: ThemeFont.bodyNormalReguler.fontSize,
+            const SizedBox(
+              height: 8,
             ),
-          ),
-        ),
-      ],
+          ],
+        );
+      }).toList(),
     );
   }
 }
