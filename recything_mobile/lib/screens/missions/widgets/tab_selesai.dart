@@ -70,7 +70,7 @@ class _TabSelesaiState extends State<TabSelesai> {
                                               trackShape: SfTrackShapeWidget(),
                                               min: 0.0,
                                               max: 100.0,
-                                              value: 50,
+                                              value: 100,
                                               onChanged: null,
                                             ),
                                           ),
@@ -79,7 +79,7 @@ class _TabSelesaiState extends State<TabSelesai> {
                                           width: 6,
                                         ),
                                         Text(
-                                          ('${50.toString()}%'),
+                                          ('100%'),
                                           style: ThemeFont.bodySmallRegular,
                                         )
                                       ],
@@ -88,9 +88,9 @@ class _TabSelesaiState extends State<TabSelesai> {
                                       height: 4,
                                     ),
                                     Text(
-                                      data.statusMission,
+                                      'Hadiah diklaim Otomatis!',
                                       style: ThemeFont.bodySmallRegular
-                                          .copyWith(color: Pallete.dark1),
+                                          .copyWith(color: Pallete.dark3),
                                     )
                                   ],
                                 ),

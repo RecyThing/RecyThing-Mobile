@@ -56,12 +56,14 @@ import 'bloc/get_article/get_article_cubit.dart';
 import 'bloc/recyBot/post_recy_bot_cubit.dart';
 
 void main() {
-  runApp(const MyApp()
-      // DevicePreview(
-      //   enabled: !kReleaseMode,
-      //   builder: (context) => const MyApp(),
-      // ),
-      );
+  runApp(const MyApp());
+
+  // runApp(
+  //   DevicePreview(
+  //     enabled: !kReleaseMode,
+  //     builder: (context) => const MyApp(),
+  //   ),
+  // );
 }
 
 class MyApp extends StatelessWidget {
@@ -103,7 +105,7 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.white),
           useMaterial3: true,
         ),
-        initialRoute: '/index',
+        initialRoute: '/splash',
         home: const IndexScreen(),
         routes: {
           '/index': (context) => const IndexScreen(),

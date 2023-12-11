@@ -116,7 +116,10 @@ class DetailMissionScreen extends StatelessWidget {
                 const SizedBox(
                   height: 24,
                 ),
-                ProgressStep(progressState: progressState),
+                ProgressStep(
+                  progressState: progressState,
+                  missionDesc: args['desc'],
+                ),
                 const SizedBox(
                   height: 24,
                 ),
@@ -124,20 +127,38 @@ class DetailMissionScreen extends StatelessWidget {
                     ? const SizedBox()
                     : SizedBox(
                         width: double.infinity,
-                        child: MainButton(
-                            onPressed: progressState == 'Aktif'
-                                ? () => context
-                                    .read<ClaimMissionCubit>()
-                                    .claimMission(missionId: args['missionId'])
-                                : () => Navigator.pushNamed(
+                        child: progressState == 'Aktif'
+                            ? BlocBuilder<ClaimMissionCubit, ClaimMissionState>(
+                                builder: (context, state) {
+                                  return MainButton(
+                                      onPressed: () => context
+                                          .read<ClaimMissionCubit>()
+                                          .claimMission(
+                                              missionId: args['missionId']),
+                                      child: state is ClaimMissionLoading
+                                          ? SizedBox(
+                                              width: 23,
+                                              height: 23,
+                                              child: CircularProgressIndicator(
+                                                color: Colors.white,
+                                              ),
+                                            )
+                                          : Text(
+                                              'Terima Tantangan',
+                                              style: ThemeFont.heading6Bold
+                                                  .copyWith(
+                                                      color: Colors.white),
+                                            ));
+                                },
+                              )
+                            : MainButton(
+                                onPressed: () => Navigator.pushNamed(
                                     context, '/unggah-bukti'),
-                            child: Text(
-                              progressState == 'Aktif'
-                                  ? 'Terima Tantangan'
-                                  : 'Unggah Bukti',
-                              style: ThemeFont.heading6Bold
-                                  .copyWith(color: Colors.white),
-                            )),
+                                child: Text(
+                                  'Unggah Bukti',
+                                  style: ThemeFont.heading6Bold
+                                      .copyWith(color: Colors.white),
+                                )),
                       ),
                 const SizedBox(
                   height: 20,

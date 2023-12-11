@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:logger/logger.dart';
 import 'package:recything_mobile/constants/api.dart';
@@ -18,7 +20,10 @@ class ClaimMissionRepo {
       Logger().i(res.data);
     } on DioException catch (e) {
       Logger().e(e.response);
-      throw Exception(e);
+      if (e.response != null) {
+        final response = jsonDecode(e.response.toString());
+        throw response["message"];
+      }
     }
   }
 }

@@ -6,8 +6,10 @@ import 'package:recything_mobile/screens/missions/widgets/progress_card.dart';
 
 class ProgressStep extends StatelessWidget {
   final String progressState;
+  final String missionDesc;
 
-  const ProgressStep({super.key, required this.progressState});
+  const ProgressStep(
+      {super.key, required this.progressState, required this.missionDesc});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +20,7 @@ class ProgressStep extends StatelessWidget {
           children: [
             ProgressCard(
               title: 'Satu tantangan untukmu.',
-              subTitle: 'Buanglah sampah yang\nberserakan pada tempatnya',
+              subTitle: missionDesc,
               backgroundColor:
                   progressState == 'Aktif' ? Colors.white : Pallete.mainSubtle,
             ),

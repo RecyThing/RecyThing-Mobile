@@ -13,7 +13,7 @@ class ClaimMissionCubit extends Cubit<ClaimMissionState> {
       await _claimMissionRepo.getMissions(missionId: missionId);
       emit(ClaimMissionSuccess());
     } catch (e) {
-      emit(ClaimMissionFailed(errorMsg: 'Terjadi Kesalahan'));
+      emit(ClaimMissionFailed(errorMsg: e.toString()));
     }
   }
 }

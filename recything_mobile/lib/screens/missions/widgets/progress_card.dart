@@ -39,21 +39,27 @@ class ProgressCard extends StatelessWidget {
           const SizedBox(
             width: 32,
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                title,
-                style: ThemeFont.heading6Bold,
+          Expanded(
+            child: SizedBox(
+              height: 73,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: ThemeFont.heading6Bold,
+                  ),
+                  const SizedBox(
+                    height: 2,
+                  ),
+                  Text(
+                    subTitle,
+                    style: ThemeFont.bodySmallRegular.copyWith(height: 1.7),
+                  )
+                ],
               ),
-              const SizedBox(
-                height: 2,
-              ),
-              Text(
-                subTitle,
-                style: ThemeFont.bodySmallRegular.copyWith(height: 1.7),
-              )
-            ],
+            ),
           )
         ],
       ),
