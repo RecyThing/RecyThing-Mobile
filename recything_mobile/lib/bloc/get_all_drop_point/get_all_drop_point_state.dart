@@ -13,9 +13,11 @@ final class GetAllDropPointLoading extends GetAllDropPointState {}
 
 final class GetAllDropPointSuccess extends GetAllDropPointState {
   final List<DropPointsModel> data;
+  final bool isInitial;
 
   GetAllDropPointSuccess({
     required this.data,
+    this.isInitial = false,
   });
 }
 
