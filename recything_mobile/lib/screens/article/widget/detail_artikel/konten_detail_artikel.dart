@@ -36,6 +36,7 @@ class KontenDetailArtikelWidget extends StatelessWidget {
                       Text(
                         state.data[index].title,
                         style: ThemeFont.bodyLargeBold,
+                        textAlign: TextAlign.justify,
                       ),
                       const SizedBox(height: 24),
                       Row(
@@ -58,7 +59,7 @@ class KontenDetailArtikelWidget extends StatelessWidget {
                                 ),
                                 const SizedBox(width: 8),
                                 Text(
-                                  state.data[index].createDate,
+                                  state.data[index].updateDate,
                                   style: ThemeFont.bodySmallRegular
                                       .copyWith(color: Pallete.dark3),
                                 )
@@ -83,13 +84,13 @@ class KontenDetailArtikelWidget extends StatelessWidget {
                                       .copyWith(color: Pallete.dark3),
                                 ),
                                 const SizedBox(width: 5),
-                                const Icon(Icons.share_outlined),
-                                const SizedBox(width: 5),
-                                Text(
-                                  state.data[index].share.toString(),
-                                  style: ThemeFont.bodySmallRegular
-                                      .copyWith(color: Pallete.dark3),
-                                ),
+                                // const Icon(Icons.share_outlined),
+                                // const SizedBox(width: 5),
+                                // Text(
+                                //   state.data[index].share.toString(),
+                                //   style: ThemeFont.bodySmallRegular
+                                //       .copyWith(color: Pallete.dark3),
+                                // ),
                               ],
                             ),
                           )

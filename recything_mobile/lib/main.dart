@@ -52,6 +52,7 @@ import 'package:recything_mobile/screens/splash/splash_screen.dart';
 import 'package:recything_mobile/screens/verifikasi_otp/verifikasi_otp_screen.dart';
 
 import 'bloc/get_article/get_article_cubit.dart';
+import 'bloc/get_popular_article/get_popular_article_cubit.dart';
 import 'bloc/recyBot/post_recy_bot_cubit.dart';
 
 void main() {
@@ -85,6 +86,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => PostReportRubbishCubit()),
         BlocProvider(create: (_) => PostRecyBotCubit()),
         BlocProvider(create: (_) => GetArticleCubit()),
+        BlocProvider(create: (_) => GetPopularArticleCubit()),
         BlocProvider(create: (_) => GetVouchersCubit()),
         BlocProvider(create: (_) => PostReportLitteringCubit()),
         BlocProvider(create: (_) => GetMissionsCubit()),

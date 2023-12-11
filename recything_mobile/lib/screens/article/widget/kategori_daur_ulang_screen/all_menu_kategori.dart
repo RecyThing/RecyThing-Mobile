@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../../bloc/get_article/get_article_cubit.dart';
 import '../../theme/color_style.dart';
 
 class AllMenuKategoriWidget extends StatelessWidget {
@@ -9,46 +11,56 @@ class AllMenuKategoriWidget extends StatelessWidget {
     {
       'imageAsset': 'assets/icons/icon_plastik.png',
       'title': 'Plastik',
+      'category': 'plastik'
     },
     {
       'imageAsset': 'assets/icons/icon_kaca.png',
       'title': 'Kaca',
+      'category': 'kaca'
     },
     {
       'imageAsset': 'assets/icons/icon_logam.png',
       'title': 'Logam',
+      'category': 'logam'
     },
     {
       'imageAsset': 'assets/icons/icon_organik.png',
       'title': 'Organik',
+      'category': 'organik'
     },
     {
       'imageAsset': 'assets/icons/icon_kertas.png',
       'title': 'Kertas',
+      'category': 'kertas'
     },
     {
       'imageAsset': 'assets/icons/icon_kaleng.png',
       'title': 'Kaleng',
+      'category': 'kaleng'
     },
     {
       'imageAsset': 'assets/icons/icon_minyak.png',
       'title': 'Minyak',
+      'category': 'minyak'
     },
     {
       'imageAsset': 'assets/icons/icon_elektronik.png',
       'title': 'Elektronik',
+      'category': 'elektronik'
     },
     {
       'imageAsset': 'assets/icons/icon_tekstil.png',
       'title': 'Tekstil',
+      'category': 'tekstil'
     },
-    {
-      'imageAsset': 'assets/icons/icon_pakaian.png',
-      'title': 'Pakaian',
-    },
+    // {
+    //   'imageAsset': 'assets/icons/icon_pakaian.png',
+    //   'title': 'Pakaian',
+    // },
     {
       'imageAsset': 'assets/icons/icon_baterai.png',
       'title': 'Baterai',
+      'category': 'baterai'
     },
   ];
 
@@ -74,7 +86,16 @@ class AllMenuKategoriWidget extends StatelessWidget {
                 height: 99.58,
                 child: GestureDetector(
                   onTap: () {
-                    Navigator.pushNamed(context, '/artikelByKategori');
+                    context.read<GetArticleCubit>().getArticleByCategory(
+                        macamKategori[index]['category'] ?? "");
+                    Navigator.pushNamed(
+                      context,
+                      '/artikelByKategori',
+                      arguments: {
+                        'category': macamKategori[index]['category'],
+                        'title': macamKategori[index]['title'],
+                      },
+                    );
                   },
                   child: Column(
                     children: [

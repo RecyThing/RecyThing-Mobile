@@ -10,7 +10,7 @@ class ArticleModel {
   List<CategoryModel> categories;
   int like;
   int share;
-  String createDate;
+  String updateDate;
 
   ArticleModel({
     required this.id,
@@ -20,8 +20,8 @@ class ArticleModel {
     required this.categories,
     required this.like,
     required this.share,
-    required String createDate,
-  }) : createDate = _formatDate(createDate);
+    required String updateDate,
+  }) : updateDate = _formatDate(updateDate);
 
   factory ArticleModel.fromJson(Map<String, dynamic> json) {
     List<CategoryModel> categoriesList = [];
@@ -39,7 +39,7 @@ class ArticleModel {
       categories: categoriesList,
       like: json["like"],
       share: json["share"],
-      createDate: json["created_at"],
+      updateDate: json["updated_at"],
     );
   }
 
@@ -51,7 +51,7 @@ class ArticleModel {
         "categories": categories.map((category) => category.toJson()).toList(),
         "like": like,
         "share": share,
-        "created_at": createDate,
+        "updated_at": updateDate,
       };
 
   static String _formatDate(String inputDate) {
@@ -67,4 +67,10 @@ class ArticleModel {
   String getCategoryString() {
     return CategoryModel.getCategoryStringList(categories);
   }
+}
+
+class SearchFieldItem {
+  String title;
+
+  SearchFieldItem({required this.title});
 }

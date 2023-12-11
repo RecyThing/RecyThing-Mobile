@@ -144,7 +144,7 @@ class _DetailArtikelScreenState extends State<DetailArtikelScreen> {
                                                     children: [
                                                       Text(
                                                         state.data[index]
-                                                            .createDate,
+                                                            .updateDate,
                                                         style: ThemeFont
                                                             .bodySmallRegular,
                                                       ),
@@ -220,6 +220,11 @@ class _DetailArtikelScreenState extends State<DetailArtikelScreen> {
                                                       } else if (socialMedia[
                                                               index]["share"] ==
                                                           "instagram") {
+                                                        SocialShare.shareSms(
+                                                                "ini link")
+                                                            .then((value) {
+                                                          print(value);
+                                                        });
                                                       } else if (socialMedia[
                                                               index]["share"] ==
                                                           "wa") {
@@ -232,6 +237,12 @@ class _DetailArtikelScreenState extends State<DetailArtikelScreen> {
                                                       } else if (socialMedia[
                                                               index]["share"] ==
                                                           "fb") {
+                                                        SocialShare
+                                                                .shareTwitter(
+                                                                    "ini link")
+                                                            .then((value) {
+                                                          print(value);
+                                                        });
                                                       } else if (socialMedia[
                                                               index]["share"] ==
                                                           "telegram") {
