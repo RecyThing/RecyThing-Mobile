@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:recything_mobile/constants/pallete.dart';
+import 'package:recything_mobile/models/lencana_model.dart';
+import 'package:recything_mobile/models/user_model.dart';
 import 'package:recything_mobile/screens/lencana/widgets/lencana_card.dart';
 import 'package:recything_mobile/screens/lencana/widgets/lencana_keuntungan.dart';
 import 'package:recything_mobile/screens/lencana/widgets/lencana_poin.dart';
 
 class LencanaPlatinumScreen extends StatelessWidget {
-  const LencanaPlatinumScreen({super.key});
+  final UserModel user;
+  final LencanaModel data;
+  const LencanaPlatinumScreen(
+      {super.key, required this.data, required this.user});
 
   @override
   Widget build(BuildContext context) {
-    return const SingleChildScrollView(
+    return SingleChildScrollView(
       child: Column(
         children: [
           LencanaCard(
@@ -17,8 +22,13 @@ class LencanaPlatinumScreen extends StatelessWidget {
               title: "Platinum",
               subtitle:
                   "Anda Seorang Pahlawan, Tidak ada yang bisa menghentikan Anda sekarang.",
-              angka: "250.000"),
-          LencanaPoin(color: Pallete.platinum, nilai: 0),
+              angka: data.targetPoint.toString()),
+          LencanaPoin(
+            lencana: data,
+            color: Pallete.platinum,
+            nilai: user.point / data.targetPoint,
+            item: user,
+          ),
           LencanaKeuntungan(persen: "20", color: Pallete.platinum)
         ],
       ),

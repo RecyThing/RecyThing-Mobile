@@ -5,15 +5,20 @@ import 'package:recything_mobile/bloc/auth/auth_cubit.dart';
 import 'package:recything_mobile/bloc/forgot_password/forgot_password_cubit.dart';
 import 'package:recything_mobile/bloc/get_ai/get_ai_cubit.dart';
 import 'package:recything_mobile/bloc/get_all_drop_point/get_all_drop_point_cubit.dart';
+import 'package:recything_mobile/bloc/get_history_poin/get_history_poin_cubit.dart';
+import 'package:recything_mobile/bloc/get_history_poin_by_id/get_history_poin_by_id_cubit.dart';
 import 'package:recything_mobile/bloc/get_history_report_by_id/get_history_report_by_id_cubit.dart';
+import 'package:recything_mobile/bloc/get_lencana/get_lencana_cubit.dart';
 import 'package:recything_mobile/bloc/get_missions/get_missions_cubit.dart';
 import 'package:recything_mobile/bloc/get_report_hisstory/get_report_history_cubit.dart';
 import 'package:recything_mobile/bloc/get_user_profile/get_user_profile_cubit.dart';
 import 'package:recything_mobile/bloc/get_vouchers/get_vouchers_cubit.dart';
 import 'package:recything_mobile/bloc/login/login_cubit.dart';
 import 'package:recything_mobile/bloc/get_all_faq/get_all_faq_cubit.dart';
+import 'package:recything_mobile/bloc/post_poin_daily/post_poin_daily_cubit.dart';
 import 'package:recything_mobile/bloc/post_report/post_report_rubbish_cubit.dart';
 import 'package:recything_mobile/bloc/post_report_littering/post_report_littering_cubit.dart';
+import 'package:recything_mobile/bloc/post_voucher/post_voucher_cubit.dart';
 import 'package:recything_mobile/bloc/update_user_profile/update_user_profile_cubit.dart';
 import 'package:recything_mobile/bloc/register/register_cubit.dart';
 import 'package:recything_mobile/bloc/update_password/update_password_cubit.dart';
@@ -29,17 +34,13 @@ import 'package:recything_mobile/screens/home/pages/pertanyaan_umum_screen.dart'
 import 'package:recything_mobile/screens/home/pages/profile_screen.dart';
 import 'package:recything_mobile/screens/home/pages/ubah_password_screen.dart';
 import 'package:recything_mobile/screens/index_screen.dart';
-import 'package:recything_mobile/screens/lencana/pages/lencana_screen.dart';
 import 'package:recything_mobile/screens/login/login_screen.dart';
 import 'package:recything_mobile/screens/missions/detail_mission_screen.dart';
 import 'package:recything_mobile/screens/missions/missions_screen.dart';
 import 'package:recything_mobile/screens/missions/unggah_bukti_screen.dart';
 import 'package:recything_mobile/screens/onboarding/onboarding_screen.dart';
 import 'package:recything_mobile/screens/password_baru/password_baru_screen.dart';
-import 'package:recything_mobile/screens/poinku/pages/detail_transaksi_screen.dart';
 import 'package:recything_mobile/screens/poinku/pages/detail_voucher_screen.dart';
-import 'package:recything_mobile/screens/poinku/pages/poinku_screen.dart';
-import 'package:recything_mobile/screens/poinku/pages/tukar_voucher_screen.dart';
 import 'package:recything_mobile/screens/recy/pages/recy_ai_screen.dart';
 import 'package:recything_mobile/screens/register/register_screen.dart';
 import 'package:recything_mobile/screens/report/choose_report_screen.dart';
@@ -88,7 +89,13 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => GetVouchersCubit()),
         BlocProvider(create: (_) => PostReportLitteringCubit()),
         BlocProvider(create: (_) => GetMissionsCubit()),
-        BlocProvider(create: (_) => GetAllDropPointCubit())
+        BlocProvider(create: (_) => GetAllDropPointCubit()),
+        BlocProvider(create: (_) => GetLencanaCubit()),
+        BlocProvider(create: (_) => GetHistoryPoinCubit()),
+        BlocProvider(create: (_) => PostVoucherCubit()),
+        BlocProvider(create: (_) => PostPoinDailyCubit()),
+        BlocProvider(create: (_) => GetHistoryPoinCubit()),
+        BlocProvider(create: (_) => GetHistoryPoinByIdCubit())
       ],
       child: MaterialApp(
         locale: DevicePreview.locale(context),
@@ -114,17 +121,12 @@ class MyApp extends StatelessWidget {
           '/dashboard': (context) => const Dasboard(),
           '/profile': (context) => const ProfileScreen(),
           '/notif': (context) => const NotifikasiScreen(),
-          '/poinku': (context) => const PoinkuScreen(),
           '/detailVoucher': (context) => const DetailVoucherScreen(),
-          '/tukarVoucher': (context) => const TukatVoucherScreen(),
-          '/detailTransaksi': (context) => const DetailTransaksiScreen(),
           '/register': (context) => const RegisterScreen(),
           '/reset_password': (context) => const ResetPasswordScreen(),
           '/verifikasi_otp': (context) => const VerifikasiOtpScreen(),
           '/password_baru': (context) => const PasswordBaruScreen(),
-          // '/editProfile': (context) => const EditProfileScreen(),
           '/pertanyaanUmum': (context) => const PertanyaanUmumScren(),
-          '/lencana': (context) => const LencanaScreen(),
           '/ubahPassword': (context) => const UbahPasswordScreen(),
           '/recy': (context) => const RecyAiScreen(),
           '/choose-report': (context) => const ChooseReportScreen(),

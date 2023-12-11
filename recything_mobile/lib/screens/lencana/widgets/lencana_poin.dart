@@ -1,10 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:recything_mobile/constants/pallete.dart';
+import 'package:recything_mobile/models/lencana_model.dart';
+import 'package:recything_mobile/models/user_model.dart';
 
 class LencanaPoin extends StatefulWidget {
+  final LencanaModel lencana;
+  final UserModel item;
   final Color color;
   final double nilai;
-  const LencanaPoin({super.key, required this.color, required this.nilai});
+  const LencanaPoin(
+      {super.key,
+      required this.color,
+      required this.nilai,
+      required this.item,
+      required this.lencana});
 
   @override
   State<LencanaPoin> createState() => _LencanaPoinState();
@@ -24,7 +33,7 @@ class _LencanaPoinState extends State<LencanaPoin> {
                 .copyWith(color: Pallete.textSecondary),
           ),
           Text(
-            "125.000 Poin",
+            "${widget.item.point} Poin",
             style: ThemeFont.heading5Bold,
           ),
           Padding(
@@ -37,11 +46,11 @@ class _LencanaPoinState extends State<LencanaPoin> {
             ),
           ),
           Text(
-            widget.nilai == 1.0
+            widget.nilai >= 1.0
                 ? "Poin Anda sudah melewati batas level lencana ini"
                 : widget.nilai == 0
                     ? "Poin Anda belum mencukupi untuk lencana ini."
-                    : "125.000 Poin lagi untuk menjadi Platinum",
+                    : "${widget.lencana.targetPoint - widget.item.point} Poin lagi untuk menjadi Platinum",
             style: ThemeFont.bodySmallRegular
                 .copyWith(color: Pallete.textSecondary),
           ),

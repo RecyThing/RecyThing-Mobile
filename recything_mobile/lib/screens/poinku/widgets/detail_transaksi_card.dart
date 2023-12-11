@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:recything_mobile/constants/pallete.dart';
+import 'package:recything_mobile/models/history_poin_model.dart';
 
 class DetailTransaksiCard extends StatelessWidget {
-  const DetailTransaksiCard({super.key});
+  final HistoryPoinModel item;
+  const DetailTransaksiCard({super.key, required this.item});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +24,9 @@ class DetailTransaksiCard extends StatelessWidget {
       child: Column(
         children: [
           Text(
-            "-5.200",
+            item.typeTransaction == "tukar poin"
+                ? "-${item.point}"
+                : "+${item.point}",
             style: ThemeFont.interText.copyWith(
                 fontWeight: FontWeight.w700,
                 color: Pallete.dark1,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:recything_mobile/constants/pallete.dart';
 import 'package:recything_mobile/models/user_model.dart';
+import 'package:recything_mobile/screens/poinku/pages/poinku_screen.dart';
 import 'package:recything_mobile/widgets/forms/custom_teks.dart';
 import 'package:recything_mobile/widgets/forms/main_button.dart';
 
@@ -12,7 +13,8 @@ class HomePoinCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, '/poinku');
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => PoinkuScreen(user: user)));
       },
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 16),
@@ -38,7 +40,9 @@ class HomePoinCard extends StatelessWidget {
                   style:
                       ThemeFont.interText.copyWith(fontWeight: FontWeight.w400),
                 ),
-                const CustomTeks(name: "Gold", color: Pallete.secondaryDarker)
+                CustomTeks(
+                    name: user.badge ?? "bronze",
+                    color: _getBadgeColor(user.badge ?? "bronze"))
               ],
             ),
             const SizedBox(
@@ -67,13 +71,27 @@ class HomePoinCard extends StatelessWidget {
                         ),
                         side: const BorderSide(color: Pallete.main),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    PoinkuScreen(user: user)));
+                      },
                       child: const Text("Riwayat")),
                 ),
                 SizedBox(
                     width: MediaQuery.of(context).size.width * 0.4,
                     child: MainButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => PoinkuScreen(
+                                        user: user,
+                                        index: 1,
+                                      )));
+                        },
                         child: Text(
                           "Tukar Poin",
                           style: ThemeFont.heading6Reguler.copyWith(
@@ -86,5 +104,20 @@ class HomePoinCard extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+Color _getBadgeColor(String badge) {
+  switch (badge) {
+    case 'platinum':
+      return Pallete.platinum;
+    case 'gold':
+      return Pallete.gold;
+    case 'silver':
+      return Pallete.silver;
+    case 'bronze':
+      return Pallete.bronze;
+    default:
+      return Pallete.secondaryDarker;
   }
 }
