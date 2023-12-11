@@ -7,6 +7,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:iconly/iconly.dart';
+import 'package:logger/logger.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:recything_mobile/constants/pallete.dart';
 import 'package:recything_mobile/screens/report/report-rubbish/report_rubbish_screen.dart';
@@ -30,16 +31,29 @@ const kGoogleApiKey = 'AIzaSyAUkDtpaPLbcf2wLGRsnKHyL4bJ4CXNkv4';
 final homeScaffoldKey = GlobalKey<ScaffoldState>();
 
 class _MapsReportScreenState extends State<MapsReportScreen> {
+  BitmapDescriptor customIcon = BitmapDescriptor.defaultMarker;
+  // Future<void> _initCustomMarker() async {
+  //   customIcon = await BitmapDescriptor.fromAssetImage(
+  //     ImageConfiguration(size: Size(48, 48)),
+  //     'assets/images/custom_marker.png',
+  //   );
+  //   // print("halo ${customIcon}");
+  //   // setState to rebuild the widget tree if needed
+  //   setState(() {});
+  // }
+
   final FocusNode _searchFocusNode = FocusNode();
   late GoogleMapController googleMapController;
   final Mode _mode = Mode.overlay;
   TextEditingController _searchController = TextEditingController();
 
+  LatLng _markerPosition = LatLng(0, 0);
+
   Completer<GoogleMapController> _controller = Completer();
 
   Position? _currentPosition;
   String? _currentAddress;
-  MarkerId? _selectedMarkerId;
+  // MarkerId? _selectedMarkerId;
   String? _selectedLocationAddress;
   bool _isFromFloatingActionButton = false;
 
@@ -82,6 +96,8 @@ class _MapsReportScreenState extends State<MapsReportScreen> {
     if (status == PermissionStatus.denied) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
+          duration: Duration(seconds: 1),
+          behavior: SnackBarBehavior.floating,
           content: Text(
               'Izin lokasi ditolak. Aktifkan izin di pengaturan aplikasi.'),
         ),
@@ -91,6 +107,8 @@ class _MapsReportScreenState extends State<MapsReportScreen> {
     } else if (status == PermissionStatus.permanentlyDenied) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
+          duration: Duration(seconds: 1),
+          behavior: SnackBarBehavior.floating,
           content: Text(
               'Izin lokasi ditolak secara permanen. Buka pengaturan aplikasi untuk mengaktifkan izin.'),
         ),
@@ -100,6 +118,8 @@ class _MapsReportScreenState extends State<MapsReportScreen> {
     } else if (status == PermissionStatus.granted) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
+          duration: Duration(seconds: 1),
+          behavior: SnackBarBehavior.floating,
           content: Text('Izin lokasi diberikan.'),
         ),
       );
@@ -110,15 +130,24 @@ class _MapsReportScreenState extends State<MapsReportScreen> {
 
   /// Mendapatkan alamat dari posisi
   Future<void> _getAddress(Position position) async {
-    await placemarkFromCoordinates(position.latitude, position.longitude)
-        .then((List<Placemark> listPlacemark) {
-      setState(() {
-        Placemark placemark = listPlacemark.first;
-        _currentAddress =
-            '${placemark.thoroughfare}, ${placemark.subThoroughfare}, ${placemark.subLocality}, ${placemark.locality}, ${placemark.subAdministrativeArea}, ${placemark.administrativeArea}';
-        // _updateMarker(position);
-      });
-    });
+    try {
+      await placemarkFromCoordinates(position.latitude, position.longitude)
+          .then(
+        (List<Placemark> listPlacemark) {
+          setState(
+            () {
+              Placemark placemark = listPlacemark.first;
+              _currentAddress =
+                  '${placemark.thoroughfare}, ${placemark.subThoroughfare}, ${placemark.subLocality}, ${placemark.locality}, ${placemark.subAdministrativeArea}, ${placemark.administrativeArea}';
+              // _updateMarker(position);
+            },
+          );
+          _selectedLocationAddress = _currentAddress;
+          Logger().e(_currentAddress);
+          Logger().e(_markerPosition);
+        },
+      );
+    } catch (e) {}
   }
 
   /// Memperbarui alamat dan navigasi ke halaman berikutnya
@@ -186,7 +215,7 @@ class _MapsReportScreenState extends State<MapsReportScreen> {
   /// Memilih marker pada peta
   void _selectMarker(String markerId) {
     setState(() {
-      _selectedMarkerId = MarkerId(markerId);
+      // _selectedMarkerId = MarkerId(markerId);
 
       if (markerId.isNotEmpty) {
       } else {
@@ -241,34 +270,39 @@ class _MapsReportScreenState extends State<MapsReportScreen> {
   // }
 
   Future<void> displayPrediction(
-      Prediction p, ScaffoldState? currentState) async {
-    GoogleMapsPlaces places = GoogleMapsPlaces(
-      apiKey: kGoogleApiKey,
-      apiHeaders: await const GoogleApiHeaders().getHeaders(),
-    );
+    Prediction p,
+    ScaffoldState? currentState,
+  ) async {
+    try {
+      GoogleMapsPlaces places = GoogleMapsPlaces(
+        apiKey: kGoogleApiKey,
+        apiHeaders: await const GoogleApiHeaders().getHeaders(),
+      );
 
-    PlacesDetailsResponse detail = await places.getDetailsByPlaceId(p.placeId!);
+      PlacesDetailsResponse detail =
+          await places.getDetailsByPlaceId(p.placeId!);
 
-    final lat = detail.result.geometry!.location.lat;
-    final lng = detail.result.geometry!.location.lng;
+      final lat = detail.result.geometry!.location.lat;
+      final lng = detail.result.geometry!.location.lng;
 
-    markersList.clear();
-    markersList.add(Marker(
-      markerId: const MarkerId("0"),
-      position: LatLng(lat, lng),
-      infoWindow: InfoWindow(title: detail.result.name),
-    ));
+      markersList.clear();
+      markersList.add(Marker(
+        markerId: const MarkerId("0"),
+        position: LatLng(lat, lng),
+        infoWindow: InfoWindow(title: detail.result.name),
+      ));
 
-    setState(() {});
+      setState(() {});
 
-    googleMapController.animateCamera(
-      CameraUpdate.newLatLngZoom(LatLng(lat, lng), 18.0),
-    );
+      googleMapController.animateCamera(
+        CameraUpdate.newLatLngZoom(LatLng(lat, lng), 18.0),
+      );
 
-    //update selected address
-    _selectedLocationAddress =
-        '${detail.result.name}, ${detail.result.formattedAddress}';
-    _isFromFloatingActionButton = false;
+      //update selected address
+      _selectedLocationAddress =
+          '${detail.result.name}, ${detail.result.formattedAddress}';
+      _isFromFloatingActionButton = false;
+    } catch (e) {}
   }
 
   @override
@@ -306,11 +340,44 @@ class _MapsReportScreenState extends State<MapsReportScreen> {
                     )
                   : const CameraPosition(target: LatLng(0.0, 0.0), zoom: 18),
               // markers: _markers.values.toSet(),
-              markers: markersList,
+              // markers: markersList,
+              markers: <Marker>[
+                Marker(
+                  markerId: MarkerId('selected_location'),
+                  position: _markerPosition,
+                  draggable: true,
+                  icon: customIcon,
+                  onDragEnd: (newPosition) {
+                    setState(() {
+                      _markerPosition = newPosition;
+                    });
+                  },
+                ),
+              ].toSet(),
               onTap: (LatLng position) {
+                Logger().e(position);
                 _selectMarker('');
+                setState(() {
+                  _markerPosition = position;
+                  Position pos = Position(
+                    latitude: position.latitude,
+                    longitude: position.longitude,
+                    timestamp: DateTime.now(),
+                    accuracy: 0.0, // Default value for accuracy
+                    altitude: 0.0, // Default value for altitude
+                    heading: 0.0, // Default value for heading
+                    speed: 0.0, // Default value for speed
+                    speedAccuracy: 0.0, // Default value for speed accuracy
+                    altitudeAccuracy:
+                        0.0, // Default value for altitude accuracy
+                    headingAccuracy: 0.0, // Default value for altitude accuracy
+                  );
+                  _currentPosition = pos;
+                  _getAddress(pos);
+                });
               },
-              onMapCreated: (GoogleMapController controller) {
+              onMapCreated: (GoogleMapController controller) async {
+                // await _initCustomMarker();
                 _controller.complete(controller);
                 googleMapController = controller;
               },
@@ -358,16 +425,17 @@ class _MapsReportScreenState extends State<MapsReportScreen> {
                 hintText: 'Cari disini',
                 onPressed: () async {
                   _searchFocusNode.unfocus();
-
-                  Prediction? p = await PlacesAutocomplete.show(
-                      context: context,
-                      apiKey: kGoogleApiKey,
-                      // onError: onError,
-                      mode: _mode,
-                      strictbounds: false,
-                      types: [''],
-                      components: [Component(Component.country, 'ID')]);
-                  displayPrediction(p!, homeScaffoldKey.currentState);
+                  try {
+                    Prediction? p = await PlacesAutocomplete.show(
+                        context: context,
+                        apiKey: kGoogleApiKey,
+                        // onError: onError,
+                        mode: _mode,
+                        strictbounds: false,
+                        types: [''],
+                        components: [Component(Component.country, 'ID')]);
+                    displayPrediction(p!, homeScaffoldKey.currentState);
+                  } catch (e) {}
                 },
               ),
             ),
@@ -375,15 +443,24 @@ class _MapsReportScreenState extends State<MapsReportScreen> {
               bottom: 24,
               left: 16,
               right: 16,
-              child: MainButtonWidget(
-                onPressed: () {
-                  _updateAddress();
-                },
-                child: Text(
-                  'Selanjutnya',
-                  style: ThemeFont.heading6Bold.copyWith(color: Colors.white),
-                ),
-              ),
+              child: _markerPosition.latitude != 0
+                  ? MainButtonWidget(
+                      onPressed: () {
+                        _updateAddress();
+                      },
+                      child: Text(
+                        'Selanjutnya',
+                        style: ThemeFont.heading6Bold
+                            .copyWith(color: Colors.white),
+                      ),
+                    )
+                  : MainButtonWidget(
+                      child: Text(
+                        'Selanjutnya',
+                        style: ThemeFont.heading6Bold
+                            .copyWith(color: Colors.white),
+                      ),
+                    ),
             ),
             Positioned(
               bottom: 96,

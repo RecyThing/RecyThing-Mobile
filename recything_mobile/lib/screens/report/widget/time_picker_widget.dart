@@ -64,7 +64,7 @@ class _TimePickerWWidgetState extends State<TimePickerWWidget> {
             pickedTime.minute,
           );
 
-          String formattedTime = DateFormat('hh:mm a').format(parsedTime);
+          String formattedTime = DateFormat('hh:mm').format(parsedTime);
 
           setState(() {
             widget.controller.text = formattedTime;
