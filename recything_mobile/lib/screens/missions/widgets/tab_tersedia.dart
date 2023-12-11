@@ -1,17 +1,48 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:recything_mobile/bloc/claim_mission/claim_mission_cubit.dart';
 import 'package:recything_mobile/bloc/get_missions/get_missions_cubit.dart';
 import 'package:recything_mobile/constants/pallete.dart';
 import 'package:recything_mobile/screens/missions/widgets/mission_card.dart';
+import 'package:recything_mobile/widgets/error_snackbar.dart';
+import 'package:recything_mobile/widgets/success_snackbar.dart';
 
-class TabTersedia extends StatelessWidget {
+class TabTersedia extends StatefulWidget {
   TabTersedia({super.key});
+
+  @override
+  State<TabTersedia> createState() => _TabTersediaState();
+}
+
+class _TabTersediaState extends State<TabTersedia> {
+  @override
+  void initState() {
+    context.read<GetMissionsCubit>().getMissions();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        BlocListener<ClaimMissionCubit, ClaimMissionState>(
+          listener: (context, state) {
+            if (state is ClaimMissionSuccess) {
+              SuccessSnackbar.showSnackbar(context,
+                  title: "Claim mission berhasil!",
+                  message: "Cek di tab Berjalan kamu",
+                  isTopSnackbar: false);
+              Navigator.pop(context);
+            } else if (state is ClaimMissionFailed) {
+              ErrorSnackbar.showSnackbar(context,
+                  title: "Gagal claim mission",
+                  message: state.errorMsg,
+                  isTopSnackbar: false);
+            }
+          },
+          child: SizedBox(),
+        ),
         const SizedBox(
           height: 16,
         ),
@@ -35,15 +66,16 @@ class TabTersedia extends StatelessWidget {
                       return Column(
                         children: [
                           MissionCard(
-                            title: data.name,
+                            title: data.title,
                             subTitle: Text(
                               data.description,
                               style: ThemeFont.bodySmallRegular,
                             ),
                             imageUrl: data.missionImage,
                             args: {
+                              'missionId': data.missionId,
                               'imageUrl': data.missionImage,
-                              'title': data.name,
+                              'title': data.title,
                               'expiredDate': data.endDate,
                               'point': data.point,
                               'desc': data.description,
@@ -56,11 +88,16 @@ class TabTersedia extends StatelessWidget {
                         ],
                       );
                     });
+              } else if (state is GetMissionsLoading) {
+                return Center(
+                    child: CircularProgressIndicator(
+                  color: Pallete.main,
+                ));
               }
 
               return Center(
-                  child: CircularProgressIndicator(
-                color: Pallete.main,
+                  child: Text(
+                'Terjadi Kesalahan',
               ));
             },
           ),

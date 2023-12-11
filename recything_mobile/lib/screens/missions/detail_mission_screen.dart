@@ -1,20 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
+import 'package:recything_mobile/bloc/claim_mission/claim_mission_cubit.dart';
 import 'package:recything_mobile/constants/pallete.dart';
 import 'package:recything_mobile/screens/missions/widgets/custom_leading_app_bar.dart';
 import 'package:recything_mobile/widgets/forms/progress_state_box.dart';
 import 'package:recything_mobile/screens/missions/widgets/progress_step.dart';
 import 'package:recything_mobile/widgets/forms/main_button.dart';
 
-class DetailMissionScreen extends StatefulWidget {
+class DetailMissionScreen extends StatelessWidget {
   const DetailMissionScreen({super.key});
 
-  @override
-  State<DetailMissionScreen> createState() => _DetailMissionScreenState();
-}
-
-class _DetailMissionScreenState extends State<DetailMissionScreen> {
   @override
   Widget build(BuildContext context) {
     initializeDateFormatting();
@@ -53,7 +50,7 @@ class _DetailMissionScreenState extends State<DetailMissionScreen> {
                       args['title'],
                       style: ThemeFont.bodyLargeMedium,
                     ),
-                    progressState == 'verified'
+                    progressState == 'Selesai'
                         ? ProgressStateBox(
                             child: Text(
                             'Terverifikasi',
@@ -119,31 +116,49 @@ class _DetailMissionScreenState extends State<DetailMissionScreen> {
                 const SizedBox(
                   height: 24,
                 ),
-                ProgressStep(progressState: progressState),
+                ProgressStep(
+                  progressState: progressState,
+                  missionDesc: args['desc'],
+                ),
                 const SizedBox(
                   height: 24,
                 ),
-                progressState == 'verified'
+                progressState == 'Selesai'
                     ? const SizedBox()
                     : SizedBox(
                         width: double.infinity,
-                        child: MainButton(
-                            onPressed: progressState == 'Aktif'
-                                ? () {}
-                                : () => Navigator.pushNamed(
-                                            context, '/unggah-bukti')
-                                        .then((value) {
-                                      setState(() {
-                                        progressState = value.toString();
-                                      });
-                                    }),
-                            child: Text(
-                              progressState == 'Aktif'
-                                  ? 'Terima Tantangan'
-                                  : 'Unggah Bukti',
-                              style: ThemeFont.heading6Bold
-                                  .copyWith(color: Colors.white),
-                            )),
+                        child: progressState == 'Aktif'
+                            ? BlocBuilder<ClaimMissionCubit, ClaimMissionState>(
+                                builder: (context, state) {
+                                  return MainButton(
+                                      onPressed: () => context
+                                          .read<ClaimMissionCubit>()
+                                          .claimMission(
+                                              missionId: args['missionId']),
+                                      child: state is ClaimMissionLoading
+                                          ? SizedBox(
+                                              width: 23,
+                                              height: 23,
+                                              child: CircularProgressIndicator(
+                                                color: Colors.white,
+                                              ),
+                                            )
+                                          : Text(
+                                              'Terima Tantangan',
+                                              style: ThemeFont.heading6Bold
+                                                  .copyWith(
+                                                      color: Colors.white),
+                                            ));
+                                },
+                              )
+                            : MainButton(
+                                onPressed: () => Navigator.pushNamed(
+                                    context, '/unggah-bukti'),
+                                child: Text(
+                                  'Unggah Bukti',
+                                  style: ThemeFont.heading6Bold
+                                      .copyWith(color: Colors.white),
+                                )),
                       ),
                 const SizedBox(
                   height: 20,

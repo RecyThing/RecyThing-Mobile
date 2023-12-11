@@ -2,6 +2,7 @@ import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recything_mobile/bloc/auth/auth_cubit.dart';
+import 'package:recything_mobile/bloc/claim_mission/claim_mission_cubit.dart';
 import 'package:recything_mobile/bloc/forgot_password/forgot_password_cubit.dart';
 import 'package:recything_mobile/bloc/get_ai/get_ai_cubit.dart';
 import 'package:recything_mobile/bloc/get_all_drop_point/get_all_drop_point_cubit.dart';
@@ -56,12 +57,14 @@ import 'bloc/get_article/get_article_cubit.dart';
 import 'bloc/recyBot/post_recy_bot_cubit.dart';
 
 void main() {
-  runApp(const MyApp()
-      // DevicePreview(
-      //   enabled: !kReleaseMode,
-      //   builder: (context) => const MyApp(),
-      // ),
-      );
+  runApp(const MyApp());
+
+  // runApp(
+  //   DevicePreview(
+  //     enabled: !kReleaseMode,
+  //     builder: (context) => const MyApp(),
+  //   ),
+  // );
 }
 
 class MyApp extends StatelessWidget {
@@ -95,7 +98,8 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => PostVoucherCubit()),
         BlocProvider(create: (_) => PostPoinDailyCubit()),
         BlocProvider(create: (_) => GetHistoryPoinCubit()),
-        BlocProvider(create: (_) => GetHistoryPoinByIdCubit())
+        BlocProvider(create: (_) => GetHistoryPoinByIdCubit()),
+        BlocProvider(create: (_) => ClaimMissionCubit())
       ],
       child: MaterialApp(
         locale: DevicePreview.locale(context),
@@ -108,7 +112,7 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.white),
           useMaterial3: true,
         ),
-        initialRoute: '/index',
+        initialRoute: '/splash',
         home: const IndexScreen(),
         routes: {
           '/index': (context) => const IndexScreen(),
