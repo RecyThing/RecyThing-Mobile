@@ -247,28 +247,36 @@ class _MapsReportScreenState extends State<MapsReportScreen> {
       apiHeaders: await const GoogleApiHeaders().getHeaders(),
     );
 
-    PlacesDetailsResponse detail = await places.getDetailsByPlaceId(p.placeId!);
+    try {
+      PlacesDetailsResponse detail =
+          await places.getDetailsByPlaceId(p.placeId!);
 
-    final lat = detail.result.geometry!.location.lat;
-    final lng = detail.result.geometry!.location.lng;
+      final lat = detail.result.geometry!.location.lat;
+      final lng = detail.result.geometry!.location.lng;
 
-    markersList.clear();
-    markersList.add(Marker(
-      markerId: const MarkerId("0"),
-      position: LatLng(lat, lng),
-      infoWindow: InfoWindow(title: detail.result.name),
-    ));
+      markersList.clear();
+      markersList.add(Marker(
+        markerId: const MarkerId("0"),
+        position: LatLng(lat, lng),
+        infoWindow: InfoWindow(title: detail.result.name),
+      ));
 
-    setState(() {});
+      setState(() {});
 
-    googleMapController.animateCamera(
-      CameraUpdate.newLatLngZoom(LatLng(lat, lng), 18.0),
-    );
+      googleMapController.animateCamera(
+        CameraUpdate.newLatLngZoom(LatLng(lat, lng), 18.0),
+      );
 
-    //update selected address
-    _selectedLocationAddress =
-        '${detail.result.name}, ${detail.result.formattedAddress}';
-    _isFromFloatingActionButton = false;
+      // Update selected address
+      _selectedLocationAddress =
+          '${detail.result.name}, ${detail.result.formattedAddress}';
+      _isFromFloatingActionButton = false;
+
+      // Log the latitude and longitude
+      print('Selected Location: $lat, $lng');
+    } catch (error) {
+      print('Error fetching place details: $error');
+    }
   }
 
   @override
