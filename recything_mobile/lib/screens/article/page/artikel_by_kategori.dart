@@ -17,13 +17,9 @@ class ArtikelByKategoriScreen extends StatefulWidget {
 class _ArtikelByKategoriScreenState extends State<ArtikelByKategoriScreen> {
   @override
   Widget build(BuildContext context) {
-    // Menerima argumen
-    // final String? title = ModalRoute.of(context)!.settings.arguments as String;
 
     final Map<String, String?> arguments =
         ModalRoute.of(context)!.settings.arguments as Map<String, String?>;
-
-    // Menggunakan nilai argumen
     final String category = arguments['category']!;
     final String title = arguments['title']!;
 

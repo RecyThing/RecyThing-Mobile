@@ -8,7 +8,7 @@ class ButtonKategoriDaurUlang extends StatelessWidget {
   final String title;
   final Function? onTap;
   const ButtonKategoriDaurUlang(
-      {super.key, required this.assetImage, required this.title, this.onTap});
+      {super.key, required this.assetImage, required this.title, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
