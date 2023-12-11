@@ -20,9 +20,7 @@ class PostReportRubbishCubit extends Cubit<PostReportRubbishState> {
   }
 
   String getTrashType() {
-    if (isCheckedKering && isCheckedBasah) {
-      return 'Sampah Kering dan Basah';
-    } else if (isCheckedKering) {
+    if (isCheckedKering) {
       return 'Sampah Kering';
     } else if (isCheckedBasah) {
       return 'Sampah Basah';
