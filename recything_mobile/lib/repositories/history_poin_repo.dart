@@ -17,4 +17,11 @@ class HistoryPoinRepo extends BaseService {
     Logger().i(res);
     return res.data["message"];
   }
+
+  Future<HistoryPoinModel> getHistoryById(
+      {BuildContext? context, required String id}) async {
+    final res = await request(context, 'users/point/history/$id');
+    Logger().i(res);
+    return HistoryPoinModel.fromJson(res.data["data"]);
+  }
 }

@@ -71,13 +71,27 @@ class HomePoinCard extends StatelessWidget {
                         ),
                         side: const BorderSide(color: Pallete.main),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    PoinkuScreen(user: user)));
+                      },
                       child: const Text("Riwayat")),
                 ),
                 SizedBox(
                     width: MediaQuery.of(context).size.width * 0.4,
                     child: MainButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => PoinkuScreen(
+                                        user: user,
+                                        index: 1,
+                                      )));
+                        },
                         child: Text(
                           "Tukar Poin",
                           style: ThemeFont.heading6Reguler.copyWith(

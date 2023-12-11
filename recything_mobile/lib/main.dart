@@ -6,6 +6,7 @@ import 'package:recything_mobile/bloc/forgot_password/forgot_password_cubit.dart
 import 'package:recything_mobile/bloc/get_ai/get_ai_cubit.dart';
 import 'package:recything_mobile/bloc/get_all_drop_point/get_all_drop_point_cubit.dart';
 import 'package:recything_mobile/bloc/get_history_poin/get_history_poin_cubit.dart';
+import 'package:recything_mobile/bloc/get_history_poin_by_id/get_history_poin_by_id_cubit.dart';
 import 'package:recything_mobile/bloc/get_history_report_by_id/get_history_report_by_id_cubit.dart';
 import 'package:recything_mobile/bloc/get_lencana/get_lencana_cubit.dart';
 import 'package:recything_mobile/bloc/get_missions/get_missions_cubit.dart';
@@ -39,7 +40,6 @@ import 'package:recything_mobile/screens/missions/missions_screen.dart';
 import 'package:recything_mobile/screens/missions/unggah_bukti_screen.dart';
 import 'package:recything_mobile/screens/onboarding/onboarding_screen.dart';
 import 'package:recything_mobile/screens/password_baru/password_baru_screen.dart';
-import 'package:recything_mobile/screens/poinku/pages/detail_transaksi_screen.dart';
 import 'package:recything_mobile/screens/poinku/pages/detail_voucher_screen.dart';
 import 'package:recything_mobile/screens/recy/pages/recy_ai_screen.dart';
 import 'package:recything_mobile/screens/register/register_screen.dart';
@@ -93,7 +93,9 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => GetLencanaCubit()),
         BlocProvider(create: (_) => GetHistoryPoinCubit()),
         BlocProvider(create: (_) => PostVoucherCubit()),
-        BlocProvider(create: (_) => PostPoinDailyCubit())
+        BlocProvider(create: (_) => PostPoinDailyCubit()),
+        BlocProvider(create: (_) => GetHistoryPoinCubit()),
+        BlocProvider(create: (_) => GetHistoryPoinByIdCubit())
       ],
       child: MaterialApp(
         locale: DevicePreview.locale(context),
@@ -120,7 +122,6 @@ class MyApp extends StatelessWidget {
           '/profile': (context) => const ProfileScreen(),
           '/notif': (context) => const NotifikasiScreen(),
           '/detailVoucher': (context) => const DetailVoucherScreen(),
-          '/detailTransaksi': (context) => const DetailTransaksiScreen(),
           '/register': (context) => const RegisterScreen(),
           '/reset_password': (context) => const ResetPasswordScreen(),
           '/verifikasi_otp': (context) => const VerifikasiOtpScreen(),

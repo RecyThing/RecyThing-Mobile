@@ -6,7 +6,8 @@ import 'package:recything_mobile/screens/poinku/widgets/poinku_tabar.dart';
 
 class PoinkuScreen extends StatefulWidget {
   final UserModel user;
-  const PoinkuScreen({super.key, required this.user});
+  final int? index;
+  const PoinkuScreen({super.key, required this.user, this.index});
 
   @override
   State<PoinkuScreen> createState() => _PoinkuScreenState();
@@ -37,7 +38,9 @@ class _PoinkuScreenState extends State<PoinkuScreen> {
             ),
             SizedBox(
                 height: MediaQuery.of(context).size.height * 0.5,
-                child: const PoinkuTabar())
+                child: PoinkuTabar(
+                  index: widget.index,
+                ))
           ],
         ),
       ),

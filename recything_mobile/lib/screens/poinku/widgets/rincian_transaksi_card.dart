@@ -1,9 +1,12 @@
 import 'package:dashed_line/dashed_line.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:recything_mobile/constants/pallete.dart';
+import 'package:recything_mobile/models/history_poin_model.dart';
 
 class RincianTransaksiCard extends StatelessWidget {
-  const RincianTransaksiCard({super.key});
+  final HistoryPoinModel item;
+  const RincianTransaksiCard({super.key, required this.item});
   Widget table(String title, String value) {
     return Padding(
       padding: const EdgeInsets.only(top: 12),
@@ -14,7 +17,8 @@ class RincianTransaksiCard extends StatelessWidget {
           Flexible(
             child: Text(
               title,
-              style: ThemeFont.interText.copyWith(color: Pallete.textSecondary),
+              style: ThemeFont.bodySmallRegular
+                  .copyWith(color: Pallete.textSecondary),
             ),
           ),
           SizedBox(
@@ -23,8 +27,7 @@ class RincianTransaksiCard extends StatelessWidget {
               textAlign: TextAlign.right,
               overflow: TextOverflow.visible,
               value,
-              style: ThemeFont.interText
-                  .copyWith(fontWeight: FontWeight.w500, color: Pallete.dark1),
+              style: ThemeFont.bodySmallMedium.copyWith(color: Pallete.dark1),
             ),
           )
         ],
@@ -34,6 +37,9 @@ class RincianTransaksiCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    DateTime dateTime = DateTime.parse(item.createdAt);
+    String formattedDate = DateFormat('dd MMMM yyyy', 'id_ID').format(dateTime);
+    String formattedTime = DateFormat('HH.mm').format(dateTime);
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16),
       padding: const EdgeInsets.all(20),
@@ -60,9 +66,9 @@ class RincianTransaksiCard extends StatelessWidget {
           const SizedBox(
             height: 12,
           ),
-          table("ID Transaksi", "21312312421"),
-          table("Tanggal", "18 Oktober 2023"),
-          table("Waktu", "14.21"),
+          table("ID Transaksi", item.idTransaction),
+          table("Tanggal", formattedDate),
+          table("Waktu", formattedTime),
           const SizedBox(
             height: 12,
           ),
@@ -71,9 +77,13 @@ class RincianTransaksiCard extends StatelessWidget {
               ..cubicTo(0, 0, 0, 1, MediaQuery.of(context).size.width * 0.8, 0),
             color: Pallete.dark3,
           ),
-          table("Jenis Transaksi", "Tukat Poin"),
-          table("Nama VOucher", "Voucher 5.000 E-Wallet Dana"),
-          table("Nomor Hp", "087722998132")
+          table("Jenis Transaksi", item.typeTransaction ?? ""),
+          if (item.typeTransaction == "tukar poin")
+            table("Nama Voucher", item.voucher ?? ""),
+          if (item.typeTransaction == "tukar poin")
+            table("Nomor Hp", item.phone ?? ""),
+          if (item.typeTransaction == "reward hadiah mission")
+            table("Nama Mission", item.title ?? "")
         ],
       ),
     );

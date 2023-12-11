@@ -12,7 +12,8 @@ import 'package:recything_mobile/screens/poinku/widgets/poinku_tukar_poin.dart';
 import 'package:recything_mobile/screens/poinku/widgets/poinku_voucher.dart';
 
 class PoinkuTabar extends StatefulWidget {
-  const PoinkuTabar({super.key});
+  final int? index;
+  const PoinkuTabar({super.key, this.index});
 
   @override
   State<PoinkuTabar> createState() => _PoinkuTabarState();
@@ -22,13 +23,19 @@ class _PoinkuTabarState extends State<PoinkuTabar>
     with SingleTickerProviderStateMixin {
   late final TabController _tabController;
   final _scrollController = ScrollController();
+  int currentIndex = 0;
+
   // List<GetVouchersModel> vouchers = [];
   // bool isLoadingMore = false;
 
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 2, initialIndex: 0, vsync: this);
+    if (widget.index != null) {
+      currentIndex = widget.index!;
+    }
+    _tabController =
+        TabController(length: 2, initialIndex: currentIndex, vsync: this);
     context.read<GetVouchersCubit>().getVouchers();
     _scrollPagination();
     context.read<GetHistoryPoinCubit>().fetchHistoryPoin(context);

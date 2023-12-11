@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:recything_mobile/constants/pallete.dart';
 import 'package:recything_mobile/models/history_poin_model.dart';
+import 'package:recything_mobile/screens/poinku/pages/detail_transaksi_screen.dart';
 
 class PoinkuTukarPoin extends StatelessWidget {
   final HistoryPoinModel item;
@@ -14,7 +15,11 @@ class PoinkuTukarPoin extends StatelessWidget {
     String formattedTime = DateFormat('HH.mm').format(dateTime);
 
     return GestureDetector(
-      onTap: () => Navigator.pushNamed(context, '/detailTransaksi'),
+      onTap: () => Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) =>
+                  DetailTransaksiScreen(id: item.idTransaction))),
       child: ListTile(
         contentPadding: const EdgeInsets.all(0),
         leading: Image.asset(
