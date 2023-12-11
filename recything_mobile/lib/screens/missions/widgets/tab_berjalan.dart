@@ -36,7 +36,7 @@ class _TabBerjalanState extends State<TabBerjalan> {
                 return ListView.builder(
                     shrinkWrap: true,
                     padding: const EdgeInsets.all(16),
-                    itemCount: 2,
+                    itemCount: state.missions.data.length,
                     itemBuilder: (context, index) {
                       var data = state.missions.data[index];
                       return Column(
