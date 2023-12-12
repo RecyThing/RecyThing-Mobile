@@ -21,6 +21,36 @@ class _TabBerjalanState extends State<TabBerjalan> {
     super.initState();
   }
 
+  String capitalizeFirstLetter(String text) {
+    if (text.isEmpty) {
+      return text;
+    }
+    return text.substring(0, 1).toUpperCase() + text.substring(1);
+  }
+
+  Color determineStatusColor(String statusApproval) {
+    Color statusColor = Pallete.dark3;
+
+    if (statusApproval == 'tolong perbaiki bukti') {
+      statusColor = Pallete.error;
+    } else if (statusApproval == 'menunggu verifikasi') {
+      statusColor = Pallete.infoLigther;
+    }
+
+    return statusColor;
+  }
+
+  int determineProgressPercentage(String statusApproval) {
+    int percentage = 33;
+
+    if (statusApproval == 'tolong perbaiki bukti' ||
+        statusApproval == 'menunggu verifikasi') {
+      percentage = 50;
+    }
+
+    return percentage;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -36,13 +66,13 @@ class _TabBerjalanState extends State<TabBerjalan> {
                 return ListView.builder(
                     shrinkWrap: true,
                     padding: const EdgeInsets.all(16),
-                    itemCount: state.missions.data.length,
+                    itemCount: state.missions.data?.length,
                     itemBuilder: (context, index) {
-                      var data = state.missions.data[index];
+                      var data = state.missions.data?[index];
                       return Column(
                         children: [
                           MissionCard(
-                            title: data.title,
+                            title: data?.title ?? 'No Title',
                             subTitle: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -66,7 +96,8 @@ class _TabBerjalanState extends State<TabBerjalan> {
                                           trackShape: SfTrackShapeWidget(),
                                           min: 0.0,
                                           max: 100.0,
-                                          value: 50,
+                                          value: determineProgressPercentage(
+                                              data?.reason ?? 'No Status'),
                                           onChanged: (dynamic value) {},
                                         ),
                                       ),
@@ -75,7 +106,7 @@ class _TabBerjalanState extends State<TabBerjalan> {
                                       width: 6,
                                     ),
                                     Text(
-                                      ('50%'),
+                                      '${determineProgressPercentage(data?.reason ?? 'No Status').toString()}%',
                                       style: ThemeFont.bodySmallRegular,
                                     )
                                   ],
@@ -84,20 +115,25 @@ class _TabBerjalanState extends State<TabBerjalan> {
                                   height: 4,
                                 ),
                                 Text(
-                                  data.statusMission,
-                                  style: ThemeFont.bodySmallRegular
-                                      .copyWith(color: Pallete.dark1),
+                                  capitalizeFirstLetter(
+                                      data?.reason ?? 'No Status'),
+                                  style: ThemeFont.bodySmallRegular.copyWith(
+                                      color: determineStatusColor(
+                                          data?.reason ?? 'No Status')),
                                 )
                               ],
                             ),
-                            imageUrl: data.missionImage,
+                            imageUrl: data?.missionImage ?? '',
                             args: {
-                              'imageUrl': data.missionImage,
-                              'title': data.title,
-                              'expiredDate': data.endDate,
-                              'point': data.point,
-                              'desc': data.description,
-                              'progressState': 'Berjalan'
+                              'imageUrl': data?.missionImage,
+                              'title': data?.title,
+                              'expiredDate': data?.endDate,
+                              'point': data?.point,
+                              'desc': data?.description,
+                              'progressState': 'Berjalan',
+                              'title_stage': data?.titleStage ?? 'No stage',
+                              'description_stage': data?.descriptionStage ??
+                                  'No description stage',
                             },
                           ),
                           const SizedBox(

@@ -118,7 +118,8 @@ class DetailMissionScreen extends StatelessWidget {
                 ),
                 ProgressStep(
                   progressState: progressState,
-                  missionDesc: args['desc'],
+                  titleStage: args['title_stage'],
+                  descriptionStage: args['description_stage'],
                 ),
                 const SizedBox(
                   height: 24,
