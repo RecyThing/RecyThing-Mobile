@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recything_mobile/constants/pallete.dart';
 import 'package:recything_mobile/screens/article/widget/dashboard_screen/list_artikel_populer.dart';
 import '../../../bloc/get_popular_article/get_popular_article_cubit.dart';
-import '../../article/theme/text_style.dart';
 
 class HomeRekomendasiArtikel extends StatelessWidget {
   const HomeRekomendasiArtikel({super.key});
@@ -23,7 +22,9 @@ class HomeRekomendasiArtikel extends StatelessWidget {
                   .copyWith(fontWeight: FontWeight.w500, fontSize: 16),
             ),
             TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, "/cariArtikel");
+                },
                 child: Text(
                   "Lihat Semua",
                   style: ThemeFont.interText.copyWith(
