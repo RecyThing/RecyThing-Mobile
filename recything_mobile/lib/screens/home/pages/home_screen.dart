@@ -5,7 +5,7 @@ import 'package:recything_mobile/constants/pallete.dart';
 import 'package:recything_mobile/screens/home/widgets/home_banner.dart';
 import 'package:recything_mobile/screens/home/widgets/home_header.dart';
 import 'package:recything_mobile/screens/home/widgets/home_poin_card.dart';
-import 'package:recything_mobile/screens/home/widgets/home_rekomendasi_artikel.dart';
+import 'package:recything_mobile/widgets/menu_rekomendasi_artikel.dart';
 import '../../../bloc/get_popular_article/get_popular_article_cubit.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -60,7 +60,9 @@ class _HomeScreenState extends State<HomeScreen> {
             HomeBanner(),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 16, vertical: 24),
-              child: HomeRekomendasiArtikel(),
+              child: MenuRekomendasiArtikel(
+                judulMenu: 'Rekomendasi Artikel',
+              ),
             )
           ],
         ),
