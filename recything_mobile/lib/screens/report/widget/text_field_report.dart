@@ -12,6 +12,8 @@ class TextFieldReport extends StatelessWidget {
   final EdgeInsetsGeometry? contentPadding;
   final TextEditingController? controller;
   final ValueChanged<String>? onChanged;
+  final VoidCallback? onPressed;
+  final FocusNode? focusNode;
 
   const TextFieldReport({
     Key? key,
@@ -26,6 +28,8 @@ class TextFieldReport extends StatelessWidget {
     this.label,
     this.prefixIcon,
     this.hintStyle,
+    this.onPressed,
+    this.focusNode,
   }) : super(key: key);
 
   @override
@@ -37,8 +41,8 @@ class TextFieldReport extends StatelessWidget {
       decoration: InputDecoration(
         filled: true,
         fillColor: Colors.white,
-        labelStyle: TextStyle(color: Pallete.dark1),
-        hintStyle: TextStyle(color: Pallete.dark3),
+        labelStyle: ThemeFont.bodySmallMedium.copyWith(color: Pallete.dark1),
+        hintStyle: ThemeFont.bodySmallMedium.copyWith(color: Pallete.dark3),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
         ),
@@ -54,13 +58,11 @@ class TextFieldReport extends StatelessWidget {
         prefixIcon:
             prefixIcon != null ? Icon(prefixIcon, color: Pallete.dark3) : null,
         hintText: hintText,
-        // hintStyle: labelStyle ?? const TextStyle(color: Pallete.dark1),
         contentPadding: contentPadding ?? const EdgeInsets.all(16),
       ),
-      // style: const TextStyle(
-      //   backgroundColor: Colors.white,
-      // ),
       maxLines: maxLines,
+      onTap: onPressed,
+      focusNode: focusNode,
     );
   }
 }

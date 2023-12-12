@@ -19,3 +19,5 @@ final class GetMissionsLoaded extends GetMissionsState {
   @override
   List<Object> get props => [missions];
 }
+
+final class GetMissionsFailed extends GetMissionsState {}

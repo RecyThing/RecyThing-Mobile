@@ -7,15 +7,25 @@ import 'package:recything_mobile/services/shared_pref_service.dart';
 class GetMissionsRepo {
   Dio dio = Dio(BaseOptions(baseUrl: Api.baseUrl));
 
-  Future<GetMissionsModel> getMissions() async {
+  Future<GetMissionsModel> getMissions({String? filter}) async {
     final token = await SharedPreferenceService.getToken();
+    Response res;
 
     try {
       Options options = Options(headers: {'Authorization': 'Bearer $token'});
 
-      final res = await dio.get("missions", options: options);
+      if (filter == 'berjalan') {
+        res = await dio.get("missions?filter=berjalan", options: options);
+      } else if (filter == 'selesai') {
+        res = await dio.get("missions?filter=selesai", options: options);
+      } else {
+        res = await dio.get("missions", options: options);
+      }
 
       Logger().i(res.data);
+      if (res.data['message'] == 'Belum ada misi') {
+        return GetMissionsModel(status: false, message: 'false', data: []);
+      }
       return GetMissionsModel.fromJson(res.data);
     } on DioException catch (e) {
       Logger().e(e.response);

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:recything_mobile/bloc/get_user_profile/get_user_profile_cubit.dart';
 import 'package:recything_mobile/constants/pallete.dart';
 import 'package:recything_mobile/screens/home/widgets/home_banner.dart';
 import 'package:recything_mobile/screens/home/widgets/home_header.dart';
@@ -15,26 +16,43 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  @override
   void initState() {
-    context.read<GetPopularArticleCubit>().getPopularArticle();
     super.initState();
+    context.read<GetUserProfileCubit>().fetchMe(context);
+    context.read<GetPopularArticleCubit>().getPopularArticle();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: const SingleChildScrollView(
+      body: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(
-              height: 350,
-              child: Stack(
-                children: [
-                  HomeHeader(),
-                  Positioned(bottom: 0, child: HomePoinCard())
-                ],
-              ),
+            BlocBuilder<GetUserProfileCubit, GetUserProfileState>(
+              builder: (context, state) {
+                if (state is GetUserProfileLoading) {
+                  return Center(child: CircularProgressIndicator());
+                } else if (state is GetUserProfilefailure) {
+                  return Text(state.message);
+                } else if (state is GetUserProfileSuccess) {
+                  return SizedBox(
+                    height: 350,
+                    child: Stack(
+                      children: [
+                        HomeHeader(
+                          user: state.data,
+                        ),
+                        Positioned(
+                            bottom: 0,
+                            child: HomePoinCard(
+                              user: state.data,
+                            ))
+                      ],
+                    ),
+                  );
+                }
+                return SizedBox();
+              },
             ),
             SizedBox(
               height: 24,

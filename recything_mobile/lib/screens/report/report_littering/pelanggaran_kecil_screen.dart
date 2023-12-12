@@ -43,6 +43,15 @@ class _LitteringKecilScreenState extends State<LitteringKecilScreen> {
   final dateController = TextEditingController();
   final timeController = TextEditingController();
 
+  bool isDataComplete() {
+    return locationController.text.isNotEmpty &&
+        addressPointController.text.isNotEmpty &&
+        dateController.text.isNotEmpty &&
+        timeController.text.isNotEmpty &&
+        descriptionController.text.isNotEmpty &&
+        selectedImages.isNotEmpty;
+  }
+
   @override
   void initState() {
     super.initState();
@@ -50,7 +59,6 @@ class _LitteringKecilScreenState extends State<LitteringKecilScreen> {
       onImagesSelected: (List<File>? images) {
         setState(() {
           selectedImages = images ?? [];
-          // Logger().i(images);
         });
         return null;
       },
@@ -86,7 +94,7 @@ class _LitteringKecilScreenState extends State<LitteringKecilScreen> {
                       children: [
                         Expanded(
                           child: TextFieldReport(
-                            label: "Lokasi Pelanggaran",
+                            hintText: "Lokasi Pelanggaran",
                             prefixIcon: IconlyLight.location,
                             controller: locationController,
                             enabled: false,
@@ -270,27 +278,32 @@ class _LitteringKecilScreenState extends State<LitteringKecilScreen> {
                               PostReportLitteringState>(
                             builder: (context, state) {
                               return MainButtonWidget(
-                                onPressed: () {
-                                  DateTime dateTime = DateFormat("MM/dd/yyyy")
-                                      .parse(dateController.text);
-                                  context
-                                      .read<PostReportLitteringCubit>()
-                                      .addReport(
-                                        context: context,
-                                        reportType: "pelanggaran sampah",
-                                        scaleType: "skala kecil",
-                                        location: locationController.text,
-                                        latitude: widget.latitude ?? "0",
-                                        longitude: widget.longitude ?? "0",
-                                        addressPoint:
-                                            addressPointController.text,
-                                        insidentDate: DateFormat("yyyy-dd-MM")
-                                            .format(dateTime),
-                                        insidentTime: timeController.text,
-                                        desc: descriptionController.text,
-                                        images: selectedImages,
-                                      );
-                                },
+                                onPressed: isDataComplete()
+                                    ? () {
+                                        DateTime dateTime =
+                                            DateFormat("MM/dd/yyyy")
+                                                .parse(dateController.text);
+                                        context
+                                            .read<PostReportLitteringCubit>()
+                                            .addReport(
+                                              context: context,
+                                              reportType: "pelanggaran sampah",
+                                              scaleType: "skala kecil",
+                                              location: locationController.text,
+                                              latitude: widget.latitude ?? "0",
+                                              longitude:
+                                                  widget.longitude ?? "0",
+                                              addressPoint:
+                                                  addressPointController.text,
+                                              insidentDate:
+                                                  DateFormat("yyyy-dd-MM")
+                                                      .format(dateTime),
+                                              insidentTime: timeController.text,
+                                              desc: descriptionController.text,
+                                              images: selectedImages,
+                                            );
+                                      }
+                                    : null,
                                 child: BlocBuilder<PostReportLitteringCubit,
                                     PostReportLitteringState>(
                                   builder: (context, state) {

@@ -77,7 +77,7 @@ class SuccessSnackbar {
                         title,
                         style: ThemeFont.heading5Bold,
                         softWrap: true,
-                        maxLines: 2,
+                        maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
                       const SizedBox(
@@ -85,6 +85,8 @@ class SuccessSnackbar {
                       ),
                       Text(
                         message,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
                         style: ThemeFont.bodySmallRegular
                             .copyWith(color: Colors.white),
                       ),

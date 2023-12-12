@@ -3,11 +3,15 @@ import 'package:iconly/iconly.dart';
 import 'package:recything_mobile/constants/pallete.dart';
 import 'package:recything_mobile/models/user_model.dart';
 import 'package:recything_mobile/screens/home/pages/edit_profile_screen.dart';
+import 'package:recything_mobile/screens/lencana/pages/lencana_screen.dart';
 import 'package:recything_mobile/widgets/forms/custom_teks.dart';
 
 class ProfileInformasiAkun extends StatelessWidget {
   final UserModel user;
-  const ProfileInformasiAkun({super.key, required this.user});
+  const ProfileInformasiAkun({
+    super.key,
+    required this.user,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -88,35 +92,51 @@ class ProfileInformasiAkun extends StatelessWidget {
               "Poinku",
               style: ThemeFont.bodyNormalReguler,
             ),
-            trailing: const CustomTeks(
-              name: "500.992",
+            trailing: CustomTeks(
+              name: user.point.toString(),
               color: Pallete.main,
             ),
           ),
           const Divider(),
           GestureDetector(
             onTap: () {
-              Navigator.pushNamed(context, '/lencana');
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => LencanaScreen(user: user)));
             },
             child: ListTile(
-              contentPadding: const EdgeInsets.symmetric(horizontal: 0.0),
-              leading: Image.asset(
-                "assets/icons/profile/lencana.png",
-                width: 24,
-              ),
-              title: Text(
-                "Lencana",
-                style: ThemeFont.bodyNormalReguler,
-              ),
-              trailing: const CustomTeks(
-                name: "Gold",
-                color: Pallete.secondaryDarker,
-              ),
-            ),
+                contentPadding: const EdgeInsets.symmetric(horizontal: 0.0),
+                leading: Image.asset(
+                  "assets/icons/profile/lencana.png",
+                  width: 24,
+                ),
+                title: Text(
+                  "Lencana",
+                  style: ThemeFont.bodyNormalReguler,
+                ),
+                trailing: CustomTeks(
+                    name: user.badge ?? "bronze",
+                    color: _getBadgeColor(user.badge ?? "bronze"))),
           ),
           const Divider()
         ],
       ),
     );
+  }
+}
+
+Color _getBadgeColor(String badge) {
+  switch (badge) {
+    case 'platinum':
+      return Pallete.platinum;
+    case 'gold':
+      return Pallete.gold;
+    case 'silver':
+      return Pallete.silver;
+    case 'bronze':
+      return Pallete.bronze;
+    default:
+      return Pallete.secondaryDarker;
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:recything_mobile/constants/pallete.dart';
+import 'package:recything_mobile/screens/poinku/pages/tukar_voucher_screen.dart';
 import 'package:recything_mobile/widgets/forms/main_button.dart';
 
 class DetailVoucherScreen extends StatelessWidget {
@@ -85,7 +86,11 @@ class DetailVoucherScreen extends StatelessWidget {
                 padding: const EdgeInsets.all(16),
                 child: MainButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, '/tukarVoucher');
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  TukatVoucherScreen(id: args["id"])));
                     },
                     child: Text(
                       "Tukar",

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:recything_mobile/bloc/get_lencana/get_lencana_cubit.dart';
 import 'package:recything_mobile/bloc/get_user_profile/get_user_profile_cubit.dart';
 import 'package:recything_mobile/constants/pallete.dart';
 import 'package:recything_mobile/screens/dashboard.dart';
@@ -19,6 +20,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   void initState() {
     super.initState();
     context.read<GetUserProfileCubit>().fetchMe(context);
+    context.read<GetLencanaCubit>().fetchLencana(context);
   }
 
   @override
@@ -93,7 +95,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                       ProfileInformasiAkun(
                         user: state.data,
-                      ),
+                      )
                     ],
                   );
                 }

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:recything_mobile/constants/pallete.dart';
+import 'package:recything_mobile/screens/poinku/pages/tukar_voucher_screen.dart';
 import 'package:recything_mobile/widgets/forms/main_button.dart';
 
 class PoinkuVoucher extends StatelessWidget {
@@ -11,6 +12,7 @@ class PoinkuVoucher extends StatelessWidget {
   final String point;
   final DateTime expiredDate;
   final String description;
+  final String id;
 
   const PoinkuVoucher(
       {super.key,
@@ -18,7 +20,8 @@ class PoinkuVoucher extends StatelessWidget {
       required this.voucherTitle,
       required this.point,
       required this.expiredDate,
-      required this.description});
+      required this.description,
+      required this.id});
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +36,8 @@ class PoinkuVoucher extends StatelessWidget {
           'voucherTitle': voucherTitle,
           'point': point,
           'expiredDate': expiredDate,
-          'description': description
+          'description': description,
+          'id': id
         });
       },
       child: Column(
@@ -182,9 +186,12 @@ class PoinkuVoucher extends StatelessWidget {
                                                       0.33,
                                                   child: MainButton(
                                                       onPressed: () {
-                                                        Navigator.pushNamed(
+                                                        Navigator.push(
                                                             context,
-                                                            '/tukarVoucher');
+                                                            MaterialPageRoute(
+                                                                builder: (context) =>
+                                                                    TukatVoucherScreen(
+                                                                        id: id)));
                                                       },
                                                       child: Text(
                                                         "Tukar",

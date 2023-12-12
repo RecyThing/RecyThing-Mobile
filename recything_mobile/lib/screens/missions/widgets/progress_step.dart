@@ -6,8 +6,10 @@ import 'package:recything_mobile/screens/missions/widgets/progress_card.dart';
 
 class ProgressStep extends StatelessWidget {
   final String progressState;
+  final String missionDesc;
 
-  const ProgressStep({super.key, required this.progressState});
+  const ProgressStep(
+      {super.key, required this.progressState, required this.missionDesc});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +20,7 @@ class ProgressStep extends StatelessWidget {
           children: [
             ProgressCard(
               title: 'Satu tantangan untukmu.',
-              subTitle: 'Buanglah sampah yang\nberserakan pada tempatnya',
+              subTitle: missionDesc,
               backgroundColor:
                   progressState == 'Aktif' ? Colors.white : Pallete.mainSubtle,
             ),
@@ -26,13 +28,13 @@ class ProgressStep extends StatelessWidget {
               height: 24,
             ),
             ProgressCard(
-              title: progressState == 'verified'
+              title: progressState == 'Selesai'
                   ? 'Bukti terverifikasi'
                   : 'Unggah bukti',
-              subTitle: progressState == 'verified'
+              subTitle: progressState == 'Selesai'
                   ? 'Bukti kamu sudah cukup\nkuat.'
                   : 'Unggah foto bukti\npengerjaan tantangan',
-              backgroundColor: progressState == 'verified'
+              backgroundColor: progressState == 'Selesai'
                   ? Pallete.mainSubtle
                   : Colors.white,
             ),
@@ -43,7 +45,7 @@ class ProgressStep extends StatelessWidget {
               title: 'Yay! Tantangan selesai.',
               subTitle:
                   'Hadiah kamu sudah dikirim nih,\nCek notifikasi kamu sekarang!',
-              backgroundColor: progressState == 'verified'
+              backgroundColor: progressState == 'Selesai'
                   ? Pallete.mainSubtle
                   : Colors.white,
             ),
@@ -84,7 +86,7 @@ class ProgressStep extends StatelessWidget {
               ),
               DottedLine(
                 dashColor: progressState == 'Unggah Bukti' ||
-                        progressState == 'verified'
+                        progressState == 'Selesai'
                     ? Pallete.main
                     : Pallete.dark4,
                 lineThickness: 3,
@@ -98,7 +100,7 @@ class ProgressStep extends StatelessWidget {
                 height: 32,
                 decoration: BoxDecoration(
                   color: progressState == 'Unggah Bukti' ||
-                          progressState == 'verified'
+                          progressState == 'Selesai'
                       ? Pallete.main
                       : Pallete.dark4,
                   borderRadius: BorderRadius.circular(100),
@@ -119,7 +121,7 @@ class ProgressStep extends StatelessWidget {
               ),
               DottedLine(
                 dashColor:
-                    progressState == 'verified' ? Pallete.main : Pallete.dark4,
+                    progressState == 'Selesai' ? Pallete.main : Pallete.dark4,
                 lineThickness: 3,
                 lineLength: 94,
                 dashLength: 6,
@@ -133,7 +135,7 @@ class ProgressStep extends StatelessWidget {
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(100),
                   border: Border.all(
-                      color: progressState == 'verified'
+                      color: progressState == 'Selesai'
                           ? Pallete.main
                           : Pallete.dark4,
                       width: 3),
@@ -149,7 +151,7 @@ class ProgressStep extends StatelessWidget {
                 child: Icon(
                   IconlyBold.ticket_star,
                   size: 20,
-                  color: progressState == 'verified'
+                  color: progressState == 'Selesai'
                       ? Pallete.errorSubtle
                       : Pallete.dark4,
                 ),
