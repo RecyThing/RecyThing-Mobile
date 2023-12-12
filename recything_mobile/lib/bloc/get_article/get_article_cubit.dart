@@ -18,16 +18,6 @@ class GetArticleCubit extends Cubit<GetArticleState> {
     }
   }
 
-  // void getPopularArticle() async {
-  //   emit(GetArticleLoading());
-  //   try {
-  //     final response = await ArticleRepo().getPopularArticle();
-  //     emit(GetPopularArticleSuccess(data: response));
-  //   } catch (e) {
-  //     emit(GetArticleFailure(message: e.toString()));
-  //   }
-  // }
-
   void searchArticle(String data) async {
     emit(GetArticleLoading());
     try {

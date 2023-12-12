@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recything_mobile/screens/article/widget/dashboard_screen/dashboard_header.dart';
-import 'package:recything_mobile/screens/article/widget/dashboard_screen/menu_artikel_populer.dart';
 import 'package:recything_mobile/screens/article/widget/dashboard_screen/menu_kategori.dart';
 import 'package:recything_mobile/screens/article/widget/dashboard_screen/menu_tukar_sampah.dart';
 import 'package:recything_mobile/screens/article/widget/searchbar.dart';

@@ -41,6 +41,7 @@ class _TapBarWidgetState extends State<TapBarWidget> {
                               child: CircularProgressIndicator()),
                         );
                       } else if (state is GetPopularArticleSuccess) {
+                        // context.read<ValueIsPopularCubit>().setPopularTab();
                         return ListView.builder(
                           padding: const EdgeInsets.all(0),
                           shrinkWrap: true,
@@ -66,11 +67,6 @@ class _TapBarWidgetState extends State<TapBarWidget> {
                             );
                           },
                         );
-                        // return ListArtikelPopuplerWidget(
-                        //   scrollDirection: Axis.vertical,
-                        //   physicsScroll: const AlwaysScrollableScrollPhysics(),
-                        //   itemCount: state.data.length,
-                        // );
                       } else if (state is GetPopularArticleFailure) {
                         return ArtikelTidakDitemukanWidget();
                       }
@@ -87,6 +83,7 @@ class _TapBarWidgetState extends State<TapBarWidget> {
                               child: CircularProgressIndicator()),
                         );
                       } else if (state is GetArticleSuccess) {
+                        // context.read<ValueIsPopularCubit>().setTerbaruTab();
                         return ListView.builder(
                           padding: const EdgeInsets.all(0),
                           shrinkWrap: true,
@@ -112,7 +109,6 @@ class _TapBarWidgetState extends State<TapBarWidget> {
                             );
                           },
                         );
-                        // return ListArtikelWidget();
                       } else if (state is GetArticleFailure) {
                         return ArtikelTidakDitemukanWidget();
                       }

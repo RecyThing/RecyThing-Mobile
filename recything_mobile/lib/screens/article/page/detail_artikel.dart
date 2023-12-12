@@ -109,20 +109,37 @@ class _DetailArtikelScreenState extends State<DetailArtikelScreen> {
                       backgroundColor: Colors.white,
                       context: context,
                       builder: (BuildContext context) {
-                        return BlocBuilder<GetPopularArticleCubit,
-                            GetPopularArticleState>(
-                          builder: (context, state) {
-                            if (state is GetPopularArticleSuccess) {
-                              return BottomsheetDetailArtikel(
-                                  image: state.data[index].image,
-                                  title: state.data[index].title,
-                                  category:
-                                      state.data[index].getCategoryString(),
-                                  updateDate: state.data[index].updateDate);
-                            }
-                            return SizedBox();
-                          },
-                        );
+                        if (isPopular == true) {
+                          return BlocBuilder<GetPopularArticleCubit,
+                              GetPopularArticleState>(
+                            builder: (context, state) {
+                              if (state is GetPopularArticleSuccess) {
+                                return BottomsheetDetailArtikel(
+                                    image: state.data[index].image,
+                                    title: state.data[index].title,
+                                    category:
+                                        state.data[index].getCategoryString(),
+                                    updateDate: state.data[index].updateDate);
+                              }
+                              return SizedBox();
+                            },
+                          );
+                        } else if (isPopular == false) {
+                          return BlocBuilder<GetArticleCubit, GetArticleState>(
+                            builder: (context, state) {
+                              if (state is GetArticleSuccess) {
+                                return BottomsheetDetailArtikel(
+                                    image: state.data[index].image,
+                                    title: state.data[index].title,
+                                    category:
+                                        state.data[index].getCategoryString(),
+                                    updateDate: state.data[index].updateDate);
+                              }
+                              return SizedBox();
+                            },
+                          );
+                        }
+                        return SizedBox();
                       });
                 },
               ),

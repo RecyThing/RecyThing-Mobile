@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import '../bloc/get_article/get_article_cubit.dart';
 import '../screens/article/theme/text_style.dart';
 
 class ListArticleGlobalWidget extends StatelessWidget {

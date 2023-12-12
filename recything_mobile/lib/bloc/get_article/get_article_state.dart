@@ -24,12 +24,6 @@ final class SearchArticleByCategorySuccess extends GetArticleState {
   const SearchArticleByCategorySuccess({required this.data});
 }
 
-// final class GetPopularArticleSuccess extends GetArticleState {
-//   final List<ArticleModel> data;
-
-//   const GetPopularArticleSuccess({required this.data});
-// }
-
 final class GetArticleFailure extends GetArticleState {
   final String message;
 

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
-
 import '../../../../constants/pallete.dart';
 
 class DetailArticleContentWidget extends StatelessWidget {
@@ -11,15 +10,14 @@ class DetailArticleContentWidget extends StatelessWidget {
   final String category;
   final String content;
 
-  const DetailArticleContentWidget({
-    super.key,
-    required this.image,
-    required this.title,
-    required this.category,
-    required this.like,
-    required this.updateDate,
-    required this.content
-  });
+  const DetailArticleContentWidget(
+      {super.key,
+      required this.image,
+      required this.title,
+      required this.category,
+      required this.like,
+      required this.updateDate,
+      required this.content});
 
   @override
   Widget build(BuildContext context) {
@@ -98,7 +96,7 @@ class DetailArticleContentWidget extends StatelessWidget {
               const SizedBox(height: 10),
               const Divider(),
               Html(
-                data: content,
+                data: "<p>$content</p>",
                 style: {
                   "p": Style(textAlign: TextAlign.justify),
                 },

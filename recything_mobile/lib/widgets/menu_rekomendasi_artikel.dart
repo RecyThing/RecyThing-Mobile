@@ -22,6 +22,7 @@ class MenuRekomendasiArtikel extends StatelessWidget {
             ),
             TextButton(
                 onPressed: () {
+                  // context.read<OnSearchCubit>().setNoSearch();
                   Navigator.pushNamed(context, "/cariArtikel");
                 },
                 child: Text(

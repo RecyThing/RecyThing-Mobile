@@ -37,10 +37,8 @@ class _CariArtikelScreenState extends State<CariArtikelScreen> {
                 return SearchBarWidget(
                   onChanged: (value) {
                     context.read<GetArticleCubit>().searchArticle(value);
-                    if(state is GetArticleSuccess){
-
-                    }
-                    else if (state is GetArticleFailure) {
+                    if (state is GetArticleSuccess) {
+                    } else if (state is GetArticleFailure) {
                       return Center(child: ArtikelTidakDitemukanWidget());
                     }
                     if (value == "") {
