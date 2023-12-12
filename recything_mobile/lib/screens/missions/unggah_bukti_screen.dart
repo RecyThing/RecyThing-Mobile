@@ -1,113 +1,241 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconly/iconly.dart';
+import 'package:recything_mobile/bloc/upload_proof/upload_proof_cubit.dart';
 import 'package:recything_mobile/constants/pallete.dart';
 import 'package:recything_mobile/screens/missions/widgets/custom_leading_app_bar.dart';
 import 'package:recything_mobile/widgets/forms/main_button.dart';
 
-class UnggahBuktiScreen extends StatelessWidget {
+class UnggahBuktiScreen extends StatefulWidget {
   const UnggahBuktiScreen({super.key});
+
+  @override
+  State<UnggahBuktiScreen> createState() => _UnggahBuktiScreenState();
+}
+
+class _UnggahBuktiScreenState extends State<UnggahBuktiScreen> {
+  @override
+  void initState() {
+    context.read<UploadProofCubit>().resetState();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomLeadingAppBar(title: 'Unggah Bukti'),
-      body: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        width: double.infinity,
-        child: ListView(
-          children: [
-            Column(
-              children: [
-                const SizedBox(
-                  height: 24,
-                ),
-                Text(
-                  'Yuk, sertakan bukti\npengerjaan tantangan kamu.',
-                  style: ThemeFont.bodyNormalReguler,
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(
-                  height: 24,
-                ),
-                Container(
-                  width: 100,
-                  height: 100,
-                  decoration: BoxDecoration(
-                      border: Border.all(color: Pallete.main, width: 1),
-                      borderRadius: BorderRadius.circular(12)),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Icon(
-                        IconlyLight.upload,
-                        color: Pallete.mainDarker,
-                      ),
-                      Text(
-                        'Unggah',
-                        style: ThemeFont.bodyNormalReguler
-                            .copyWith(fontSize: 10, color: Pallete.mainDarker),
-                      )
-                    ],
+        appBar: const CustomLeadingAppBar(title: 'Unggah Bukti'),
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Column(children: [
+              Column(
+                children: [
+                  const SizedBox(
+                    height: 24,
                   ),
-                ),
-                const SizedBox(
-                  height: 8,
-                ),
-                Text(
-                  'Format file: JPG, PNG, MP4',
-                  style:
-                      ThemeFont.bodySmallRegular.copyWith(color: Pallete.dark3),
-                ),
-                const SizedBox(
-                  height: 4,
-                ),
-                Text(
-                  'Maksimum file : 20 Mb',
-                  style:
-                      ThemeFont.bodySmallRegular.copyWith(color: Pallete.dark3),
-                ),
-                const SizedBox(
-                  height: 24,
-                ),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    'Keterangan (Opsional)',
-                    style: ThemeFont.bodyNormalReguler.copyWith(height: 1.7),
+                  Text(
+                    'Yuk, sertakan bukti\npengerjaan tantangan kamu.',
+                    style: ThemeFont.bodyNormalReguler,
+                    textAlign: TextAlign.center,
                   ),
+                  const SizedBox(
+                    height: 24,
+                  ),
+                  BlocBuilder<UploadProofCubit, UploadProofState>(
+                    builder: (context, state) {
+                      if (state is UploadProofSuccess &&
+                          state.images.isNotEmpty) {
+                        return GridView.builder(
+                            physics: NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisSpacing: 14, crossAxisCount: 3),
+                            itemCount: state.images.length + 1,
+                            itemBuilder: (context, index) {
+                              return index >= state.images.length
+                                  ? GestureDetector(
+                                      onTap: () => context
+                                          .read<UploadProofCubit>()
+                                          .selectImages(),
+                                      child: Container(
+                                          width: 100,
+                                          height: 100,
+                                          decoration: BoxDecoration(
+                                              border: Border.all(
+                                                  color: Pallete.dark4,
+                                                  width: 1),
+                                              borderRadius:
+                                                  BorderRadius.circular(12)),
+                                          child: Center(
+                                            child: const Icon(
+                                              Icons.add,
+                                              color: Pallete.dark4,
+                                            ),
+                                          )),
+                                    )
+                                  : Container(
+                                      width: 100,
+                                      height: 100,
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(16)),
+                                      child: Stack(
+                                        alignment: AlignmentDirectional.topEnd,
+                                        children: [
+                                          Image.file(
+                                            File(state.images[index].path),
+                                            fit: BoxFit.cover,
+                                          ),
+                                          IconButton(
+                                              onPressed: () => context
+                                                  .read<UploadProofCubit>()
+                                                  .deleteImage(index: index),
+                                              icon: Container(
+                                                decoration: BoxDecoration(
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                      color: Pallete.dark2
+                                                          .withOpacity(0.5),
+                                                      spreadRadius: 1,
+                                                      blurRadius: 5,
+                                                      offset: Offset(0, 2),
+                                                    ),
+                                                  ],
+                                                ),
+                                                child: Icon(
+                                                  Icons.close,
+                                                  size: 16,
+                                                  color: Colors.white,
+                                                ),
+                                              ))
+                                        ],
+                                      ),
+                                    );
+                            });
+                      }
+
+                      return GestureDetector(
+                        onTap: () =>
+                            context.read<UploadProofCubit>().selectImages(),
+                        child: Container(
+                          width: 100,
+                          height: 100,
+                          decoration: BoxDecoration(
+                              border: Border.all(color: Pallete.main, width: 1),
+                              borderRadius: BorderRadius.circular(12)),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Icon(
+                                IconlyLight.upload,
+                                color: Pallete.mainDarker,
+                              ),
+                              Text(
+                                'Unggah',
+                                style: ThemeFont.bodyNormalReguler.copyWith(
+                                    fontSize: 10, color: Pallete.mainDarker),
+                              )
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  BlocBuilder<UploadProofCubit, UploadProofState>(
+                    builder: (context, state) {
+                      return Column(
+                        children: [
+                          state is UploadProofSuccess && state.images.isNotEmpty
+                              ? Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    'Format file: JPG, PNG, MP4',
+                                    style: ThemeFont.bodySmallRegular
+                                        .copyWith(color: Pallete.dark3),
+                                  ),
+                                )
+                              : Text(
+                                  'Format file: JPG, PNG, MP4',
+                                  style: ThemeFont.bodySmallRegular
+                                      .copyWith(color: Pallete.dark3),
+                                ),
+                          const SizedBox(
+                            height: 4,
+                          ),
+                          state is UploadProofSuccess && state.images.isNotEmpty
+                              ? Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    'Maksimum file : 20 Mb',
+                                    style: ThemeFont.bodySmallRegular
+                                        .copyWith(color: Pallete.dark3),
+                                  ),
+                                )
+                              : Text(
+                                  'Maksimum file : 20 Mb',
+                                  style: ThemeFont.bodySmallRegular
+                                      .copyWith(color: Pallete.dark3),
+                                ),
+                        ],
+                      );
+                    },
+                  ),
+                  const SizedBox(
+                    height: 24,
+                  ),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      'Keterangan (Opsional)',
+                      style: ThemeFont.bodyNormalReguler.copyWith(height: 1.7),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 4,
+                  ),
+                  TextField(
+                    maxLines: 5,
+                    decoration: InputDecoration(
+                        contentPadding: const EdgeInsets.all(16),
+                        hintText:
+                            'Cth: Saya telah membuang sampah yang ada di rumah saya dan sekitar jalan pada tempatnya',
+                        hintStyle:
+                            ThemeFont.bodySmallMedium.copyWith(height: 1.7),
+                        border: const OutlineInputBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(16)))),
+                  ),
+                  const SizedBox(
+                    height: 164,
+                  ),
+                ],
+              ),
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.only(bottom: 44),
+                child: BlocBuilder<UploadProofCubit, UploadProofState>(
+                  builder: (context, state) {
+                    return MainButton(
+                        onPressed: state is UploadProofSuccess &&
+                                state.images.isNotEmpty
+                            ? () => Navigator.pop(context)
+                            : null,
+                        child: Text(
+                          'Kirim',
+                          style: ThemeFont.heading6Bold
+                              .copyWith(color: Colors.white),
+                        ));
+                  },
                 ),
-                const SizedBox(
-                  height: 4,
-                ),
-                TextField(
-                  maxLines: 5,
-                  decoration: InputDecoration(
-                      contentPadding: const EdgeInsets.all(16),
-                      hintText:
-                          'Cth: Saya telah membuang sampah yang ada di rumah saya dan sekitar jalan pada tempatnya',
-                      hintStyle:
-                          ThemeFont.bodySmallMedium.copyWith(height: 1.7),
-                      border: const OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(16)))),
-                ),
-                const SizedBox(
-                  height: 164,
-                ),
-              ],
-            ),
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.only(bottom: 44),
-              child: MainButton(
-                  onPressed: () => Navigator.pop(context, 'verified'),
-                  child: Text(
-                    'Kirim',
-                    style: ThemeFont.heading6Bold.copyWith(color: Colors.white),
-                  )),
-            )
-          ],
-        ),
-      ),
-    );
+              )
+            ]),
+          ),
+        ));
   }
 }
