@@ -251,9 +251,12 @@ class _UnggahBuktiScreenState extends State<UnggahBuktiScreen> {
                         onPressed: state is UploadProofSuccess &&
                                     state.images.isNotEmpty ||
                                 state is UploadProofToServerLoading
-                            ? () => context
-                                .read<UploadProofCubit>()
-                                .uploadProof(
+                            ? () => args['transactionId'] != null
+                                ? context.read<UploadProofCubit>().updateProof(
+                                    missionId: args['missionId'],
+                                    description: descriptionController.text,
+                                    transactionId: args['transactionId'])
+                                : context.read<UploadProofCubit>().uploadProof(
                                     missionId: args['missionId'],
                                     description: descriptionController.text)
                             : null,

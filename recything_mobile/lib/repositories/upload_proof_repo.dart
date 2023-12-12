@@ -52,4 +52,49 @@ class UploadProofRepo {
       }
     }
   }
+
+  Future<void> updateProof(
+      {required String missionId,
+      required String description,
+      required List<XFile> images,
+      required String transactionId}) async {
+    final token = await SharedPreferenceService.getToken();
+
+    try {
+      Options options = Options(headers: {'Authorization': 'Bearer $token'});
+
+      List<MultipartFile> imageFiles = [];
+
+      for (var i = 0; i < images.length; i++) {
+        XFile imageFile = images[i];
+        String fileName = imageFile.path.split('/').last;
+
+        imageFiles.add(
+          await MultipartFile.fromFile(
+            imageFile.path,
+            filename: fileName,
+          ),
+        );
+      }
+
+      FormData formData = FormData.fromMap({
+        'mission_id': missionId,
+        'description': description,
+        'images': imageFiles.map((file) => MapEntry('images[]', file)).toList(),
+      });
+
+      // Logger().i(imageFiles[0].filename);
+
+      final res = await dio.put("missions/proof/$transactionId",
+          data: formData, options: options);
+
+      Logger().i(res.data);
+    } on DioException catch (e) {
+      Logger().e(e.response);
+      if (e.response != null) {
+        final response = jsonDecode(e.response.toString());
+        throw response["message"];
+      }
+    }
+  }
 }
