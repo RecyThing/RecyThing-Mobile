@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recything_mobile/constants/pallete.dart';
@@ -45,7 +43,8 @@ class HomeRekomendasiArtikel extends StatelessWidget {
                 scrollDirection: Axis.vertical,
                 itemCount: 3);
           },
-        )
+        ),
+        SizedBox()
       ],
     );
   }
