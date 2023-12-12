@@ -101,7 +101,7 @@ class _TabSelesaiState extends State<TabSelesai> {
                                   'expiredDate': data?.endDate,
                                   'point': data?.point,
                                   'desc': data?.description,
-                                  'progressState': 'Selesai',
+                                  'progressState': data?.statusApproval,
                                   'title_stage':
                                       data?.titleStage ?? 'Tantangan Selesai',
                                   'description_stage': data?.descriptionStage ??

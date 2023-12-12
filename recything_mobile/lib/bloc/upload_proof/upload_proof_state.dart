@@ -19,3 +19,16 @@ final class UploadProofSuccess extends UploadProofState {
   @override
   List<Object> get props => [images];
 }
+
+final class UploadProofToServerLoading extends UploadProofState {}
+
+final class UploadProofToServerSuccess extends UploadProofState {}
+
+final class UploadProofToServerFailed extends UploadProofState {
+  final String errorMsg;
+
+  const UploadProofToServerFailed({required this.errorMsg});
+
+  @override
+  List<Object> get props => [errorMsg];
+}

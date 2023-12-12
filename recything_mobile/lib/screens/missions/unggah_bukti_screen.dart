@@ -6,7 +6,9 @@ import 'package:iconly/iconly.dart';
 import 'package:recything_mobile/bloc/upload_proof/upload_proof_cubit.dart';
 import 'package:recything_mobile/constants/pallete.dart';
 import 'package:recything_mobile/screens/missions/widgets/custom_leading_app_bar.dart';
+import 'package:recything_mobile/widgets/error_snackbar.dart';
 import 'package:recything_mobile/widgets/forms/main_button.dart';
+import 'package:recything_mobile/widgets/success_snackbar.dart';
 
 class UnggahBuktiScreen extends StatefulWidget {
   const UnggahBuktiScreen({super.key});
@@ -16,6 +18,8 @@ class UnggahBuktiScreen extends StatefulWidget {
 }
 
 class _UnggahBuktiScreenState extends State<UnggahBuktiScreen> {
+  TextEditingController descriptionController = TextEditingController();
+
   @override
   void initState() {
     context.read<UploadProofCubit>().resetState();
@@ -24,14 +28,35 @@ class _UnggahBuktiScreenState extends State<UnggahBuktiScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final args =
+        ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>;
+
     return Scaffold(
-        appBar: const CustomLeadingAppBar(title: 'Unggah Bukti'),
+        appBar: CustomLeadingAppBar(title: 'Unggah Bukti'),
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Column(children: [
               Column(
                 children: [
+                  BlocListener<UploadProofCubit, UploadProofState>(
+                    listener: (context, state) {
+                      if (state is UploadProofToServerSuccess) {
+                        SuccessSnackbar.showSnackbar(context,
+                            title: "Berhasil mengirim bukti",
+                            message: "Bukti kamu sudah diunggah",
+                            isTopSnackbar: false);
+                        Navigator.pop(context, 'menunggu verifikasi');
+                      } else if (state is UploadProofToServerFailed) {
+                        ErrorSnackbar.showSnackbar(context,
+                            title: "Gagal Memperbarui",
+                            message: state.errorMsg,
+                            isTopSnackbar: false);
+                        Navigator.pop(context);
+                      }
+                    },
+                    child: SizedBox(),
+                  ),
                   const SizedBox(
                     height: 24,
                   ),
@@ -201,6 +226,7 @@ class _UnggahBuktiScreenState extends State<UnggahBuktiScreen> {
                   ),
                   TextField(
                     maxLines: 5,
+                    controller: descriptionController,
                     decoration: InputDecoration(
                         contentPadding: const EdgeInsets.all(16),
                         hintText:
@@ -223,14 +249,27 @@ class _UnggahBuktiScreenState extends State<UnggahBuktiScreen> {
                   builder: (context, state) {
                     return MainButton(
                         onPressed: state is UploadProofSuccess &&
-                                state.images.isNotEmpty
-                            ? () => Navigator.pop(context)
+                                    state.images.isNotEmpty ||
+                                state is UploadProofToServerLoading
+                            ? () => context
+                                .read<UploadProofCubit>()
+                                .uploadProof(
+                                    missionId: args['missionId'],
+                                    description: descriptionController.text)
                             : null,
-                        child: Text(
-                          'Kirim',
-                          style: ThemeFont.heading6Bold
-                              .copyWith(color: Colors.white),
-                        ));
+                        child: state is UploadProofToServerLoading
+                            ? SizedBox(
+                                width: 23,
+                                height: 23,
+                                child: CircularProgressIndicator(
+                                  color: Colors.white,
+                                ),
+                              )
+                            : Text(
+                                'Kirim',
+                                style: ThemeFont.heading6Bold
+                                    .copyWith(color: Colors.white),
+                              ));
                   },
                 ),
               )

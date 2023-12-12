@@ -31,13 +31,28 @@ class _TabBerjalanState extends State<TabBerjalan> {
   Color determineStatusColor(String statusApproval) {
     Color statusColor = Pallete.dark3;
 
-    if (statusApproval == 'tolong perbaiki bukti') {
+    if (statusApproval == 'Bukti tidak jelas' ||
+        statusApproval == 'Bukti kurang lengkap' ||
+        statusApproval == 'Tidak ada detail kejadian') {
       statusColor = Pallete.error;
     } else if (statusApproval == 'menunggu verifikasi') {
       statusColor = Pallete.infoLigther;
     }
 
     return statusColor;
+  }
+
+  String determineStatus(String statusApproval) {
+    String status = '';
+
+    if (statusApproval == 'Bukti tidak jelas' ||
+        statusApproval == 'Bukti kurang lengkap' ||
+        statusApproval == 'Tidak ada detail kejadian') {
+      status = 'Tolong perbaiki bukti';
+      return capitalizeFirstLetter(status);
+    }
+
+    return capitalizeFirstLetter(statusApproval);
   }
 
   int determineProgressPercentage(String statusApproval) {
@@ -97,7 +112,8 @@ class _TabBerjalanState extends State<TabBerjalan> {
                                           min: 0.0,
                                           max: 100.0,
                                           value: determineProgressPercentage(
-                                              data?.reason ?? 'No Status'),
+                                              data?.statusApproval ??
+                                                  'No Status'),
                                           onChanged: (dynamic value) {},
                                         ),
                                       ),
@@ -106,7 +122,7 @@ class _TabBerjalanState extends State<TabBerjalan> {
                                       width: 6,
                                     ),
                                     Text(
-                                      '${determineProgressPercentage(data?.reason ?? 'No Status').toString()}%',
+                                      '${determineProgressPercentage(data?.statusApproval ?? 'No Status').toString()}%',
                                       style: ThemeFont.bodySmallRegular,
                                     )
                                   ],
@@ -115,22 +131,24 @@ class _TabBerjalanState extends State<TabBerjalan> {
                                   height: 4,
                                 ),
                                 Text(
-                                  capitalizeFirstLetter(
-                                      data?.reason ?? 'No Status'),
+                                  determineStatus(
+                                      data?.statusApproval ?? 'No Status'),
                                   style: ThemeFont.bodySmallRegular.copyWith(
                                       color: determineStatusColor(
-                                          data?.reason ?? 'No Status')),
+                                          data?.statusApproval ?? 'No Status')),
                                 )
                               ],
                             ),
                             imageUrl: data?.missionImage ?? '',
                             args: {
+                              'missionId': data?.missionId,
+                              'transactionId': data?.transactionId ?? "None",
                               'imageUrl': data?.missionImage,
                               'title': data?.title,
                               'expiredDate': data?.endDate,
                               'point': data?.point,
                               'desc': data?.description,
-                              'progressState': 'Berjalan',
+                              'progressState': data?.statusApproval,
                               'title_stage': data?.titleStage ?? 'No stage',
                               'description_stage': data?.descriptionStage ??
                                   'No description stage',
