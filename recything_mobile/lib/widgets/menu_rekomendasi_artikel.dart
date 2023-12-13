@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recything_mobile/constants/pallete.dart';
 import 'package:recything_mobile/widgets/list_artikel_global.dart';
+import '../bloc/get_article/get_article_cubit.dart';
 import '../bloc/get_popular_article/get_popular_article_cubit.dart';
 
 class MenuRekomendasiArtikel extends StatelessWidget {
@@ -22,7 +23,6 @@ class MenuRekomendasiArtikel extends StatelessWidget {
             ),
             TextButton(
                 onPressed: () {
-                  // context.read<OnSearchCubit>().setNoSearch();
                   Navigator.pushNamed(context, "/cariArtikel");
                 },
                 child: Text(
@@ -56,22 +56,19 @@ class MenuRekomendasiArtikel extends StatelessWidget {
                           updateDate: state.data[index].updateDate,
                           id: state.data[index].id),
                       onTap: () {
-                        // String id = state.data[index].id;
                         bool isPopular = true;
                         Navigator.pushNamed(context, '/detailArtikel',
                             arguments: {
                               "isPopular": isPopular,
-                              "index": index
+                              "index": index,
+                              "id": state.data[index].id,
+                              "like": state.data[index].like.toString()
                             });
                       },
                     );
                   });
             }
             return SizedBox();
-            // return ListArtikelPopuplerWidget(
-            //     physicsScroll: const NeverScrollableScrollPhysics(),
-            //     scrollDirection: Axis.vertical,
-            //     itemCount: 3);
           },
         ),
       ],

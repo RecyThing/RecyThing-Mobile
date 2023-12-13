@@ -86,4 +86,16 @@ class ArticleRepo {
     return List<ArticleModel>.from((response.data['data'] as Iterable)
         .map((e) => ArticleModel.fromJson(e)));
   }
+
+  Future<String> postLikeArticle(String id) async {
+    final String? authToken = await SharedPreferenceService.getToken();
+
+    if (authToken == null) {
+      throw Exception('Authorization token not available.');
+    }
+
+    dio.options.headers['Authorization'] = 'Bearer $authToken';
+    final response = await dio.post('$baseUrl/articles/like/$id');
+    return response.data['message'];
+  }
 }

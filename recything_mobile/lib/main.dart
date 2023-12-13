@@ -16,6 +16,7 @@ import 'package:recything_mobile/bloc/get_user_profile/get_user_profile_cubit.da
 import 'package:recything_mobile/bloc/get_vouchers/get_vouchers_cubit.dart';
 import 'package:recything_mobile/bloc/login/login_cubit.dart';
 import 'package:recything_mobile/bloc/get_all_faq/get_all_faq_cubit.dart';
+import 'package:recything_mobile/bloc/post_like/post_like_article_cubit.dart';
 import 'package:recything_mobile/bloc/post_poin_daily/post_poin_daily_cubit.dart';
 import 'package:recything_mobile/bloc/post_report/post_report_rubbish_cubit.dart';
 import 'package:recything_mobile/bloc/post_report_littering/post_report_littering_cubit.dart';
@@ -101,8 +102,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => GetHistoryPoinCubit()),
         BlocProvider(create: (_) => GetHistoryPoinByIdCubit()),
         BlocProvider(create: (_) => ClaimMissionCubit()),
-        // BlocProvider(create: (_) => ValueIsPopularCubit()),
-        // BlocProvider(create: (_) => OnSearchCubit())
+        BlocProvider(create: (_) => PostLikeArticleCubit()),
       ],
       child: MaterialApp(
         locale: DevicePreview.locale(context),

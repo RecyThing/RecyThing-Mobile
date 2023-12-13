@@ -3,8 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recything_mobile/bloc/get_article/get_article_cubit.dart';
 import 'package:recything_mobile/screens/article/widget/cari_artikel/artikel_tidak_ditemukan.dart';
 import 'package:recything_mobile/screens/article/widget/header_page.dart';
-import 'package:recything_mobile/screens/article/widget/list_artikel.dart';
 import 'package:recything_mobile/screens/article/widget/searchbar.dart';
+
+import '../../../widgets/list_artikel_global.dart';
 
 class ArtikelByKategoriScreen extends StatefulWidget {
   const ArtikelByKategoriScreen({super.key});
@@ -17,7 +18,6 @@ class ArtikelByKategoriScreen extends StatefulWidget {
 class _ArtikelByKategoriScreenState extends State<ArtikelByKategoriScreen> {
   @override
   Widget build(BuildContext context) {
-
     final Map<String, String?> arguments =
         ModalRoute.of(context)!.settings.arguments as Map<String, String?>;
     final String category = arguments['category']!;
@@ -81,7 +81,32 @@ class _ArtikelByKategoriScreenState extends State<ArtikelByKategoriScreen> {
                     ],
                   );
                 } else if (state is GetArticleSuccess) {
-                  return ListArtikelWidget();
+                  // return ListArtikelWidget();
+                  return ListView.builder(
+                    padding: const EdgeInsets.all(0),
+                    shrinkWrap: true,
+                    itemCount: state.data.length,
+                    itemBuilder: (context, index) {
+                      return GestureDetector(
+                        child: ListArticleGlobalWidget(
+                            image: state.data[index].image,
+                            title: state.data[index].title,
+                            category: state.data[index].getCategoryString(),
+                            like: state.data[index].like.toString(),
+                            updateDate: state.data[index].updateDate,
+                            id: state.data[index].id),
+                        onTap: () {
+                          bool isPopular = false;
+                          Navigator.pushNamed(context, '/detailArtikel',
+                              arguments: {
+                                "isPopular": isPopular,
+                                "index": index,
+                                "id": state.data[index].id
+                              });
+                        },
+                      );
+                    },
+                  );
                 }
                 return SizedBox();
               },

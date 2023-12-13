@@ -61,7 +61,8 @@ class _TapBarWidgetState extends State<TapBarWidget> {
                                 Navigator.pushNamed(context, '/detailArtikel',
                                     arguments: {
                                       "isPopular": isPopular,
-                                      "index": index
+                                      "index": index,
+                                      "id" : state.data[index].id
                                     });
                               },
                             );
@@ -103,7 +104,9 @@ class _TapBarWidgetState extends State<TapBarWidget> {
                                 Navigator.pushNamed(context, '/detailArtikel',
                                     arguments: {
                                       "isPopular": isPopular,
-                                      "index": index
+                                      "index": index,
+                                      "id" : state.data[index].id,
+                                      "like" : state.data[index].like.toString()
                                     });
                               },
                             );

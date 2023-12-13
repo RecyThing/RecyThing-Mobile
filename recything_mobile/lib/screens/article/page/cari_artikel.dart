@@ -24,6 +24,13 @@ class _CariArtikelScreenState extends State<CariArtikelScreen> {
   }
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    context.read<GetArticleCubit>().getAllArticle(1);
+    context.read<GetPopularArticleCubit>().getPopularArticle();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
