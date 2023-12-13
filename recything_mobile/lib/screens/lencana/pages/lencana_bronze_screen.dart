@@ -26,7 +26,7 @@ class LencanaBronzeScreen extends StatelessWidget {
           LencanaPoin(
             lencana: data,
             color: Pallete.bronze,
-            nilai: user.point / data.targetPoint,
+            nilai: 1,
             item: user,
           ),
           LencanaKeuntungan(persen: "10", color: Pallete.bronze)

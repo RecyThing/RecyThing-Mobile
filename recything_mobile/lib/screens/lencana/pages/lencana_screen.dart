@@ -67,19 +67,31 @@ class _LencanaScreenState extends State<LencanaScreen> {
                 body: TabBarView(
                   children: [
                     LencanaBronzeScreen(
-                      data: state.data[0],
+                      data: state.data
+                          .where((element) => element.name == "bronze")
+                          .toList()
+                          .first,
                       user: widget.user,
                     ),
                     LencanaSilverScreen(
-                      data: state.data[1],
+                      data: state.data
+                          .where((element) => element.name == "silver")
+                          .toList()
+                          .first,
                       user: widget.user,
                     ),
                     LencanaGoldScreen(
-                      data: state.data[2],
+                      data: state.data
+                          .where((element) => element.name == "gold")
+                          .toList()
+                          .first,
                       user: widget.user,
                     ),
                     LencanaPlatinumScreen(
-                      data: state.data[3],
+                      data: state.data
+                          .where((element) => element.name == "platinum")
+                          .toList()
+                          .first,
                       user: widget.user,
                     )
                   ],
