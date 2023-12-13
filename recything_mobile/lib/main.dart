@@ -30,6 +30,7 @@ import 'package:recything_mobile/screens/article/page/cari_artikel.dart';
 import 'package:recything_mobile/screens/article/page/daftar_lokasi.dart';
 import 'package:recything_mobile/screens/article/page/detail_artikel.dart';
 import 'package:recything_mobile/screens/article/page/kategori_daur_ulang_screen.dart';
+import 'package:recything_mobile/screens/article/page/search_article_screen.dart';
 import 'package:recything_mobile/screens/dashboard.dart';
 import 'package:recything_mobile/screens/home/pages/notifikasi_screen.dart';
 import 'package:recything_mobile/screens/home/pages/pertanyaan_umum_screen.dart';
@@ -146,6 +147,7 @@ class MyApp extends StatelessWidget {
           '/cariArtikel': (context) => const CariArtikelScreen(),
           '/daftarLokasi': (context) => const DaftarLokasiScreen(),
           '/detailArtikel': (context) => const DetailArtikelScreen(),
+          '/searchArtikelScreen': (context) => const SearchArticleScreen()
         },
       ),
     );

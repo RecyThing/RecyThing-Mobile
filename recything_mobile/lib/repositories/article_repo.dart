@@ -69,7 +69,7 @@ class ArticleRepo {
 
     dio.options.headers['Authorization'] = 'Bearer $authToken';
     final response =
-        await dio.get('$baseUrl/articles?filter=$filter&data=$data');
+        await dio.get('$baseUrl/articles?filter=$filter&search=$data');
     return List<ArticleModel>.from((response.data['data'] as Iterable)
         .map((e) => ArticleModel.fromJson(e)));
   }
