@@ -28,6 +28,7 @@ import 'package:recything_mobile/bloc/post_voucher/post_voucher_cubit.dart';
 import 'package:recything_mobile/bloc/update_user_profile/update_user_profile_cubit.dart';
 import 'package:recything_mobile/bloc/register/register_cubit.dart';
 import 'package:recything_mobile/bloc/update_password/update_password_cubit.dart';
+import 'package:recything_mobile/bloc/upload_proof/upload_proof_cubit.dart';
 import 'package:recything_mobile/constants/pallete.dart';
 import 'package:recything_mobile/screens/article/page/artikel_by_kategori.dart';
 import 'package:recything_mobile/screens/article/page/cari_artikel.dart';
@@ -41,7 +42,6 @@ import 'package:recything_mobile/screens/home/pages/profile_screen.dart';
 import 'package:recything_mobile/screens/home/pages/ubah_password_screen.dart';
 import 'package:recything_mobile/screens/index_screen.dart';
 import 'package:recything_mobile/screens/komunitas/rekomendasi_komunitas_screen.dart';
-import 'package:recything_mobile/screens/lencana/pages/lencana_screen.dart';
 import 'package:recything_mobile/screens/login/login_screen.dart';
 import 'package:recything_mobile/screens/missions/detail_mission_screen.dart';
 import 'package:recything_mobile/screens/missions/missions_screen.dart';
@@ -123,7 +123,9 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => CommunityCubit()),
         BlocProvider(create: (_) => CommunityByIdCubit()),
         BlocProvider(create: (_) => JoinCommunityCubit()),
-        BlocProvider(create: (_) => GetPoinDailyCubit())
+        BlocProvider(create: (_) => GetPoinDailyCubit()),
+        BlocProvider(create: (_) => ClaimMissionCubit()),
+        BlocProvider(create: (_) => UploadProofCubit())
       ],
       child: MaterialApp(
         locale: DevicePreview.locale(context),
@@ -147,6 +149,9 @@ class MyApp extends StatelessWidget {
           '/unggah-bukti': (context) => const UnggahBuktiScreen(),
           '/login': (context) => const LoginScreen(),
           '/dashboard': (context) => const Dasboard(),
+          '/dashboard-mission': (context) => const Dasboard(
+                index: 3,
+              ),
           '/profile': (context) => const ProfileScreen(),
           '/notif': (context) => const NotifikasiScreen(),
           '/detailVoucher': (context) => const DetailVoucherScreen(),

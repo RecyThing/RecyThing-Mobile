@@ -57,37 +57,42 @@ class _TabTersediaState extends State<TabTersedia> {
           child: BlocBuilder<GetMissionsCubit, GetMissionsState>(
             builder: (context, state) {
               if (state is GetMissionsLoaded) {
-                return ListView.builder(
-                    shrinkWrap: true,
-                    padding: const EdgeInsets.all(16),
-                    itemCount: state.missions.data.length,
-                    itemBuilder: (context, index) {
-                      var data = state.missions.data[index];
-                      return Column(
-                        children: [
-                          MissionCard(
-                            title: data.title,
-                            subTitle: Text(
-                              data.description,
-                              style: ThemeFont.bodySmallRegular,
-                            ),
-                            imageUrl: data.missionImage,
-                            args: {
-                              'missionId': data.missionId,
-                              'imageUrl': data.missionImage,
-                              'title': data.title,
-                              'expiredDate': data.endDate,
-                              'point': data.point,
-                              'desc': data.description,
-                              'progressState': 'Aktif'
-                            },
-                          ),
-                          const SizedBox(
-                            height: 8,
-                          )
-                        ],
-                      );
-                    });
+                return state.missions.data?.length == 0
+                    ? Center(child: Text('Belum ada misi'))
+                    : ListView.builder(
+                        shrinkWrap: true,
+                        padding: const EdgeInsets.all(16),
+                        itemCount: state.missions.data?.length,
+                        itemBuilder: (context, index) {
+                          var data = state.missions.data?[index];
+                          return Column(
+                            children: [
+                              MissionCard(
+                                title: data?.title ?? 'No Title',
+                                subTitle: Text(
+                                  data?.description ?? 'No Description',
+                                  style: ThemeFont.bodySmallRegular,
+                                ),
+                                imageUrl: data?.missionImage ?? '',
+                                args: {
+                                  'missionId': data?.missionId,
+                                  'imageUrl': data?.missionImage,
+                                  'title': data?.title,
+                                  'expiredDate': data?.endDate,
+                                  'point': data?.point,
+                                  'desc': data?.description,
+                                  'progressState': 'Aktif',
+                                  'title_stage': data?.titleStage ?? 'No stage',
+                                  'description_stage': data?.descriptionStage ??
+                                      'No description stage',
+                                },
+                              ),
+                              const SizedBox(
+                                height: 8,
+                              )
+                            ],
+                          );
+                        });
               } else if (state is GetMissionsLoading) {
                 return Center(
                     child: CircularProgressIndicator(
