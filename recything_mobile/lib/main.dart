@@ -107,7 +107,7 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.white),
           useMaterial3: true,
         ),
-        initialRoute: '/index',
+        initialRoute: '/splash',
         home: const IndexScreen(),
         routes: {
           '/index': (context) => const IndexScreen(),
@@ -118,6 +118,9 @@ class MyApp extends StatelessWidget {
           '/unggah-bukti': (context) => const UnggahBuktiScreen(),
           '/login': (context) => const LoginScreen(),
           '/dashboard': (context) => const Dasboard(),
+          '/dashboard-mission': (context) => const Dasboard(
+                index: 3,
+              ),
           '/profile': (context) => const ProfileScreen(),
           '/notif': (context) => const NotifikasiScreen(),
           '/poinku': (context) => const PoinkuScreen(),

@@ -20,14 +20,20 @@ class _DasboardState extends State<Dasboard> {
     const HomeScreen(),
     const ArticleDashboardScreen(),
     const ChooseReportScreen(),
-    const MissionsScreen(),
+    const MissionsScreen(
+      isMissionImageUploaded: false,
+    ),
     const KomunitasScreen(),
   ];
+
   @override
   void initState() {
     super.initState();
     if (widget.index != null) {
       currenIndex = widget.index!;
+      bodyScreen[3] = const MissionsScreen(
+        isMissionImageUploaded: true,
+      );
     }
   }
 

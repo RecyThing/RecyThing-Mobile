@@ -22,6 +22,7 @@ final class UploadProofSuccess extends UploadProofState {
 
 final class UploadProofToServerLoading extends UploadProofState {}
 
+// UPLOAD PROOF
 final class UploadProofToServerSuccess extends UploadProofState {}
 
 final class UploadProofToServerFailed extends UploadProofState {
@@ -32,3 +33,24 @@ final class UploadProofToServerFailed extends UploadProofState {
   @override
   List<Object> get props => [errorMsg];
 }
+// END
+
+// UPDATE PROOF
+final class UpdateProofToServerSuccess extends UploadProofState {
+  final String successMsg;
+
+  const UpdateProofToServerSuccess({required this.successMsg});
+
+  @override
+  List<Object> get props => [UpdateProofToServerSuccess];
+}
+
+final class UpdateProofToServerFailed extends UploadProofState {
+  final String errorMsg;
+
+  const UpdateProofToServerFailed({required this.errorMsg});
+
+  @override
+  List<Object> get props => [errorMsg];
+}
+//END

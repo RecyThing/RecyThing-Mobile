@@ -65,17 +65,17 @@ class UploadProofCubit extends Cubit<UploadProofState> {
     }
   }
 
-  void updateProof(
+  Future<void> updateProof(
       {required String description, required String transactionId}) async {
     try {
       emit(UploadProofToServerLoading());
-      await _uploadProofRepo.updateProof(
+      final res = await _uploadProofRepo.updateProof(
           description: description,
           images: _images,
           transactionId: transactionId);
-      emit(UploadProofToServerSuccess());
+      emit(UpdateProofToServerSuccess(successMsg: res));
     } catch (e) {
-      emit(UploadProofToServerFailed(errorMsg: e.toString()));
+      emit(UpdateProofToServerFailed(errorMsg: e.toString()));
     }
   }
 }

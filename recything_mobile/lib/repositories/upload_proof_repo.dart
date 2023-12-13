@@ -53,7 +53,7 @@ class UploadProofRepo {
     }
   }
 
-  Future<void> updateProof(
+  Future<String> updateProof(
       {required String description,
       required List<XFile> images,
       required String transactionId}) async {
@@ -81,12 +81,11 @@ class UploadProofRepo {
         'images': imageFiles.map((file) => MapEntry('images[]', file)).toList(),
       });
 
-      // Logger().i(imageFiles[0].filename);
-
       final res = await dio.put("missions/proof/$transactionId",
           data: formData, options: options);
 
       Logger().i(res.data);
+      return res.data['message'];
     } on DioException catch (e) {
       Logger().e(e.response);
       if (e.response != null) {
@@ -94,5 +93,7 @@ class UploadProofRepo {
         throw response["message"];
       }
     }
+
+    return '';
   }
 }

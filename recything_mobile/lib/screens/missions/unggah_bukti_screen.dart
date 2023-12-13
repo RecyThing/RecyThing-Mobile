@@ -50,6 +50,7 @@ class _UnggahBuktiScreenState extends State<UnggahBuktiScreen> {
         ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>;
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: CustomLeadingAppBar(title: 'Unggah Bukti'),
       body: SingleChildScrollView(
         child: Padding(
@@ -64,10 +65,24 @@ class _UnggahBuktiScreenState extends State<UnggahBuktiScreen> {
                           title: "Berhasil mengirim bukti",
                           message: "Bukti kamu sudah diunggah",
                           isTopSnackbar: false);
-                      Navigator.pop(context, 'menunggu verifikasi');
+                      Navigator.pushNamedAndRemoveUntil(context,
+                          '/dashboard-mission', ModalRoute.withName('/'));
                     } else if (state is UploadProofToServerFailed) {
                       ErrorSnackbar.showSnackbar(context,
                           title: "Gagal mengirim bukti",
+                          message: state.errorMsg,
+                          isTopSnackbar: false);
+                      Navigator.pop(context);
+                    } else if (state is UpdateProofToServerSuccess) {
+                      SuccessSnackbar.showSnackbar(context,
+                          title: "Berhasil perbarui bukti",
+                          message: state.successMsg,
+                          isTopSnackbar: false);
+                      Navigator.pushNamedAndRemoveUntil(context,
+                          '/dashboard-mission', ModalRoute.withName('/'));
+                    } else if (state is UpdateProofToServerFailed) {
+                      ErrorSnackbar.showSnackbar(context,
+                          title: "Gagal memperbarui bukti",
                           message: state.errorMsg,
                           isTopSnackbar: false);
                       Navigator.pop(context);
@@ -283,25 +298,25 @@ class _UnggahBuktiScreenState extends State<UnggahBuktiScreen> {
         child: BlocBuilder<UploadProofCubit, UploadProofState>(
           builder: (context, state) {
             return MainButton(
-                onPressed:
-                    state is UploadProofSuccess && state.images.isNotEmpty ||
-                            state is UploadProofToServerLoading
-                        ? () async {
-                            if (await context
-                                .read<UploadProofCubit>()
-                                .isImageSizeValidated()) {
-                              if (args['transactionId'] != null) {
-                                context.read<UploadProofCubit>().updateProof(
-                                    description: descriptionController.text,
-                                    transactionId: args['transactionId']);
-                              }
-
-                              context.read<UploadProofCubit>().uploadProof(
-                                  missionId: args['missionId'],
-                                  description: descriptionController.text);
-                            }
+                onPressed: state is UploadProofSuccess &&
+                            state.images.isNotEmpty ||
+                        state is UploadProofToServerLoading
+                    ? () async {
+                        if (await context
+                            .read<UploadProofCubit>()
+                            .isImageSizeValidated()) {
+                          if (args['transactionId'] != null) {
+                            await context.read<UploadProofCubit>().updateProof(
+                                description: descriptionController.text,
+                                transactionId: args['transactionId']);
+                          } else {
+                            context.read<UploadProofCubit>().uploadProof(
+                                missionId: args['missionId'],
+                                description: descriptionController.text);
                           }
-                        : null,
+                        }
+                      }
+                    : null,
                 child: state is UploadProofToServerLoading
                     ? SizedBox(
                         width: 23,
