@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recything_mobile/constants/pallete.dart';
 import 'package:recything_mobile/widgets/list_artikel_global.dart';
-import '../bloc/get_article/get_article_cubit.dart';
 import '../bloc/get_popular_article/get_popular_article_cubit.dart';
 
 class MenuRekomendasiArtikel extends StatelessWidget {
@@ -11,6 +10,7 @@ class MenuRekomendasiArtikel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    int length = 3;
     return Column(
       children: [
         Row(
@@ -40,12 +40,15 @@ class MenuRekomendasiArtikel extends StatelessWidget {
             } else if (state is GetPopularArticleFailure) {
               return Text(state.message);
             } else if (state is GetPopularArticleSuccess) {
+              if (state.data.length < length) {
+                length = state.data.length;
+              }
               return ListView.builder(
                   physics: NeverScrollableScrollPhysics(),
                   scrollDirection: Axis.vertical,
                   padding: const EdgeInsets.all(0),
                   shrinkWrap: true,
-                  itemCount: 3,
+                  itemCount: length,
                   itemBuilder: (context, index) {
                     return GestureDetector(
                       child: ListArticleGlobalWidget(

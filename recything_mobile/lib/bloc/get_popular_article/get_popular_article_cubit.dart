@@ -14,6 +14,9 @@ class GetPopularArticleCubit extends Cubit<GetPopularArticleState> {
     emit(GetPopularArticleLoading());
     try {
       final response = await ArticleRepo().getPopularArticle();
+      if (response.isEmpty) {
+        emit(GetPopularArticleFailure(message: "Rekomendasi artikel belum tersedia."));
+      }
       emit(GetPopularArticleSuccess(data: response));
     } catch (e) {
       emit(GetPopularArticleFailure(message: e.toString()));
