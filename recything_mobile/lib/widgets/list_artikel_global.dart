@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import '../screens/article/theme/text_style.dart';
 
@@ -32,12 +33,23 @@ class ListArticleGlobalWidget extends StatelessWidget {
                     height: 86,
                     width: 86,
                     child: ClipRRect(
-                      borderRadius: BorderRadius.circular(12),
-                      child: Image.network(
-                        image,
-                        fit: BoxFit.cover,
-                      ),
-                    )),
+                        borderRadius: BorderRadius.circular(12),
+                        child: CachedNetworkImage(
+                          imageUrl: image,
+                          fit: BoxFit.cover,
+                          placeholder: (context, url) => SizedBox(
+                              height: 20,
+                              width: 20,
+                              child: CircularProgressIndicator()),
+                          errorWidget: (context, url, error) =>
+                              Icon(Icons.error),
+                        )
+
+                        // Image.network(
+                        //   image,
+                        //   fit: BoxFit.cover,
+                        // ),
+                        )),
                 const SizedBox(width: 8),
                 Expanded(
                   child: SizedBox(
