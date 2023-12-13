@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:recything_mobile/bloc/get_poin_daily/get_poin_daily_cubit.dart';
 import 'package:recything_mobile/bloc/post_poin_daily/post_poin_daily_cubit.dart';
 import 'package:recything_mobile/constants/pallete.dart';
 import 'package:recything_mobile/models/user_model.dart';
@@ -14,6 +15,11 @@ class PoinkuCard extends StatefulWidget {
 }
 
 class _PoinkuCardState extends State<PoinkuCard> {
+  void initState() {
+    super.initState();
+    context.read<GetPoinDailyCubit>().fetchDailyPoin(context);
+  }
+
   double dividerWidth = 0;
   int clickCount = 0;
 
@@ -189,66 +195,81 @@ class _PoinkuCardState extends State<PoinkuCard> {
             const SizedBox(
               height: 20,
             ),
-            Stack(
-              children: [
-                Positioned(
-                  top: 13,
-                  child: SizedBox(
-                    width: MediaQuery.of(context).size.width,
-                    child: const Divider(
-                      thickness: 4,
-                    ),
-                  ),
-                ),
-                Positioned(
-                  top: 13,
-                  child: SizedBox(
-                    width: MediaQuery.of(context).size.width *
-                        (clickCount > 0 ? dividerWidth : 0),
-                    child: const Divider(
-                      thickness: 4,
-                      color: Pallete.warning,
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.1,
-                  child: ListView.separated(
-                    separatorBuilder: (context, index) => const SizedBox(
-                      width: 22,
-                    ),
-                    scrollDirection: Axis.horizontal,
-                    itemCount: 7,
-                    itemBuilder: (context, index) => Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.all(8),
-                          decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: clickCount > index
-                                  ? Pallete.warning
-                                  : Pallete.dark3),
-                          child: clickCount > index
-                              ? const Icon(
-                                  Icons.check,
-                                  color: Pallete.textMainButton,
-                                  size: 22,
-                                )
-                              : Text(
-                                  "${10 * (index + 1)}",
-                                  style: ThemeFont.interText
-                                      .copyWith(color: Pallete.textMainButton),
-                                ),
+            BlocBuilder<GetPoinDailyCubit, GetPoinDailyState>(
+              builder: (context, state) {
+                if (state is GetPoinDailyLoading) {
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                } else if (state is GetPoinDailyFailure) {
+                  return Text(state.msg);
+                } else if (state is GetPoinDailySuccess) {
+                  return Stack(
+                    children: [
+                      Positioned(
+                        top: 13,
+                        child: SizedBox(
+                          width: MediaQuery.of(context).size.width,
+                          child: const Divider(
+                            thickness: 4,
+                          ),
                         ),
-                        Text(
-                          "Hari ${index + 1}",
+                      ),
+                      Positioned(
+                        top: 13,
+                        child: SizedBox(
+                          width: MediaQuery.of(context).size.width *
+                              (state.data.length > 0
+                                  ? state.data.length * 0.115
+                                  : 0),
+                          child: const Divider(
+                            thickness: 4,
+                            color: Pallete.warning,
+                          ),
                         ),
-                      ],
-                    ),
-                  ),
-                )
-              ],
+                      ),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.1,
+                        child: ListView.separated(
+                          separatorBuilder: (context, index) => const SizedBox(
+                            width: 22,
+                          ),
+                          scrollDirection: Axis.horizontal,
+                          itemCount: 7,
+                          itemBuilder: (context, index) => Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.all(8),
+                                decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: state.data.length > index
+                                        ? Pallete.warning
+                                        : Pallete.dark3),
+                                child: state.data.length > index
+                                    ? const Icon(
+                                        Icons.check,
+                                        color: Pallete.textMainButton,
+                                        size: 22,
+                                      )
+                                    : Text(
+                                        "${10 * (index + 1)}",
+                                        style: ThemeFont.interText.copyWith(
+                                            color: Pallete.textMainButton),
+                                      ),
+                              ),
+                              Text(
+                                "Hari ${index + 1}",
+                              ),
+                            ],
+                          ),
+                        ),
+                      )
+                    ],
+                  );
+                }
+                return SizedBox();
+              },
             ),
             SizedBox(
                 width: MediaQuery.of(context).size.width,

@@ -14,6 +14,7 @@ import 'package:recything_mobile/bloc/get_community_by_id/community_by_id_cubit.
 import 'package:recything_mobile/bloc/get_history_report_by_id/get_history_report_by_id_cubit.dart';
 import 'package:recything_mobile/bloc/get_lencana/get_lencana_cubit.dart';
 import 'package:recything_mobile/bloc/get_missions/get_missions_cubit.dart';
+import 'package:recything_mobile/bloc/get_poin_daily/get_poin_daily_cubit.dart';
 import 'package:recything_mobile/bloc/get_report_hisstory/get_report_history_cubit.dart';
 import 'package:recything_mobile/bloc/get_user_profile/get_user_profile_cubit.dart';
 import 'package:recything_mobile/bloc/get_vouchers/get_vouchers_cubit.dart';
@@ -122,6 +123,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => CommunityCubit()),
         BlocProvider(create: (_) => CommunityByIdCubit()),
         BlocProvider(create: (_) => JoinCommunityCubit()),
+        BlocProvider(create: (_) => GetPoinDailyCubit())
       ],
       child: MaterialApp(
         locale: DevicePreview.locale(context),
