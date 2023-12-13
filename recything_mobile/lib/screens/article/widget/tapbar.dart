@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recything_mobile/screens/article/widget/cari_artikel/artikel_tidak_ditemukan.dart';
-import 'package:recything_mobile/screens/article/widget/dashboard_screen/list_artikel_populer.dart';
-import 'package:recything_mobile/screens/article/widget/list_artikel.dart';
+import 'package:recything_mobile/widgets/list_artikel_global.dart';
 import '../../../bloc/get_article/get_article_cubit.dart';
 import '../../../bloc/get_popular_article/get_popular_article_cubit.dart';
 
@@ -42,10 +41,31 @@ class _TapBarWidgetState extends State<TapBarWidget> {
                               child: CircularProgressIndicator()),
                         );
                       } else if (state is GetPopularArticleSuccess) {
-                        return ListArtikelPopuplerWidget(
-                          scrollDirection: Axis.vertical,
-                          physicsScroll: const AlwaysScrollableScrollPhysics(),
+                        // context.read<ValueIsPopularCubit>().setPopularTab();
+                        return ListView.builder(
+                          padding: const EdgeInsets.all(0),
+                          shrinkWrap: true,
                           itemCount: state.data.length,
+                          itemBuilder: (context, index) {
+                            return GestureDetector(
+                              child: ListArticleGlobalWidget(
+                                  image: state.data[index].image,
+                                  title: state.data[index].title,
+                                  category:
+                                      state.data[index].getCategoryString(),
+                                  like: state.data[index].like.toString(),
+                                  updateDate: state.data[index].updateDate,
+                                  id: state.data[index].id),
+                              onTap: () {
+                                bool isPopular = true;
+                                Navigator.pushNamed(context, '/detailArtikel',
+                                    arguments: {
+                                      "isPopular": isPopular,
+                                      "index": index
+                                    });
+                              },
+                            );
+                          },
                         );
                       } else if (state is GetPopularArticleFailure) {
                         return ArtikelTidakDitemukanWidget();
@@ -63,7 +83,32 @@ class _TapBarWidgetState extends State<TapBarWidget> {
                               child: CircularProgressIndicator()),
                         );
                       } else if (state is GetArticleSuccess) {
-                        return ListArtikelWidget();
+                        // context.read<ValueIsPopularCubit>().setTerbaruTab();
+                        return ListView.builder(
+                          padding: const EdgeInsets.all(0),
+                          shrinkWrap: true,
+                          itemCount: state.data.length,
+                          itemBuilder: (context, index) {
+                            return GestureDetector(
+                              child: ListArticleGlobalWidget(
+                                  image: state.data[index].image,
+                                  title: state.data[index].title,
+                                  category:
+                                      state.data[index].getCategoryString(),
+                                  like: state.data[index].like.toString(),
+                                  updateDate: state.data[index].updateDate,
+                                  id: state.data[index].id),
+                              onTap: () {
+                                bool isPopular = false;
+                                Navigator.pushNamed(context, '/detailArtikel',
+                                    arguments: {
+                                      "isPopular": isPopular,
+                                      "index": index
+                                    });
+                              },
+                            );
+                          },
+                        );
                       } else if (state is GetArticleFailure) {
                         return ArtikelTidakDitemukanWidget();
                       }

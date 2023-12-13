@@ -18,16 +18,6 @@ class GetArticleCubit extends Cubit<GetArticleState> {
     }
   }
 
-  // void getPopularArticle() async {
-  //   emit(GetArticleLoading());
-  //   try {
-  //     final response = await ArticleRepo().getPopularArticle();
-  //     emit(GetPopularArticleSuccess(data: response));
-  //   } catch (e) {
-  //     emit(GetArticleFailure(message: e.toString()));
-  //   }
-  // }
-
   void searchArticle(String data) async {
     emit(GetArticleLoading());
     try {
@@ -61,6 +51,20 @@ class GetArticleCubit extends Cubit<GetArticleState> {
     emit(GetArticleLoading());
     try {
       final response = await ArticleRepo().getArticleByCategory(filter);
+      if (response.isEmpty) {
+        emit(GetArticleFailure(message: "data not found"));
+      } else {
+        emit(GetArticleSuccess(data: response));
+      }
+    } catch (e) {
+      emit(GetArticleFailure(message: e.toString()));
+    }
+  }
+
+  void getArticleById(String id) async {
+    emit(GetArticleLoading());
+    try {
+      final response = await ArticleRepo().getArticleById(id);
       if (response.isEmpty) {
         emit(GetArticleFailure(message: "data not found"));
       } else {

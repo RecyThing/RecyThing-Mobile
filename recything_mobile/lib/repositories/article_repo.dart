@@ -33,6 +33,19 @@ class ArticleRepo {
         .map((e) => ArticleModel.fromJson(e)));
   }
 
+  Future<List<ArticleModel>> getArticleById(String id) async {
+    final String? authToken = await SharedPreferenceService.getToken();
+
+    if (authToken == null) {
+      throw Exception('Authorization token not available.');
+    }
+
+    dio.options.headers['Authorization'] = 'Bearer $authToken';
+    final response = await dio.get('$baseUrl/articles/$id');
+    return List<ArticleModel>.from((response.data['data'] as Iterable)
+        .map((e) => ArticleModel.fromJson(e)));
+  }
+
   Future<List<ArticleModel>> searchArticle(String data) async {
     final String? authToken = await SharedPreferenceService.getToken();
 

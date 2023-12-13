@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recything_mobile/screens/article/widget/dashboard_screen/dashboard_header.dart';
-import 'package:recything_mobile/screens/article/widget/dashboard_screen/menu_artikel_populer.dart';
 import 'package:recything_mobile/screens/article/widget/dashboard_screen/menu_kategori.dart';
 import 'package:recything_mobile/screens/article/widget/dashboard_screen/menu_tukar_sampah.dart';
 import 'package:recything_mobile/screens/article/widget/searchbar.dart';
+import 'package:recything_mobile/widgets/menu_rekomendasi_artikel.dart';
 
 import '../../../bloc/get_popular_article/get_popular_article_cubit.dart';
 
@@ -39,7 +39,10 @@ class _ArticleDashboardScreenState extends State<ArticleDashboardScreen> {
                   )),
               MenuKategoriWidget(),
               MenuTukarSampahWidget(),
-              MenuArticlePopular()
+              Padding(
+                padding: EdgeInsets.only(bottom: 24, left: 16, right: 16),
+                child: MenuRekomendasiArtikel(judulMenu: 'Artikel Populer'),
+              )
             ],
           ),
         ),
