@@ -35,29 +35,35 @@ class _HomeScreenState extends State<HomeScreen> {
                 } else if (state is GetUserProfilefailure) {
                   return Text(state.message);
                 } else if (state is GetUserProfileSuccess) {
-                  return SizedBox(
-                    height: 350,
-                    child: Stack(
-                      children: [
-                        HomeHeader(
-                          user: state.data,
-                        ),
-                        Positioned(
-                            bottom: 0,
-                            child: HomePoinCard(
+                  return Column(
+                    children: [
+                      SizedBox(
+                        height: 350,
+                        child: Stack(
+                          children: [
+                            HomeHeader(
                               user: state.data,
-                            ))
-                      ],
-                    ),
+                            ),
+                            Positioned(
+                                bottom: 0,
+                                child: HomePoinCard(
+                                  user: state.data,
+                                ))
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: 24,
+                      ),
+                      HomeBanner(
+                        user: state.data,
+                      ),
+                    ],
                   );
                 }
                 return SizedBox();
               },
             ),
-            SizedBox(
-              height: 24,
-            ),
-            HomeBanner(),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 16, vertical: 24),
               child: HomeRekomendasiArtikel(),
