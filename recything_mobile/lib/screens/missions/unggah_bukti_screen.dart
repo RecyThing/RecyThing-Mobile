@@ -67,7 +67,7 @@ class _UnggahBuktiScreenState extends State<UnggahBuktiScreen> {
                       Navigator.pop(context, 'menunggu verifikasi');
                     } else if (state is UploadProofToServerFailed) {
                       ErrorSnackbar.showSnackbar(context,
-                          title: "Gagal Memperbarui",
+                          title: "Gagal mengirim bukti",
                           message: state.errorMsg,
                           isTopSnackbar: false);
                       Navigator.pop(context);
@@ -283,17 +283,25 @@ class _UnggahBuktiScreenState extends State<UnggahBuktiScreen> {
         child: BlocBuilder<UploadProofCubit, UploadProofState>(
           builder: (context, state) {
             return MainButton(
-                onPressed: state is UploadProofSuccess &&
-                            state.images.isNotEmpty ||
-                        state is UploadProofToServerLoading
-                    ? () => args['transactionId'] != null
-                        ? context.read<UploadProofCubit>().updateProof(
-                            description: descriptionController.text,
-                            transactionId: args['transactionId'])
-                        : context.read<UploadProofCubit>().uploadProof(
-                            missionId: args['missionId'],
-                            description: descriptionController.text)
-                    : null,
+                onPressed:
+                    state is UploadProofSuccess && state.images.isNotEmpty ||
+                            state is UploadProofToServerLoading
+                        ? () async {
+                            if (await context
+                                .read<UploadProofCubit>()
+                                .isImageSizeValidated()) {
+                              if (args['transactionId'] != null) {
+                                context.read<UploadProofCubit>().updateProof(
+                                    description: descriptionController.text,
+                                    transactionId: args['transactionId']);
+                              }
+
+                              context.read<UploadProofCubit>().uploadProof(
+                                  missionId: args['missionId'],
+                                  description: descriptionController.text);
+                            }
+                          }
+                        : null,
                 child: state is UploadProofToServerLoading
                     ? SizedBox(
                         width: 23,

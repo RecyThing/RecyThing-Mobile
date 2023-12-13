@@ -28,6 +28,23 @@ class UploadProofCubit extends Cubit<UploadProofState> {
     }
   }
 
+  Future<bool> isImageSizeValidated() async {
+    double totalSize = 0;
+
+    for (int i = 0; i < _images.length; i++) {
+      totalSize += await _images[i].length() / (1024 * 1024);
+    }
+
+    print('$totalSize Mb');
+
+    if (totalSize > 20) {
+      emit(UploadProofToServerFailed(errorMsg: 'Ukuran foto melebihi 20 Mb'));
+      return false;
+    }
+
+    return true;
+  }
+
   void deleteImage({required int index}) async {
     emit(UploadProofLoading());
     _images.removeAt(index);
