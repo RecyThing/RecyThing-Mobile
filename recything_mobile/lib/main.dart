@@ -1,6 +1,7 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:recything_mobile/bloc/auth/auth_cubit.dart';
 import 'package:recything_mobile/bloc/forgot_password/forgot_password_cubit.dart';
 import 'package:recything_mobile/bloc/get_ai/get_ai_cubit.dart';
@@ -54,13 +55,15 @@ import 'package:recything_mobile/screens/verifikasi_otp/verifikasi_otp_screen.da
 import 'bloc/get_article/get_article_cubit.dart';
 import 'bloc/recyBot/post_recy_bot_cubit.dart';
 
-void main() {
-  runApp(const MyApp()
-      // DevicePreview(
-      //   enabled: !kReleaseMode,
-      //   builder: (context) => const MyApp(),
-      // ),
-      );
+Future<void> main() async {
+  await dotenv.load();
+  runApp(const MyApp());
+  // runApp(const MyApp()
+  // DevicePreview(
+  //   enabled: !kReleaseMode,
+  //   builder: (context) => const MyApp(),
+  // ),
+  // );
 }
 
 class MyApp extends StatelessWidget {

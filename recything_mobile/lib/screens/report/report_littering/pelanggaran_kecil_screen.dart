@@ -269,50 +269,66 @@ class _LitteringKecilScreenState extends State<LitteringKecilScreen> {
                           child: BlocBuilder<PostReportLitteringCubit,
                               PostReportLitteringState>(
                             builder: (context, state) {
-                              return MainButtonWidget(
-                                onPressed: () {
-                                  DateTime dateTime = DateFormat("MM/dd/yyyy")
-                                      .parse(dateController.text);
-                                  context
-                                      .read<PostReportLitteringCubit>()
-                                      .addReport(
-                                        context: context,
-                                        reportType: "pelanggaran sampah",
-                                        scaleType: "skala kecil",
-                                        location: locationController.text,
-                                        latitude: widget.latitude ?? "0",
-                                        longitude: widget.longitude ?? "0",
-                                        addressPoint:
-                                            addressPointController.text,
-                                        insidentDate: DateFormat("yyyy-dd-MM")
-                                            .format(dateTime),
-                                        insidentTime: timeController.text,
-                                        desc: descriptionController.text,
-                                        images: selectedImages,
-                                      );
-                                },
-                                child: BlocBuilder<PostReportLitteringCubit,
-                                    PostReportLitteringState>(
-                                  builder: (context, state) {
-                                    if (state is PostReportLitteringLoading) {
-                                      return const SizedBox(
-                                        height: 23,
-                                        width: 23,
-                                        child: CircularProgressIndicator(
-                                          color: Colors.white,
-                                        ),
-                                      );
-                                    } else {
-                                      return Text(
-                                        'Kirim',
-                                        style: ThemeFont.heading6Bold.copyWith(
-                                          color: Colors.white,
-                                        ),
-                                      );
-                                    }
+                              if (locationController.text.isNotEmpty &&
+                                  addressPointController.text.isNotEmpty &&
+                                  descriptionController.text.isNotEmpty &&
+                                  dateController.text.isNotEmpty &&
+                                  timeController.text.isNotEmpty) {
+                                return MainButtonWidget(
+                                  onPressed: () {
+                                    DateTime dateTime = DateFormat("MM/dd/yyyy")
+                                        .parse(dateController.text);
+                                    context
+                                        .read<PostReportLitteringCubit>()
+                                        .addReport(
+                                          context: context,
+                                          reportType: "pelanggaran sampah",
+                                          scaleType: "skala kecil",
+                                          location: locationController.text,
+                                          latitude: widget.latitude ?? "0",
+                                          longitude: widget.longitude ?? "0",
+                                          addressPoint:
+                                              addressPointController.text,
+                                          insidentDate: DateFormat("yyyy-dd-MM")
+                                              .format(dateTime),
+                                          insidentTime: timeController.text,
+                                          desc: descriptionController.text,
+                                          images: selectedImages,
+                                        );
                                   },
-                                ),
-                              );
+                                  child: BlocBuilder<PostReportLitteringCubit,
+                                      PostReportLitteringState>(
+                                    builder: (context, state) {
+                                      if (state is PostReportLitteringLoading) {
+                                        return const SizedBox(
+                                          height: 23,
+                                          width: 23,
+                                          child: CircularProgressIndicator(
+                                            color: Colors.white,
+                                          ),
+                                        );
+                                      } else {
+                                        return Text(
+                                          'Kirim',
+                                          style:
+                                              ThemeFont.heading6Bold.copyWith(
+                                            color: Colors.white,
+                                          ),
+                                        );
+                                      }
+                                    },
+                                  ),
+                                );
+                              } else {
+                                return MainButtonWidget(
+                                  child: Text(
+                                    'Kirim',
+                                    style: ThemeFont.heading6Bold.copyWith(
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                );
+                              }
                             },
                           ),
                         ),

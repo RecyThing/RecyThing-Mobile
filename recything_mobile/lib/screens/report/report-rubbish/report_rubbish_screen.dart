@@ -185,10 +185,16 @@ class _ReportRubbishScreenState extends State<ReportRubbishScreen> {
                   const SizedBox(
                     height: 8,
                   ),
-                  Row(
-                    children: [
-                      imagePickerButton,
-                    ],
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width - 32,
+                    height: 80,
+                    child: ListView(
+                      shrinkWrap: true,
+                      scrollDirection: Axis.horizontal,
+                      children: [
+                        imagePickerButton,
+                      ],
+                    ),
                   ),
                   const SizedBox(
                     height: 8,
