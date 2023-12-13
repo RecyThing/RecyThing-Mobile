@@ -75,8 +75,10 @@ class HomePoinCard extends StatelessWidget {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) =>
-                                    PoinkuScreen(user: user)));
+                                builder: (context) => PoinkuScreen(
+                                      user: user,
+                                      index: 1,
+                                    )));
                       },
                       child: const Text("Riwayat")),
                 ),
@@ -89,7 +91,6 @@ class HomePoinCard extends StatelessWidget {
                               MaterialPageRoute(
                                   builder: (context) => PoinkuScreen(
                                         user: user,
-                                        index: 1,
                                       )));
                         },
                         child: Text(
