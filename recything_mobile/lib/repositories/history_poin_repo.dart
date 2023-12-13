@@ -7,8 +7,10 @@ class HistoryPoinRepo extends BaseService {
   Future<List<HistoryPoinModel>> getHistoryPoin(BuildContext context) async {
     final res = await request(context, '/users/point/history');
     Logger().i(res);
-    return List<HistoryPoinModel>.from((res.data["data"] as Iterable)
-        .map((e) => HistoryPoinModel.fromJson(e)));
+    return res.data['message'] == 'data belum tersedia'
+        ? List<HistoryPoinModel>.empty()
+        : List<HistoryPoinModel>.from((res.data["data"] as Iterable)
+            .map((e) => HistoryPoinModel.fromJson(e)));
   }
 
   Future<String> claimPoin(BuildContext context) async {
