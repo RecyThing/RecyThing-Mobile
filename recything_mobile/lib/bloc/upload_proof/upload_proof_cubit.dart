@@ -49,13 +49,10 @@ class UploadProofCubit extends Cubit<UploadProofState> {
   }
 
   void updateProof(
-      {required String missionId,
-      required String description,
-      required String transactionId}) async {
+      {required String description, required String transactionId}) async {
     try {
       emit(UploadProofToServerLoading());
       await _uploadProofRepo.updateProof(
-          missionId: missionId,
           description: description,
           images: _images,
           transactionId: transactionId);

@@ -58,7 +58,9 @@ class _TabBerjalanState extends State<TabBerjalan> {
   int determineProgressPercentage(String statusApproval) {
     int percentage = 33;
 
-    if (statusApproval == 'tolong perbaiki bukti' ||
+    if (statusApproval == 'Bukti tidak jelas' ||
+        statusApproval == 'Bukti kurang lengkap' ||
+        statusApproval == 'Tidak ada detail kejadian' ||
         statusApproval == 'menunggu verifikasi') {
       percentage = 50;
     }

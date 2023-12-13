@@ -10,6 +10,7 @@ class ProgressStep extends StatelessWidget {
   final String descriptionStage;
   final String? missionId;
   final String? transactionId;
+  final String? statusApproval;
 
   const ProgressStep(
       {super.key,
@@ -17,7 +18,8 @@ class ProgressStep extends StatelessWidget {
       required this.titleStage,
       required this.descriptionStage,
       this.missionId,
-      this.transactionId});
+      this.transactionId,
+      this.statusApproval});
 
   Map<String, dynamic> determineSecondStepContent(String progressState) {
     Map<String, dynamic> content = {
@@ -75,6 +77,7 @@ class ProgressStep extends StatelessWidget {
                   'Bukti ditolak',
               missionId: missionId,
               transactionId: transactionId,
+              statusApproval: statusApproval,
             ),
             const SizedBox(
               height: 24,

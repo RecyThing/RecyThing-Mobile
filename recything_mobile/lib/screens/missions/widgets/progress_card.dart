@@ -8,6 +8,7 @@ class ProgressCard extends StatelessWidget {
   final bool isRejected;
   final String? missionId;
   final String? transactionId;
+  final String? statusApproval;
 
   const ProgressCard(
       {super.key,
@@ -16,7 +17,8 @@ class ProgressCard extends StatelessWidget {
       required this.backgroundColor,
       this.isRejected = false,
       this.missionId,
-      this.transactionId});
+      this.transactionId,
+      this.statusApproval});
 
   @override
   Widget build(BuildContext context) {
@@ -78,10 +80,12 @@ class ProgressCard extends StatelessWidget {
                     backgroundColor: Pallete.errorSubtle,
                     child: IconButton(
                         onPressed: () => Navigator.pushNamed(
-                                context, '/unggah-bukti', arguments: {
-                              'missionId': missionId ?? '',
-                              'transactionId': transactionId
-                            }),
+                                context, '/unggah-bukti',
+                                arguments: {
+                                  'missionId': missionId ?? '',
+                                  'transactionId': transactionId,
+                                  'progressState': statusApproval
+                                }),
                         icon: const Icon(
                           Icons.arrow_forward_ios,
                           color: Colors.white,

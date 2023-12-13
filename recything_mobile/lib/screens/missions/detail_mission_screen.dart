@@ -165,6 +165,7 @@ class _DetailMissionScreenState extends State<DetailMissionScreen> {
                   descriptionStage: args['description_stage'],
                   missionId: args['missionId'],
                   transactionId: args['transactionId'],
+                  statusApproval: args['progressState'],
                 ),
                 const SizedBox(
                   height: 24,
@@ -200,17 +201,10 @@ class _DetailMissionScreenState extends State<DetailMissionScreen> {
                                 },
                               )
                             : MainButton(
-                                onPressed: () async {
-                                  var data = await Navigator.pushNamed(
-                                      context, '/unggah-bukti', arguments: {
-                                    'missionId': args['missionId']
-                                  });
-                                  if (data != null) {
-                                    setState(() {
-                                      progressState = data.toString();
-                                    });
-                                  }
-                                },
+                                onPressed: () => Navigator.pushNamed(
+                                        context, '/unggah-bukti', arguments: {
+                                      'missionId': args['missionId']
+                                    }),
                                 child: Text(
                                   'Unggah Bukti',
                                   style: ThemeFont.heading6Bold

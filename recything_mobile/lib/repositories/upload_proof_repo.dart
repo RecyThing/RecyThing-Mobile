@@ -54,8 +54,7 @@ class UploadProofRepo {
   }
 
   Future<void> updateProof(
-      {required String missionId,
-      required String description,
+      {required String description,
       required List<XFile> images,
       required String transactionId}) async {
     final token = await SharedPreferenceService.getToken();
@@ -78,7 +77,6 @@ class UploadProofRepo {
       }
 
       FormData formData = FormData.fromMap({
-        'mission_id': missionId,
         'description': description,
         'images': imageFiles.map((file) => MapEntry('images[]', file)).toList(),
       });
