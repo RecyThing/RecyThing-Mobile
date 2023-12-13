@@ -36,6 +36,11 @@ class ListArticleGlobalWidget extends StatelessWidget {
                       child: Image.network(
                         image,
                         fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) {
+                          return Center(
+                            child: Icon(Icons.error),
+                          );
+                        },
                       ),
                     )),
                 const SizedBox(width: 8),

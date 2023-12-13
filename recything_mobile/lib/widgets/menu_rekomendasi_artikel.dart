@@ -10,6 +10,7 @@ class MenuRekomendasiArtikel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    int length = 3;
     return Column(
       children: [
         Row(
@@ -22,7 +23,6 @@ class MenuRekomendasiArtikel extends StatelessWidget {
             ),
             TextButton(
                 onPressed: () {
-                  // context.read<OnSearchCubit>().setNoSearch();
                   Navigator.pushNamed(context, "/cariArtikel");
                 },
                 child: Text(
@@ -40,12 +40,15 @@ class MenuRekomendasiArtikel extends StatelessWidget {
             } else if (state is GetPopularArticleFailure) {
               return Text(state.message);
             } else if (state is GetPopularArticleSuccess) {
+              if (state.data.length < length) {
+                length = state.data.length;
+              }
               return ListView.builder(
                   physics: NeverScrollableScrollPhysics(),
                   scrollDirection: Axis.vertical,
                   padding: const EdgeInsets.all(0),
                   shrinkWrap: true,
-                  itemCount: 3,
+                  itemCount: length,
                   itemBuilder: (context, index) {
                     return GestureDetector(
                       child: ListArticleGlobalWidget(
@@ -56,22 +59,19 @@ class MenuRekomendasiArtikel extends StatelessWidget {
                           updateDate: state.data[index].updateDate,
                           id: state.data[index].id),
                       onTap: () {
-                        // String id = state.data[index].id;
                         bool isPopular = true;
                         Navigator.pushNamed(context, '/detailArtikel',
                             arguments: {
                               "isPopular": isPopular,
-                              "index": index
+                              "index": index,
+                              "id": state.data[index].id,
+                              "like": state.data[index].like.toString()
                             });
                       },
                     );
                   });
             }
             return SizedBox();
-            // return ListArtikelPopuplerWidget(
-            //     physicsScroll: const NeverScrollableScrollPhysics(),
-            //     scrollDirection: Axis.vertical,
-            //     itemCount: 3);
           },
         ),
       ],

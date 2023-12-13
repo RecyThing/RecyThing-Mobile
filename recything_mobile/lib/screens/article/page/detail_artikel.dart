@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:recything_mobile/bloc/post_like/post_like_article_cubit.dart';
 import 'package:recything_mobile/constants/pallete.dart';
 import 'package:recything_mobile/screens/article/widget/detail_artikel/detail_article_content.dart';
 import 'package:recything_mobile/screens/article/widget/header_page.dart';
@@ -25,6 +26,7 @@ class _DetailArtikelScreenState extends State<DetailArtikelScreen> {
 
     int index = args['index'];
     bool isPopular = args['isPopular'];
+    String id = args['id'] ?? "";
 
     return Scaffold(
       body: ListView(
@@ -37,46 +39,50 @@ class _DetailArtikelScreenState extends State<DetailArtikelScreen> {
           Builder(
             builder: (context) {
               if (isPopular == true) {
-                return BlocBuilder<GetPopularArticleCubit,
+                return BlocListener<GetPopularArticleCubit,
                     GetPopularArticleState>(
-                  builder: (context, state) {
-                    // context.read<GetArticleCubit>().getArticleById(id);
-                    if (state is GetPopularArticleSuccess) {
-                      return DetailArticleContentWidget(
-                          image: state.data[index].image,
-                          title: state.data[index].title,
-                          category: state.data[index].getCategoryString(),
-                          like: state.data[index].like.toString(),
-                          updateDate: state.data[index].updateDate,
-                          content: state.data[index].content);
-                    } else if (state is GetPopularArticleFailure) {
-                      return Center(
-                        child: Text(state.message),
-                      );
-                    }
-                    return SizedBox();
-                  },
+                  listener: (context, state) {},
+                  child: BlocBuilder<GetPopularArticleCubit,
+                      GetPopularArticleState>(
+                    builder: (context, state) {
+                      if (state is GetPopularArticleSuccess) {
+                        return DetailArticleContentWidget(
+                            image: state.data[index].image,
+                            title: state.data[index].title,
+                            category: state.data[index].getCategoryString(),
+                            like: state.data[index].like.toString(),
+                            updateDate: state.data[index].updateDate,
+                            content: state.data[index].content);
+                      } else if (state is GetPopularArticleFailure) {
+                        return Center(
+                          child: Text(state.message),
+                        );
+                      }
+                      return SizedBox();
+                    },
+                  ),
                 );
               } else if (isPopular == false) {
-                return BlocBuilder<GetArticleCubit, GetArticleState>(
-                  builder: (context, state) {
-                    // context.read<GetArticleCubit>().getArticleById(id);
-                    if (state is GetArticleSuccess) {
-                      return DetailArticleContentWidget(
-                          image: state.data[index].image,
-                          title: state.data[index].title,
-                          category: state.data[index].getCategoryString(),
-                          like: state.data[index].like.toString(),
-                          updateDate: state.data[index].updateDate,
-                          content: state.data[index].content);
-                    } else if (state is GetArticleFailure) {
-                      return Center(
-                        child: Text(state.message),
-                      );
-                    }
-                    return SizedBox();
-                  },
-                );
+                return BlocListener<GetArticleCubit, GetArticleState>(
+                    listener: (context, state) {},
+                    child: BlocBuilder<GetArticleCubit, GetArticleState>(
+                      builder: (context, state) {
+                        if (state is GetArticleSuccess) {
+                          return DetailArticleContentWidget(
+                              image: state.data[index].image,
+                              title: state.data[index].title,
+                              category: state.data[index].getCategoryString(),
+                              like: state.data[index].like.toString(),
+                              updateDate: state.data[index].updateDate,
+                              content: state.data[index].content);
+                        } else if (state is GetArticleFailure) {
+                          return Center(
+                            child: Text(state.message),
+                          );
+                        }
+                        return SizedBox();
+                      },
+                    ));
               }
               return SizedBox();
             },
@@ -145,18 +151,35 @@ class _DetailArtikelScreenState extends State<DetailArtikelScreen> {
               ),
             ),
             const SizedBox(width: 15),
-            Container(
-              height: 56,
-              width: 70,
-              decoration: BoxDecoration(
-                  border: Border.all(color: Pallete.main),
-                  borderRadius: BorderRadius.circular(12)),
-              child: SizedBox(
-                  height: 24,
-                  width: 24,
-                  child: Image.asset(
-                    'assets/icons/icon_green_like_outline.png',
-                  )),
+            BlocBuilder<PostLikeArticleCubit, PostLikeArticleState>(
+              builder: (context, state) {
+                return GestureDetector(
+                  child: Container(
+                    height: 56,
+                    width: 70,
+                    decoration: BoxDecoration(
+                        border: Border.all(color: Pallete.main),
+                        borderRadius: BorderRadius.circular(12)),
+                    child: SizedBox(
+                        height: 24,
+                        width: 24,
+                        child: Image.asset(
+                          'assets/icons/icon_green_like_outline.png',
+                        )),
+                  ),
+                  onTap: () {
+                    print(id);
+                    context.read<PostLikeArticleCubit>().postLikeArticle(id);
+                    if (state is PostLikeSuccess) {
+                      print(state.message);
+                    } else if (state is PostLikeFailure) {
+                      print(state.message);
+                    }
+                    context.read<GetArticleCubit>().getAllArticle(1);
+                    context.read<GetPopularArticleCubit>().getPopularArticle();
+                  },
+                );
+              },
             )
           ],
         ),

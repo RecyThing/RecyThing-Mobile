@@ -21,6 +21,7 @@ import 'package:recything_mobile/bloc/get_vouchers/get_vouchers_cubit.dart';
 import 'package:recything_mobile/bloc/join_community/join_community_cubit.dart';
 import 'package:recything_mobile/bloc/login/login_cubit.dart';
 import 'package:recything_mobile/bloc/get_all_faq/get_all_faq_cubit.dart';
+import 'package:recything_mobile/bloc/post_like/post_like_article_cubit.dart';
 import 'package:recything_mobile/bloc/post_poin_daily/post_poin_daily_cubit.dart';
 import 'package:recything_mobile/bloc/post_report/post_report_rubbish_cubit.dart';
 import 'package:recything_mobile/bloc/post_report_littering/post_report_littering_cubit.dart';
@@ -35,6 +36,7 @@ import 'package:recything_mobile/screens/article/page/cari_artikel.dart';
 import 'package:recything_mobile/screens/article/page/daftar_lokasi.dart';
 import 'package:recything_mobile/screens/article/page/detail_artikel.dart';
 import 'package:recything_mobile/screens/article/page/kategori_daur_ulang_screen.dart';
+import 'package:recything_mobile/screens/article/page/search_article_screen.dart';
 import 'package:recything_mobile/screens/dashboard.dart';
 import 'package:recything_mobile/screens/home/pages/notifikasi_screen.dart';
 import 'package:recything_mobile/screens/home/pages/pertanyaan_umum_screen.dart';
@@ -118,6 +120,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => GetHistoryPoinCubit()),
         BlocProvider(create: (_) => GetHistoryPoinByIdCubit()),
         BlocProvider(create: (_) => ClaimMissionCubit()),
+
         // BlocProvider(create: (_) => ValueIsPopularCubit()),
         // BlocProvider(create: (_) => OnSearchCubit())
         BlocProvider(create: (_) => CommunityCubit()),
@@ -125,7 +128,9 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => JoinCommunityCubit()),
         BlocProvider(create: (_) => GetPoinDailyCubit()),
         BlocProvider(create: (_) => ClaimMissionCubit()),
-        BlocProvider(create: (_) => UploadProofCubit())
+        BlocProvider(create: (_) => UploadProofCubit()),
+
+        BlocProvider(create: (_) => PostLikeArticleCubit()),
       ],
       child: MaterialApp(
         locale: DevicePreview.locale(context),
@@ -173,6 +178,7 @@ class MyApp extends StatelessWidget {
           '/daftarLokasi': (context) => const DaftarLokasiScreen(),
           '/detailArtikel': (context) => const DetailArtikelScreen(),
           '/semua-komunitas': (context) => const RekomendasiKomunitasScreen(),
+          '/searchArtikelScreen': (context) => const SearchArticleScreen()
         },
       ),
     );

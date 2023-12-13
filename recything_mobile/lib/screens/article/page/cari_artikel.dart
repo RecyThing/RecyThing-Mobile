@@ -6,8 +6,6 @@ import 'package:recything_mobile/screens/article/widget/header_page.dart';
 import 'package:recything_mobile/screens/article/widget/searchbar.dart';
 import 'package:recything_mobile/screens/article/widget/tapbar.dart';
 
-import '../widget/cari_artikel/artikel_tidak_ditemukan.dart';
-
 class CariArtikelScreen extends StatefulWidget {
   const CariArtikelScreen({super.key});
 
@@ -24,6 +22,13 @@ class _CariArtikelScreenState extends State<CariArtikelScreen> {
   }
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    context.read<GetArticleCubit>().getAllArticle(1);
+    context.read<GetPopularArticleCubit>().getPopularArticle();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
@@ -35,16 +40,12 @@ class _CariArtikelScreenState extends State<CariArtikelScreen> {
             BlocBuilder<GetArticleCubit, GetArticleState>(
               builder: (context, state) {
                 return SearchBarWidget(
-                  onChanged: (value) {
-                    context.read<GetArticleCubit>().searchArticle(value);
-                    if (state is GetArticleSuccess) {
-                    } else if (state is GetArticleFailure) {
-                      return Center(child: ArtikelTidakDitemukanWidget());
-                    }
-                    if (value == "") {
-                      context.read<GetArticleCubit>().getAllArticle(1);
-                    }
+                  onChanged: (value) {},
+                  onTap: () {
+                    Navigator.pushNamed(context, "/searchArtikelScreen");
                   },
+                  readOnly: true,
+                  focusNode: null,
                 );
               },
             ),

@@ -68,8 +68,18 @@ class GetArticleCubit extends Cubit<GetArticleState> {
       if (response.isEmpty) {
         emit(GetArticleFailure(message: "data not found"));
       } else {
-        emit(GetArticleSuccess(data: response));
+        emit(GetArticleByIdSuccess(data: response));
       }
+    } catch (e) {
+      emit(GetArticleFailure(message: e.toString()));
+    }
+  }
+
+  void postLikeArticle(String id) async {
+    emit(GetArticleLoading());
+    try {
+      final response = await ArticleRepo().postLikeArticle(id);
+        emit(PostLikeArticleSuccess(message: response));
     } catch (e) {
       emit(GetArticleFailure(message: e.toString()));
     }
