@@ -1,6 +1,7 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:recything_mobile/bloc/auth/auth_cubit.dart';
 import 'package:recything_mobile/bloc/claim_mission/claim_mission_cubit.dart';
 import 'package:recything_mobile/bloc/forgot_password/forgot_password_cubit.dart';
@@ -8,12 +9,15 @@ import 'package:recything_mobile/bloc/get_ai/get_ai_cubit.dart';
 import 'package:recything_mobile/bloc/get_all_drop_point/get_all_drop_point_cubit.dart';
 import 'package:recything_mobile/bloc/get_history_poin/get_history_poin_cubit.dart';
 import 'package:recything_mobile/bloc/get_history_poin_by_id/get_history_poin_by_id_cubit.dart';
+import 'package:recything_mobile/bloc/get_community/community_cubit.dart';
+import 'package:recything_mobile/bloc/get_community_by_id/community_by_id_cubit.dart';
 import 'package:recything_mobile/bloc/get_history_report_by_id/get_history_report_by_id_cubit.dart';
 import 'package:recything_mobile/bloc/get_lencana/get_lencana_cubit.dart';
 import 'package:recything_mobile/bloc/get_missions/get_missions_cubit.dart';
 import 'package:recything_mobile/bloc/get_report_hisstory/get_report_history_cubit.dart';
 import 'package:recything_mobile/bloc/get_user_profile/get_user_profile_cubit.dart';
 import 'package:recything_mobile/bloc/get_vouchers/get_vouchers_cubit.dart';
+import 'package:recything_mobile/bloc/join_community/join_community_cubit.dart';
 import 'package:recything_mobile/bloc/login/login_cubit.dart';
 import 'package:recything_mobile/bloc/get_all_faq/get_all_faq_cubit.dart';
 import 'package:recything_mobile/bloc/post_poin_daily/post_poin_daily_cubit.dart';
@@ -35,6 +39,8 @@ import 'package:recything_mobile/screens/home/pages/pertanyaan_umum_screen.dart'
 import 'package:recything_mobile/screens/home/pages/profile_screen.dart';
 import 'package:recything_mobile/screens/home/pages/ubah_password_screen.dart';
 import 'package:recything_mobile/screens/index_screen.dart';
+import 'package:recything_mobile/screens/komunitas/rekomendasi_komunitas_screen.dart';
+import 'package:recything_mobile/screens/lencana/pages/lencana_screen.dart';
 import 'package:recything_mobile/screens/login/login_screen.dart';
 import 'package:recything_mobile/screens/missions/detail_mission_screen.dart';
 import 'package:recything_mobile/screens/missions/missions_screen.dart';
@@ -52,18 +58,28 @@ import 'package:recything_mobile/screens/report/report_littering/report_litterin
 import 'package:recything_mobile/screens/reset_password/reset_password_screen.dart';
 import 'package:recything_mobile/screens/splash/splash_screen.dart';
 import 'package:recything_mobile/screens/verifikasi_otp/verifikasi_otp_screen.dart';
+import 'package:flutter_config/flutter_config.dart';
 import 'bloc/get_article/get_article_cubit.dart';
 import 'bloc/get_popular_article/get_popular_article_cubit.dart';
 import 'bloc/recyBot/post_recy_bot_cubit.dart';
 
-void main() {
-  runApp(const MyApp());
+// runApp(
+//   DevicePreview(
+//     enabled: !kReleaseMode,
+//     builder: (context) => const MyApp(),
+//   ),
 
-  // runApp(
-  //   DevicePreview(
-  //     enabled: !kReleaseMode,
-  //     builder: (context) => const MyApp(),
-  //   ),
+Future<void> main() async {
+  await dotenv.load();
+  WidgetsFlutterBinding.ensureInitialized(); // Required by FlutterConfig
+  await FlutterConfig.loadEnvVariables();
+  runApp(const MyApp());
+  // runApp(const MyApp()
+  // DevicePreview(
+  //   enabled: !kReleaseMode,
+  //   builder: (context) => const MyApp(),
+  // ),
+
   // );
 }
 
@@ -78,11 +94,11 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => AuthCubit()..appStarted()),
         BlocProvider(create: (_) => GetAiCubit()),
         BlocProvider(create: (_) => GetAllFaqCubit()),
-        BlocProvider(create: (context) => LoginCubit()),
+        BlocProvider(create: (_) => LoginCubit()),
         BlocProvider(create: (_) => GetUserProfileCubit()),
         BlocProvider(create: (_) => UpdateUserProfileCubit()),
-        BlocProvider(create: (context) => RegisterCubit()),
-        BlocProvider(create: (context) => ForgotPasswordCubit()),
+        BlocProvider(create: (_) => RegisterCubit()),
+        BlocProvider(create: (_) => ForgotPasswordCubit()),
         BlocProvider(create: (_) => GetReportHistoryCubit()),
         BlocProvider(create: (_) => GetHistoryReportByIdCubit()),
         BlocProvider(create: (_) => UpdatePasswordCubit()),
@@ -103,6 +119,9 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => ClaimMissionCubit()),
         // BlocProvider(create: (_) => ValueIsPopularCubit()),
         // BlocProvider(create: (_) => OnSearchCubit())
+        BlocProvider(create: (_) => CommunityCubit()),
+        BlocProvider(create: (_) => CommunityByIdCubit()),
+        BlocProvider(create: (_) => JoinCommunityCubit()),
       ],
       child: MaterialApp(
         locale: DevicePreview.locale(context),
@@ -146,6 +165,7 @@ class MyApp extends StatelessWidget {
           '/cariArtikel': (context) => const CariArtikelScreen(),
           '/daftarLokasi': (context) => const DaftarLokasiScreen(),
           '/detailArtikel': (context) => const DetailArtikelScreen(),
+          '/semua-komunitas': (context) => const RekomendasiKomunitasScreen(),
         },
       ),
     );

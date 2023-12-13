@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconly/iconly.dart';
+import 'package:recything_mobile/bloc/get_community/community_cubit.dart';
 import 'package:recything_mobile/constants/pallete.dart';
 import 'package:recything_mobile/screens/komunitas/komunitas_search_screen.dart';
 import 'package:recything_mobile/screens/komunitas/widgets/komunitas_card.dart';
@@ -7,8 +9,20 @@ import 'package:recything_mobile/screens/komunitas/widgets/lokasi_dropdown.dart'
 import 'package:recything_mobile/widgets/forms/main_textfield.dart';
 import 'package:recything_mobile/widgets/typography/body_link.dart';
 
-class KomunitasScreen extends StatelessWidget {
+class KomunitasScreen extends StatefulWidget {
   const KomunitasScreen({super.key});
+
+  @override
+  State<KomunitasScreen> createState() => _KomunitasScreenState();
+}
+
+class _KomunitasScreenState extends State<KomunitasScreen> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    context.read<CommunityCubit>().getCommunity();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,30 +69,41 @@ class KomunitasScreen extends StatelessWidget {
                     style: ThemeFont.heading6Reguler
                         .copyWith(fontWeight: FontWeight.w500),
                   ),
-                  const BodyLink("Lihat Semua"),
+                  GestureDetector(
+                    onTap: () =>
+                        Navigator.of(context).pushNamed("/semua-komunitas"),
+                    child: const BodyLink("Lihat Semua"),
+                  ),
                 ],
               ),
               const SizedBox(height: 24),
-              const KomunitasCard(
-                title: "Electronic Waste RJ Indonesian Community",
-                lokasi: "Jakarta",
-                anggota: "25,6",
-                image:
-                    "https://www.seiu1000.org/sites/main/files/main-images/camera_lense_0.jpeg",
-              ),
-              const KomunitasCard(
-                title: "Zero Waste Indonesia Community",
-                lokasi: "Bogor",
-                anggota: "5,6",
-                image:
-                    "https://media.istockphoto.com/id/517188688/photo/mountain-landscape.jpg?s=612x612&w=0&k=20&c=A63koPKaCyIwQWOTFBRWXj_PwCrR4cEoOw2S9Q7yVl8=",
-              ),
-              const KomunitasCard(
-                title: "Komunitas Edukasi Bijak Sampah",
-                lokasi: "Bandung",
-                anggota: "11,6",
-                image:
-                    "https://helpx.adobe.com/content/dam/help/en/photoshop/using/convert-color-image-black-white/jcr_content/main-pars/before_and_after/image-before/Landscape-Color.jpg",
+              BlocBuilder<CommunityCubit, CommunityState>(
+                builder: (context, state) {
+                  if (state is CommunitySuccess) {
+                    return ListView.builder(
+                      padding: EdgeInsets.zero,
+                      shrinkWrap: true,
+                      itemCount: state.communities.length,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemBuilder: (context, index) {
+                        return KomunitasCard(
+                          id: state.communities[index].id ?? "-",
+                          title: state.communities[index].name ?? "Untitled",
+                          lokasi: state.communities[index].location ?? "?",
+                          anggota: "0",
+                          image: state.communities[index].image ??
+                              "https://www.seiu1000.org/sites/main/files/main-images/camera_lense_0.jpeg",
+                        );
+                      },
+                    );
+                  }
+                  if (state is CommunityLoading) {
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                  return SizedBox();
+                },
               ),
               const SizedBox(height: 24)
             ],

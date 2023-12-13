@@ -5,12 +5,14 @@ import 'package:recything_mobile/screens/komunitas/detail_komunitas_screen.dart'
 import 'package:stroke_text/stroke_text.dart';
 
 class KomunitasCard extends StatelessWidget {
+  final String id;
   final String title;
   final String lokasi;
   final String anggota;
   final String image;
   const KomunitasCard({
     super.key,
+    required this.id,
     required this.title,
     required this.lokasi,
     required this.anggota,
@@ -22,7 +24,7 @@ class KomunitasCard extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => const DetailKomunitasScreen(),
+          builder: (context) => DetailKomunitasScreen(id: id),
         ));
       },
       child: Stack(
@@ -47,8 +49,8 @@ class KomunitasCard extends StatelessWidget {
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
                 colors: [
-                  Colors.black.withOpacity(0),
-                  Colors.black.withOpacity(0.7),
+                  Colors.black.withOpacity(0.3),
+                  Colors.black.withOpacity(0.9),
                 ],
               ),
             ),
@@ -98,7 +100,7 @@ class KomunitasCard extends StatelessWidget {
                         ),
                         const SizedBox(width: 4),
                         Text(
-                          "$anggota K",
+                          "$anggota",
                           style: ThemeFont.heading6Reguler.copyWith(
                               color: Pallete.light4,
                               fontWeight: FontWeight.w500),

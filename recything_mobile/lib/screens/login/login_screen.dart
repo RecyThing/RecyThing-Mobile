@@ -74,7 +74,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   MainTextField(
                     controller: emailController,
-                    label: "Masukan Email / No HP",
+                    label: "Masukan Email",
                     prefixIcon: IconlyLight.message,
                     errorText: emailError,
                   ),
