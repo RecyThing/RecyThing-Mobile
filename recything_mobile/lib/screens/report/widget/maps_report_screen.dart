@@ -26,7 +26,7 @@ class MapsReportScreen extends StatefulWidget {
   State<MapsReportScreen> createState() => _MapsReportScreenState();
 }
 
-final String kGoogleApiKey = dotenv.env['MAP_API_KEY'] ?? "no-key";
+final String kGoogleApiKey = dotenv.env['GOOGLE_MAPS_API_KEY'] ?? "no-key";
 final homeScaffoldKey = GlobalKey<ScaffoldState>();
 
 class _MapsReportScreenState extends State<MapsReportScreen> {
