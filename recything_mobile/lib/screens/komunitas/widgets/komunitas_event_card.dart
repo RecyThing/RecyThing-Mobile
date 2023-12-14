@@ -1,12 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:intl/intl.dart';
 import 'package:recything_mobile/constants/pallete.dart';
+import 'package:recything_mobile/models/events_model.dart';
 import 'package:recything_mobile/screens/komunitas/detail_event_komunitas_screen.dart';
 
 class KomunitasEventCard extends StatelessWidget {
-  const KomunitasEventCard({super.key});
+  final EventsModel item;
+  const KomunitasEventCard({super.key, required this.item});
 
   @override
   Widget build(BuildContext context) {
+    initializeDateFormatting();
+    DateTime inputDate =
+        DateFormat("yyyy/MM/dd").parse(item.date ?? "2023/12/14");
+
+    String formattedDate = DateFormat("d MMMM", "id_ID").format(inputDate);
+
     return GestureDetector(
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(
@@ -23,9 +33,9 @@ class KomunitasEventCard extends StatelessWidget {
                 Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(12),
-                    image: const DecorationImage(
+                    image: DecorationImage(
                       image: NetworkImage(
-                        "https://www.seiu1000.org/sites/main/files/main-images/camera_lense_0.jpeg",
+                        item.image ?? "",
                       ),
                       fit: BoxFit.cover,
                     ),
@@ -51,7 +61,7 @@ class KomunitasEventCard extends StatelessWidget {
                     child: SizedBox(
                       width: 60,
                       child: Text(
-                        "21 Oktober",
+                        formattedDate,
                         textAlign: TextAlign.center,
                         style: ThemeFont.bodySmall
                             .copyWith(color: Colors.white, height: 1.6),
@@ -67,7 +77,7 @@ class KomunitasEventCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Bersih bersih Pantai Pandawa",
+                    item.title ?? "",
                     softWrap: true,
                     overflow: TextOverflow.ellipsis,
                     maxLines: 2,
@@ -75,20 +85,20 @@ class KomunitasEventCard extends StatelessWidget {
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    "1000 Peserta",
+                    "${item.quota} Peserta",
                     softWrap: true,
                     overflow: TextOverflow.ellipsis,
                     style: ThemeFont.bodySmallRegular
                         .copyWith(color: Pallete.dark4),
                   ),
                   const SizedBox(height: 4),
-                  Text(
-                    "Pantai Pandawa, JLn Tenku Umar, Jakarta",
-                    softWrap: true,
-                    overflow: TextOverflow.ellipsis,
-                    style: ThemeFont.bodySmallRegular
-                        .copyWith(color: Pallete.dark3),
-                  ),
+                  // Text(
+                  //   "Pantai Pandawa, JLn Tenku Umar, Jakarta",
+                  //   softWrap: true,
+                  //   overflow: TextOverflow.ellipsis,
+                  //   style: ThemeFont.bodySmallRegular
+                  //       .copyWith(color: Pallete.dark3),
+                  // ),
                 ],
               ),
             )

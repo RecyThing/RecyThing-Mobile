@@ -7,6 +7,7 @@ import 'package:recything_mobile/bloc/claim_mission/claim_mission_cubit.dart';
 import 'package:recything_mobile/bloc/forgot_password/forgot_password_cubit.dart';
 import 'package:recything_mobile/bloc/get_ai/get_ai_cubit.dart';
 import 'package:recything_mobile/bloc/get_all_drop_point/get_all_drop_point_cubit.dart';
+import 'package:recything_mobile/bloc/get_all_event/get_all_event_cubit.dart';
 import 'package:recything_mobile/bloc/get_history_poin/get_history_poin_cubit.dart';
 import 'package:recything_mobile/bloc/get_history_poin_by_id/get_history_poin_by_id_cubit.dart';
 import 'package:recything_mobile/bloc/get_community/community_cubit.dart';
@@ -129,8 +130,8 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => GetPoinDailyCubit()),
         BlocProvider(create: (_) => ClaimMissionCubit()),
         BlocProvider(create: (_) => UploadProofCubit()),
-
         BlocProvider(create: (_) => PostLikeArticleCubit()),
+        BlocProvider(create: (_) => GetAllEventCubit())
       ],
       child: MaterialApp(
         locale: DevicePreview.locale(context),
@@ -143,7 +144,7 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.white),
           useMaterial3: true,
         ),
-        initialRoute: '/splash',
+        initialRoute: '/index',
         home: const IndexScreen(),
         routes: {
           '/index': (context) => const IndexScreen(),

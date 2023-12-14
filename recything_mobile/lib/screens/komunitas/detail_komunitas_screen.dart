@@ -1,6 +1,7 @@
 import 'package:avatar_stack/avatar_stack.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:recything_mobile/bloc/get_all_event/get_all_event_cubit.dart';
 import 'package:recything_mobile/bloc/get_community_by_id/community_by_id_cubit.dart';
 import 'package:recything_mobile/bloc/get_community_by_id/community_by_id_state.dart';
 import 'package:recything_mobile/bloc/join_community/join_community_cubit.dart';
@@ -33,6 +34,7 @@ class _DetailKomunitasScreenState extends State<DetailKomunitasScreen>
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
     context.read<CommunityByIdCubit>().getCommunityById(id: widget.id);
+    context.read<GetAllEventCubit>().fetchData(id: widget.id);
   }
 
   @override
@@ -239,15 +241,28 @@ class _DetailKomunitasScreenState extends State<DetailKomunitasScreen>
                               Padding(
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 16),
-                                child: ListView(
-                                  shrinkWrap: true,
-                                  padding: const EdgeInsets.all(0),
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  children: const [
-                                    KomunitasEventCard(),
-                                    KomunitasEventCard(),
-                                    KomunitasEventCard(),
-                                  ],
+                                child: BlocBuilder<GetAllEventCubit,
+                                    GetAllEventState>(
+                                  builder: (context, state) {
+                                    if (state is GetAllEventFailure) {
+                                      return Text(state.msg);
+                                    } else if (state is GetAllEventLoading) {
+                                      return CircularProgressIndicator();
+                                    } else if (state is GetAllEventSuccess) {
+                                      return ListView.builder(
+                                        shrinkWrap: true,
+                                        padding: const EdgeInsets.all(0),
+                                        physics:
+                                            const NeverScrollableScrollPhysics(),
+                                        itemCount: state.data.length,
+                                        itemBuilder: (context, index) {
+                                          return KomunitasEventCard(
+                                              item: state.data[index]);
+                                        },
+                                      );
+                                    }
+                                    return SizedBox();
+                                  },
                                 ),
                               )
                             ],
