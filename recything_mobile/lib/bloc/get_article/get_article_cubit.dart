@@ -6,7 +6,13 @@ import 'package:recything_mobile/repositories/article_repo.dart';
 part 'get_article_state.dart';
 
 class GetArticleCubit extends Cubit<GetArticleState> {
+  Map<String, dynamic> DetailArtikel = {};
+
   GetArticleCubit() : super(GetArticleInitial());
+
+  void clearDdetailArtikel() {
+    DetailArtikel.clear();
+  }
 
   void getAllArticle(int page) async {
     emit(GetArticleLoading());
@@ -65,11 +71,23 @@ class GetArticleCubit extends Cubit<GetArticleState> {
     emit(GetArticleLoading());
     try {
       final response = await ArticleRepo().getArticleById(id);
-      if (response.isEmpty) {
-        emit(GetArticleFailure(message: "data not found"));
-      } else {
-        emit(GetArticleByIdSuccess(data: response));
-      }
+      final image = response.image;
+      final title = response.title;
+      final category = response.getCategoryString();
+      final createdDate = response.createdDate;
+      final like = response.like.toString();
+      final content = response.content;
+
+      // DetailArtikel.clear();
+      DetailArtikel = {
+        "image": image,
+        "title": title,
+        "category": category,
+        "createdDate": createdDate,
+        "like": like,
+        "content": content
+      };
+      emit(GetArticleByIdSuccess(data: response));
     } catch (e) {
       emit(GetArticleFailure(message: e.toString()));
     }
@@ -79,7 +97,7 @@ class GetArticleCubit extends Cubit<GetArticleState> {
     emit(GetArticleLoading());
     try {
       final response = await ArticleRepo().postLikeArticle(id);
-        emit(PostLikeArticleSuccess(message: response));
+      emit(PostLikeArticleSuccess(message: response));
     } catch (e) {
       emit(GetArticleFailure(message: e.toString()));
     }

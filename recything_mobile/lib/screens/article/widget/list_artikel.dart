@@ -62,7 +62,7 @@ class ListArtikelWidget extends StatelessWidget {
                                       height: 24,
                                       child: Row(
                                         children: [
-                                          Text(state.data[index].updateDate,
+                                          Text(state.data[index].createdDate,
                                               style: ThemeText()
                                                   .bodySmallRegular3),
                                           const SizedBox(width: 7),

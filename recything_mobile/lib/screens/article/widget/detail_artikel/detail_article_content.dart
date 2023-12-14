@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import '../../../../constants/pallete.dart';
@@ -87,6 +88,18 @@ class DetailArticleContentWidget extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(width: 5),
+                        // BlocListener<GetArticleCubit, GetArticleState>(
+                        //   listener: (context, state) {},
+                        //   child: BlocBuilder<GetArticleCubit, GetArticleState>(
+                        //     builder: (context, state) {
+                        //       return Text(
+                        //         like,
+                        //         style: ThemeFont.bodySmallRegular
+                        //             .copyWith(color: Pallete.dark3),
+                        //       );
+                        //     },
+                        //   ),
+                        // ),
                         Text(
                           like,
                           style: ThemeFont.bodySmallRegular

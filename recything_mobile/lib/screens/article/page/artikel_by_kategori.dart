@@ -39,7 +39,9 @@ class _ArtikelByKategoriScreenState extends State<ArtikelByKategoriScreen> {
                           .read<GetArticleCubit>()
                           .searchArticleByCategory(category, value);
                     },
-                    onTap: () {}, readOnly: false, focusNode: null,
+                    onTap: () {},
+                    readOnly: false,
+                    focusNode: null,
                   );
                 },
               ),
@@ -65,7 +67,6 @@ class _ArtikelByKategoriScreenState extends State<ArtikelByKategoriScreen> {
                       ],
                     );
                   } else if (state is GetArticleSuccess) {
-                    // return ListArtikelWidget();
                     return ListView.builder(
                       physics: NeverScrollableScrollPhysics(),
                       scrollDirection: Axis.vertical,
@@ -79,16 +80,21 @@ class _ArtikelByKategoriScreenState extends State<ArtikelByKategoriScreen> {
                               title: state.data[index].title,
                               category: state.data[index].getCategoryString(),
                               like: state.data[index].like.toString(),
-                              updateDate: state.data[index].updateDate,
+                              updateDate: state.data[index].createdDate,
                               id: state.data[index].id),
                           onTap: () {
-                            bool isPopular = false;
+                            bool isByCategory = true;
+                            String id = state.data[index].id;
+                            String category =
+                                state.data[index].getCategoryString();
                             Navigator.pushNamed(context, '/detailArtikel',
                                 arguments: {
-                                  "isPopular": isPopular,
+                                  "isByCategory": isByCategory,
                                   "index": index,
-                                  "id": state.data[index].id
+                                  "id": id,
+                                  "category": category
                                 });
+                            context.read<GetArticleCubit>().getArticleById(id);
                           },
                         );
                       },

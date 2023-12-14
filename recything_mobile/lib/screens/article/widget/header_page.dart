@@ -8,40 +8,34 @@ class HeaderPageWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        SizedBox(
-          height: 40,
-          // width: 328,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              GestureDetector(
-                child: SizedBox(
-                  height: 40,
-                  width: 40,
-                  child: Image.asset('assets/icons/icon_back_button.png'),
-                ),
-                onTap: () {
-                  Navigator.pop(context);
-                },
-              ),
-              SizedBox(
-                height: 21,
-                // width: 160,
-                child: Text(
-                  title,
-                  style: ThemeFont.heading6Medium.copyWith(color: Colors.black),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-              const SizedBox(
-                width: 40,
-              )
-            ],
+    return SizedBox(
+      height: 40,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          GestureDetector(
+            child: SizedBox(
+              height: 40,
+              width: 40,
+              child: Image.asset('assets/icons/icon_back_button.png'),
+            ),
+            onTap: () {
+              Navigator.pop(context);
+            },
           ),
-        ),
-      ],
+          SizedBox(
+            height: 21,
+            child: Text(
+              title,
+              style: ThemeFont.heading6Medium.copyWith(color: Colors.black),
+              textAlign: TextAlign.center,
+            ),
+          ),
+          const SizedBox(
+            width: 40,
+          )
+        ],
+      ),
     );
   }
 }

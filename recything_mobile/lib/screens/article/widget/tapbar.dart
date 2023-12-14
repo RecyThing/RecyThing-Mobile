@@ -18,7 +18,7 @@ class _TapBarWidgetState extends State<TapBarWidget> {
     return DefaultTabController(
       length: 2,
       child: SizedBox(
-        height: MediaQuery.of(context).size.height * 0.73,
+        height: MediaQuery.of(context).size.height * 0.78,
         child: Column(
           children: [
             TabBar(
@@ -41,7 +41,6 @@ class _TapBarWidgetState extends State<TapBarWidget> {
                               child: CircularProgressIndicator()),
                         );
                       } else if (state is GetPopularArticleSuccess) {
-                        // context.read<ValueIsPopularCubit>().setPopularTab();
                         return ListView.builder(
                           padding: const EdgeInsets.all(0),
                           shrinkWrap: true,
@@ -54,16 +53,23 @@ class _TapBarWidgetState extends State<TapBarWidget> {
                                   category:
                                       state.data[index].getCategoryString(),
                                   like: state.data[index].like.toString(),
-                                  updateDate: state.data[index].updateDate,
+                                  updateDate: state.data[index].createdDate,
                                   id: state.data[index].id),
                               onTap: () {
-                                bool isPopular = true;
+                                bool isByCategory = true;
+                                String id = state.data[index].id;
                                 Navigator.pushNamed(context, '/detailArtikel',
                                     arguments: {
-                                      "isPopular": isPopular,
+                                      "isByCategory": isByCategory,
                                       "index": index,
-                                      "id" : state.data[index].id
+                                      "id": id
                                     });
+                                context
+                                    .read<GetArticleCubit>()
+                                    .getArticleById(id);
+                                // context
+                                //     .watch<GetArticleCubit>()
+                                //     .getArticleById(id);
                               },
                             );
                           },
@@ -84,7 +90,6 @@ class _TapBarWidgetState extends State<TapBarWidget> {
                               child: CircularProgressIndicator()),
                         );
                       } else if (state is GetArticleSuccess) {
-                        // context.read<ValueIsPopularCubit>().setTerbaruTab();
                         return ListView.builder(
                           padding: const EdgeInsets.all(0),
                           shrinkWrap: true,
@@ -97,17 +102,21 @@ class _TapBarWidgetState extends State<TapBarWidget> {
                                   category:
                                       state.data[index].getCategoryString(),
                                   like: state.data[index].like.toString(),
-                                  updateDate: state.data[index].updateDate,
+                                  updateDate: state.data[index].createdDate,
                                   id: state.data[index].id),
                               onTap: () {
-                                bool isPopular = false;
+                                bool isByCategory = false;
+                                String id = state.data[index].id;
                                 Navigator.pushNamed(context, '/detailArtikel',
                                     arguments: {
-                                      "isPopular": isPopular,
+                                      "isByCategory": isByCategory,
                                       "index": index,
-                                      "id" : state.data[index].id,
-                                      "like" : state.data[index].like.toString()
+                                      "id": id,
+                                      "like": state.data[index].like.toString()
                                     });
+                                context
+                                    .read<GetArticleCubit>()
+                                    .getArticleById(id);
                               },
                             );
                           },
