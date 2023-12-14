@@ -79,11 +79,10 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized(); // Required by FlutterConfig
   await FlutterConfig.loadEnvVariables();
   runApp(const MyApp());
-  // runApp(const MyApp()
-  // DevicePreview(
+  // runApp(DevicePreview(
   //   enabled: !kReleaseMode,
   //   builder: (context) => const MyApp(),
-  // ),
+  // ));
 
   // );
 }

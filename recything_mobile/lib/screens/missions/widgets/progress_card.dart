@@ -60,6 +60,8 @@ class ProgressCard extends StatelessWidget {
                   Text(
                     title,
                     style: ThemeFont.heading6Bold,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                   ),
                   const SizedBox(
                     height: 2,
@@ -67,6 +69,8 @@ class ProgressCard extends StatelessWidget {
                   Text(
                     subTitle,
                     style: ThemeFont.bodySmallRegular.copyWith(height: 1.7),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
                   )
                 ],
               ),
