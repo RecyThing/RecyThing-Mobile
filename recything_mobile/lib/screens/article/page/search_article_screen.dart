@@ -19,7 +19,7 @@ class _SearchArticleScreenState extends State<SearchArticleScreen> {
   @override
   void initState() {
     super.initState();
-    context.read<GetArticleCubit>().getAllArticle(1);
+    context.read<GetArticleCubit>().getAllArticle();
     _focusNode = FocusNode();
 
     // Fokus pada TextField setelah widget diinisialisasi

@@ -14,10 +14,10 @@ class GetArticleCubit extends Cubit<GetArticleState> {
     DetailArtikel.clear();
   }
 
-  void getAllArticle(int page) async {
+  void getAllArticle() async {
     emit(GetArticleLoading());
     try {
-      final response = await ArticleRepo().getAllArticle(page);
+      final response = await ArticleRepo().getAllArticle();
       emit(GetArticleSuccess(data: response));
     } catch (e) {
       emit(GetArticleFailure(message: e.toString()));

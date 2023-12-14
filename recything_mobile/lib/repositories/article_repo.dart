@@ -7,7 +7,7 @@ import '../services/shared_pref_service.dart';
 class ArticleRepo {
   Dio dio = Dio();
 
-  Future<List<ArticleModel>> getAllArticle(int page) async {
+  Future<List<ArticleModel>> getAllArticle() async {
     final String? authToken = await SharedPreferenceService.getToken();
 
     if (authToken == null) {
@@ -15,7 +15,7 @@ class ArticleRepo {
     }
 
     dio.options.headers['Authorization'] = 'Bearer $authToken';
-    final response = await dio.get('$baseUrl/articles?limit=10&page=$page');
+    final response = await dio.get('$baseUrl/articles');
     return List<ArticleModel>.from((response.data['data'] as Iterable)
         .map((e) => ArticleModel.fromJson(e)));
   }

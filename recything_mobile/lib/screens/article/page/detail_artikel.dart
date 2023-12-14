@@ -46,7 +46,7 @@ class _DetailArtikelScreenState extends State<DetailArtikelScreen> {
                             .read<GetArticleCubit>()
                             .getArticleByCategory(category);
                       } else {
-                        context.read<GetArticleCubit>().getAllArticle(1);
+                        context.read<GetArticleCubit>().getAllArticle();
                         context
                             .read<GetPopularArticleCubit>()
                             .getPopularArticle();

@@ -15,7 +15,6 @@ class MenuKategoriWidget extends StatelessWidget {
       padding: const EdgeInsets.only(left: 16, right: 16, top: 24),
       child: SizedBox(
         height: 132,
-        width: 328,
         child: Column(
           children: [
             Row(
