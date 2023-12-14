@@ -20,6 +20,14 @@ class _UbahPasswordScreenState extends State<UbahPasswordScreen> {
   TextEditingController newPasswordController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
 
+  String? errorText;
+
+  @override
+  void initState() {
+    context.read<UpdatePasswordCubit>().resetState();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -74,9 +82,21 @@ class _UbahPasswordScreenState extends State<UbahPasswordScreen> {
               label: "Masukkan Kata Sandi Sekarang",
               controller: passwordController,
             ),
-            PasswordTextField(
-              label: "Masukkan Kata Sandi Baru",
-              controller: newPasswordController,
+            BlocBuilder<UpdatePasswordCubit, UpdatePasswordState>(
+              builder: (context, state) {
+                if (state is UpdatePasswordIdentical) {
+                  return PasswordTextField(
+                    label: "Masukkan Kata Sandi Baru",
+                    controller: newPasswordController,
+                    errorText: state.errorMsg,
+                  );
+                }
+
+                return PasswordTextField(
+                  label: "Masukkan Kata Sandi Baru",
+                  controller: newPasswordController,
+                );
+              },
             ),
             PasswordTextField(
               label: "Konfirmasi Kata Sandi Baru",

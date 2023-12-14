@@ -4,16 +4,17 @@ import 'package:recything_mobile/constants/pallete.dart';
 
 class PasswordTextField extends StatefulWidget {
   final String label;
+  final String? errorText;
 
   final TextEditingController? controller;
   final bool? enable;
 
-  const PasswordTextField({
-    super.key,
-    required this.label,
-    this.controller,
-    this.enable = true,
-  });
+  const PasswordTextField(
+      {super.key,
+      required this.label,
+      this.controller,
+      this.enable = true,
+      this.errorText});
 
   @override
   State<PasswordTextField> createState() => _PasswordTextFieldState();
@@ -52,6 +53,7 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
         focusNode: _focusNode,
         obscureText: _obscureText,
         decoration: InputDecoration(
+          errorText: widget.errorText,
           border: const OutlineInputBorder(
             borderRadius: BorderRadius.all(
               Radius.circular(12),
