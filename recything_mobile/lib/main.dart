@@ -1,4 +1,5 @@
 import 'package:device_preview/device_preview.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -76,12 +77,11 @@ Future<void> main() async {
   await dotenv.load();
   WidgetsFlutterBinding.ensureInitialized(); // Required by FlutterConfig
   await FlutterConfig.loadEnvVariables();
-  runApp(const MyApp());
-  // runApp(const MyApp()
-  // DevicePreview(
-  //   enabled: !kReleaseMode,
-  //   builder: (context) => const MyApp(),
-  // ),
+  // runApp(const MyApp());
+  runApp(DevicePreview(
+    enabled: !kReleaseMode,
+    builder: (context) => const MyApp(),
+  ));
 
   // );
 }
@@ -143,7 +143,7 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.white),
           useMaterial3: true,
         ),
-        initialRoute: '/splash',
+        initialRoute: '/index',
         home: const IndexScreen(),
         routes: {
           '/index': (context) => const IndexScreen(),

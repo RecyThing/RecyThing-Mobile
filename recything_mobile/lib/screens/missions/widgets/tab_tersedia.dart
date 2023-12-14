@@ -70,7 +70,7 @@ class _TabTersediaState extends State<TabTersedia> {
                               MissionCard(
                                 title: data?.title ?? 'No Title',
                                 subTitle: Text(
-                                  data?.description ?? 'No Description',
+                                  'Dapatkan ${data?.point ?? 0} poin!',
                                   style: ThemeFont.bodySmallRegular,
                                 ),
                                 imageUrl: data?.missionImage ?? '',
