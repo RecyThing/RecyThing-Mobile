@@ -15,8 +15,6 @@ class PostLikeArticleCubit extends Cubit<PostLikeArticleState> {
       final response = await ArticleRepo().postLikeArticle(id);
       if (response == "berhasil melakukan like") {
         emit(PostLikeSuccess(message: response));
-      } else if (response == "berhasil unlike artikel") {
-        emit(PostLikeSuccess(message: response));
       }
     } catch (e) {
       emit(PostLikeFailure(message: e.toString()));

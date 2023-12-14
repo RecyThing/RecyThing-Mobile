@@ -18,8 +18,14 @@ final class GetArticleSuccess extends GetArticleState {
   const GetArticleSuccess({required this.data});
 }
 
-final class GetArticleByIdSuccess extends GetArticleState {
+final class GetArticleByCategorySuccess extends GetArticleState {
   final List<ArticleModel> data;
+
+  const GetArticleByCategorySuccess({required this.data});
+}
+
+final class GetArticleByIdSuccess extends GetArticleState {
+  final ArticleModel data;
 
   const GetArticleByIdSuccess({required this.data});
 }
