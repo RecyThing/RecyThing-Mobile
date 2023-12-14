@@ -6,14 +6,7 @@ import 'package:recything_mobile/repositories/article_repo.dart';
 part 'get_article_state.dart';
 
 class GetArticleCubit extends Cubit<GetArticleState> {
-  Map<String, dynamic> DetailArtikel = {
-    "image": "",
-    "title": "",
-    "category": "",
-    "createdDate": "",
-    "like": "",
-    "content": ""
-  };
+  Map<String, dynamic> DetailArtikel = {};
 
   GetArticleCubit() : super(GetArticleInitial());
 
@@ -85,7 +78,7 @@ class GetArticleCubit extends Cubit<GetArticleState> {
       final like = response.like.toString();
       final content = response.content;
 
-      DetailArtikel.clear();
+      // DetailArtikel.clear();
       DetailArtikel = {
         "image": image,
         "title": title,

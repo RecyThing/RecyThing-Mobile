@@ -95,13 +95,29 @@ class _SearchArticleScreenState extends State<SearchArticleScreen> {
                       shrinkWrap: true,
                       itemCount: state.data.length,
                       itemBuilder: (context, index) {
-                        return ListArticleGlobalWidget(
-                            image: state.data[index].image,
-                            title: state.data[index].title,
-                            category: state.data[index].getCategoryString(),
-                            like: state.data[index].like.toString(),
-                            updateDate: state.data[index].createdDate,
-                            id: state.data[index].id);
+                        return GestureDetector(
+                          child: ListArticleGlobalWidget(
+                              image: state.data[index].image,
+                              title: state.data[index].title,
+                              category: state.data[index].getCategoryString(),
+                              like: state.data[index].like.toString(),
+                              updateDate: state.data[index].createdDate,
+                              id: state.data[index].id),
+                          onTap: () {
+                            bool isByCategory = false;
+                            String id = state.data[index].id;
+                            String category =
+                                state.data[index].getCategoryString();
+                            Navigator.pushNamed(context, '/detailArtikel',
+                                arguments: {
+                                  "isByCategory": isByCategory,
+                                  "index": index,
+                                  "id": id,
+                                  "category": category
+                                });
+                            context.read<GetArticleCubit>().getArticleById(id);
+                          },
+                        );
                       });
                 } else if (state is GetArticleFailure) {
                   return Padding(

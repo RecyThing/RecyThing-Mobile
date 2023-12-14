@@ -67,6 +67,9 @@ class _TapBarWidgetState extends State<TapBarWidget> {
                                 context
                                     .read<GetArticleCubit>()
                                     .getArticleById(id);
+                                // context
+                                //     .watch<GetArticleCubit>()
+                                //     .getArticleById(id);
                               },
                             );
                           },

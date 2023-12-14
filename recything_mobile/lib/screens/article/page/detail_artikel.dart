@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recything_mobile/bloc/post_like/post_like_article_cubit.dart';
@@ -74,36 +75,19 @@ class _DetailArtikelScreenState extends State<DetailArtikelScreen> {
           const SizedBox(height: 24),
           BlocListener<GetArticleCubit, GetArticleState>(
             listener: (context, state) {},
-            child: Builder(builder: (context) {
-              var item = context.watch<GetArticleCubit>().DetailArtikel;
-              return DetailArticleContentWidget(
-                  image: item['image'],
-                  title: item['title'],
-                  category: item['category'],
-                  like: item['like'],
-                  updateDate: item['createdDate'],
-                  content: item['content']);
-            }),
+            child: Builder(
+              builder: (context) {
+                var item = context.watch<GetArticleCubit>().DetailArtikel;
+                return DetailArticleContentWidget(
+                    image: item['image'] ?? "",
+                    title: item['title'] ?? "",
+                    category: item['category'] ?? "",
+                    like: item['like'] ?? "",
+                    updateDate: item['createdDate'] ?? "",
+                    content: item['content'] ?? "");
+              },
+            ),
           )
-          // BlocBuilder<GetArticleCubit, GetArticleState>(
-          //   builder: (context, state) {
-          //     if (state is GetArticleByIdSuccess) {
-          //       print(state.data);
-          //       return DetailArticleContentWidget(
-          //           image: state.data.image,
-          //           title: state.data.title,
-          //           category: state.data.getCategoryString(),
-          //           like: state.data.like.toString(),
-          //           updateDate: state.data.createdDate,
-          //           content: state.data.content);
-          //     } else if (state is GetArticleFailure) {
-          //       return Center(
-          //         child: Text(state.message),
-          //       );
-          //     }
-          //     return SizedBox();
-          //   },
-          // )
         ],
       ),
       bottomNavigationBar: Container(

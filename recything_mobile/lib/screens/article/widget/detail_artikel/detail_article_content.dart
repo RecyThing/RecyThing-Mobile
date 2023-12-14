@@ -1,7 +1,6 @@
+
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_html/flutter_html.dart';
-import 'package:recything_mobile/bloc/get_article/get_article_cubit.dart';
 import '../../../../constants/pallete.dart';
 
 class DetailArticleContentWidget extends StatelessWidget {
@@ -89,20 +88,22 @@ class DetailArticleContentWidget extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(width: 5),
-                        BlocListener<GetArticleCubit, GetArticleState>(
-                          listener: (context, state) {},
-                          child: BlocBuilder<GetArticleCubit, GetArticleState>(
-                            builder: (context, state) {
-                              if (state is GetArticleByIdSuccess) {
-                                return Text(
-                                  like,
-                                  style: ThemeFont.bodySmallRegular
-                                      .copyWith(color: Pallete.dark3),
-                                );
-                              }
-                              return SizedBox();
-                            },
-                          ),
+                        // BlocListener<GetArticleCubit, GetArticleState>(
+                        //   listener: (context, state) {},
+                        //   child: BlocBuilder<GetArticleCubit, GetArticleState>(
+                        //     builder: (context, state) {
+                        //       return Text(
+                        //         like,
+                        //         style: ThemeFont.bodySmallRegular
+                        //             .copyWith(color: Pallete.dark3),
+                        //       );
+                        //     },
+                        //   ),
+                        // ),
+                        Text(
+                          like,
+                          style: ThemeFont.bodySmallRegular
+                              .copyWith(color: Pallete.dark3),
                         ),
                         const SizedBox(width: 5),
                       ],
