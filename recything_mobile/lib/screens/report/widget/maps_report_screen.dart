@@ -25,21 +25,10 @@ class MapsReportScreen extends StatefulWidget {
   State<MapsReportScreen> createState() => _MapsReportScreenState();
 }
 
-const kGoogleApiKey = 'AIzaSyAUkDtpaPLbcf2wLGRsnKHyL4bJ4CXNkv4';
+const kGoogleApiKey = 'API-KEY';
 final homeScaffoldKey = GlobalKey<ScaffoldState>();
 
 class _MapsReportScreenState extends State<MapsReportScreen> {
-  BitmapDescriptor customIcon = BitmapDescriptor.defaultMarker;
-  // Future<void> _initCustomMarker() async {
-  //   customIcon = await BitmapDescriptor.fromAssetImage(
-  //     ImageConfiguration(size: Size(48, 48)),
-  //     'assets/images/custom_marker.png',
-  //   );
-  //   // print("halo ${customIcon}");
-  //   // setState to rebuild the widget tree if needed
-  //   setState(() {});
-  // }
-
   final FocusNode _searchFocusNode = FocusNode();
   late GoogleMapController googleMapController;
   final Mode _mode = Mode.overlay;
@@ -51,7 +40,6 @@ class _MapsReportScreenState extends State<MapsReportScreen> {
 
   Position? _currentPosition;
   String? _currentAddress;
-  // MarkerId? _selectedMarkerId;
   String? _selectedLocationAddress;
   bool _isFromFloatingActionButton = false;
 
@@ -209,8 +197,6 @@ class _MapsReportScreenState extends State<MapsReportScreen> {
   void _selectMarker(String markerId) {
     setState(
       () {
-        // _selectedMarkerId = MarkerId(markerId);
-
         if (markerId.isNotEmpty) {
         } else {
           _addCurrentLocationMarker();
@@ -296,75 +282,6 @@ class _MapsReportScreenState extends State<MapsReportScreen> {
     }
   }
 
-//   Future<void> displayPrediction(
-//     Prediction p,
-//     ScaffoldState? currentState,
-//   ) async {
-//     try {
-//       GoogleMapsPlaces places = GoogleMapsPlaces(
-//         apiKey: kGoogleApiKey,
-//         apiHeaders: await const GoogleApiHeaders().getHeaders(),
-//       );
-
-// <<<<<<< HEAD
-// =======
-//     try {
-// >>>>>>> origin/feature-reporting
-//       PlacesDetailsResponse detail =
-//           await places.getDetailsByPlaceId(p.placeId!);
-
-//       final lat = detail.result.geometry!.location.lat;
-//       final lng = detail.result.geometry!.location.lng;
-
-// <<<<<<< HEAD
-//       markersList.clear();
-//       markersList.add(Marker(
-//         markerId: const MarkerId("0"),
-//         position: LatLng(lat, lng),
-//         infoWindow: InfoWindow(title: detail.result.name),
-//       ));
-
-//       setState(() {});
-
-//       googleMapController.animateCamera(
-//         CameraUpdate.newLatLngZoom(LatLng(lat, lng), 18.0),
-//       );
-
-//       //update selected address
-//       _selectedLocationAddress =
-//           '${detail.result.name}, ${detail.result.formattedAddress}';
-//       _isFromFloatingActionButton = false;
-//     } catch (e) {}
-// =======
-//       selectedLat = lat;
-//       selectedLng = lng;
-
-//       markersList.clear();
-//       markersList.add(Marker(
-//         markerId: const MarkerId("0"),
-//         position: LatLng(lat, lng),
-//         infoWindow: InfoWindow(title: detail.result.name),
-//       ));
-
-//       setState(() {});
-
-//       googleMapController.animateCamera(
-//         CameraUpdate.newLatLngZoom(LatLng(lat, lng), 18.0),
-//       );
-
-//       // Update selected address
-//       _selectedLocationAddress =
-//           '${detail.result.name}, ${detail.result.formattedAddress}';
-//       _isFromFloatingActionButton = false;
-
-//       // Log the latitude and longitude
-//       print('Selected Location: $lat, $lng');
-//     } catch (error) {
-//       print('Error fetching place details: $error');
-//     }
-// >>>>>>> origin/feature-reporting
-//   }
-
   @override
   void initState() {
     _getCurrentPosition();
@@ -383,6 +300,8 @@ class _MapsReportScreenState extends State<MapsReportScreen> {
 
   @override
   Widget build(BuildContext context) {
+    bool isNextButtonEnabled = _markerPosition.latitude != 0 ||
+        (markersList.isNotEmpty && markersList.first.position.latitude != 0);
     return Scaffold(
       body: SafeArea(
         child: Stack(
@@ -399,25 +318,20 @@ class _MapsReportScreenState extends State<MapsReportScreen> {
                       ),
                     )
                   : const CameraPosition(target: LatLng(0.0, 0.0), zoom: 18),
-
-              // markers: _markers.values.toSet(),
-              // markers: markersList,
-              markers: <Marker>[
-                Marker(
-                  markerId: MarkerId('selected_location'),
-                  position: _markerPosition,
-                  draggable: true,
-                  icon: customIcon,
-                  onDragEnd: (newPosition) {
-                    setState(() {
-                      _markerPosition = newPosition;
-                    });
-                  },
-                ),
-              ].toSet(),
-
-              //    markers: markersList,
-
+              markers: _markerPosition.latitude != 0
+                  ? <Marker>[
+                      Marker(
+                        markerId: MarkerId('selected_location'),
+                        position: _markerPosition,
+                        draggable: true,
+                        onDragEnd: (newPosition) {
+                          setState(() {
+                            _markerPosition = newPosition;
+                          });
+                        },
+                      ),
+                    ].toSet()
+                  : markersList,
               onTap: (LatLng position) {
                 Logger().e(position);
                 _selectMarker('');
@@ -427,21 +341,19 @@ class _MapsReportScreenState extends State<MapsReportScreen> {
                     latitude: position.latitude,
                     longitude: position.longitude,
                     timestamp: DateTime.now(),
-                    accuracy: 0.0, // Default value for accuracy
-                    altitude: 0.0, // Default value for altitude
-                    heading: 0.0, // Default value for heading
-                    speed: 0.0, // Default value for speed
-                    speedAccuracy: 0.0, // Default value for speed accuracy
-                    altitudeAccuracy:
-                        0.0, // Default value for altitude accuracy
-                    headingAccuracy: 0.0, // Default value for altitude accuracy
+                    accuracy: 0.0,
+                    altitude: 0.0,
+                    heading: 0.0,
+                    speed: 0.0,
+                    speedAccuracy: 0.0,
+                    altitudeAccuracy: 0.0,
+                    headingAccuracy: 0.0,
                   );
                   _currentPosition = pos;
                   _getAddress(pos);
                 });
               },
               onMapCreated: (GoogleMapController controller) async {
-                // await _initCustomMarker();
                 _controller.complete(controller);
                 googleMapController = controller;
               },
@@ -494,7 +406,6 @@ class _MapsReportScreenState extends State<MapsReportScreen> {
                     Prediction? p = await PlacesAutocomplete.show(
                         context: context,
                         apiKey: kGoogleApiKey,
-                        // onError: onError,
                         mode: _mode,
                         strictbounds: false,
                         types: [''],
@@ -505,28 +416,20 @@ class _MapsReportScreenState extends State<MapsReportScreen> {
               ),
             ),
             Positioned(
-              bottom: 24,
-              left: 16,
-              right: 16,
-              child: _markerPosition.latitude != 0
-                  ? MainButtonWidget(
-                      onPressed: () {
-                        _updateAddress();
-                      },
-                      child: Text(
-                        'Selanjutnya',
-                        style: ThemeFont.heading6Bold
-                            .copyWith(color: Colors.white),
-                      ),
-                    )
-                  : MainButtonWidget(
-                      child: Text(
-                        'Selanjutnya',
-                        style: ThemeFont.heading6Bold
-                            .copyWith(color: Colors.white),
-                      ),
-                    ),
-            ),
+                bottom: 24,
+                left: 16,
+                right: 16,
+                child: MainButtonWidget(
+                  onPressed: isNextButtonEnabled
+                      ? () {
+                          _updateAddress();
+                        }
+                      : null,
+                  child: Text(
+                    'Selanjutnya',
+                    style: ThemeFont.heading6Bold.copyWith(color: Colors.white),
+                  ),
+                )),
             Positioned(
               bottom: 96,
               right: 16,
