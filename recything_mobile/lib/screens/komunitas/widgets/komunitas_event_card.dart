@@ -20,7 +20,10 @@ class KomunitasEventCard extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => const DetailEventKomunitasScreen(),
+          builder: (context) => DetailEventKomunitasScreen(
+            idEvent: item.id!,
+            idKominutas: item.communityId!,
+          ),
         ));
       },
       child: Padding(

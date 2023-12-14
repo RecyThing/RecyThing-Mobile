@@ -13,4 +13,13 @@ class EventRepo extends BaseService {
         : List<EventsModel>.from(
             (res.data["data"] as Iterable).map((e) => EventsModel.fromJson(e)));
   }
+
+  Future<EventsModel> getDetailEvent(
+      {BuildContext? context,
+      required String idEvent,
+      required String idKomunitas}) async {
+    final res = await request(context, '/users/event/$idKomunitas/$idEvent');
+    Logger().i(res);
+    return EventsModel.fromJson(res.data["data"]);
+  }
 }

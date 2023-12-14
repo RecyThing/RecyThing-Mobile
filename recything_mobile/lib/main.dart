@@ -8,6 +8,7 @@ import 'package:recything_mobile/bloc/forgot_password/forgot_password_cubit.dart
 import 'package:recything_mobile/bloc/get_ai/get_ai_cubit.dart';
 import 'package:recything_mobile/bloc/get_all_drop_point/get_all_drop_point_cubit.dart';
 import 'package:recything_mobile/bloc/get_all_event/get_all_event_cubit.dart';
+import 'package:recything_mobile/bloc/get_detail_event/get_detail_event_cubit.dart';
 import 'package:recything_mobile/bloc/get_history_poin/get_history_poin_cubit.dart';
 import 'package:recything_mobile/bloc/get_history_poin_by_id/get_history_poin_by_id_cubit.dart';
 import 'package:recything_mobile/bloc/get_community/community_cubit.dart';
@@ -131,7 +132,8 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => ClaimMissionCubit()),
         BlocProvider(create: (_) => UploadProofCubit()),
         BlocProvider(create: (_) => PostLikeArticleCubit()),
-        BlocProvider(create: (_) => GetAllEventCubit())
+        BlocProvider(create: (_) => GetAllEventCubit()),
+        BlocProvider(create: (_) => GetDetailEventCubit())
       ],
       child: MaterialApp(
         locale: DevicePreview.locale(context),
