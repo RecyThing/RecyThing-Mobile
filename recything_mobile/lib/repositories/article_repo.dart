@@ -69,7 +69,7 @@ class ArticleRepo {
 
     dio.options.headers['Authorization'] = 'Bearer $authToken';
     final response =
-        await dio.get('$baseUrl/articles?filter=$filter&data=$data');
+        await dio.get('$baseUrl/articles?filter=$filter&search=$data');
     return List<ArticleModel>.from((response.data['data'] as Iterable)
         .map((e) => ArticleModel.fromJson(e)));
   }
@@ -85,5 +85,17 @@ class ArticleRepo {
     final response = await dio.get('$baseUrl/articles/popular');
     return List<ArticleModel>.from((response.data['data'] as Iterable)
         .map((e) => ArticleModel.fromJson(e)));
+  }
+
+  Future<String> postLikeArticle(String id) async {
+    final String? authToken = await SharedPreferenceService.getToken();
+
+    if (authToken == null) {
+      throw Exception('Authorization token not available.');
+    }
+
+    dio.options.headers['Authorization'] = 'Bearer $authToken';
+    final response = await dio.post('$baseUrl/articles/like/$id');
+    return response.data['message'];
   }
 }

@@ -74,3 +74,38 @@ class SearchFieldItem {
 
   SearchFieldItem({required this.title});
 }
+
+// class LikeArticle {
+//   bool status;
+//   String message;
+
+//   LikeArticle({
+//     required this.status,
+//     required this.message,
+//   });
+
+//   factory LikeArticle.fromJson(Map<String, dynamic> json) {
+//     return LikeArticle(
+//       status: json["status"],
+//       message: json["message"],
+//     );
+//   }
+
+//   Map<String, dynamic> toJson() => {
+//         "status": status,
+//         "message": message,
+//       };
+// }
+
+// class LikeArticle {
+//   final String message;
+
+//   LikeArticle({
+//     required this.message,
+//   });
+
+//   factory LikeArticle.fromJson(Map<String, dynamic> data) {
+//     final String message = data['message'];
+//     return LikeArticle(message: message);
+//   }
+// }

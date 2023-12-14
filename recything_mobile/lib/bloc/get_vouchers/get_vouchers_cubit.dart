@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:logger/logger.dart';
 import 'package:recything_mobile/models/get_vouchers_model.dart';
 import 'package:recything_mobile/repositories/get_vouchers.dart';
 

@@ -5,8 +5,17 @@ import 'package:recything_mobile/screens/article/theme/text_style.dart';
 
 class SearchBarWidget extends StatelessWidget {
   final Function(String)? onChanged;
-  
-  SearchBarWidget({super.key, required this.onChanged,});
+  final Function()? onTap;
+  final bool readOnly;
+  final FocusNode? focusNode;
+
+  SearchBarWidget({
+    super.key,
+    required this.onChanged,
+    required this.onTap,
+    required this.readOnly,
+    required this.focusNode
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +33,10 @@ class SearchBarWidget extends StatelessWidget {
             hintText: "Cari disini...",
             hintStyle: ThemeText().bodySmallMedium,
             border: InputBorder.none),
-            onChanged: onChanged,
+        onChanged: onChanged,
+        onTap: onTap,
+        readOnly: readOnly,
+        focusNode: focusNode,
       ),
     );
   }

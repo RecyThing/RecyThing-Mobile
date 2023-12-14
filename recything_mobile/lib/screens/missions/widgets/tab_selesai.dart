@@ -33,18 +33,18 @@ class _TabSelesaiState extends State<TabSelesai> {
           child: BlocBuilder<GetMissionsCubit, GetMissionsState>(
             builder: (context, state) {
               if (state is GetMissionsLoaded) {
-                return state.missions.data.length == 0
+                return state.missions.data?.length == 0
                     ? Center(child: Text('Belum ada misi'))
                     : ListView.builder(
                         shrinkWrap: true,
                         padding: const EdgeInsets.all(16),
-                        itemCount: state.missions.data.length,
+                        itemCount: state.missions.data?.length,
                         itemBuilder: (context, index) {
-                          var data = state.missions.data[index];
+                          var data = state.missions.data?[index];
                           return Column(
                             children: [
                               MissionCard(
-                                title: data.title,
+                                title: data?.title ?? 'No Title',
                                 subTitle: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -94,14 +94,18 @@ class _TabSelesaiState extends State<TabSelesai> {
                                     )
                                   ],
                                 ),
-                                imageUrl: data.missionImage,
+                                imageUrl: data?.missionImage ?? '',
                                 args: {
-                                  'imageUrl': data.missionImage,
-                                  'title': data.title,
-                                  'expiredDate': data.endDate,
-                                  'point': data.point,
-                                  'desc': data.description,
-                                  'progressState': 'Selesai'
+                                  'imageUrl': data?.missionImage,
+                                  'title': data?.title,
+                                  'expiredDate': data?.endDate,
+                                  'point': data?.point,
+                                  'desc': data?.description,
+                                  'progressState': data?.statusApproval,
+                                  'title_stage':
+                                      data?.titleStage ?? 'Tantangan Selesai',
+                                  'description_stage': data?.descriptionStage ??
+                                      'Selamat! Kamu sudah menyelesaikan tantangan ini dengan baik',
                                 },
                               ),
                               const SizedBox(

@@ -9,8 +9,42 @@ import 'package:recything_mobile/widgets/forms/progress_state_box.dart';
 import 'package:recything_mobile/screens/missions/widgets/progress_step.dart';
 import 'package:recything_mobile/widgets/forms/main_button.dart';
 
-class DetailMissionScreen extends StatelessWidget {
+class DetailMissionScreen extends StatefulWidget {
   const DetailMissionScreen({super.key});
+
+  @override
+  State<DetailMissionScreen> createState() => _DetailMissionScreenState();
+}
+
+class _DetailMissionScreenState extends State<DetailMissionScreen> {
+  bool isProofRejected(String progressState) {
+    if (progressState == 'Bukti tidak jelas' ||
+        progressState == 'Bukti kurang lengkap' ||
+        progressState == 'Tidak ada detail kejadian') {
+      return true;
+    }
+
+    return false;
+  }
+
+  Map<String, dynamic> determineProgressStateBoxContent(String progressState) {
+    Map<String, dynamic> content = {};
+
+    if (progressState == 'menunggu verifikasi') {
+      content['state'] = 'Sedang Verifikasi';
+      content['bgColor'] = Pallete.infoSubtle;
+    } else if (progressState == 'Bukti tidak jelas' ||
+        progressState == 'Bukti kurang lengkap' ||
+        progressState == 'Tidak ada detail kejadian') {
+      content['state'] = 'Ditolak';
+      content['bgColor'] = Pallete.errorSubtle;
+    } else if (progressState == 'disetujui') {
+      content['state'] = 'Terverifikasi';
+      content['bgColor'] = Pallete.successLigther;
+    }
+
+    return content;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,17 +80,26 @@ class DetailMissionScreen extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      args['title'],
-                      style: ThemeFont.bodyLargeMedium,
+                    Expanded(
+                      flex: 2,
+                      child: Text(
+                        args['title'],
+                        style: ThemeFont.bodyLargeMedium,
+                      ),
                     ),
-                    progressState == 'Selesai'
+                    SizedBox(width: 20),
+                    progressState == 'menunggu verifikasi' ||
+                            isProofRejected(progressState) ||
+                            progressState == 'disetujui'
                         ? ProgressStateBox(
+                            boxColor: determineProgressStateBoxContent(
+                                progressState)['bgColor'],
                             child: Text(
-                            'Terverifikasi',
-                            style: ThemeFont.bodySmallRegular
-                                .copyWith(color: Colors.white),
-                          ))
+                              determineProgressStateBoxContent(
+                                  progressState)['state'],
+                              style: ThemeFont.bodySmallRegular
+                                  .copyWith(color: Colors.white),
+                            ))
                         : const SizedBox()
                   ],
                 ),
@@ -118,12 +161,18 @@ class DetailMissionScreen extends StatelessWidget {
                 ),
                 ProgressStep(
                   progressState: progressState,
-                  missionDesc: args['desc'],
+                  titleStage: args['title_stage'],
+                  descriptionStage: args['description_stage'],
+                  missionId: args['missionId'],
+                  transactionId: args['transactionId'],
+                  statusApproval: args['progressState'],
                 ),
                 const SizedBox(
                   height: 24,
                 ),
-                progressState == 'Selesai'
+                progressState == 'menunggu verifikasi' ||
+                        isProofRejected(progressState) ||
+                        progressState == 'disetujui'
                     ? const SizedBox()
                     : SizedBox(
                         width: double.infinity,
@@ -153,7 +202,9 @@ class DetailMissionScreen extends StatelessWidget {
                               )
                             : MainButton(
                                 onPressed: () => Navigator.pushNamed(
-                                    context, '/unggah-bukti'),
+                                        context, '/unggah-bukti', arguments: {
+                                      'missionId': args['missionId']
+                                    }),
                                 child: Text(
                                   'Unggah Bukti',
                                   style: ThemeFont.heading6Bold

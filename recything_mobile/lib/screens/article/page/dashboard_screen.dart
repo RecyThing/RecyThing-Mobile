@@ -36,6 +36,9 @@ class _ArticleDashboardScreenState extends State<ArticleDashboardScreen> {
                   padding: EdgeInsets.only(top: 24, left: 16, right: 16),
                   child: SearchBarWidget(
                     onChanged: (String) {},
+                    onTap: () {
+                      Navigator.pushNamed(context, "/searchArtikelScreen");
+                    }, readOnly: true, focusNode: null,
                   )),
               MenuKategoriWidget(),
               MenuTukarSampahWidget(),

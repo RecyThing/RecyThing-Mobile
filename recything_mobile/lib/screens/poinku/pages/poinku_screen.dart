@@ -5,9 +5,9 @@ import 'package:recything_mobile/widgets/forms/custom_app_bar.dart.dart';
 import 'package:recything_mobile/screens/poinku/widgets/poinku_tabar.dart';
 
 class PoinkuScreen extends StatefulWidget {
-  final UserModel user;
+  final UserModel? user;
   final int? index;
-  const PoinkuScreen({super.key, required this.user, this.index});
+  const PoinkuScreen({super.key, this.user, this.index});
 
   @override
   State<PoinkuScreen> createState() => _PoinkuScreenState();
@@ -28,11 +28,7 @@ class _PoinkuScreenState extends State<PoinkuScreen> {
                     title: "Poinku",
                     onTap: () => Navigator.pushNamed(context, '/dashboard'),
                   ),
-                  Positioned(
-                      bottom: 0,
-                      child: PoinkuCard(
-                        user: widget.user,
-                      ))
+                  Positioned(bottom: 0, child: PoinkuCard())
                 ],
               ),
             ),

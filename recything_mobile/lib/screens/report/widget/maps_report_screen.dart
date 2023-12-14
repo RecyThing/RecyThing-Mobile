@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_google_places/flutter_google_places.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geocoding/geocoding.dart';
@@ -25,7 +26,7 @@ class MapsReportScreen extends StatefulWidget {
   State<MapsReportScreen> createState() => _MapsReportScreenState();
 }
 
-const kGoogleApiKey = 'API-KEY';
+final String kGoogleApiKey = dotenv.env['MAP_API_KEY'] ?? "no-key";
 final homeScaffoldKey = GlobalKey<ScaffoldState>();
 
 class _MapsReportScreenState extends State<MapsReportScreen> {
