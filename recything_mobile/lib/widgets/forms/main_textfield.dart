@@ -8,8 +8,10 @@ class MainTextField extends StatefulWidget {
   final String? errorText;
   final IconData? prefixIcon;
   final bool obscureText;
+  final void Function(String)? onSubmitted;
 
-  final bool? enable;
+  final bool enable;
+  final bool? autofocus;
 
   final void Function()? onTap;
   final bool? enabled;
@@ -19,6 +21,7 @@ class MainTextField extends StatefulWidget {
   const MainTextField({
     super.key,
     this.controller,
+    this.onSubmitted,
     this.label,
     this.hintText,
     this.errorText,
@@ -26,6 +29,7 @@ class MainTextField extends StatefulWidget {
     this.obscureText = false,
     this.enable = true,
     this.onTap,
+    this.autofocus,
     this.enabled = true,
     this.suffixIcon,
     this.maxLines = 1,
@@ -60,9 +64,11 @@ class _MainTextFieldState extends State<MainTextField> {
   @override
   Widget build(BuildContext context) {
     return TextField(
+      autofocus: widget.autofocus ?? false,
       controller: widget.controller,
       enabled: widget.enable,
       focusNode: _focusNode,
+      onSubmitted: widget.onSubmitted,
       obscureText: widget.obscureText,
       obscuringCharacter: '●',
       onTap: widget.onTap,

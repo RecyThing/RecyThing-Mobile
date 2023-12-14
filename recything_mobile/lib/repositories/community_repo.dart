@@ -7,13 +7,14 @@ import 'package:recything_mobile/services/shared_pref_service.dart';
 class CommunityRepo {
   Dio dio = Dio(BaseOptions(baseUrl: Api.baseUrl));
 
-  Future<List<CommunityModel>> getCommunity() async {
+  Future<List<CommunityModel>> getCommunity({String? search}) async {
     final token = await SharedPreferenceService.getToken();
 
     try {
       Options options = Options(headers: {'Authorization': 'Bearer $token'});
 
-      final res = await dio.get("communities", options: options);
+      final res =
+          await dio.get("communities?search=${search}", options: options);
 
       Logger().i(res.data);
 
