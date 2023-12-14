@@ -13,8 +13,9 @@ class CommunityRepo {
     try {
       Options options = Options(headers: {'Authorization': 'Bearer $token'});
 
-      final res =
-          await dio.get("communities?search=${search}", options: options);
+      final res = await dio.get(
+          "communities${search != null ? "?search=$search" : ""}",
+          options: options);
 
       Logger().i(res.data);
 
