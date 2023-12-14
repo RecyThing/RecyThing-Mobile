@@ -58,6 +58,8 @@ class MissionCard extends StatelessWidget {
                     Text(
                       title,
                       style: ThemeFont.bodyNormalSemiBold,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
                     ),
                     const SizedBox(
                       height: 6,
