@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconly/iconly.dart';
 import 'package:recything_mobile/bloc/get_community/community_cubit.dart';
+import 'package:recything_mobile/bloc/get_user_profile/get_user_profile_cubit.dart';
 import 'package:recything_mobile/constants/pallete.dart';
 import 'package:recything_mobile/screens/komunitas/komunitas_search_screen.dart';
 import 'package:recything_mobile/screens/komunitas/widgets/komunitas_card.dart';
@@ -19,9 +20,9 @@ class KomunitasScreen extends StatefulWidget {
 class _KomunitasScreenState extends State<KomunitasScreen> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     context.read<CommunityCubit>().getCommunity();
+    context.read<GetUserProfileCubit>().fetchMe(context);
   }
 
   @override
@@ -59,7 +60,39 @@ class _KomunitasScreenState extends State<KomunitasScreen> {
                 ],
               ),
               const SizedBox(height: 24),
-              Center(child: Image.asset("assets/images/empty_komunitas.png")),
+              BlocBuilder<GetUserProfileCubit, GetUserProfileState>(
+                  builder: (context, state) {
+                if (state is GetUserProfileLoading) {
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                } else if (state is GetUserProfilefailure) {
+                  return Text(state.message);
+                } else if (state is GetUserProfileSuccess) {
+                  if (state.data.communities!.isEmpty)
+                    return Center(
+                        child:
+                            Image.asset("assets/images/empty_komunitas.png"));
+                  return ListView.builder(
+                      shrinkWrap: true,
+                      padding: EdgeInsets.zero,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemCount: state.data.communities!.length,
+                      itemBuilder: (context, index) {
+                        return KomunitasCard(
+                          id: state.data.communities?[index].id ?? "-",
+                          title:
+                              state.data.communities?[index].name ?? "Untitled",
+                          lokasi:
+                              state.data.communities?[index].location ?? "?",
+                          anggota: "0",
+                          image: state.data.communities?[index].image ??
+                              "https://www.seiu1000.org/sites/main/files/main-images/camera_lense_0.jpeg",
+                        );
+                      });
+                }
+                return SizedBox();
+              }),
               const SizedBox(height: 24),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -1,3 +1,5 @@
+import 'package:recything_mobile/models/community_model.dart';
+
 class UserModel {
   String id;
   String fullname;
@@ -8,17 +10,20 @@ class UserModel {
   String address;
   String purpose;
   String? badge;
+  List<CommunityModel>? communities;
 
-  UserModel(
-      {required this.id,
-      required this.fullname,
-      required this.email,
-      required this.dateOfBirth,
-      required this.point,
-      required this.phone,
-      required this.address,
-      required this.purpose,
-      this.badge});
+  UserModel({
+    required this.id,
+    required this.fullname,
+    required this.email,
+    required this.dateOfBirth,
+    required this.point,
+    required this.phone,
+    required this.address,
+    required this.purpose,
+    this.badge,
+    this.communities,
+  });
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
       id: json["id"] ?? "",
       fullname: json["fullname"] ?? "",
@@ -28,7 +33,11 @@ class UserModel {
       phone: json["phone"] ?? "",
       address: json["address"] ?? "",
       purpose: json["purpose"] ?? "",
-      badge: json["badge"] ?? "");
+      badge: json["badge"] ?? "",
+      communities: json["communities"] == null
+          ? []
+          : List<CommunityModel>.from(
+              json["communities"]!.map((x) => CommunityModel.fromJson(x))));
 
   Map<String, dynamic> toJson() => {
         "id": id,
