@@ -43,7 +43,7 @@ class _KomunitasScreenState extends State<KomunitasScreen> {
                   ));
                 },
                 child: const MainTextField(
-                  enabled: false,
+                  enable: false,
                   label: "Cari Komunitas disini...",
                   prefixIcon: IconlyLight.search,
                 ),
