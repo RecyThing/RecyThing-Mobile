@@ -72,7 +72,7 @@ class _RecyAiScreenState extends State<RecyAiScreen> {
             ),
           )),
       body: SizedBox(
-        height: MediaQuery.of(context).size.height * 0.7,
+        height: MediaQuery.of(context).size.height * 0.8,
         child: SingleChildScrollView(
           child: Column(
             children: [

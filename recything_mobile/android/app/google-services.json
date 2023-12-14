@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "22838228304",
+    "project_id": "recything-f20c0",
+    "storage_bucket": "recything-f20c0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:22838228304:android:04bcb2cebe22d885cea855",
+        "android_client_info": {
+          "package_name": "com.example.recything_mobile"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDJG9PUkG2CPGSi-4SheIEuMoEaa3Y1CJ8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
