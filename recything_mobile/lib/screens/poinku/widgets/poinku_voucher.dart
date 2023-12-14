@@ -7,6 +7,7 @@ import 'package:recything_mobile/screens/poinku/pages/tukar_voucher_screen.dart'
 import 'package:recything_mobile/widgets/forms/main_button.dart';
 
 class PoinkuVoucher extends StatelessWidget {
+  final int userPoint;
   final String imageUrl;
   final String voucherTitle;
   final String point;
@@ -21,7 +22,8 @@ class PoinkuVoucher extends StatelessWidget {
       required this.point,
       required this.expiredDate,
       required this.description,
-      required this.id});
+      required this.id,
+      required this.userPoint});
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +39,8 @@ class PoinkuVoucher extends StatelessWidget {
           'point': point,
           'expiredDate': expiredDate,
           'description': description,
-          'id': id
+          'id': id,
+          'userPoint': userPoint
         });
       },
       child: Column(
@@ -115,101 +118,117 @@ class PoinkuVoucher extends StatelessWidget {
                   SizedBox(
                       width: MediaQuery.of(context).size.width * 0.45,
                       child: MainButton(
-                          onPressed: () {
-                            showDialog(
-                                context: context,
-                                builder: ((context) => AlertDialog(
-                                      elevation: 0,
-                                      content: Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          Image.asset(
-                                            "assets/icons/tiket.png",
-                                            width: 24,
-                                          ),
-                                          const SizedBox(
-                                            height: 8,
-                                          ),
-                                          Text(
-                                            "Tukarkan Voucher Ini?",
-                                            style: ThemeFont.interText.copyWith(
-                                                fontSize: 20,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                          const SizedBox(
-                                            height: 4,
-                                          ),
-                                          Text(
-                                            "Kamu yakin ingin Menukarkan Voucher dana menggunakan point?",
-                                            style: ThemeFont.interText.copyWith(
-                                                fontSize: 16,
-                                                color: Pallete.textSecondary),
-                                          ),
-                                          const SizedBox(
-                                            height: 16,
-                                          ),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              SizedBox(
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    0.3,
-                                                child: OutlinedButton(
-                                                    style: OutlinedButton
-                                                        .styleFrom(
-                                                      foregroundColor:
-                                                          Pallete.main,
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              16),
-                                                      shape:
-                                                          RoundedRectangleBorder(
-                                                        borderRadius:
-                                                            BorderRadius.circular(
-                                                                8), // Ganti dengan radius yang Anda inginkan
-                                                      ),
-                                                      side: const BorderSide(
-                                                          color: Pallete.main),
-                                                    ),
-                                                    onPressed: () {
-                                                      Navigator.pop(context);
-                                                    },
-                                                    child: const Text("Batal")),
-                                              ),
-                                              SizedBox(
-                                                  width: MediaQuery.of(context)
-                                                          .size
-                                                          .width *
-                                                      0.3,
-                                                  child: MainButton(
-                                                      onPressed: () {
-                                                        Navigator.push(
-                                                            context,
-                                                            MaterialPageRoute(
-                                                                builder: (context) =>
-                                                                    TukatVoucherScreen(
-                                                                        id: id)));
-                                                      },
-                                                      child: Text(
-                                                        "Tukar",
-                                                        style: ThemeFont
-                                                            .heading6Reguler
-                                                            .copyWith(
+                          onPressed: userPoint < int.parse(point)
+                              ? null
+                              : () {
+                                  showDialog(
+                                      context: context,
+                                      builder: ((context) => AlertDialog(
+                                            elevation: 0,
+                                            content: Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                Image.asset(
+                                                  "assets/icons/tiket.png",
+                                                  width: 24,
+                                                ),
+                                                const SizedBox(
+                                                  height: 8,
+                                                ),
+                                                Text(
+                                                  "Tukarkan Voucher Ini?",
+                                                  style: ThemeFont.interText
+                                                      .copyWith(
+                                                          fontSize: 20,
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                ),
+                                                const SizedBox(
+                                                  height: 4,
+                                                ),
+                                                Text(
+                                                  "Kamu yakin ingin Menukarkan Voucher dana menggunakan point?",
+                                                  style: ThemeFont.interText
+                                                      .copyWith(
+                                                          fontSize: 16,
+                                                          color: Pallete
+                                                              .textSecondary),
+                                                ),
+                                                const SizedBox(
+                                                  height: 16,
+                                                ),
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    SizedBox(
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width *
+                                                              0.3,
+                                                      child: OutlinedButton(
+                                                          style: OutlinedButton
+                                                              .styleFrom(
+                                                            foregroundColor:
+                                                                Pallete.main,
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(16),
+                                                            shape:
+                                                                RoundedRectangleBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          8), // Ganti dengan radius yang Anda inginkan
+                                                            ),
+                                                            side: const BorderSide(
                                                                 color: Pallete
-                                                                    .textMainButton,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w700),
-                                                      )))
-                                            ],
-                                          )
-                                        ],
-                                      ),
-                                    )));
-                          },
+                                                                    .main),
+                                                          ),
+                                                          onPressed: () {
+                                                            Navigator.pop(
+                                                                context);
+                                                          },
+                                                          child: const Text(
+                                                              "Batal")),
+                                                    ),
+                                                    SizedBox(
+                                                        width: MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .width *
+                                                            0.3,
+                                                        child: MainButton(
+                                                            onPressed: userPoint <
+                                                                    int.parse(
+                                                                        point)
+                                                                ? null
+                                                                : () {
+                                                                    Navigator.push(
+                                                                        context,
+                                                                        MaterialPageRoute(
+                                                                            builder: (context) =>
+                                                                                TukatVoucherScreen(id: id)));
+                                                                  },
+                                                            child: Text(
+                                                              "Tukar",
+                                                              style: ThemeFont
+                                                                  .heading6Reguler
+                                                                  .copyWith(
+                                                                      color: Pallete
+                                                                          .textMainButton,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w700),
+                                                            )))
+                                                  ],
+                                                )
+                                              ],
+                                            ),
+                                          )));
+                                },
                           child: Text(
                             "Tukar",
                             style: ThemeFont.heading6Reguler.copyWith(

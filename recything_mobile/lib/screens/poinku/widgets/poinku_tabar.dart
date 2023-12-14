@@ -12,8 +12,9 @@ import 'package:recything_mobile/screens/poinku/widgets/poinku_tukar_poin.dart';
 import 'package:recything_mobile/screens/poinku/widgets/poinku_voucher.dart';
 
 class PoinkuTabar extends StatefulWidget {
+  final int userPoint;
   final int? index;
-  const PoinkuTabar({super.key, this.index});
+  const PoinkuTabar({super.key, this.index, required this.userPoint});
 
   @override
   State<PoinkuTabar> createState() => _PoinkuTabarState();
@@ -109,6 +110,7 @@ class _PoinkuTabarState extends State<PoinkuTabar>
                       if (index < vouchers.length) {
                         final dataIndexed = vouchers[index];
                         return PoinkuVoucher(
+                          userPoint: widget.userPoint,
                           imageUrl: dataIndexed.image,
                           voucherTitle: dataIndexed.rewardName,
                           point: dataIndexed.point.toString(),

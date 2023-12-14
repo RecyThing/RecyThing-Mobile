@@ -85,13 +85,15 @@ class DetailVoucherScreen extends StatelessWidget {
                 width: MediaQuery.of(context).size.width,
                 padding: const EdgeInsets.all(16),
                 child: MainButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  TukatVoucherScreen(id: args["id"])));
-                    },
+                    onPressed: (args['userPoint'] < int.parse(args["point"]))
+                        ? null
+                        : () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        TukatVoucherScreen(id: args["id"])));
+                          },
                     child: Text(
                       "Tukar",
                       style: ThemeFont.heading6Reguler.copyWith(

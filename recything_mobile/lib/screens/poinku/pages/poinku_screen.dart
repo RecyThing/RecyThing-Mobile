@@ -35,6 +35,7 @@ class _PoinkuScreenState extends State<PoinkuScreen> {
             SizedBox(
                 height: MediaQuery.of(context).size.height * 0.5,
                 child: PoinkuTabar(
+                  userPoint: widget.user?.point ?? 0,
                   index: widget.index,
                 ))
           ],
