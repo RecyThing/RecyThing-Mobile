@@ -314,10 +314,16 @@ class _LitteringBesarScreenState extends State<LitteringBesarScreen> {
                   const SizedBox(
                     height: 8,
                   ),
-                  Row(
-                    children: [
-                      imagePickerButton,
-                    ],
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width - 32,
+                    height: 80,
+                    child: ListView(
+                      shrinkWrap: true,
+                      scrollDirection: Axis.horizontal,
+                      children: [
+                        imagePickerButton,
+                      ],
+                    ),
                   ),
                   const SizedBox(
                     height: 8,
@@ -360,58 +366,70 @@ class _LitteringBesarScreenState extends State<LitteringBesarScreen> {
                           child: BlocBuilder<PostReportLitteringCubit,
                               PostReportLitteringState>(
                             builder: (context, state) {
-                              return MainButtonWidget(
-                                onPressed: isDataComplete()
-                                    ? () {
-                                        DateTime dateTime =
-                                            DateFormat("MM/dd/yyyy")
-                                                .parse(dateController.text);
-                                        context
-                                            .read<PostReportLitteringCubit>()
-                                            .addReport(
-                                              context: context,
-                                              reportType: "pelanggaran sampah",
-                                              scaleType: "skala besar",
-                                              location: locationController.text,
-                                              latitude: widget.latitude ?? "0",
-                                              longitude:
-                                                  widget.longitude ?? "0",
-                                              companyName:
-                                                  companyNameController.text,
-                                              addressPoint:
-                                                  addressPointController.text,
-                                              insidentDate:
-                                                  DateFormat("yyyy-MM-dd")
-                                                      .format(dateTime),
-                                              insidentTime: timeController.text,
-                                              desc: descriptionController.text,
-                                              dangerousWaste: isHazardousTrash,
-                                              images: selectedImages,
-                                            );
-                                      }
-                                    : null,
-                                child: BlocBuilder<PostReportLitteringCubit,
-                                    PostReportLitteringState>(
-                                  builder: (context, state) {
-                                    if (state is PostReportLitteringLoading) {
-                                      return const SizedBox(
-                                        height: 23,
-                                        width: 23,
-                                        child: CircularProgressIndicator(
-                                          color: Colors.white,
-                                        ),
-                                      );
-                                    } else {
-                                      return Text(
-                                        'Kirim',
-                                        style: ThemeFont.heading6Bold.copyWith(
-                                          color: Colors.white,
-                                        ),
-                                      );
-                                    }
+                              if (locationController.text.isNotEmpty &&
+                                  addressPointController.text.isNotEmpty &&
+                                  descriptionController.text.isNotEmpty &&
+                                  companyNameController.text.isNotEmpty &&
+                                  dateController.text.isNotEmpty &&
+                                  timeController.text.isNotEmpty) {
+                                return MainButtonWidget(
+                                  onPressed: () {
+                                    DateTime dateTime = DateFormat("MM/dd/yyyy")
+                                        .parse(dateController.text);
+                                    context
+                                        .read<PostReportLitteringCubit>()
+                                        .addReport(
+                                          context: context,
+                                          reportType: "pelanggaran sampah",
+                                          scaleType: "skala besar",
+                                          location: locationController.text,
+                                          latitude: widget.latitude ?? "0",
+                                          longitude: widget.longitude ?? "0",
+                                          companyName:
+                                              companyNameController.text,
+                                          addressPoint:
+                                              addressPointController.text,
+                                          insidentDate: DateFormat("yyyy-MM-dd")
+                                              .format(dateTime),
+                                          insidentTime: timeController.text,
+                                          desc: descriptionController.text,
+                                          dangerousWaste: isHazardousTrash,
+                                          images: selectedImages,
+                                        );
                                   },
-                                ),
-                              );
+                                  child: BlocBuilder<PostReportLitteringCubit,
+                                      PostReportLitteringState>(
+                                    builder: (context, state) {
+                                      if (state is PostReportLitteringLoading) {
+                                        return const SizedBox(
+                                          height: 23,
+                                          width: 23,
+                                          child: CircularProgressIndicator(
+                                            color: Colors.white,
+                                          ),
+                                        );
+                                      } else {
+                                        return Text(
+                                          'Kirim',
+                                          style:
+                                              ThemeFont.heading6Bold.copyWith(
+                                            color: Colors.white,
+                                          ),
+                                        );
+                                      }
+                                    },
+                                  ),
+                                );
+                              } else {
+                                return MainButtonWidget(
+                                  child: Text(
+                                    'Kirim',
+                                    style: ThemeFont.heading6Bold.copyWith(
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                );
+                              }
                             },
                           ),
                         ),

@@ -6,7 +6,9 @@ import 'package:recything_mobile/screens/missions/widgets/tab_selesai.dart';
 import 'package:recything_mobile/screens/missions/widgets/tab_tersedia.dart';
 
 class MissionsScreen extends StatefulWidget {
-  const MissionsScreen({super.key});
+  final bool? isMissionImageUploaded;
+
+  const MissionsScreen({super.key, this.isMissionImageUploaded});
 
   @override
   State<MissionsScreen> createState() => _MissionsScreenState();
@@ -19,7 +21,10 @@ class _MissionsScreenState extends State<MissionsScreen>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 3, vsync: this);
+    _tabController = TabController(
+        initialIndex: widget.isMissionImageUploaded ?? false ? 1 : 0,
+        length: 3,
+        vsync: this);
   }
 
   @override

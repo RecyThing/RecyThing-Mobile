@@ -15,7 +15,15 @@ class MainButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: onPressed,
       style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all(Pallete.main),
+        backgroundColor: MaterialStateProperty.resolveWith<Color>(
+          (Set<MaterialState> states) {
+            if (states.contains(MaterialState.disabled)) {
+              return Pallete.dark3;
+            } else {
+              return Pallete.main;
+            }
+          },
+        ),
         padding: MaterialStateProperty.all(const EdgeInsets.all(16)),
         shape: MaterialStateProperty.all(
           RoundedRectangleBorder(

@@ -26,7 +26,7 @@ class HistoryPoinModel {
       HistoryPoinModel(
           idTransaction: json["id_transaction"] ?? "",
           createdAt: json["created_at"] ?? "",
-          point: json["point"] ?? 0,
+          point: json["points"] ?? 0,
           timeTransaction: json["time_transaction"],
           typeTransaction: json["type_transaction"],
           phone: json["phone"],

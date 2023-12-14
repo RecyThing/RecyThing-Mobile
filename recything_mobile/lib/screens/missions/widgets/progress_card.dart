@@ -5,12 +5,20 @@ class ProgressCard extends StatelessWidget {
   final String title;
   final String subTitle;
   final Color backgroundColor;
+  final bool isRejected;
+  final String? missionId;
+  final String? transactionId;
+  final String? statusApproval;
 
   const ProgressCard(
       {super.key,
       required this.title,
       required this.subTitle,
-      required this.backgroundColor});
+      required this.backgroundColor,
+      this.isRejected = false,
+      this.missionId,
+      this.transactionId,
+      this.statusApproval});
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +28,9 @@ class ProgressCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: backgroundColor,
         borderRadius: BorderRadius.circular(12),
+        border: isRejected
+            ? Border.all(width: 1, color: Pallete.errorSubtle)
+            : null,
         boxShadow: const [
           BoxShadow(
             color: Colors.black12,
@@ -60,7 +71,29 @@ class ProgressCard extends StatelessWidget {
                 ],
               ),
             ),
-          )
+          ),
+          isRejected
+              ? SizedBox(
+                  width: 34,
+                  height: 34,
+                  child: CircleAvatar(
+                    backgroundColor: Pallete.errorSubtle,
+                    child: IconButton(
+                        onPressed: () => Navigator.pushNamed(
+                                context, '/unggah-bukti',
+                                arguments: {
+                                  'missionId': missionId ?? '',
+                                  'transactionId': transactionId,
+                                  'progressState': statusApproval
+                                }),
+                        icon: const Icon(
+                          Icons.arrow_forward_ios,
+                          color: Colors.white,
+                          size: 16,
+                        )),
+                  ),
+                )
+              : SizedBox()
         ],
       ),
     );

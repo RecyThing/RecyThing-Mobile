@@ -25,7 +25,7 @@ class _FilePickerButtonState extends State<FilePickerButton> {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       allowMultiple: true,
       type: FileType.custom,
-      allowedExtensions: ['jpg', 'jpeg', 'png', 'mp4'],
+      allowedExtensions: ['jpg', 'png', 'mp4'],
     );
 
     if (result != null) {

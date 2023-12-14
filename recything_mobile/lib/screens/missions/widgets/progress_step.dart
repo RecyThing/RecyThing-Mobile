@@ -6,10 +6,48 @@ import 'package:recything_mobile/screens/missions/widgets/progress_card.dart';
 
 class ProgressStep extends StatelessWidget {
   final String progressState;
-  final String missionDesc;
+  final String titleStage;
+  final String descriptionStage;
+  final String? missionId;
+  final String? transactionId;
+  final String? statusApproval;
 
   const ProgressStep(
-      {super.key, required this.progressState, required this.missionDesc});
+      {super.key,
+      required this.progressState,
+      required this.titleStage,
+      required this.descriptionStage,
+      this.missionId,
+      this.transactionId,
+      this.statusApproval});
+
+  Map<String, dynamic> determineSecondStepContent(String progressState) {
+    Map<String, dynamic> content = {
+      'title': 'Unggah bukti',
+      'subTitle': 'Unggah foto bukti pengerjaan tantangan',
+      'iconBgColor': progressState == 'upload bukti pengerjaan'
+          ? Pallete.main
+          : Pallete.dark4
+    };
+
+    if (progressState == 'menunggu verifikasi') {
+      content['title'] = 'Bukti telah diunggah';
+      content['subTitle'] = 'Bukti sedang diproses oleh\nadmin.';
+      content['iconBgColor'] = Pallete.main;
+    } else if (progressState == 'Bukti tidak jelas' ||
+        progressState == 'Bukti kurang lengkap' ||
+        progressState == 'Tidak ada detail kejadian') {
+      content['title'] = 'Bukti ditolak';
+      content['subTitle'] = 'Tolong unggah ulang bukti\nanda.';
+      content['iconBgColor'] = Pallete.errorSubtle;
+    } else if (progressState == 'disetujui') {
+      content['title'] = 'Bukti terverifikasi';
+      content['subTitle'] = 'Bukti kamu sudah cukup\nkuat.';
+      content['iconBgColor'] = Pallete.main;
+    }
+
+    return content;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,8 +57,8 @@ class ProgressStep extends StatelessWidget {
         Column(
           children: [
             ProgressCard(
-              title: 'Satu tantangan untukmu.',
-              subTitle: missionDesc,
+              title: titleStage,
+              subTitle: descriptionStage,
               backgroundColor:
                   progressState == 'Aktif' ? Colors.white : Pallete.mainSubtle,
             ),
@@ -28,15 +66,18 @@ class ProgressStep extends StatelessWidget {
               height: 24,
             ),
             ProgressCard(
-              title: progressState == 'Selesai'
-                  ? 'Bukti terverifikasi'
-                  : 'Unggah bukti',
-              subTitle: progressState == 'Selesai'
-                  ? 'Bukti kamu sudah cukup\nkuat.'
-                  : 'Unggah foto bukti\npengerjaan tantangan',
-              backgroundColor: progressState == 'Selesai'
+              title: determineSecondStepContent(progressState)['title'] ?? '',
+              subTitle:
+                  determineSecondStepContent(progressState)['subTitle'] ?? '',
+              backgroundColor: progressState == 'disetujui' ||
+                      progressState == 'menunggu verifikasi'
                   ? Pallete.mainSubtle
                   : Colors.white,
+              isRejected: determineSecondStepContent(progressState)['title'] ==
+                  'Bukti ditolak',
+              missionId: missionId,
+              transactionId: transactionId,
+              statusApproval: statusApproval,
             ),
             const SizedBox(
               height: 24,
@@ -45,7 +86,7 @@ class ProgressStep extends StatelessWidget {
               title: 'Yay! Tantangan selesai.',
               subTitle:
                   'Hadiah kamu sudah dikirim nih,\nCek notifikasi kamu sekarang!',
-              backgroundColor: progressState == 'Selesai'
+              backgroundColor: progressState == 'disetujui'
                   ? Pallete.mainSubtle
                   : Colors.white,
             ),
@@ -85,8 +126,11 @@ class ProgressStep extends StatelessWidget {
                       ),
               ),
               DottedLine(
-                dashColor: progressState == 'Unggah Bukti' ||
-                        progressState == 'Selesai'
+                dashColor: progressState == 'upload bukti pengerjaan' ||
+                        progressState == 'menunggu verifikasi' ||
+                        progressState == 'disetujui' ||
+                        determineSecondStepContent(progressState)['title'] ==
+                            'Bukti ditolak'
                     ? Pallete.main
                     : Pallete.dark4,
                 lineThickness: 3,
@@ -99,10 +143,8 @@ class ProgressStep extends StatelessWidget {
                 width: 32,
                 height: 32,
                 decoration: BoxDecoration(
-                  color: progressState == 'Unggah Bukti' ||
-                          progressState == 'Selesai'
-                      ? Pallete.main
-                      : Pallete.dark4,
+                  color:
+                      determineSecondStepContent(progressState)['iconBgColor'],
                   borderRadius: BorderRadius.circular(100),
                   boxShadow: [
                     BoxShadow(
@@ -121,7 +163,7 @@ class ProgressStep extends StatelessWidget {
               ),
               DottedLine(
                 dashColor:
-                    progressState == 'Selesai' ? Pallete.main : Pallete.dark4,
+                    progressState == 'disetujui' ? Pallete.main : Pallete.dark4,
                 lineThickness: 3,
                 lineLength: 94,
                 dashLength: 6,
@@ -135,7 +177,7 @@ class ProgressStep extends StatelessWidget {
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(100),
                   border: Border.all(
-                      color: progressState == 'Selesai'
+                      color: progressState == 'disetujui'
                           ? Pallete.main
                           : Pallete.dark4,
                       width: 3),
@@ -151,7 +193,7 @@ class ProgressStep extends StatelessWidget {
                 child: Icon(
                   IconlyBold.ticket_star,
                   size: 20,
-                  color: progressState == 'Selesai'
+                  color: progressState == 'disetujui'
                       ? Pallete.errorSubtle
                       : Pallete.dark4,
                 ),

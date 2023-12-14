@@ -113,7 +113,7 @@ class PoinkuVoucher extends StatelessWidget {
                     ],
                   ),
                   SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.5,
+                      width: MediaQuery.of(context).size.width * 0.45,
                       child: MainButton(
                           onPressed: () {
                             showDialog(
@@ -156,7 +156,7 @@ class PoinkuVoucher extends StatelessWidget {
                                                 width: MediaQuery.of(context)
                                                         .size
                                                         .width *
-                                                    0.33,
+                                                    0.3,
                                                 child: OutlinedButton(
                                                     style: OutlinedButton
                                                         .styleFrom(
@@ -183,7 +183,7 @@ class PoinkuVoucher extends StatelessWidget {
                                                   width: MediaQuery.of(context)
                                                           .size
                                                           .width *
-                                                      0.33,
+                                                      0.3,
                                                   child: MainButton(
                                                       onPressed: () {
                                                         Navigator.push(
