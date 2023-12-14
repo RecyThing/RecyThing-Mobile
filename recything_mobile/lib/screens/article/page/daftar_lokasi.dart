@@ -53,75 +53,78 @@ class _DaftarLokasiScreenState extends State<DaftarLokasiScreen> {
               .read<GetAllDropPointCubit>()
               .fetchData(context: context, page: 1);
         },
-        child: Padding(
-          padding: EdgeInsets.only(top: 66),
-          child: Column(
-            children: [
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16),
-                child: Column(
-                  children: [
-                    HeaderPageWidget(title: 'Daftar Lokasi'),
-                    SizedBox(height: 24),
-                    SearchBarWidget(
-                      onChanged: (value) {
-                        context.read<GetAllDropPointCubit>().fetchData(
-                              context: context,
-                              page: null,
-                              search: value,
-                            );
-                      },
-                      onTap: () {},
-                      readOnly: false,
-                      focusNode: null,
-                    ),
-                    SizedBox(height: 8),
-                  ],
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.only(top: 66),
+            child: Column(
+              children: [
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16),
+                  child: Column(
+                    children: [
+                      HeaderPageWidget(title: 'Daftar Lokasi'),
+                      SizedBox(height: 24),
+                      SearchBarWidget(
+                        onChanged: (value) {
+                          context.read<GetAllDropPointCubit>().fetchData(
+                                context: context,
+                                page: null,
+                                search: value,
+                              );
+                        },
+                        onTap: () {},
+                        readOnly: false,
+                        focusNode: null,
+                      ),
+                      SizedBox(height: 8),
+                    ],
+                  ),
                 ),
-              ),
-              Divider(),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16),
-                child: BlocBuilder<GetAllDropPointCubit, GetAllDropPointState>(
-                  builder: (context, state) {
-                    if (state is GetAllDropPointLoading) {
-                      return const CircularProgressIndicator();
-                    } else if (state is GetAllDropPointFailure) {
-                      return Center(child: Text('Error: ${state.msg}'));
-                    } else if (state is GetAllDropPointSuccess) {
-                      return SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.75,
-                          child: ListView.builder(
-                              controller: _scrollController,
-                              padding: EdgeInsets.zero,
-                              physics: AlwaysScrollableScrollPhysics(),
-                              itemCount: state.data.length,
-                              itemBuilder: (context, index) {
-                                if (state.data.isEmpty) {
-                                  return Center(
-                                    child: Text('Belum ada drop points'),
-                                  );
-                                }
-                                if (index < state.data.length) {
-                                  return ListLokasiWidget(
-                                    no: index,
-                                    item: state.data[index],
-                                  );
-                                } else {
-                                  Timer(Duration(milliseconds: 30), () {
-                                    _scrollController.jumpTo(_scrollController
-                                        .position.maxScrollExtent);
-                                  });
-                                  return const Center(
-                                      child: CircularProgressIndicator());
-                                }
-                              }));
-                    }
-                    return SizedBox();
-                  },
-                ),
-              )
-            ],
+                Divider(),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16),
+                  child:
+                      BlocBuilder<GetAllDropPointCubit, GetAllDropPointState>(
+                    builder: (context, state) {
+                      if (state is GetAllDropPointLoading) {
+                        return const CircularProgressIndicator();
+                      } else if (state is GetAllDropPointFailure) {
+                        return Center(child: Text('Error: ${state.msg}'));
+                      } else if (state is GetAllDropPointSuccess) {
+                        return SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.75,
+                            child: ListView.builder(
+                                controller: _scrollController,
+                                padding: EdgeInsets.zero,
+                                physics: AlwaysScrollableScrollPhysics(),
+                                itemCount: state.data.length,
+                                itemBuilder: (context, index) {
+                                  if (state.data.isEmpty) {
+                                    return Center(
+                                      child: Text('Belum ada drop points'),
+                                    );
+                                  }
+                                  if (index < state.data.length) {
+                                    return ListLokasiWidget(
+                                      no: index,
+                                      item: state.data[index],
+                                    );
+                                  } else {
+                                    Timer(Duration(milliseconds: 30), () {
+                                      _scrollController.jumpTo(_scrollController
+                                          .position.maxScrollExtent);
+                                    });
+                                    return const Center(
+                                        child: CircularProgressIndicator());
+                                  }
+                                }));
+                      }
+                      return SizedBox();
+                    },
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),
