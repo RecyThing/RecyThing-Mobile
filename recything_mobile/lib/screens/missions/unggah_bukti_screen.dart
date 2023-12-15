@@ -212,13 +212,13 @@ class _UnggahBuktiScreenState extends State<UnggahBuktiScreen> {
                             ? Align(
                                 alignment: Alignment.centerLeft,
                                 child: Text(
-                                  'Format file: JPG, PNG, MP4',
+                                  'Format file: JPG, PNG',
                                   style: ThemeFont.bodySmallRegular
                                       .copyWith(color: Pallete.dark3),
                                 ),
                               )
                             : Text(
-                                'Format file: JPG, PNG, MP4',
+                                'Format file: JPG, PNG',
                                 style: ThemeFont.bodySmallRegular
                                     .copyWith(color: Pallete.dark3),
                               ),
