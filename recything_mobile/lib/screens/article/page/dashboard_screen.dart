@@ -38,7 +38,7 @@ class _ArticleDashboardScreenState extends State<ArticleDashboardScreen> {
                     onChanged: (String) {},
                     onTap: () {
                       Navigator.pushNamed(context, "/searchArtikelScreen");
-                    }, readOnly: true, focusNode: null,
+                    }, readOnly: true, focusNode: null, searchTap: () {  },
                   )),
               MenuKategoriWidget(),
               MenuTukarSampahWidget(),

@@ -15,6 +15,7 @@ class SearchArticleScreen extends StatefulWidget {
 
 class _SearchArticleScreenState extends State<SearchArticleScreen> {
   late FocusNode _focusNode;
+  String searchArticle = "";
 
   @override
   void initState() {
@@ -78,11 +79,16 @@ class _SearchArticleScreenState extends State<SearchArticleScreen> {
               SizedBox(height: 24),
               SearchBarWidget(
                 onChanged: (value) {
-                  context.read<GetArticleCubit>().searchArticle(value);
+                  searchArticle = value;
+                  setState(() {});
+                  // context.read<GetArticleCubit>().searchArticle(value);
                 },
                 onTap: () {},
                 readOnly: false,
                 focusNode: _focusNode,
+                searchTap: () {
+                  context.read<GetArticleCubit>().searchArticle(searchArticle);
+                },
               ),
               SizedBox(height: 10),
               BlocBuilder<GetArticleCubit, GetArticleState>(

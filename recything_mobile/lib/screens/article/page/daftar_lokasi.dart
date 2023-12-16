@@ -16,6 +16,7 @@ class DaftarLokasiScreen extends StatefulWidget {
 
 class _DaftarLokasiScreenState extends State<DaftarLokasiScreen> {
   final ScrollController _scrollController = ScrollController();
+  String searchLokasi = "";
 
   void initState() {
     super.initState();
@@ -66,15 +67,24 @@ class _DaftarLokasiScreenState extends State<DaftarLokasiScreen> {
                       SizedBox(height: 24),
                       SearchBarWidget(
                         onChanged: (value) {
-                          context.read<GetAllDropPointCubit>().fetchData(
-                                context: context,
-                                page: null,
-                                search: value,
-                              );
+                          searchLokasi = value;
+                          setState(() {});
+                          // context.read<GetAllDropPointCubit>().fetchData(
+                          //       context: context,
+                          //       page: null,
+                          //       search: value,
+                          //     );
                         },
                         onTap: () {},
                         readOnly: false,
                         focusNode: null,
+                        searchTap: () {
+                          context.read<GetAllDropPointCubit>().fetchData(
+                                context: context,
+                                page: null,
+                                search: searchLokasi,
+                              );
+                        },
                       ),
                       SizedBox(height: 8),
                     ],

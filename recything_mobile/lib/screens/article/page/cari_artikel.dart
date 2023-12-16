@@ -46,6 +46,7 @@ class _CariArtikelScreenState extends State<CariArtikelScreen> {
                   },
                   readOnly: true,
                   focusNode: null,
+                  searchTap: () {},
                 );
               },
             ),

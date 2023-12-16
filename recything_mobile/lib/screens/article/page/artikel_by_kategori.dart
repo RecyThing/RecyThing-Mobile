@@ -22,6 +22,7 @@ class _ArtikelByKategoriScreenState extends State<ArtikelByKategoriScreen> {
         ModalRoute.of(context)!.settings.arguments as Map<String, String?>;
     final String category = arguments['category']!;
     final String title = arguments['title']!;
+    String keyWord = "";
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -35,13 +36,20 @@ class _ArtikelByKategoriScreenState extends State<ArtikelByKategoriScreen> {
                 builder: (context, state) {
                   return SearchBarWidget(
                     onChanged: (value) {
-                      context
-                          .read<GetArticleCubit>()
-                          .searchArticleByCategory(category, value);
+                      keyWord = value;
+                      setState(() {});
+                      // context
+                      //     .read<GetArticleCubit>()
+                      //     .searchArticleByCategory(category, value);
                     },
                     onTap: () {},
                     readOnly: false,
                     focusNode: null,
+                    searchTap: () {
+                      context
+                          .read<GetArticleCubit>()
+                          .searchArticleByCategory(category, keyWord);
+                    },
                   );
                 },
               ),
