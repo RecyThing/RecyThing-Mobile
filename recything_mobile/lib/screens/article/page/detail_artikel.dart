@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:recything_mobile/bloc/dynamic_link/dynamic_link_cubit.dart';
 import 'package:recything_mobile/bloc/post_like/post_like_article_cubit.dart';
 import 'package:recything_mobile/constants/pallete.dart';
 import 'package:recything_mobile/screens/article/widget/detail_artikel/detail_article_content.dart';
@@ -16,158 +17,247 @@ class DetailArtikelScreen extends StatefulWidget {
 
 class _DetailArtikelScreenState extends State<DetailArtikelScreen> {
   @override
+  void initState() {
+    super.initState();
+    context
+        .read<GetArticleCubit>()
+        .getArticleById("d33da847-6f32-43d6-aa3d-773d13919906");
+  }
+
+  int jmlLike = 0;
+
+  @override
   Widget build(BuildContext context) {
     final Map<String, dynamic> args =
         ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+    String id;
+    final idArtikel = context.watch<DynamicLinkCubit>().idArtikel;
+    if (idArtikel != "") {
+      id = idArtikel;
+    } else {
+      id = args['id'] ?? "";
+    }
 
-    String id = args['id'] ?? "";
+    // id = args['id'] ?? "";
     String category = args['category'] ?? "";
     bool isByCategory = args['isByCategory'] ?? "";
 
-    return Scaffold(
-      body: ListView(
-        children: [
-          Padding(
-            padding: EdgeInsets.only(top: 42, left: 16, right: 16),
-            child: SizedBox(
-              height: 40,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  GestureDetector(
-                    child: SizedBox(
-                      height: 40,
-                      width: 40,
-                      child: Image.asset('assets/icons/icon_back_button.png'),
-                    ),
-                    onTap: () {
-                      if (isByCategory == true) {
-                        context
-                            .read<GetArticleCubit>()
-                            .getArticleByCategory(category);
-                      } else {
-                        context.read<GetArticleCubit>().getAllArticle();
-                        context
-                            .read<GetPopularArticleCubit>()
-                            .getPopularArticle();
-                      }
-                      // context.read<GetArticleCubit>().clearDdetailArtikel();
-                      Navigator.pop(context);
-                    },
-                  ),
-                  SizedBox(
-                    height: 21,
-                    child: Text(
-                      "Detail Artikel",
-                      style: ThemeFont.heading6Medium
-                          .copyWith(color: Colors.black),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 40,
-                  )
-                ],
-              ),
-            ),
-          ),
-          const SizedBox(height: 24),
-          BlocListener<GetArticleCubit, GetArticleState>(
-            listener: (context, state) {},
-            child: Builder(
-              builder: (context) {
-                var item = context.watch<GetArticleCubit>().DetailArtikel;
-                return DetailArticleContentWidget(
-                  image: item['image'] ?? "",
-                  title: item['title'] ?? "",
-                  category: item['category'] ?? "",
-                  like: item['like'] ?? "",
-                  updateDate: item['createdDate'] ?? "",
-                  content: item['content'] ?? "",
-                  id: item['id'] ?? "",
-                );
-              },
-            ),
-          )
-        ],
-      ),
-      bottomNavigationBar: Container(
-        height: 88,
-        width: double.infinity,
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        decoration: const BoxDecoration(color: Colors.white),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return BlocListener<PostLikeArticleCubit, PostLikeArticleState>(
+      listener: (context, state) {
+        if (state is PostLikeSuccess) {
+          setState(() {
+            jmlLike++;
+          });
+          print("halo1 $jmlLike");
+          print(state.message);
+        } else if (state is PostLikeFailure) {
+          print(state.message);
+        }
+      },
+      child: Scaffold(
+        body: ListView(
           children: [
-            Expanded(
-              child: GestureDetector(
-                child: Container(
-                  height: 56,
-                  decoration: BoxDecoration(
-                      color: Pallete.main,
-                      borderRadius: BorderRadius.circular(8)),
-                  child: Center(
+            Padding(
+              padding: EdgeInsets.only(top: 42, left: 16, right: 16),
+              child: SizedBox(
+                height: 40,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    GestureDetector(
+                      child: SizedBox(
+                        height: 40,
+                        width: 40,
+                        child: Image.asset('assets/icons/icon_back_button.png'),
+                      ),
+                      onTap: () {
+                        if (isByCategory == true) {
+                          context
+                              .read<GetArticleCubit>()
+                              .getArticleByCategory(category);
+                        } else {
+                          context.read<GetArticleCubit>().getAllArticle();
+                          context
+                              .read<GetPopularArticleCubit>()
+                              .getPopularArticle();
+                        }
+                        // context.read<GetArticleCubit>().clearDdetailArtikel();
+                        Navigator.pop(context);
+                      },
+                    ),
+                    SizedBox(
+                      height: 21,
                       child: Text(
-                    'Share',
-                    style: ThemeFont.heading6Bold.copyWith(color: Colors.white),
-                  )),
+                        "Detail Artikel",
+                        style: ThemeFont.heading6Medium
+                            .copyWith(color: Colors.black),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 40,
+                    )
+                  ],
                 ),
-                onTap: () {
-                  showModalBottomSheet<void>(
-                      backgroundColor: Colors.white,
-                      context: context,
-                      builder: (BuildContext context) {
-                        return BlocBuilder<GetArticleCubit, GetArticleState>(
-                          builder: (context, state) {
-                            if (state is GetArticleByIdSuccess) {
-                              return SingleChildScrollView(
-                                child: BottomsheetDetailArtikel(
-                                  image: state.data.image,
-                                  title: state.data.title,
-                                  category: state.data.getCategoryString(),
-                                  updateDate: state.data.createdDate,
-                                ),
-                              );
-                            }
-                            return SizedBox();
-                          },
-                        );
-                      });
-                },
               ),
             ),
-            const SizedBox(width: 15),
-            BlocBuilder<PostLikeArticleCubit, PostLikeArticleState>(
-              builder: (context, state) {
-                return GestureDetector(
+            const SizedBox(height: 24),
+            BlocConsumer<GetArticleCubit, GetArticleState>(
+                builder: (context, state) {
+              if (state is GetArticleByIdSuccess) {
+                // jmlLike = state.data.like ?? 0;
+                return DetailArticleContentWidget(
+                  image: state.data.image ?? "",
+                  title: state.data.title ?? "",
+                  category: state.data.getCategoryString(),
+                  like: jmlLike.toString(),
+
+                  // context
+                  //     .read<GetArticleCubit>()
+                  //     .countLike(state.data.like ?? 0)
+                  //     .toString(),
+                  updateDate: state.data.createdDate ?? "0000000",
+                  content: state.data.content ?? "",
+                  id: state.data.id ?? "",
+                );
+              } else if (state is GetArticleLoading) {
+                // return CircularProgressIndicator();
+              } else if (state is GetArticleFailure) {
+                return Text(state.message);
+              }
+              return SizedBox();
+            }, listener: (context, state) {
+              if (state is GetArticleByIdSuccess) {
+                jmlLike = state.data.like ?? 0;
+                setState(() {});
+              }
+            })
+            // BlocListener<GetArticleCubit, GetArticleState>(
+            //   listener: (context, state) {},
+            //   child: Builder(
+            //     builder: (context) {
+            //       var item = context.watch<GetArticleCubit>().detailArtikel;
+            //       return DetailArticleContentWidget(
+            //         image: item?.image ?? "",
+            //         title: item?.title ?? "-",
+            //         category: item?.categoryArticle ?? "-",
+            //         like: item?.like.toString() ?? "-",
+            //         updateDate: item?.createdDate ?? "-",
+            //         content: item?.content ?? "-",
+            //         id: item?.id ?? "-",
+            //       );
+            //     },
+            //   ),
+            // )
+          ],
+        ),
+        bottomNavigationBar: Container(
+          height: 88,
+          width: double.infinity,
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          decoration: const BoxDecoration(color: Colors.white),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                child: GestureDetector(
                   child: Container(
                     height: 56,
-                    width: 70,
                     decoration: BoxDecoration(
-                        border: Border.all(color: Pallete.main),
-                        borderRadius: BorderRadius.circular(12)),
-                    child: SizedBox(
-                        height: 24,
-                        width: 24,
-                        child: Image.asset(
-                          'assets/icons/icon_green_like_outline.png',
-                        )),
+                        color: Pallete.main,
+                        borderRadius: BorderRadius.circular(8)),
+                    child: Center(
+                        child: Text(
+                      'Share',
+                      style:
+                          ThemeFont.heading6Bold.copyWith(color: Colors.white),
+                    )),
                   ),
                   onTap: () {
-                    print(id);
-                    context.read<PostLikeArticleCubit>().postLikeArticle(id);
-                    if (state is PostLikeSuccess) {
-                      print(state.message);
-                      context.read<GetArticleCubit>().getArticleById(id);
-                    } else if (state is PostLikeFailure) {
-                      print(state.message);
-                      context.read<GetArticleCubit>().getArticleById(id);
-                    }
+                    showModalBottomSheet<void>(
+                        backgroundColor: Colors.white,
+                        context: context,
+                        builder: (BuildContext context) {
+                          return BlocBuilder<GetArticleCubit, GetArticleState>(
+                            builder: (context, state) {
+                              if (state is GetArticleByIdSuccess) {
+                                return SingleChildScrollView(
+                                  child: BottomsheetDetailArtikel(
+                                    image: state.data.image ?? "",
+                                    title: state.data.title ?? "",
+                                    category: state.data.getCategoryString(),
+                                    updateDate: state.data.createdDate ?? "",
+                                  ),
+                                );
+                              }
+                              return SizedBox();
+                            },
+                          );
+                        });
                   },
-                );
-              },
-            )
-          ],
+                ),
+              ),
+              const SizedBox(width: 15),
+              GestureDetector(
+                child: Container(
+                  height: 56,
+                  width: 70,
+                  decoration: BoxDecoration(
+                      border: Border.all(color: Pallete.main),
+                      borderRadius: BorderRadius.circular(12)),
+                  child: SizedBox(
+                      height: 24,
+                      width: 24,
+                      child: Image.asset(
+                        'assets/icons/icon_green_like_outline.png',
+                      )),
+                ),
+                onTap: () {
+                  context.read<PostLikeArticleCubit>().postLikeArticle(id);
+                },
+              )
+              // BlocBuilder<PostLikeArticleCubit, PostLikeArticleState>(
+              //   builder: (context, state) {
+              //     return GestureDetector(
+              //       child: Container(
+              //         height: 56,
+              //         width: 70,
+              //         decoration: BoxDecoration(
+              //             border: Border.all(color: Pallete.main),
+              //             borderRadius: BorderRadius.circular(12)),
+              //         child: SizedBox(
+              //             height: 24,
+              //             width: 24,
+              //             child: Image.asset(
+              //               'assets/icons/icon_green_like_outline.png',
+              //             )),
+              //       ),
+              //       onTap: () {
+              //         int jumlah = 0;
+              //         // jmlLike = jmlLike + 1;
+              //         setState(() {
+              //           jmlLike++;
+              //           jumlah++;
+              //         });
+              //         // context.read<GetArticleCubit>().countLike(jmlLike);
+              //         print("halo1 $jmlLike");
+              //         print("halo2 $jumlah");
+              //         // print(id);
+              //         // context.read<PostLikeArticleCubit>().postLikeArticle(id);
+              //         // if (state is PostLikeSuccess) {
+              //         //   print(state.message);
+              //         //   // context.read<GetArticleCubit>().countLike(jmlLike);
+              //         //   // context.read<GetArticleCubit>().getArticleById(id);
+              //         // } else if (state is PostLikeFailure) {
+              //         //   print(state.message);
+              //         //   // context.read<GetArticleCubit>().getArticleById(id);
+              //         // }
+              //       },
+              //     );
+              //   },
+              // )
+            ],
+          ),
         ),
       ),
     );

@@ -6,12 +6,12 @@ import 'package:recything_mobile/repositories/article_repo.dart';
 part 'get_article_state.dart';
 
 class GetArticleCubit extends Cubit<GetArticleState> {
-  Map<String, dynamic> DetailArtikel = {};
+  ArticleModel? detailArtikel = ArticleModel();
 
   GetArticleCubit() : super(GetArticleInitial());
 
   void clearDdetailArtikel() {
-    DetailArtikel.clear();
+    detailArtikel = null;
   }
 
   void getAllArticle() async {
@@ -67,30 +67,47 @@ class GetArticleCubit extends Cubit<GetArticleState> {
     }
   }
 
+  int countLike(int like) {
+    like = like + 1;
+    print("halooo ${like}");
+    return like;
+  }
+
   void getArticleById(String id) async {
     emit(GetArticleLoading());
     try {
       final response = await ArticleRepo().getArticleById(id);
-      final image = response.image;
-      final title = response.title;
-      final category = response.getCategoryString();
-      final createdDate = response.createdDate;
-      final like = response.like.toString();
-      final content = response.content;
-      final ID = response.id;
-
+      // final image = response.image;
+      // final title = response.title;
+      // final category = response.getCategoryString();
+      // final createdDate = response.createdDate;
+      // final like = response.like.toString();
+      // final content = response.content;
+      // final ID = response.id;
+      // print(createdDate);
+      // countLike(int.parse(like));
       // DetailArtikel.clear();
-      DetailArtikel = {
-        "image": image,
-        "title": title,
-        "category": category,
-        "createdDate": createdDate,
-        "like": like,
-        "content": content,
-        "id": ID
-      };
+      // DetailArtikel = {
+      //   "image": image,
+      //   "title": title,
+      //   "category": category,
+      //   "createdDate": createdDate,
+      //   "like": like,
+      //   "content": content,
+      //   "id": ID
+      // };
+      // detailArtikel = ArticleModel(
+      //     image: image,
+      //     title: title,
+      //     categoryArticle: category,
+      //     // createdDate: createdDate,
+      //     like: int.parse(like),
+      //     content: content,
+      //     id: ID);
+      // emit(GetArticleByIdSuccess(data: detailArtikel ?? ArticleModel()));
       emit(GetArticleByIdSuccess(data: response));
     } catch (e) {
+      print(e);
       emit(GetArticleFailure(message: e.toString()));
     }
   }

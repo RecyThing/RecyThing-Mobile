@@ -1,9 +1,11 @@
 import 'package:device_preview/device_preview.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:recything_mobile/bloc/auth/auth_cubit.dart';
 import 'package:recything_mobile/bloc/claim_mission/claim_mission_cubit.dart';
+import 'package:recything_mobile/bloc/dynamic_link/dynamic_link_cubit.dart';
 import 'package:recything_mobile/bloc/forgot_password/forgot_password_cubit.dart';
 import 'package:recything_mobile/bloc/get_ai/get_ai_cubit.dart';
 import 'package:recything_mobile/bloc/get_all_drop_point/get_all_drop_point_cubit.dart';
@@ -31,6 +33,7 @@ import 'package:recything_mobile/bloc/register/register_cubit.dart';
 import 'package:recything_mobile/bloc/update_password/update_password_cubit.dart';
 import 'package:recything_mobile/bloc/upload_proof/upload_proof_cubit.dart';
 import 'package:recything_mobile/constants/pallete.dart';
+import 'package:recything_mobile/firebase_options.dart';
 import 'package:recything_mobile/screens/article/page/artikel_by_kategori.dart';
 import 'package:recything_mobile/screens/article/page/cari_artikel.dart';
 import 'package:recything_mobile/screens/article/page/daftar_lokasi.dart';
@@ -76,6 +79,8 @@ Future<void> main() async {
   await dotenv.load();
   WidgetsFlutterBinding.ensureInitialized(); // Required by FlutterConfig
   await FlutterConfig.loadEnvVariables();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
   runApp(const MyApp());
   // runApp(const MyApp()
   // DevicePreview(
@@ -131,6 +136,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => UploadProofCubit()),
 
         BlocProvider(create: (_) => PostLikeArticleCubit()),
+        BlocProvider(create: (_) => DynamicLinkCubit()),
       ],
       child: MaterialApp(
         locale: DevicePreview.locale(context),
