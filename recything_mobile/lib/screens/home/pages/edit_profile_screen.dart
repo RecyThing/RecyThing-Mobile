@@ -8,6 +8,9 @@ import 'package:recything_mobile/models/user_model.dart';
 import 'package:recything_mobile/widgets/forms/custom_back_button.dart';
 import 'package:recything_mobile/widgets/forms/main_button.dart';
 import 'package:recything_mobile/widgets/forms/main_textfield.dart';
+import 'package:recything_mobile/widgets/success_snackbar.dart';
+
+import '../../../widgets/error_snackbar.dart';
 
 class EditProfileScreen extends StatefulWidget {
   final UserModel user;
@@ -70,25 +73,15 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               if (state is UpdateUserProfileLoading) {
                 const CircularProgressIndicator();
               } else if (state is UpdateUserProfileFailure) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    backgroundColor: Colors.red,
-                    content: Text(
-                      state.message,
-                      style: const TextStyle(color: Colors.white),
-                    ),
-                  ),
+                ErrorSnackbar.showSnackbar(
+                  context,
+                  title: "Oops, Gagal Memperbarui",
+                  message: state.message,
                 );
               } else if (state is UpdateUserProfileSuccess) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    backgroundColor: Pallete.main,
-                    content: Text(
-                      state.data,
-                      style: const TextStyle(color: Colors.white),
-                    ),
-                  ),
-                );
+                SuccessSnackbar.showSnackbar(context,
+                    message: "Data profil Anda berhasil disimpan",
+                    title: "Berhasil Menyimpan!");
                 Navigator.pushNamed(context, '/profile');
               }
             },
@@ -139,19 +132,34 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     prefixIcon: IconlyLight.location,
                   ),
                 ),
-                GestureDetector(
-                  onTap: selectDate,
-                  child: Container(
-                    margin: const EdgeInsets.only(bottom: 16),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
-                        border: Border.all(color: Pallete.dark3)),
-                    child: MainTextField(
-                      enable: false,
-                      label: _dateController,
-                      prefixIcon: IconlyLight.calendar,
+                Stack(
+                  children: [
+                    GestureDetector(
+                      onTap: selectDate,
+                      child: Container(
+                        margin: const EdgeInsets.only(bottom: 16, top: 8),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12),
+                            border: Border.all(color: Pallete.dark3)),
+                        child: MainTextField(
+                          enable: false,
+                          label: _dateController,
+                          prefixIcon: IconlyLight.calendar,
+                        ),
+                      ),
                     ),
-                  ),
+                    Positioned(
+                      left: 10,
+                      child: Container(
+                        child: Text(
+                          " Tanggal Lahir ",
+                          style: ThemeFont.bodySmallRegular.copyWith(
+                              fontSize: 12, color: Pallete.textSecondary),
+                        ),
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
                 ),
                 DropdownMenu(
                     width: MediaQuery.of(context).size.width * 0.9,
