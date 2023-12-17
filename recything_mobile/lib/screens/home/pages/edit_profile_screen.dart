@@ -96,37 +96,16 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Center(
-                  child: Stack(
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.all(30),
-                        decoration: const BoxDecoration(
-                            color: Color.fromARGB(255, 69, 196, 169),
-                            shape: BoxShape.circle),
-                        child: Text(
-                          widget.user.fullname.characters.first,
-                          style: ThemeFont.heading3Bold.copyWith(
-                              fontSize: 60, color: Pallete.textMainButton),
-                        ),
-                      ),
-                      Positioned(
-                        bottom: 0,
-                        right: 0,
-                        child: Container(
-                          decoration: BoxDecoration(
-                              color: Pallete.main,
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                  width: 2, color: Pallete.textMainButton)),
-                          child: IconButton(
-                              onPressed: () {},
-                              icon: const Icon(
-                                IconlyLight.camera,
-                                color: Pallete.textMainButton,
-                              )),
-                        ),
-                      ),
-                    ],
+                  child: Container(
+                    padding: const EdgeInsets.all(30),
+                    decoration: const BoxDecoration(
+                        color: Color.fromARGB(255, 69, 196, 169),
+                        shape: BoxShape.circle),
+                    child: Text(
+                      widget.user.fullname.characters.first,
+                      style: ThemeFont.heading3Bold.copyWith(
+                          fontSize: 60, color: Pallete.textMainButton),
+                    ),
                   ),
                 ),
                 Padding(
