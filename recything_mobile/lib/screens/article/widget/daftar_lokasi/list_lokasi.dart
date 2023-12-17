@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:iconly/iconly.dart';
 import 'package:recything_mobile/constants/pallete.dart';
 import 'package:recything_mobile/models/drop_points_model.dart';
 import 'package:recything_mobile/screens/article/page/detail_lokasi.dart';
@@ -14,27 +13,26 @@ class ListLokasiWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
-      child: Container(
-        decoration: BoxDecoration(
-          color: ThemeColor().whiteColor,
-          // border: Border.all(color: Colors.black),
-          borderRadius: BorderRadius.circular(12),
-          boxShadow: const [
-            BoxShadow(
-              color: Color(0x33000000),
-              spreadRadius: 0,
-              blurRadius: 7,
-              offset: Offset(0, 0),
-            ),
-          ],
-        ),
-        padding: const EdgeInsets.all(15),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(
-              height: 48,
-              child: Column(
+      child: GestureDetector(
+        child: Container(
+          decoration: BoxDecoration(
+            color: ThemeColor().whiteColor,
+            // border: Border.all(color: Colors.black),
+            borderRadius: BorderRadius.circular(12),
+            boxShadow: const [
+              BoxShadow(
+                color: Color(0x33000000),
+                spreadRadius: 0,
+                blurRadius: 7,
+                offset: Offset(0, 0),
+              ),
+            ],
+          ),
+          padding: const EdgeInsets.all(15),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
@@ -47,35 +45,19 @@ class ListLokasiWidget extends StatelessWidget {
                     style: ThemeFont.bodySmallRegular.copyWith(
                         color: Pallete.dark3, fontWeight: FontWeight.w400),
                     overflow: TextOverflow.ellipsis,
-                    maxLines: 1,
+                    maxLines: 2,
                   ),
                 ],
               ),
-            ),
-            GestureDetector(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Text(
-                    'Detail Drop Point',
-                    style: ThemeFont.bodySmallRegular
-                        .copyWith(color: Pallete.main),
-                  ),
-                  const Icon(
-                    IconlyLight.arrow_right_2,
-                    color: Pallete.main,
-                  )
-                ],
-              ),
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => DetailLokasiScreen(item: item)));
-              },
-            )
-          ],
+            ],
+          ),
         ),
+        onTap: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => DetailLokasiScreen(item: item)));
+        },
       ),
     );
   }

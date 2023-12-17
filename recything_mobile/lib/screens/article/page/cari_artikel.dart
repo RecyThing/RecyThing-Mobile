@@ -17,14 +17,14 @@ class _CariArtikelScreenState extends State<CariArtikelScreen> {
   @override
   void initState() {
     super.initState();
-    context.read<GetArticleCubit>().getAllArticle(1);
+    context.read<GetArticleCubit>().getAllArticle();
     context.read<GetPopularArticleCubit>().getPopularArticle();
   }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    context.read<GetArticleCubit>().getAllArticle(1);
+    context.read<GetArticleCubit>().getAllArticle();
     context.read<GetPopularArticleCubit>().getPopularArticle();
   }
 
@@ -46,6 +46,7 @@ class _CariArtikelScreenState extends State<CariArtikelScreen> {
                   },
                   readOnly: true,
                   focusNode: null,
+                  searchTap: () {},
                 );
               },
             ),

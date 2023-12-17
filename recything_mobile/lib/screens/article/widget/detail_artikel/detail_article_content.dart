@@ -1,6 +1,7 @@
-
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_html/flutter_html.dart';
+import '../../../../bloc/get_article/get_article_cubit.dart';
 import '../../../../constants/pallete.dart';
 
 class DetailArticleContentWidget extends StatelessWidget {
@@ -10,6 +11,7 @@ class DetailArticleContentWidget extends StatelessWidget {
   final String like;
   final String category;
   final String content;
+  final String id;
 
   const DetailArticleContentWidget(
       {super.key,
@@ -18,7 +20,8 @@ class DetailArticleContentWidget extends StatelessWidget {
       required this.category,
       required this.like,
       required this.updateDate,
-      required this.content});
+      required this.content,
+      required this.id});
 
   @override
   Widget build(BuildContext context) {
@@ -88,23 +91,24 @@ class DetailArticleContentWidget extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(width: 5),
-                        // BlocListener<GetArticleCubit, GetArticleState>(
-                        //   listener: (context, state) {},
-                        //   child: BlocBuilder<GetArticleCubit, GetArticleState>(
-                        //     builder: (context, state) {
-                        //       return Text(
-                        //         like,
-                        //         style: ThemeFont.bodySmallRegular
-                        //             .copyWith(color: Pallete.dark3),
-                        //       );
-                        //     },
-                        //   ),
-                        // ),
-                        Text(
-                          like,
-                          style: ThemeFont.bodySmallRegular
-                              .copyWith(color: Pallete.dark3),
+                        BlocBuilder<GetArticleCubit, GetArticleState>(
+                          builder: (context, state) {
+                            // context.read<GetArticleCubit>().getArticleById(id);
+                            if (state is GetArticleByIdSuccess) {
+                              return Text(
+                                like,
+                                style: ThemeFont.bodySmallRegular
+                                    .copyWith(color: Pallete.dark3),
+                              );
+                            }
+                            return SizedBox();
+                          },
                         ),
+                        // Text(
+                        //   like,
+                        //   style: ThemeFont.bodySmallRegular
+                        //       .copyWith(color: Pallete.dark3),
+                        // ),
                         const SizedBox(width: 5),
                       ],
                     ),

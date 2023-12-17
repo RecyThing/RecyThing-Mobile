@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recything_mobile/bloc/post_like/post_like_article_cubit.dart';
@@ -47,7 +46,7 @@ class _DetailArtikelScreenState extends State<DetailArtikelScreen> {
                             .read<GetArticleCubit>()
                             .getArticleByCategory(category);
                       } else {
-                        context.read<GetArticleCubit>().getAllArticle(1);
+                        context.read<GetArticleCubit>().getAllArticle();
                         context
                             .read<GetPopularArticleCubit>()
                             .getPopularArticle();
@@ -79,12 +78,14 @@ class _DetailArtikelScreenState extends State<DetailArtikelScreen> {
               builder: (context) {
                 var item = context.watch<GetArticleCubit>().DetailArtikel;
                 return DetailArticleContentWidget(
-                    image: item['image'] ?? "",
-                    title: item['title'] ?? "",
-                    category: item['category'] ?? "",
-                    like: item['like'] ?? "",
-                    updateDate: item['createdDate'] ?? "",
-                    content: item['content'] ?? "");
+                  image: item['image'] ?? "",
+                  title: item['title'] ?? "",
+                  category: item['category'] ?? "",
+                  like: item['like'] ?? "",
+                  updateDate: item['createdDate'] ?? "",
+                  content: item['content'] ?? "",
+                  id: item['id'] ?? "",
+                );
               },
             ),
           )
@@ -119,11 +120,13 @@ class _DetailArtikelScreenState extends State<DetailArtikelScreen> {
                         return BlocBuilder<GetArticleCubit, GetArticleState>(
                           builder: (context, state) {
                             if (state is GetArticleByIdSuccess) {
-                              return BottomsheetDetailArtikel(
-                                image: state.data.image,
-                                title: state.data.title,
-                                category: state.data.getCategoryString(),
-                                updateDate: state.data.createdDate,
+                              return SingleChildScrollView(
+                                child: BottomsheetDetailArtikel(
+                                  image: state.data.image,
+                                  title: state.data.title,
+                                  category: state.data.getCategoryString(),
+                                  updateDate: state.data.createdDate,
+                                ),
                               );
                             }
                             return SizedBox();

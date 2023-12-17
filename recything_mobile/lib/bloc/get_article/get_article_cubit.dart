@@ -14,10 +14,10 @@ class GetArticleCubit extends Cubit<GetArticleState> {
     DetailArtikel.clear();
   }
 
-  void getAllArticle(int page) async {
+  void getAllArticle() async {
     emit(GetArticleLoading());
     try {
-      final response = await ArticleRepo().getAllArticle(page);
+      final response = await ArticleRepo().getAllArticle();
       emit(GetArticleSuccess(data: response));
     } catch (e) {
       emit(GetArticleFailure(message: e.toString()));
@@ -77,6 +77,7 @@ class GetArticleCubit extends Cubit<GetArticleState> {
       final createdDate = response.createdDate;
       final like = response.like.toString();
       final content = response.content;
+      final ID = response.id;
 
       // DetailArtikel.clear();
       DetailArtikel = {
@@ -85,7 +86,8 @@ class GetArticleCubit extends Cubit<GetArticleState> {
         "category": category,
         "createdDate": createdDate,
         "like": like,
-        "content": content
+        "content": content,
+        "id": ID
       };
       emit(GetArticleByIdSuccess(data: response));
     } catch (e) {

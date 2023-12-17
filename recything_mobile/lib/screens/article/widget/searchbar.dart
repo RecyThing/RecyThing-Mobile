@@ -8,14 +8,15 @@ class SearchBarWidget extends StatelessWidget {
   final Function()? onTap;
   final bool readOnly;
   final FocusNode? focusNode;
+  final Function()? searchTap;
 
-  SearchBarWidget({
-    super.key,
-    required this.onChanged,
-    required this.onTap,
-    required this.readOnly,
-    required this.focusNode
-  });
+  SearchBarWidget(
+      {super.key,
+      required this.onChanged,
+      required this.onTap,
+      required this.readOnly,
+      required this.focusNode,
+      required this.searchTap});
 
   @override
   Widget build(BuildContext context) {
@@ -27,9 +28,13 @@ class SearchBarWidget extends StatelessWidget {
           width: 1,
         ),
       ),
+      padding: EdgeInsets.symmetric(horizontal: 10),
       child: TextField(
         decoration: InputDecoration(
-            prefixIcon: const Icon(IconlyLight.search),
+            suffixIcon: GestureDetector(
+              child: const Icon(IconlyLight.search),
+              onTap: searchTap,
+            ),
             hintText: "Cari disini...",
             hintStyle: ThemeText().bodySmallMedium,
             border: InputBorder.none),

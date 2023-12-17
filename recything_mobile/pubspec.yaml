@@ -74,9 +74,9 @@ dependencies:
   flutter_google_places: ^0.3.0
   social_share: ^2.3.1
   flutter_html: ^3.0.0-beta.2
-  searchfield: ^0.9.0
   flutter_config: ^2.0.2
-  cached_network_image: ^3.3.0
+  firebase_core: ^2.24.2
+  firebase_dynamic_links: ^5.4.8
 
 
 dev_dependencies:
