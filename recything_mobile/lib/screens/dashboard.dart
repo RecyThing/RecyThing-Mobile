@@ -67,7 +67,7 @@ class _DasboardState extends State<Dasboard> {
           backgroundColor: Pallete.textMainButton,
           type: BottomNavigationBarType.fixed,
           selectedLabelStyle: const TextStyle(
-            color: Pallete.main, // Warna teks label saat terpilih
+            color: Pallete.dark3, // Warna teks label saat terpilih
           ),
           unselectedLabelStyle: const TextStyle(
             color: Pallete.dark3, // Warna teks label saat tidak terpilih

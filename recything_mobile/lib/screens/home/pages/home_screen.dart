@@ -73,14 +73,40 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Pallete.main,
-        shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(100))),
-        onPressed: () {
-          Navigator.pushNamed(context, '/recy');
-        },
-        child: Image.asset("assets/icons/chatbot.png"),
+      floatingActionButton: Stack(
+        // crossAxisAlignment: CrossAxisAlignment.end,
+        // mainAxisSize: MainAxisSize.min,
+        children: [
+          // Positioned(
+          //   top: 0,
+          //   right: 0,
+          //   child: IconButton(
+          //       color: Pallete.main,
+          //       onPressed: () {},
+          //       icon: Icon(
+          //         Icons.cancel,
+          //         size: 20,
+          //       )),
+          // ),
+          Padding(
+            padding: const EdgeInsets.only(
+                //right: 24,
+                top: 30),
+            child: FloatingActionButton(
+              backgroundColor: Pallete.main,
+              shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(100))),
+              onPressed: () {
+                Navigator.pushNamed(context, '/recy');
+              },
+              child: Image.asset(
+                "assets/icons/profile/mbarecy.png",
+                color: Colors.white,
+                width: 30,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
