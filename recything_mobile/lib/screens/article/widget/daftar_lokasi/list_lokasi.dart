@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iconly/iconly.dart';
 import 'package:recything_mobile/constants/pallete.dart';
 import 'package:recything_mobile/models/drop_points_model.dart';
 import 'package:recything_mobile/screens/article/page/detail_lokasi.dart';
@@ -15,6 +16,7 @@ class ListLokasiWidget extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: GestureDetector(
         child: Container(
+          margin: EdgeInsets.symmetric(horizontal: 3),
           decoration: BoxDecoration(
             color: ThemeColor().whiteColor,
             // border: Border.all(color: Colors.black),
@@ -45,10 +47,36 @@ class ListLokasiWidget extends StatelessWidget {
                     style: ThemeFont.bodySmallRegular.copyWith(
                         color: Pallete.dark3, fontWeight: FontWeight.w400),
                     overflow: TextOverflow.ellipsis,
-                    maxLines: 2,
+                    maxLines: 1,
                   ),
                 ],
               ),
+              SizedBox(
+                height: 8,
+              ),
+              GestureDetector(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Text(
+                      'Detail Drop Point',
+                      style: ThemeFont.bodySmallRegular
+                          .copyWith(color: Pallete.main),
+                    ),
+                    const Icon(
+                      IconlyLight.arrow_right_2,
+                      color: Pallete.main,
+                    )
+                  ],
+                ),
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              DetailLokasiScreen(item: item)));
+                },
+              )
             ],
           ),
         ),
