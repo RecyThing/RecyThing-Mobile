@@ -1,4 +1,4 @@
-package com.example.recything_mobile
+package com.recy.recything
 
 import io.flutter.embedding.android.FlutterActivity
 
