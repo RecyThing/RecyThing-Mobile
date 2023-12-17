@@ -38,7 +38,6 @@ class _DetailArtikelScreenState extends State<DetailArtikelScreen> {
       id = args['id'] ?? "";
     }
 
-    // id = args['id'] ?? "";
     String category = args['category'] ?? "";
     bool isByCategory = args['isByCategory'] ?? "";
 
@@ -51,6 +50,9 @@ class _DetailArtikelScreenState extends State<DetailArtikelScreen> {
           print("halo1 $jmlLike");
           print(state.message);
         } else if (state is PostLikeFailure) {
+          setState(() {
+            jmlLike--;
+          });
           print(state.message);
         }
       },
@@ -105,23 +107,23 @@ class _DetailArtikelScreenState extends State<DetailArtikelScreen> {
             BlocConsumer<GetArticleCubit, GetArticleState>(
                 builder: (context, state) {
               if (state is GetArticleByIdSuccess) {
-                // jmlLike = state.data.like ?? 0;
                 return DetailArticleContentWidget(
                   image: state.data.image ?? "",
                   title: state.data.title ?? "",
                   category: state.data.getCategoryString(),
                   like: jmlLike.toString(),
-
-                  // context
-                  //     .read<GetArticleCubit>()
-                  //     .countLike(state.data.like ?? 0)
-                  //     .toString(),
                   updateDate: state.data.createdDate ?? "0000000",
                   content: state.data.content ?? "",
                   id: state.data.id ?? "",
                 );
               } else if (state is GetArticleLoading) {
-                // return CircularProgressIndicator();
+                return Center(
+                  child: SizedBox(
+                    height: 20,
+                    width: 20,
+                    child: CircularProgressIndicator(),
+                  ),
+                );
               } else if (state is GetArticleFailure) {
                 return Text(state.message);
               }
@@ -132,23 +134,6 @@ class _DetailArtikelScreenState extends State<DetailArtikelScreen> {
                 setState(() {});
               }
             })
-            // BlocListener<GetArticleCubit, GetArticleState>(
-            //   listener: (context, state) {},
-            //   child: Builder(
-            //     builder: (context) {
-            //       var item = context.watch<GetArticleCubit>().detailArtikel;
-            //       return DetailArticleContentWidget(
-            //         image: item?.image ?? "",
-            //         title: item?.title ?? "-",
-            //         category: item?.categoryArticle ?? "-",
-            //         like: item?.like.toString() ?? "-",
-            //         updateDate: item?.createdDate ?? "-",
-            //         content: item?.content ?? "-",
-            //         id: item?.id ?? "-",
-            //       );
-            //     },
-            //   ),
-            // )
           ],
         ),
         bottomNavigationBar: Container(
@@ -216,46 +201,6 @@ class _DetailArtikelScreenState extends State<DetailArtikelScreen> {
                   context.read<PostLikeArticleCubit>().postLikeArticle(id);
                 },
               )
-              // BlocBuilder<PostLikeArticleCubit, PostLikeArticleState>(
-              //   builder: (context, state) {
-              //     return GestureDetector(
-              //       child: Container(
-              //         height: 56,
-              //         width: 70,
-              //         decoration: BoxDecoration(
-              //             border: Border.all(color: Pallete.main),
-              //             borderRadius: BorderRadius.circular(12)),
-              //         child: SizedBox(
-              //             height: 24,
-              //             width: 24,
-              //             child: Image.asset(
-              //               'assets/icons/icon_green_like_outline.png',
-              //             )),
-              //       ),
-              //       onTap: () {
-              //         int jumlah = 0;
-              //         // jmlLike = jmlLike + 1;
-              //         setState(() {
-              //           jmlLike++;
-              //           jumlah++;
-              //         });
-              //         // context.read<GetArticleCubit>().countLike(jmlLike);
-              //         print("halo1 $jmlLike");
-              //         print("halo2 $jumlah");
-              //         // print(id);
-              //         // context.read<PostLikeArticleCubit>().postLikeArticle(id);
-              //         // if (state is PostLikeSuccess) {
-              //         //   print(state.message);
-              //         //   // context.read<GetArticleCubit>().countLike(jmlLike);
-              //         //   // context.read<GetArticleCubit>().getArticleById(id);
-              //         // } else if (state is PostLikeFailure) {
-              //         //   print(state.message);
-              //         //   // context.read<GetArticleCubit>().getArticleById(id);
-              //         // }
-              //       },
-              //     );
-              //   },
-              // )
             ],
           ),
         ),
