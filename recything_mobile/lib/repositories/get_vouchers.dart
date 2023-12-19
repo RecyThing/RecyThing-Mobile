@@ -1,13 +1,13 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
-import 'package:recything_mobile/constants/api.dart';
+import 'package:recything_mobile/constants/constans.dart';
 import 'package:recything_mobile/models/get_vouchers_model.dart';
 import 'package:recything_mobile/services/base_service.dart';
 import 'package:recything_mobile/services/shared_pref_service.dart';
 
 class GetVouchersRepo {
-  Dio dio = Dio(BaseOptions(baseUrl: Api.baseUrl));
+  Dio dio = Dio(BaseOptions(baseUrl: baseUrl));
 
   Future<List<GetVouchersModel>> getVouchers({required String page}) async {
     final token = await SharedPreferenceService.getToken();

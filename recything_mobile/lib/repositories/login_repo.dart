@@ -1,15 +1,15 @@
 import 'dart:convert';
 import 'package:dio/dio.dart';
+import 'package:recything_mobile/constants/constans.dart';
 
 import 'package:recything_mobile/models/login_model.dart';
 import 'package:recything_mobile/services/shared_pref_service.dart';
 // import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:logger/logger.dart';
-import 'package:recything_mobile/constants/api.dart';
 
 class LoginRepo {
-  Dio dio = Dio(BaseOptions(baseUrl: Api.baseUrl));
+  Dio dio = Dio(BaseOptions(baseUrl: baseUrl));
 
   Future<void> login({required String email, required String password}) async {
     try {

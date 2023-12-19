@@ -1,10 +1,10 @@
 import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:logger/logger.dart';
-import 'package:recything_mobile/constants/api.dart';
+import 'package:recything_mobile/constants/constans.dart';
 
 class RegisterRepo {
-  Dio dio = Dio(BaseOptions(baseUrl: Api.baseUrl));
+  Dio dio = Dio(BaseOptions(baseUrl: baseUrl));
 
   Future<void> register({
     required String fullname,

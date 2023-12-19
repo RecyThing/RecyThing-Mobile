@@ -1,11 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:logger/logger.dart';
-import 'package:recything_mobile/constants/api.dart';
+import 'package:recything_mobile/constants/constans.dart';
 import 'package:recything_mobile/models/community_model.dart';
 import 'package:recything_mobile/services/shared_pref_service.dart';
 
 class CommunityRepo {
-  Dio dio = Dio(BaseOptions(baseUrl: Api.baseUrl));
+  Dio dio = Dio(BaseOptions(baseUrl: baseUrl));
 
   Future<List<CommunityModel>> getCommunity({String? search}) async {
     final token = await SharedPreferenceService.getToken();
