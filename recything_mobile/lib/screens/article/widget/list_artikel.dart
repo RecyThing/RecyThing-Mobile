@@ -29,7 +29,7 @@ class ListArtikelWidget extends StatelessWidget {
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(12),
                                   child: Image.network(
-                                    state.data[index].image,
+                                    state.data[index].image ?? "",
                                     fit: BoxFit.cover,
                                   ),
                                 )),
@@ -53,7 +53,7 @@ class ListArtikelWidget extends StatelessWidget {
                                       child: SizedBox(
                                         height: 24,
                                         child: Text(
-                                          state.data[index].title,
+                                          state.data[index].title ?? "",
                                           style: ThemeText().bodyNormalMedium,
                                         ),
                                       ),
@@ -62,7 +62,7 @@ class ListArtikelWidget extends StatelessWidget {
                                       height: 24,
                                       child: Row(
                                         children: [
-                                          Text(state.data[index].createdDate,
+                                          Text(state.data[index].createdDate ?? "",
                                               style: ThemeText()
                                                   .bodySmallRegular3),
                                           const SizedBox(width: 7),

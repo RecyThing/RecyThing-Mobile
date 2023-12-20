@@ -3,25 +3,27 @@ import 'package:intl/intl.dart';
 import 'category_article_model.dart';
 
 class ArticleModel {
-  String id;
-  String title;
-  String image;
-  String content;
-  List<CategoryModel> categories;
-  int like;
-  int share;
-  String createdDate;
+  String? id;
+  String? title;
+  String? image;
+  String? content;
+  List<CategoryModel>? categories;
+  int? like;
+  int? share;
+  String? createdDate;
+  String? categoryArticle;
 
   ArticleModel({
-    required this.id,
-    required this.title,
-    required this.image,
-    required this.content,
-    required this.categories,
-    required this.like,
-    required this.share,
-    required String createdDate,
-  }) : createdDate = _formatDate(createdDate);
+    this.id,
+    this.title,
+    this.image,
+    this.content,
+    this.categories,
+    this.like,
+    this.share,
+    this.categoryArticle,
+    String? createdDate,
+  }) : createdDate = createdDate != null ? _formatDate(createdDate) : "";
 
   factory ArticleModel.fromJson(Map<String, dynamic> json) {
     List<CategoryModel> categoriesList = [];
@@ -43,16 +45,16 @@ class ArticleModel {
     );
   }
 
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "title": title,
-        "image": image,
-        "content": content,
-        "categories": categories.map((category) => category.toJson()).toList(),
-        "like": like,
-        "share": share,
-        "created_at": createdDate,
-      };
+  // Map<String, dynamic> toJson() => {
+  //       "id": id,
+  //       "title": title,
+  //       "image": image,
+  //       "content": content,
+  //       "categories": categories.map((category) => category.toJson()).toList(),
+  //       "like": like,
+  //       "share": share,
+  //       "created_at": createdDate,
+  //     };
 
   static String _formatDate(String inputDate) {
     // Parse the input date string
@@ -65,7 +67,7 @@ class ArticleModel {
   }
 
   String getCategoryString() {
-    return CategoryModel.getCategoryStringList(categories);
+    return CategoryModel.getCategoryStringList(categories ?? []);
   }
 }
 

@@ -14,12 +14,14 @@ final class PostLikeLoading extends PostLikeArticleState {}
 
 final class PostLikeSuccess extends PostLikeArticleState {
   final String message;
+  final bool isLike;
 
-  const PostLikeSuccess({required this.message});
+  const PostLikeSuccess({required this.message, required this.isLike});
 }
 
 final class PostLikeFailure extends PostLikeArticleState {
   final String message;
+  final bool isLike;
 
-  const PostLikeFailure({required this.message});
+  const PostLikeFailure({required this.message, required this.isLike});
 }

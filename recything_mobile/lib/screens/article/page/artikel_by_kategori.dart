@@ -84,15 +84,15 @@ class _ArtikelByKategoriScreenState extends State<ArtikelByKategoriScreen> {
                       itemBuilder: (context, index) {
                         return GestureDetector(
                           child: ListArticleGlobalWidget(
-                              image: state.data[index].image,
-                              title: state.data[index].title,
+                              image: state.data[index].image ?? "",
+                              title: state.data[index].title ?? "",
                               category: state.data[index].getCategoryString(),
                               like: state.data[index].like.toString(),
-                              updateDate: state.data[index].createdDate,
-                              id: state.data[index].id),
+                              updateDate: state.data[index].createdDate ?? "",
+                              id: state.data[index].id ?? ""),
                           onTap: () {
                             bool isByCategory = true;
-                            String id = state.data[index].id;
+                            String id = state.data[index].id ?? "";
                             String category =
                                 state.data[index].getCategoryString();
                             Navigator.pushNamed(context, '/detailArtikel',
