@@ -18,6 +18,8 @@ import 'package:recything_mobile/bloc/get_community_by_id/community_by_id_cubit.
 import 'package:recything_mobile/bloc/get_history_report_by_id/get_history_report_by_id_cubit.dart';
 import 'package:recything_mobile/bloc/get_lencana/get_lencana_cubit.dart';
 import 'package:recything_mobile/bloc/get_missions/get_missions_cubit.dart';
+import 'package:recything_mobile/bloc/get_missions_berjalan/get_missions_berjalan_cubit.dart';
+import 'package:recything_mobile/bloc/get_missions_selesai/get_missions_selesai_cubit.dart';
 import 'package:recything_mobile/bloc/get_poin_daily/get_poin_daily_cubit.dart';
 import 'package:recything_mobile/bloc/get_report_hisstory/get_report_history_cubit.dart';
 import 'package:recything_mobile/bloc/get_user_profile/get_user_profile_cubit.dart';
@@ -118,6 +120,8 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => GetVouchersCubit()),
         BlocProvider(create: (_) => PostReportLitteringCubit()),
         BlocProvider(create: (_) => GetMissionsCubit()),
+        BlocProvider(create: (_) => GetMissionsBerjalanCubit()),
+        BlocProvider(create: (_) => GetMissionsSelesaiCubit()),
         BlocProvider(create: (_) => GetAllDropPointCubit()),
         BlocProvider(create: (_) => GetLencanaCubit()),
         BlocProvider(create: (_) => GetHistoryPoinCubit()),

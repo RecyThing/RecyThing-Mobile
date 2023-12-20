@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconly/iconly.dart';
+import 'package:recything_mobile/bloc/get_missions_berjalan/get_missions_berjalan_cubit.dart';
 import 'package:recything_mobile/bloc/upload_proof/upload_proof_cubit.dart';
 import 'package:recything_mobile/constants/pallete.dart';
 import 'package:recything_mobile/screens/missions/widgets/custom_leading_app_bar.dart';
@@ -65,6 +66,7 @@ class _UnggahBuktiScreenState extends State<UnggahBuktiScreen> {
                           title: "Berhasil mengirim bukti",
                           message: "Bukti kamu sudah diunggah",
                           isTopSnackbar: false);
+                      context.read<GetMissionsBerjalanCubit>().resetState();
                       Navigator.pushNamedAndRemoveUntil(context,
                           '/dashboard-mission', ModalRoute.withName('/'));
                     } else if (state is UploadProofToServerFailed) {
@@ -78,6 +80,7 @@ class _UnggahBuktiScreenState extends State<UnggahBuktiScreen> {
                           title: "Berhasil perbarui bukti",
                           message: state.successMsg,
                           isTopSnackbar: false);
+                      context.read<GetMissionsBerjalanCubit>().resetState();
                       Navigator.pushNamedAndRemoveUntil(context,
                           '/dashboard-mission', ModalRoute.withName('/'));
                     } else if (state is UpdateProofToServerFailed) {

@@ -10,17 +10,18 @@ class GetMissionsCubit extends Cubit<GetMissionsState> {
   final _getMissionsRepo = GetMissionsRepo();
   GetMissionsModel? missionsData;
 
-  void getMissions({String? filter}) async {
+  Future<void> resetState() async {
+    await Future.delayed(Duration(seconds: 0));
+    emit(GetMissionsInitial());
+  }
+
+  Future<void> getMissions() async {
+    if (state is GetMissionsLoaded) return;
+
     emit(GetMissionsLoading());
 
     try {
-      if (filter == 'berjalan') {
-        missionsData = await _getMissionsRepo.getMissions(filter: 'berjalan');
-      } else if (filter == 'selesai') {
-        missionsData = await _getMissionsRepo.getMissions(filter: 'selesai');
-      } else {
-        missionsData = await _getMissionsRepo.getMissions();
-      }
+      missionsData = await _getMissionsRepo.getMissions();
 
       emit(GetMissionsLoaded(
           missions: missionsData ??

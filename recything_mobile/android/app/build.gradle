@@ -85,8 +85,5 @@ flutter {
 
 
 dependencies {
-<<<<<<< HEAD
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-=======
->>>>>>> origin/feature/articles
 }
