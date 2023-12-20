@@ -182,7 +182,7 @@ class MyApp extends StatelessWidget {
           '/kategoriDaurUlang': (context) => const KategoriDaurUlangScreen(),
           '/cariArtikel': (context) => const CariArtikelScreen(),
           '/daftarLokasi': (context) => const DaftarLokasiScreen(),
-          '/detailArtikel': (context) => const DetailArtikelScreen(),
+          '/detailArtikel': (context) => DetailArtikelScreen(),
           '/semua-komunitas': (context) => const RekomendasiKomunitasScreen(),
           '/searchArtikelScreen': (context) => const SearchArticleScreen()
         },

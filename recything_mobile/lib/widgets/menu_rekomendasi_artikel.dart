@@ -39,7 +39,9 @@ class MenuRekomendasiArtikel extends StatelessWidget {
             builder: (context, state) {
               if (state is GetPopularArticleLoading) {
                 return SizedBox(
-                    height: 20, width: 20, child: CircularProgressIndicator());
+                    height: 20,
+                    width: 20,
+                    child: CircularProgressIndicator());
               } else if (state is GetPopularArticleFailure) {
                 return Text(state.message);
               } else if (state is GetPopularArticleSuccess) {

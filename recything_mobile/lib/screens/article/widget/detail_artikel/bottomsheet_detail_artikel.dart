@@ -1,6 +1,6 @@
+import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
 import 'package:social_share/social_share.dart';
-
 import '../../../../constants/pallete.dart';
 
 class BottomsheetDetailArtikel extends StatelessWidget {
@@ -8,14 +8,61 @@ class BottomsheetDetailArtikel extends StatelessWidget {
   final String title;
   final String updateDate;
   final String category;
+  final String? id;
 
-  const BottomsheetDetailArtikel({
-    super.key,
-    required this.image,
-    required this.title,
-    required this.category,
-    required this.updateDate,
-  });
+  const BottomsheetDetailArtikel(
+      {super.key,
+      required this.image,
+      required this.title,
+      required this.category,
+      required this.updateDate,
+      required this.id});
+
+  // Future<String> generateDynamicLink(String articleId) async {
+  //   final DynamicLinkParameters parameters = DynamicLinkParameters(
+  //     uriPrefix: 'https://recything.page.link',
+  //     link: Uri.parse('https://your_web_url/$articleId'),
+  //     androidParameters: AndroidParameters(
+  //       packageName: 'your_android_package_name',
+  //       minimumVersion: 0,
+  //     ),
+  //     dynamicLinkParametersOptions: DynamicLinkParametersOptions(
+  //       shortDynamicLinkPathLength: ShortDynamicLinkPathLength.unguessable,
+  //     ),
+  //   );
+
+  //   Uri url = await parameters.buildUrl();
+  //   return url.toString();
+  // }
+
+
+  // Future<String> createDynamicLink(bool short, String articleId) async {
+  //   // String _linkMessage='';
+
+  //   final DynamicLinkParameters parameters = DynamicLinkParameters(
+  //     uriPrefix: 'https://recything.page.link',
+  //     link: Uri.parse(
+  //       'https://recything.page.link/$articleId',
+  //     ),
+  //     //   link: Uri.parse(DynamicLink),
+  //     androidParameters: const AndroidParameters(
+  //       packageName: 'com.example.recything_mobile',
+  //       minimumVersion: 0,
+  //     ),
+  //   );
+
+  //   // Uri url;
+  //   Uri url = await FirebaseDynamicLinks.instance.buildLink(parameters);
+  //   if (short) {
+  //     final ShortDynamicLink shortLink =
+  //         await FirebaseDynamicLinks.instance.buildShortLink(parameters);
+  //     url = shortLink.shortUrl;
+  //   } else {
+  //     url = await FirebaseDynamicLinks.instance.buildLink(parameters);
+  //   }
+
+  //   return url.toString();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -149,30 +196,37 @@ class BottomsheetDetailArtikel extends StatelessWidget {
                                   ),
                                 ),
                                 onTap: () async {
+                                  // String dynamicLink =
+                                      // await createDynamicLink(true, id ?? "");
                                   if (socialMedia[index]["share"] == "link") {
                                     SocialShare.copyToClipboard(
-                                        text: "ini link");
+                                        text: "https://recything.page.link/$id");
+                                    print("https://recything.page.link/$id");
                                   } else if (socialMedia[index]["share"] ==
                                       "instagram") {
-                                    SocialShare.shareSms("ini link")
+                                    SocialShare.shareSms(
+                                            "https://recything.page.link/$id")
                                         .then((value) {
                                       print(value);
                                     });
                                   } else if (socialMedia[index]["share"] ==
                                       "wa") {
-                                    SocialShare.shareWhatsapp("ini link")
+                                    SocialShare.shareWhatsapp(
+                                            "https://recything.page.link/$id")
                                         .then((value) {
                                       print(value);
                                     });
                                   } else if (socialMedia[index]["share"] ==
                                       "fb") {
-                                    SocialShare.shareTwitter("ini link")
+                                    SocialShare.shareTwitter(
+                                            "https://recything.page.link/$id")
                                         .then((value) {
                                       print(value);
                                     });
                                   } else if (socialMedia[index]["share"] ==
                                       "telegram") {
-                                    SocialShare.shareTelegram("ini link")
+                                    SocialShare.shareTelegram(
+                                            "https://recything.page.link/$id")
                                         .then((value) {
                                       print(value);
                                     });

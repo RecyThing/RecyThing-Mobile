@@ -4,6 +4,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 // import 'package:recything_mobile/dynamic_link.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../dynamic_link.dart';
+
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
@@ -16,7 +18,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     redirect();
-    // DynamicLink().initDynamicLinks();
+    // DynamicLink().initDynamicLinks(context);
   }
 
   Future<void> redirect() async {

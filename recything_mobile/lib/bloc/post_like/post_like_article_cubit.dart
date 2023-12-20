@@ -17,8 +17,8 @@ class PostLikeArticleCubit extends Cubit<PostLikeArticleState> {
       if (response == "berhasil melakukan like") {
         isLike = true;
         emit(PostLikeSuccess(message: response, isLike: isLike));
-      } 
-      
+      }
+
       // else if (response == "berhasil unlike artikel") {
       //   isLike = false;
       //   emit(PostLikeSuccess(message: response, isLike: isLike));

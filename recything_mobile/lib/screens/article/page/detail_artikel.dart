@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:recything_mobile/bloc/dynamic_link/dynamic_link_cubit.dart';
 import 'package:recything_mobile/bloc/post_like/post_like_article_cubit.dart';
 import 'package:recything_mobile/constants/pallete.dart';
 import 'package:recything_mobile/screens/article/widget/detail_artikel/detail_article_content.dart';
@@ -9,7 +8,8 @@ import '../../../bloc/get_popular_article/get_popular_article_cubit.dart';
 import '../widget/detail_artikel/bottomsheet_detail_artikel.dart';
 
 class DetailArtikelScreen extends StatefulWidget {
-  const DetailArtikelScreen({super.key});
+  String? id;
+  DetailArtikelScreen({super.key, this.id});
 
   @override
   State<DetailArtikelScreen> createState() => _DetailArtikelScreenState();
@@ -19,9 +19,12 @@ class _DetailArtikelScreenState extends State<DetailArtikelScreen> {
   @override
   void initState() {
     super.initState();
-    context
-        .read<GetArticleCubit>()
-        .getArticleById("d33da847-6f32-43d6-aa3d-773d13919906");
+    if (widget.id != null) {
+      context.read<GetArticleCubit>().getArticleById(widget.id ?? "");
+    }
+    // context
+    //     .read<GetArticleCubit>()
+    //     .getArticleById("d33da847-6f32-43d6-aa3d-773d13919906");
   }
 
   int jmlLike = 0;
@@ -30,13 +33,15 @@ class _DetailArtikelScreenState extends State<DetailArtikelScreen> {
   Widget build(BuildContext context) {
     final Map<String, dynamic> args =
         ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
-    String id;
-    final idArtikel = context.watch<DynamicLinkCubit>().idArtikel;
-    if (idArtikel != "") {
-      id = idArtikel;
-    } else {
-      id = args['id'] ?? "";
-    }
+    // String id = "";
+    widget.id = args['id'] ?? "";
+
+    // final idArtikel = context.watch<DynamicLinkCubit>().idArtikel;
+    // if (idArtikel != "") {
+    //   id = idArtikel ?? "";
+    // } else if (idArtikel == "") {
+    //   id = args['id'] ?? "";
+    // }
 
     String category = args['category'] ?? "";
     bool isByCategory = args['isByCategory'] ?? "";
@@ -83,7 +88,6 @@ class _DetailArtikelScreenState extends State<DetailArtikelScreen> {
                               .read<GetPopularArticleCubit>()
                               .getPopularArticle();
                         }
-                        // context.read<GetArticleCubit>().clearDdetailArtikel();
                         Navigator.pop(context);
                       },
                     ),
@@ -172,6 +176,7 @@ class _DetailArtikelScreenState extends State<DetailArtikelScreen> {
                                     title: state.data.title ?? "",
                                     category: state.data.getCategoryString(),
                                     updateDate: state.data.createdDate ?? "",
+                                    id: widget.id,
                                   ),
                                 );
                               }
@@ -198,7 +203,10 @@ class _DetailArtikelScreenState extends State<DetailArtikelScreen> {
                       )),
                 ),
                 onTap: () {
-                  context.read<PostLikeArticleCubit>().postLikeArticle(id);
+                  print(widget.id);
+                  context
+                      .read<PostLikeArticleCubit>()
+                      .postLikeArticle(widget.id ?? "");
                 },
               )
             ],
