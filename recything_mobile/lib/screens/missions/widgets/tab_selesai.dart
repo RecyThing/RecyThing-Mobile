@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:recything_mobile/bloc/get_missions/get_missions_cubit.dart';
 import 'package:recything_mobile/bloc/get_missions_selesai/get_missions_selesai_cubit.dart';
 import 'package:recything_mobile/constants/pallete.dart';
 import 'package:recything_mobile/screens/missions/widgets/mission_card.dart';
+import 'package:recything_mobile/screens/missions/widgets/request_error_widget.dart';
 import 'package:recything_mobile/screens/missions/widgets/sf_track_shape_widget.dart';
 import 'package:syncfusion_flutter_core/theme.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
@@ -41,7 +41,17 @@ class _TabSelesaiState extends State<TabSelesai> {
               builder: (context, state) {
                 if (state is GetMissionsSelesaiLoaded) {
                   return state.missionsSelesai.data?.length == 0
-                      ? Center(child: Text('Belum ada misi'))
+                      ? RequestErrorWidget(
+                          errorMsg: 'Belum ada misi',
+                          onRefresh: () async {
+                            await context
+                                .read<GetMissionsSelesaiCubit>()
+                                .resetState();
+                            await context
+                                .read<GetMissionsSelesaiCubit>()
+                                .getMissionsSelesai();
+                          },
+                        )
                       : ListView.builder(
                           shrinkWrap: true,
                           padding: const EdgeInsets.all(16),
@@ -133,8 +143,14 @@ class _TabSelesaiState extends State<TabSelesai> {
                   );
                 }
 
-                return Center(
-                  child: Text('Terjadi Kesalahan'),
+                return RequestErrorWidget(
+                  errorMsg: 'Terjadi kesalahan',
+                  onRefresh: () async {
+                    await context.read<GetMissionsSelesaiCubit>().resetState();
+                    await context
+                        .read<GetMissionsSelesaiCubit>()
+                        .getMissionsSelesai();
+                  },
                 );
               },
             ),

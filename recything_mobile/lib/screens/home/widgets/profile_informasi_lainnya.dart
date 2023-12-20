@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconly/iconly.dart';
 import 'package:recything_mobile/bloc/auth/auth_cubit.dart';
+import 'package:recything_mobile/bloc/get_missions/get_missions_cubit.dart';
+import 'package:recything_mobile/bloc/get_missions_berjalan/get_missions_berjalan_cubit.dart';
+import 'package:recything_mobile/bloc/get_missions_selesai/get_missions_selesai_cubit.dart';
 import 'package:recything_mobile/constants/pallete.dart';
 import 'package:recything_mobile/widgets/forms/main_button.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -143,6 +146,16 @@ class ProfileInformasiLainnya extends StatelessWidget {
                                             context
                                                 .read<AuthCubit>()
                                                 .loggedOut();
+                                            context
+                                                .read<GetMissionsCubit>()
+                                                .resetState();
+                                            context
+                                                .read<
+                                                    GetMissionsBerjalanCubit>()
+                                                .resetState();
+                                            context
+                                                .read<GetMissionsSelesaiCubit>()
+                                                .resetState();
 
                                             Navigator.pushNamed(
                                                 context, '/index');

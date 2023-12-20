@@ -5,6 +5,7 @@ import 'package:recything_mobile/bloc/get_missions/get_missions_cubit.dart';
 import 'package:recything_mobile/bloc/get_missions_berjalan/get_missions_berjalan_cubit.dart';
 import 'package:recything_mobile/constants/pallete.dart';
 import 'package:recything_mobile/screens/missions/widgets/mission_card.dart';
+import 'package:recything_mobile/screens/missions/widgets/request_error_widget.dart';
 import 'package:recything_mobile/widgets/error_snackbar.dart';
 import 'package:recything_mobile/widgets/success_snackbar.dart';
 
@@ -65,7 +66,14 @@ class _TabTersediaState extends State<TabTersedia> {
               builder: (context, state) {
                 if (state is GetMissionsLoaded) {
                   return state.missions.data?.length == 0
-                      ? Center(child: Text('Belum ada misi'))
+                      ? RequestErrorWidget(
+                          errorMsg: 'Belum ada misi',
+                          onRefresh: () async {
+                            await context.read<GetMissionsCubit>().resetState();
+                            await context
+                                .read<GetMissionsCubit>()
+                                .getMissions();
+                          })
                       : ListView.builder(
                           shrinkWrap: true,
                           padding: const EdgeInsets.all(16),
@@ -109,10 +117,12 @@ class _TabTersediaState extends State<TabTersedia> {
                   ));
                 }
 
-                return Center(
-                    child: Text(
-                  'Terjadi Kesalahan',
-                ));
+                return RequestErrorWidget(
+                    errorMsg: 'Terjadi kesalahan',
+                    onRefresh: () async {
+                      await context.read<GetMissionsCubit>().resetState();
+                      await context.read<GetMissionsCubit>().getMissions();
+                    });
               },
             ),
           )
